@@ -179,7 +179,8 @@ async function confirmarVenta(){
       subtotal: sub,
       recargoPct: pagoSel==="transferencia" ? recargoPct : 0,
       recargo, total,
-      pago: pagoSel,
+      metodoPago: pagoSel,
+      estado: "completada",
       fecha: firebase.firestore.FieldValue.serverTimestamp(),
       ts: Date.now()
     });
