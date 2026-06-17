@@ -391,6 +391,30 @@ img{display:block;max-width:100%}
 .cli-block .cb-hijo{font-size:14px;color:var(--gris-700)}
 .cli-block .cb-hijo b{color:var(--gris-900)}
 .section-lbl{font-size:13px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--gris-500);margin:26px 0 12px}
+
+/* ════════════════ ENTREGAS / REPARTO (Etapa 4) ════════════════ */
+.ent-add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--celeste-deep);color:#fff;border-radius:18px;padding:17px;font-size:16px;font-weight:600;min-height:56px;box-shadow:0 8px 22px rgba(94,143,168,.34);margin:2px 0 16px;transition:transform .15s ease}
+.ent-add:active{transform:scale(.99)}
+
+.ent{background:var(--blanco);border-radius:20px;padding:18px 18px 16px;box-shadow:var(--card-shadow);margin-bottom:14px;transition:opacity .25s ease}
+.ent.done{opacity:.62}
+.ent-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.ent-dia{font-size:13px;font-weight:600;color:var(--celeste-deep);white-space:nowrap}
+.tag.est-pend{background:var(--mostaza-pale);color:var(--mostaza);font-weight:600}
+.tag.est-rep{background:var(--celeste-pale);color:var(--navy);font-weight:600}
+.tag.est-ent{background:#E7F8EE;color:#1f9d57;font-weight:600}
+.ent-name{font-family:var(--titf);font-weight:600;font-size:23px;color:var(--gris-900);line-height:1.12;cursor:pointer}
+.ent-addr{display:inline-block;margin-top:7px;font-size:15px;color:var(--navy);text-decoration:none;word-break:break-word}
+.ent-addr.sin{color:var(--gris-500);cursor:pointer}
+.ent-meta{font-family:var(--titf);font-weight:600;font-size:17px;color:var(--sage);margin-top:8px}
+.ent-notas{font-size:14px;color:var(--texto-suave);background:var(--crema);border-radius:13px;padding:11px 14px;margin-top:11px;word-break:break-word}
+.ent-acts{display:flex;flex-direction:column;gap:11px;margin-top:15px}
+.ent-state{width:100%;min-height:60px;border-radius:50px;font-size:18px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s ease;color:#fff}
+.ent-state:active{transform:scale(.98)}
+.ent-state.pendiente{background:var(--mostaza);box-shadow:0 8px 22px rgba(212,168,67,.34)}
+.ent-state.en_reparto{background:var(--celeste-deep);box-shadow:0 8px 22px rgba(94,143,168,.34)}
+.ent-state.done{background:var(--sage);box-shadow:none}
+.ent-undo{width:100%;min-height:48px;border-radius:50px;font-size:14.5px;font-weight:500;color:var(--gris-500);background:var(--blanco);box-shadow:var(--card-shadow)}
 </style>
 </head>
 <body>
@@ -408,6 +432,7 @@ img{display:block;max-width:100%}
         <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span> Inicio</a>
         <a href="#" class="nav-link" data-go="stock"><span class="bi">📦</span> Stock</a>
         <a href="#" class="nav-link" data-go="clientes"><span class="bi">👩</span> Clientas</a>
+        <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span> Reparto</a>
       </nav>
     </div>
     <div class="s-foot">Cascanueces · Mar del Plata<br/><br/>hecho por <span class="asg">ASG<em>digital</em>.pro</span></div>
@@ -483,6 +508,20 @@ img{display:block;max-width:100%}
       <button class="ajustes-link" id="ajustesLinkCli">⚙ Ajustes de cobro y datos de pago</button>
     </section>
 
+    <!-- ===== VISTA ENTREGAS / REPARTO (Etapa 4) ===== -->
+    <section class="view" id="view-entregas">
+      <div class="eyebrow">A domicilio</div>
+      <h1 class="h-title">Reparto</h1>
+      <p class="lead">Lo que tenés que llevar hoy, en orden. Tocá <em class="kw">Voy en camino</em> para avisarle a la clienta, y marcá cada entrega a medida que la vas haciendo.</p>
+
+      <button class="ent-add" id="entAdd"><span style="font-size:21px;line-height:1">＋</span> Programar entrega</button>
+
+      <div class="filtros" id="entFiltrosDia"></div>
+      <div class="filtros" id="entFiltrosEstado"></div>
+
+      <div id="listaEntregas"></div>
+    </section>
+
   </main>
 
   <!-- BOTTOM NAV (mobile) -->
@@ -490,6 +529,7 @@ img{display:block;max-width:100%}
     <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span>Inicio</a>
     <a href="#" class="nav-link" data-go="stock"><span class="bi">📦</span>Stock</a>
     <a href="#" class="nav-link" data-go="clientes"><span class="bi">👩</span>Clientas</a>
+    <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span>Reparto</a>
   </nav>
 
   <!-- FAB agregar (solo en Stock) -->
@@ -777,6 +817,56 @@ img{display:block;max-width:100%}
     </div>
     <button class="hijo-add" id="pickNueva" style="background:var(--celeste-deep);color:#fff;margin-bottom:14px">＋ Clienta nueva</button>
     <div class="cli-pick-list" id="pickList"></div>
+  </div>
+</div>
+
+<!-- ===== SHEET: PROGRAMAR / EDITAR ENTREGA (Etapa 4) ===== -->
+<div class="scrim" id="entScrim"></div>
+<div class="sheet" id="entSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2 id="entSheetTitle">Programar entrega</h2>
+    <button class="sheet-x" id="entClose">✕</button>
+  </div>
+  <div class="sheet-body">
+
+    <!-- Fase 1: elegir la venta a llevar -->
+    <div id="entPhasePick">
+      <p class="hint">Elegí la venta que tenés que llevar a domicilio. Tomo la clienta y la dirección de su ficha.</p>
+      <div class="cli-search-wrap" style="margin-top:16px">
+        <span class="cli-search-ico">🔍</span>
+        <input class="cli-search" id="entVentaSearch" type="text" placeholder="Buscar por clienta…" autocomplete="off"/>
+      </div>
+      <div class="cli-pick-list" id="entVentaList"></div>
+    </div>
+
+    <!-- Fase 2: detalle de la entrega -->
+    <div id="entPhaseDetail" style="display:none">
+      <div class="cli-block" id="entCliBlock"></div>
+
+      <div class="field">
+        <label>Dirección de entrega</label>
+        <input class="txtin" id="entDireccion" type="text" placeholder="Calle, número, barrio" autocomplete="off">
+        <p class="hint">La traje de la ficha de la clienta. Cambiala si esta entrega va a otro lado.</p>
+      </div>
+
+      <div class="field">
+        <label>¿Qué día la entregás?</label>
+        <div class="chips" id="entDiaChips"></div>
+        <input class="txtin" id="entFecha" type="date" style="margin-top:11px">
+      </div>
+
+      <div class="field">
+        <label>Notas (opcional)</label>
+        <input class="txtin" id="entNotas" type="text" placeholder="Ej: tocar timbre 2, dejar con la vecina…" autocomplete="off">
+      </div>
+
+      <div class="sheet-actions">
+        <button class="btn-danger btn" id="entDelete" style="display:none">🗑️</button>
+        <button class="btn btn-primary" id="entSave">Programar entrega</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1738,8 +1828,380 @@ onSnapshot(clientesRef, snap=>{
 });
 /* ──────────────────── fin ETAPA 3 ──────────────────── */
 
+/* ════════════════════════════════════════════════════════════════
+   ETAPA 4 · ENTREGAS / REPARTO
+   Colección: entregas_pos_cascanueces
+   {ventaId, clienteId, clienteNombre, direccion, fecha("YYYY-MM-DD"),
+    estado("pendiente"|"en_reparto"|"entregada"), notas, total, ts, creado}
+   A prueba de mamá: botones grandes, una mano, estado de un toque.
+   Bloque autocontenido — reusa $, toast, money, corto, esc, cliInitial,
+   waNorm, openWa y el array `clientes` (Etapa 3) y `ventasRef` (POS).
+   ════════════════════════════════════════════════════════════════ */
+const entregasRef = collection(db, "entregas_pos_cascanueces");
+
+let entregas = [];
+let ventasParaEntrega = [];
+let entFiltroDia = "hoy";        // "hoy" | "manana" | "todas"
+let entFiltroEstado = "todas";   // "todas" | "pendiente" | "en_reparto" | "entregada"
+let entEditId = null;
+let entForm = { ventaId:null, clienteId:null, clienteNombre:"", direccion:"", fecha:"", notas:"", total:0 };
+let entVentaQuery = "";
+let entDelArmed = false, entDelTimer = null;
+
+const ESTADOS = {
+  pendiente:  { label:"Pendiente",  badge:"est-pend", emoji:"🕒" },
+  en_reparto: { label:"En reparto", badge:"est-rep",  emoji:"🚗" },
+  entregada:  { label:"Entregada",  badge:"est-ent",  emoji:"✓"  }
+};
+const ESTADO_ORDEN = { pendiente:0, en_reparto:1, entregada:2 };
+
+/* ── Fechas (siempre día local) ── */
+function ymd(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function hoyYmd(){ return ymd(new Date()); }
+function mananaYmd(){ const d=new Date(); d.setDate(d.getDate()+1); return ymd(d); }
+function diaLabel(f){
+  if(!f) return "Sin fecha";
+  if(f===hoyYmd()) return "Hoy";
+  if(f===mananaYmd()) return "Mañana";
+  const [y,m,dd] = f.split("-").map(Number);
+  return new Date(y, m-1, dd).toLocaleDateString("es-AR",{ weekday:"short", day:"numeric", month:"numeric" });
+}
+function etaTexto(){
+  const d = new Date(); d.setMinutes(d.getMinutes()+30);
+  d.setMinutes(Math.round(d.getMinutes()/5)*5, 0, 0);
+  return d.toLocaleTimeString("es-AR",{ hour:"2-digit", minute:"2-digit" });
+}
+function clienteDe(ent){ return clientes.find(c=>c.id===ent.clienteId) || null; }
+
+/* ── Mensaje "Voy en camino" (voz Cascanueces, con hora estimada) ── */
+function msgEnCamino(cli, ent){
+  const hola = cli?.nombre ? `¡Hola ${cli.nombre}!` : "¡Hola!";
+  const dir  = (ent?.direccion) ? `\n📍 Voy para ${ent.direccion}.` : "";
+  return `${hola} 🌰 Soy de Cascanueces.
+¡Ya salí con tu pedido! 🚗💨
+Calculo llegar cerca de las ${etaTexto()}.${dir}
+Si no llegás a estar o cambió algo, escribime por acá y lo vemos 💙`;
+}
+
+/* ── Filtros (día + estado) ── */
+function renderEntFiltros(){
+  const dia = $("#entFiltrosDia");
+  if(dia){
+    dia.innerHTML = "";
+    [["hoy","Hoy"],["manana","Mañana"],["todas","Todos los días"]].forEach(([v,l])=>{
+      const b = document.createElement("button");
+      b.className = "chip-f" + (entFiltroDia===v?" on":"");
+      b.textContent = l;
+      b.onclick = ()=>{ entFiltroDia = v; renderEntFiltros(); renderEntregas(); };
+      dia.appendChild(b);
+    });
+  }
+  const est = $("#entFiltrosEstado");
+  if(est){
+    est.innerHTML = "";
+    [["todas","Todas"],["pendiente","Pendientes"],["en_reparto","En reparto"],["entregada","Entregadas"]].forEach(([v,l])=>{
+      const b = document.createElement("button");
+      b.className = "chip-f" + (entFiltroEstado===v?" on":"");
+      b.textContent = l;
+      b.onclick = ()=>{ entFiltroEstado = v; renderEntFiltros(); renderEntregas(); };
+      est.appendChild(b);
+    });
+  }
+}
+
+/* ── Lista visible según filtros (pendientes primero) ── */
+function entVisibles(){
+  let l = entregas.slice();
+  if(entFiltroDia==="hoy")         l = l.filter(e=> e.fecha===hoyYmd());
+  else if(entFiltroDia==="manana") l = l.filter(e=> e.fecha===mananaYmd());
+  if(entFiltroEstado!=="todas")    l = l.filter(e=> (e.estado||"pendiente")===entFiltroEstado);
+  l.sort((a,b)=>{
+    const ea = ESTADO_ORDEN[a.estado||"pendiente"], eb = ESTADO_ORDEN[b.estado||"pendiente"];
+    if(ea!==eb) return ea-eb;
+    if((a.fecha||"")!==(b.fecha||"")) return (a.fecha||"").localeCompare(b.fecha||"");
+    return (a.ts||0)-(b.ts||0);
+  });
+  return l;
+}
+
+function renderEntregas(){
+  const cont = $("#listaEntregas"); if(!cont) return;
+  const lista = entVisibles();
+
+  if(entregas.length===0){
+    cont.innerHTML = `<div class="empty"><div class="ico">🚗</div>
+      <h3>Todavía no hay entregas</h3>
+      <p>Cuando tengas una venta para llevar a domicilio, programála acá y la vas siguiendo el día del reparto.</p>
+      <button class="btn btn-primary" style="max-width:280px;margin:0 auto" id="entEmptyAdd">＋ Programar entrega</button></div>`;
+    $("#entEmptyAdd").onclick = ()=> openEntSheet();
+    return;
+  }
+  if(lista.length===0){
+    const txt = entFiltroDia==="hoy"   ? "No tenés entregas para hoy con ese filtro. ¡A descansar! 💙"
+              : entFiltroDia==="manana"? "No hay nada programado para mañana."
+              : "No hay entregas con ese filtro.";
+    cont.innerHTML = `<div class="empty"><div class="ico">📭</div><h3>Nada por acá</h3><p>${txt}</p></div>`;
+    return;
+  }
+  cont.innerHTML = "";
+  lista.forEach(e=> cont.appendChild(entCard(e)));
+}
+
+function entCard(e){
+  const estado = e.estado || "pendiente";
+  const info = ESTADOS[estado] || ESTADOS.pendiente;
+  const cli = clienteDe(e);
+  const hasWa = !!waNorm(cli?.whatsapp);
+  const direccion = e.direccion || cli?.direccion || "";
+  const mapHref = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(direccion);
+
+  const el = document.createElement("div");
+  el.className = "ent" + (estado==="entregada" ? " done" : "");
+  el.innerHTML = `
+    <div class="ent-top">
+      <span class="tag ${info.badge}">${info.emoji} ${info.label}</span>
+      <span class="ent-dia">${diaLabel(e.fecha)}</span>
+    </div>
+    <div class="ent-name">${esc(e.clienteNombre || cli?.nombre || "Clienta")}</div>
+    ${direccion
+      ? `<a class="ent-addr" href="${mapHref}" target="_blank" rel="noopener">📍 ${esc(direccion)}</a>`
+      : `<div class="ent-addr sin">📍 Sin dirección — tocá para agregarla</div>`}
+    ${e.total ? `<div class="ent-meta">${money(e.total)}</div>` : ""}
+    ${e.notas ? `<div class="ent-notas">📝 ${esc(e.notas)}</div>` : ""}
+    <div class="ent-acts"></div>`;
+
+  el.querySelector(".ent-name").onclick = ()=> openEntSheet(e);
+  const sinAddr = el.querySelector(".ent-addr.sin");
+  if(sinAddr) sinAddr.onclick = ()=> openEntSheet(e);
+
+  const acts = el.querySelector(".ent-acts");
+
+  if(estado==="entregada"){
+    const done = document.createElement("div");
+    done.className = "ent-state done"; done.textContent = "✓ Entregada";
+    acts.appendChild(done);
+    const undo = document.createElement("button");
+    undo.className = "ent-undo"; undo.textContent = "↩︎ Volver a “en reparto”";
+    undo.onclick = ()=> setEstado(e, "en_reparto");
+    acts.appendChild(undo);
+  } else {
+    // "Voy en camino": avisa por WhatsApp y, si estaba pendiente, sale a reparto
+    const wa = document.createElement("button");
+    wa.className = "btn-wa" + (hasWa ? "" : " wa-disabled");
+    wa.innerHTML = `<span class="wico">🚗</span>
+      <span class="wtx"><b>Voy en camino</b>
+      <span>${hasWa ? "Le aviso por WhatsApp con la hora" : "Esta clienta no tiene WhatsApp"}</span></span>`;
+    wa.onclick = ()=>{
+      if(estado==="pendiente") setEstado(e, "en_reparto");
+      openWa(cli?.whatsapp, msgEnCamino(cli, e));
+    };
+    acts.appendChild(wa);
+
+    const sb = document.createElement("button");
+    sb.className = "ent-state " + estado;
+    if(estado==="pendiente"){ sb.textContent = "🚶‍♀️ Salí a repartir"; sb.onclick = ()=> setEstado(e, "en_reparto"); }
+    else { sb.textContent = "✅ Marcar entregada"; sb.onclick = ()=> setEstado(e, "entregada"); }
+    acts.appendChild(sb);
+  }
+  return el;
+}
+
+async function setEstado(e, estado){
+  try{
+    await setDoc(doc(db, "entregas_pos_cascanueces", e.id), { estado }, { merge:true });
+    toast(estado==="en_reparto" ? "En reparto 🚗" : estado==="entregada" ? "¡Entregada! ✓" : "Vuelta a en reparto", "ok");
+  }catch(err){
+    console.error("Entrega estado:", err.code, err.message);
+    toast("No se pudo cambiar el estado. Probá de nuevo.", "err");
+  }
+}
+
+/* ── Sheet: programar / editar ── */
+function setEntPhase(phase){
+  $("#entPhasePick").style.display   = phase==="pick"   ? "block" : "none";
+  $("#entPhaseDetail").style.display = phase==="detail" ? "block" : "none";
+}
+function openEntSheet(ent=null){
+  entEditId = ent ? ent.id : null;
+  entDelArmed = false;
+  $("#entDelete").style.display = ent ? "flex" : "none";
+
+  if(ent){
+    const cli = clienteDe(ent);
+    $("#entSheetTitle").textContent = "Editar entrega";
+    $("#entSave").textContent = "Guardar cambios";
+    entForm = {
+      ventaId: ent.ventaId || null,
+      clienteId: ent.clienteId || null,
+      clienteNombre: ent.clienteNombre || cli?.nombre || "",
+      direccion: ent.direccion || cli?.direccion || "",
+      fecha: ent.fecha || hoyYmd(),
+      notas: ent.notas || "",
+      total: Number(ent.total)||0
+    };
+    fillEntDetail();
+    setEntPhase("detail");
+  } else {
+    $("#entSheetTitle").textContent = "Programar entrega";
+    $("#entSave").textContent = "Programar entrega";
+    entForm = { ventaId:null, clienteId:null, clienteNombre:"", direccion:"", fecha:hoyYmd(), notas:"", total:0 };
+    entVentaQuery = ""; $("#entVentaSearch").value = "";
+    renderEntVentaList();
+    setEntPhase("pick");
+  }
+  $("#entScrim").classList.add("show");
+  $("#entSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+function closeEntSheet(){
+  $("#entScrim").classList.remove("show");
+  $("#entSheet").classList.remove("show");
+  document.body.style.overflow = "";
+}
+
+function ventaResumen(v){
+  const items = v.items || [];
+  const total = items.reduce((a,i)=> a + (i.cant||0), 0);
+  const first = items[0];
+  if(!first) return "Venta";
+  return `${first.prenda} t.${first.talle}` + (total>1 ? ` +${total-1}` : "");
+}
+function renderEntVentaList(){
+  const cont = $("#entVentaList"); if(!cont) return;
+  const q = entVentaQuery.trim().toLowerCase();
+  const usadas = new Set(entregas.map(e=> e.ventaId).filter(Boolean));
+  let lista = ventasParaEntrega.filter(v=> v.clienteId && !usadas.has(v.id));
+  if(q) lista = lista.filter(v=> (v.clienteNombre||"").toLowerCase().includes(q));
+  lista.sort((a,b)=> (b.ts||0)-(a.ts||0));
+  lista = lista.slice(0, 40);
+
+  cont.innerHTML = "";
+  if(lista.length===0){
+    const hayConClienta = ventasParaEntrega.some(v=> v.clienteId);
+    const d = document.createElement("p"); d.className = "v-hint"; d.style.marginTop = "10px";
+    d.textContent = hayConClienta
+      ? "No quedan ventas con clienta sin entrega programada."
+      : "Todavía no hay ventas con clienta. Al cobrar, elegí la clienta y después vas a poder programar su entrega acá.";
+    cont.appendChild(d);
+    return;
+  }
+  lista.forEach(v=>{
+    const cli = clientes.find(c=> c.id===v.clienteId);
+    const b = document.createElement("button");
+    b.className = "cli-pick-item";
+    b.innerHTML = `<span class="cli-av">${cliInitial(v.clienteNombre || cli?.nombre)}</span>
+      <span class="cpi-tx"><b>${esc(v.clienteNombre || cli?.nombre || "Clienta")}</b>
+        <span>${esc(ventaResumen(v))} · ${money(v.total||0)} · ${cli?.direccion ? "📍 con dirección" : "📍 falta dirección"}</span></span>`;
+    b.onclick = ()=>{
+      entForm.ventaId       = v.id;
+      entForm.clienteId     = v.clienteId;
+      entForm.clienteNombre = v.clienteNombre || cli?.nombre || "";
+      entForm.direccion     = cli?.direccion || "";
+      entForm.total         = Number(v.total)||0;
+      entForm.fecha         = hoyYmd();
+      entForm.notas         = "";
+      fillEntDetail();
+      setEntPhase("detail");
+    };
+    cont.appendChild(b);
+  });
+}
+
+function fillEntDetail(){
+  const cli = clientes.find(c=> c.id===entForm.clienteId);
+  const nh = (cli?.hijos||[]).length;
+  $("#entCliBlock").innerHTML = `
+    <div class="cb-name">${esc(entForm.clienteNombre || cli?.nombre || "Clienta")}</div>
+    <div class="cb-sub">${cli?.colegio ? esc(corto(cli.colegio)) : ""}${nh ? ` · ${nh} ${nh>1?"hijos":"hijo"}` : ""}${waNorm(cli?.whatsapp) ? " · WhatsApp ✓" : " · sin WhatsApp"}${entForm.total ? ` · ${money(entForm.total)}` : ""}</div>`;
+  $("#entDireccion").value = entForm.direccion || "";
+  $("#entNotas").value = entForm.notas || "";
+  $("#entFecha").value = entForm.fecha || hoyYmd();
+  renderEntDiaChips();
+}
+function renderEntDiaChips(){
+  const cont = $("#entDiaChips"); if(!cont) return;
+  cont.innerHTML = "";
+  [["Hoy", hoyYmd()], ["Mañana", mananaYmd()]].forEach(([l,val])=>{
+    const b = document.createElement("button");
+    b.className = "chip" + (entForm.fecha===val ? " on" : "");
+    b.textContent = l;
+    b.onclick = ()=>{ entForm.fecha = val; $("#entFecha").value = val; renderEntDiaChips(); };
+    cont.appendChild(b);
+  });
+}
+
+async function saveEnt(){
+  entForm.direccion = $("#entDireccion").value.trim();
+  entForm.notas     = $("#entNotas").value.trim();
+  entForm.fecha     = $("#entFecha").value || hoyYmd();
+  if(!entForm.clienteId){ toast("Elegí primero una venta con clienta", "err"); return; }
+
+  const data = {
+    ventaId:       entForm.ventaId || null,
+    clienteId:     entForm.clienteId,
+    clienteNombre: entForm.clienteNombre || "",
+    direccion:     entForm.direccion,
+    fecha:         entForm.fecha,
+    notas:         entForm.notas,
+    total:         Number(entForm.total)||0
+  };
+  $("#entSave").disabled = true;
+  try{
+    if(entEditId){
+      await setDoc(doc(db, "entregas_pos_cascanueces", entEditId), data, { merge:true });
+      toast("Entrega guardada ✓", "ok");
+    } else {
+      await addDoc(entregasRef, { ...data, estado:"pendiente", ts:Date.now(), creado:serverTimestamp() });
+      toast("¡Entrega programada! 🚗", "ok");
+    }
+    closeEntSheet();
+  }catch(err){
+    console.error("Guardar entrega:", err.code, err.message);
+    toast("No se pudo guardar. Probá de nuevo.", "err");
+  }finally{
+    $("#entSave").disabled = false;
+  }
+}
+
+/* Borrar entrega: dos toques (sin diálogos del sistema, estilo mamá) */
+$("#entDelete").onclick = async ()=>{
+  if(!entEditId) return;
+  if(!entDelArmed){
+    entDelArmed = true; toast("Tocá de nuevo para borrar la entrega");
+    entDelTimer = setTimeout(()=> entDelArmed = false, 3000); return;
+  }
+  clearTimeout(entDelTimer); entDelArmed = false;
+  try{ await deleteDoc(doc(db, "entregas_pos_cascanueces", entEditId)); toast("Entrega borrada"); closeEntSheet(); }
+  catch(err){ console.error("Borrar entrega:", err.code, err.message); toast("No se pudo borrar.", "err"); }
+};
+
+$("#entAdd").onclick = ()=> openEntSheet();
+$("#entClose").onclick = closeEntSheet;
+$("#entScrim").onclick = closeEntSheet;
+$("#entSave").onclick = saveEnt;
+$("#entVentaSearch").addEventListener("input", e=>{ entVentaQuery = e.target.value; renderEntVentaList(); });
+$("#entDireccion").addEventListener("input", e=> entForm.direccion = e.target.value);
+$("#entNotas").addEventListener("input", e=> entForm.notas = e.target.value);
+$("#entFecha").addEventListener("change", e=>{ entForm.fecha = e.target.value; renderEntDiaChips(); });
+
+/* ── Sync en tiempo real ── */
+onSnapshot(entregasRef, snap=>{
+  entregas = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+  renderEntregas();
+  if($("#entSheet").classList.contains("show") && $("#entPhasePick").style.display!=="none") renderEntVentaList();
+}, err=>{
+  console.error("Firestore [entregas]:", err.code, err.message);
+  if(err.code==="permission-denied") toast("Sin permisos para entregas en Firestore.", "err");
+});
+onSnapshot(ventasRef, snap=>{
+  ventasParaEntrega = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+  if($("#entSheet").classList.contains("show") && $("#entPhasePick").style.display!=="none") renderEntVentaList();
+}, err=>{ console.error("Firestore [ventas→entregas]:", err.code, err.message); });
+/* ──────────────────── fin ETAPA 4 ──────────────────── */
+
 renderInicio(); renderFiltros(); renderLista();
 renderClientes();
+renderEntFiltros(); renderEntregas();
 loadRecargo();
 </script>
 </body>
