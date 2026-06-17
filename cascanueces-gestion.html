@@ -317,6 +317,80 @@ img{display:block;max-width:100%}
   .stat.full{grid-column:auto}
   .vender-btn{max-width:560px}
 }
+
+/* ════════════════ CLIENTES + WHATSAPP (Etapa 3) ════════════════ */
+.cli-search-wrap{position:relative;margin:2px 0 18px}
+.cli-search{width:100%;background:var(--blanco);border:2px solid var(--blanco);border-radius:16px;padding:16px 18px 16px 50px;outline:none;color:var(--gris-900);box-shadow:var(--card-shadow);transition:border-color .2s ease}
+.cli-search:focus{border-color:var(--celeste)}
+.cli-search::placeholder{color:var(--gris-300)}
+.cli-search-ico{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:19px;color:var(--celeste-deep);pointer-events:none}
+
+.cli{display:flex;align-items:center;gap:14px;background:var(--blanco);border-radius:20px;padding:15px 17px;box-shadow:var(--card-shadow);margin-bottom:12px;width:100%;text-align:left;transition:transform .15s ease}
+.cli:active{transform:scale(.992)}
+.cli .cli-av{width:52px;height:52px;border-radius:16px;background:var(--celeste-pale);color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:var(--titf);font-weight:600;font-size:22px;flex-shrink:0}
+.cli .cli-main{flex:1;min-width:0}
+.cli .cli-name{font-size:17px;font-weight:600;color:var(--gris-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cli .cli-meta{display:flex;gap:7px;align-items:center;margin-top:5px;flex-wrap:wrap}
+.cli .cli-arrow{font-size:22px;color:var(--celeste-deep);flex-shrink:0}
+.tag.colegio{background:var(--celeste-pale);color:var(--navy)}
+.tag.hijos{background:var(--sage-pale);color:var(--sage);font-weight:600}
+.tag.swa{background:#E7F8EE;color:#1f9d57;font-weight:600}
+.tag.nowa{background:var(--mostaza-pale);color:var(--mostaza)}
+
+/* inputs de texto propios (clientes / ajustes) */
+.txtin{width:100%;background:var(--blanco);border:2px solid var(--blanco);border-radius:16px;padding:16px 18px;outline:none;color:var(--gris-900);box-shadow:var(--card-shadow);transition:border-color .2s ease}
+.txtin:focus{border-color:var(--celeste)}
+.txtin::placeholder{color:var(--gris-300)}
+
+/* editor de hijos */
+.hijo-row{background:var(--blanco);border-radius:18px;padding:14px 14px 12px;box-shadow:var(--card-shadow);margin-bottom:11px}
+.hijo-top{display:flex;align-items:center;gap:10px}
+.hijo-top .hijo-in{flex:1;background:var(--crema);border:2px solid var(--crema);border-radius:13px;padding:13px 15px;outline:none;color:var(--gris-900);transition:border-color .2s ease;min-width:0}
+.hijo-top .hijo-in:focus{border-color:var(--celeste)}
+.hijo-del{width:46px;height:46px;border-radius:13px;background:var(--rojo-pale);color:var(--rojo);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.hijo-talles{margin-top:10px;width:100%;background:var(--crema);border:2px solid var(--crema);border-radius:13px;padding:12px 15px;outline:none;color:var(--gris-900);transition:border-color .2s ease}
+.hijo-talles:focus{border-color:var(--celeste)}
+.hijo-talles::placeholder{color:var(--gris-300)}
+.hijo-add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--celeste-pale);color:var(--navy);border-radius:15px;padding:15px;font-size:15px;font-weight:600;min-height:52px}
+
+/* botones de WhatsApp */
+.wa-group{display:flex;flex-direction:column;gap:11px;margin-top:6px}
+.btn-wa{display:flex;align-items:center;gap:14px;width:100%;background:#25D366;color:#fff;border-radius:18px;padding:17px 18px;box-shadow:0 8px 22px rgba(37,211,102,.32);text-align:left;transition:transform .15s ease;min-height:66px}
+.btn-wa:active{transform:scale(.985)}
+.btn-wa.soft{background:var(--blanco);color:var(--gris-900);box-shadow:var(--card-shadow)}
+.btn-wa .wico{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0}
+.btn-wa.soft .wico{background:#E7F8EE}
+.btn-wa .wtx{flex:1;min-width:0}
+.btn-wa .wtx b{font-size:16px;display:block;line-height:1.15}
+.btn-wa .wtx span{font-size:12.5px;opacity:.92;display:block;margin-top:3px}
+.btn-wa.soft .wtx span{color:var(--texto-suave);opacity:1}
+.wa-disabled{opacity:.5;pointer-events:none}
+
+/* selector de cliente dentro de Vender */
+.cli-pick-row{display:flex;align-items:center;gap:13px;width:100%;background:#fff;border:2px solid #fff;border-radius:18px;padding:15px 17px;box-shadow:var(--card-shadow);text-align:left;margin-bottom:18px;transition:border-color .15s ease}
+.cli-pick-row.set{border-color:var(--celeste)}
+.cli-pick-row .cp-ico{width:48px;height:48px;border-radius:14px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.cli-pick-row .cp-tx{flex:1;min-width:0}
+.cli-pick-row .cp-tx b{font-size:16px;color:var(--gris-900);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cli-pick-row .cp-tx span{font-size:13px;color:var(--texto-suave)}
+.cli-pick-row .cp-act{font-size:14px;font-weight:600;color:var(--celeste-deep);flex-shrink:0}
+
+/* sheet selector de cliente */
+.cli-pick-list{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.cli-pick-item{display:flex;align-items:center;gap:13px;width:100%;background:#fff;border-radius:16px;padding:14px 16px;box-shadow:var(--card-shadow);text-align:left;transition:transform .14s ease}
+.cli-pick-item:active{transform:scale(.99)}
+.cli-pick-item .cli-av{width:46px;height:46px;border-radius:14px;font-size:19px}
+.cli-pick-item .cpi-tx{flex:1;min-width:0}
+.cli-pick-item .cpi-tx b{font-size:16px;color:var(--gris-900);display:block}
+.cli-pick-item .cpi-tx span{font-size:13px;color:var(--texto-suave)}
+
+.cli-block{background:var(--celeste-pale);border-radius:18px;padding:16px 18px;margin-bottom:4px}
+.cli-block .cb-name{font-family:var(--titf);font-weight:600;font-size:21px;color:var(--gris-900)}
+.cli-block .cb-sub{font-size:13.5px;color:var(--texto-suave);margin-top:3px}
+.cli-block .cb-hijos{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.cli-block .cb-hijo{font-size:14px;color:var(--gris-700)}
+.cli-block .cb-hijo b{color:var(--gris-900)}
+.section-lbl{font-size:13px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--gris-500);margin:26px 0 12px}
 </style>
 </head>
 <body>
@@ -333,6 +407,7 @@ img{display:block;max-width:100%}
       <nav class="s-nav">
         <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span> Inicio</a>
         <a href="#" class="nav-link" data-go="stock"><span class="bi">📦</span> Stock</a>
+        <a href="#" class="nav-link" data-go="clientes"><span class="bi">👩</span> Clientas</a>
       </nav>
     </div>
     <div class="s-foot">Cascanueces · Mar del Plata<br/><br/>hecho por <span class="asg">ASG<em>digital</em>.pro</span></div>
@@ -372,6 +447,12 @@ img{display:block;max-width:100%}
         <div class="tx"><b>Ir a Stock</b><span>Agregar, editar o pausar uniformes</span></div>
         <div class="arrow">→</div>
       </button>
+
+      <button class="quick" data-go="clientes">
+        <div class="ico">👩</div>
+        <div class="tx"><b>Mis clientas</b><span>Datos, hijos y mensajes de WhatsApp</span></div>
+        <div class="arrow">→</div>
+      </button>
     </section>
 
     <!-- ===== VISTA STOCK ===== -->
@@ -386,16 +467,36 @@ img{display:block;max-width:100%}
       <button class="ajustes-link" id="ajustesLink">⚙ Ajustes de cobro</button>
     </section>
 
+    <!-- ===== VISTA CLIENTES ===== -->
+    <section class="view" id="view-clientes">
+      <div class="eyebrow">Tu gente</div>
+      <h1 class="h-title">Clientas</h1>
+      <p class="lead">Guardá los datos de cada mamá y sus chicos. Después les mandás los mensajes con un toque.</p>
+
+      <div class="cli-search-wrap">
+        <span class="cli-search-ico">🔍</span>
+        <input class="cli-search" id="cliSearch" type="text" placeholder="Buscar por nombre o colegio…" autocomplete="off"/>
+      </div>
+
+      <div id="listaClientes"></div>
+
+      <button class="ajustes-link" id="ajustesLinkCli">⚙ Ajustes de cobro y datos de pago</button>
+    </section>
+
   </main>
 
   <!-- BOTTOM NAV (mobile) -->
   <nav class="botnav">
     <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span>Inicio</a>
     <a href="#" class="nav-link" data-go="stock"><span class="bi">📦</span>Stock</a>
+    <a href="#" class="nav-link" data-go="clientes"><span class="bi">👩</span>Clientas</a>
   </nav>
 
   <!-- FAB agregar (solo en Stock) -->
   <button class="fab-add" id="fabAdd" style="display:none"><span class="plus">+</span> Agregar uniforme</button>
+
+  <!-- FAB agregar clienta (solo en Clientes) -->
+  <button class="fab-add" id="fabAddCli" style="display:none"><span class="plus">+</span> Agregar clienta</button>
 
 </div>
 
@@ -505,6 +606,11 @@ img{display:block;max-width:100%}
 
     <!-- PASO 2: cobrar -->
     <div class="v-step" id="vCobrar">
+      <button class="cli-pick-row" id="vCliPick">
+        <span class="cp-ico">👩</span>
+        <span class="cp-tx"><b id="vCliName">Sin clienta</b><span id="vCliSub">Tocá para elegir o crear (opcional)</span></span>
+        <span class="cp-act" id="vCliAct">Elegir</span>
+      </button>
       <div class="v-total-box">
         <div class="lbl">Total a cobrar</div>
         <div class="big" id="vPagoTotal">$0</div>
@@ -535,6 +641,18 @@ img{display:block;max-width:100%}
         <h2>¡Venta hecha!</h2>
         <div class="amt" id="vOkAmt">$0</div>
         <div class="way" id="vOkWay"></div>
+
+        <div class="wa-group" id="vOkWa" style="display:none;margin-bottom:22px;text-align:left">
+          <button class="btn-wa" id="waConfirm">
+            <span class="wico">📋</span>
+            <span class="wtx"><b>Mandar confirmación</b><span>Pedido + total, listo por WhatsApp</span></span>
+          </button>
+          <button class="btn-wa soft" id="waPago">
+            <span class="wico">💳</span>
+            <span class="wtx"><b>Mandar datos de pago</b><span>Alias / CBU de Mercado Pago</span></span>
+          </button>
+        </div>
+
         <div class="acts">
           <button class="btn btn-primary" id="vNueva">Vender otra cosa</button>
           <button class="btn btn-ghost" id="vListo">Listo</button>
@@ -564,10 +682,101 @@ img{display:block;max-width:100%}
   <div class="sheet-body">
     <div class="field">
       <label>Recargo por transferencia / MP (%)</label>
-      <input type="number" id="ajRecargo" inputmode="decimal" min="0" max="100" step="0.5" placeholder="0">
-      <p class="hint">Se suma solo cuando la clienta paga por transferencia. Mamá lo ve al cobrar.</p>
+      <input class="txtin" type="number" id="ajRecargo" inputmode="decimal" min="0" max="100" step="0.5" placeholder="0">
+      <p class="hint">Se suma solo cuando la clienta paga por transferencia o tarjeta. Vos lo ves al cobrar y va en el mensaje de pago.</p>
+    </div>
+    <div class="field">
+      <label>Alias de Mercado Pago</label>
+      <input class="txtin" type="text" id="ajAlias" placeholder="cascanueces.mp" autocomplete="off" autocapitalize="off">
+    </div>
+    <div class="field">
+      <label>CBU / CVU (opcional)</label>
+      <input class="txtin" type="text" id="ajCbu" inputmode="numeric" placeholder="00000000…" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>A nombre de (opcional)</label>
+      <input class="txtin" type="text" id="ajTitular" placeholder="Antonella" autocomplete="off">
+      <p class="hint">Estos datos se mandan tal cual en el mensaje de “Datos de pago”. Cambialos cuando quieras.</p>
     </div>
     <button class="btn btn-primary" id="ajGuardar">Guardar</button>
+  </div>
+</div>
+
+<!-- ===== SHEET: AGREGAR / EDITAR CLIENTA ===== -->
+<div class="scrim" id="cliScrim"></div>
+<div class="sheet" id="cliSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2 id="cliSheetTitle">Agregar clienta</h2>
+    <button class="sheet-x" id="cliClose">✕</button>
+  </div>
+  <div class="sheet-body">
+
+    <!-- Acciones de WhatsApp (solo al editar una clienta guardada) -->
+    <div id="cliWaWrap" style="display:none">
+      <div class="wa-group">
+        <button class="btn-wa" id="cliWaPago">
+          <span class="wico">💳</span>
+          <span class="wtx"><b>Mandar datos de pago</b><span>Alias / CBU de Mercado Pago</span></span>
+        </button>
+        <button class="btn-wa soft" id="cliWaAgenda">
+          <span class="wico">📲</span>
+          <span class="wtx"><b>“Agendá Cascanueces”</b><span>Recordatorio para que te guarde</span></span>
+        </button>
+      </div>
+      <div class="section-lbl">Datos de la clienta</div>
+    </div>
+
+    <div class="field" style="margin-top:8px">
+      <label>Nombre</label>
+      <input class="txtin" type="text" id="cliNombre" placeholder="Nombre y apellido" autocomplete="off">
+    </div>
+
+    <div class="field">
+      <label>WhatsApp</label>
+      <input class="txtin" type="tel" id="cliWhats" inputmode="tel" placeholder="Ej: 223 555 1234" autocomplete="off">
+      <p class="hint">Poné el número como lo tenés en la agenda. Yo armo el link de WhatsApp solo.</p>
+    </div>
+
+    <div class="field">
+      <label>Colegio</label>
+      <div class="chips" id="cliChipsColegio"></div>
+    </div>
+
+    <div class="field">
+      <label>Dirección (opcional)</label>
+      <input class="txtin" type="text" id="cliDireccion" placeholder="Calle, número, barrio" autocomplete="off">
+    </div>
+
+    <div class="field">
+      <label>Hijos / hijas</label>
+      <div id="cliHijos"></div>
+      <button class="hijo-add" id="cliHijoAdd">＋ Agregar hijo/a</button>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn-danger btn" id="cliDelete" style="display:none">🗑️</button>
+      <button class="btn btn-primary" id="cliSave">Guardar</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== SHEET: ELEGIR CLIENTA (desde una venta) ===== -->
+<div class="scrim" id="pickScrim"></div>
+<div class="sheet" id="pickSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>¿Para quién es?</h2>
+    <button class="sheet-x" id="pickClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div class="cli-search-wrap">
+      <span class="cli-search-ico">🔍</span>
+      <input class="cli-search" id="pickSearch" type="text" placeholder="Buscar clienta…" autocomplete="off"/>
+    </div>
+    <button class="hijo-add" id="pickNueva" style="background:var(--celeste-deep);color:#fff;margin-bottom:14px">＋ Clienta nueva</button>
+    <div class="cli-pick-list" id="pickList"></div>
   </div>
 </div>
 
@@ -647,6 +856,7 @@ function go(view){
   $("#view-"+view).classList.add("active");
   document.querySelectorAll(".nav-link").forEach(a=> a.classList.toggle("on", a.dataset.go===view));
   $("#fabAdd").style.display = view==="stock" ? "flex" : "none";
+  $("#fabAddCli").style.display = view==="clientes" ? "flex" : "none";   // Etapa 3
   window.scrollTo({top:0,behavior:"smooth"});
 }
 document.addEventListener("click", e=>{
@@ -927,14 +1137,18 @@ $("#cfYes").onclick = async ()=>{
 let venderCart = [];
 let vSel = { colegio:null, prenda:null };
 let recargoPct = 0;
+let pagoCfg = { alias:"", cbu:"", titular:"" };   // Etapa 3: datos de pago configurables
 let pagoSel = null;
 let vStepNow = "armar";
+let venderCliente = null;   // Etapa 3: clienta vinculada a la venta en curso
+let lastVentaWhats = null;  // Etapa 3: datos de la última venta para los mensajes
 
 const tOrder = t => { const i = TALLES_SUGER.indexOf(String(t)); return i<0 ? 999 : i; };
 const vendibles = () => productos.filter(p => p.activo!==false && (Number(p.stock)||0) > 0);
 
 function openVender(){
   venderCart = []; vSel = { colegio:null, prenda:null }; pagoSel = null;
+  venderCliente = null; renderVCliPick();   // Etapa 3
   vStep("armar");
   buildVColegios(); buildVPrendas(); buildVTalles(); renderCart(); renderPago();
   const v = $("#vender"); v.classList.add("show"); v.setAttribute("aria-hidden","false");
@@ -1095,23 +1309,28 @@ $("#vConfirmar").onclick = async ()=>{
       batch.set(doc(db, COL, l.id), { stock: nuevo }, { merge:true });
     });
     const ventaRef = doc(ventasRef);
+    const itemsVenta = venderCart.map(l=>({ productoId:l.id, colegio:l.colegio, prenda:l.prenda,
+        talle:l.talle, precio:l.precio, cant:l.cant, subtotal:l.precio*l.cant }));
     batch.set(ventaRef, {
-      items: venderCart.map(l=>({ productoId:l.id, colegio:l.colegio, prenda:l.prenda,
-        talle:l.talle, precio:l.precio, cant:l.cant, subtotal:l.precio*l.cant })),
+      items: itemsVenta,
       subtotal: sub,
       recargoPct: pagoSel==="transferencia" ? recargoPct : 0,
       recargo, total,
       pago: pagoSel,
+      clienteId: venderCliente?.id || null,         // Etapa 3
+      clienteNombre: venderCliente?.nombre || null, // Etapa 3
       fecha: serverTimestamp(),
       ts: Date.now()
     });
     await batch.commit();
+    lastVentaWhats = { items: itemsVenta, subtotal: sub, recargo, total, pago: pagoSel }; // Etapa 3
     $("#vOkAmt").textContent = money(total);
     $("#vOkWay").textContent = pagoSel==="efectivo"
       ? "Cobrado en efectivo 💵"
       : "Cobrado por transferencia / MP 📲" + (recargo>0 ? " (recargo incluido)" : "");
     venderCart = []; pagoSel = null;
     vStep("ok");
+    renderVOkWa();   // Etapa 3: botones de WhatsApp post-venta
   }catch(err){
     console.error("Confirmar venta:", err.code, err.message);
     toast("No se pudo cobrar. Probá de nuevo.", "err");
@@ -1120,26 +1339,50 @@ $("#vConfirmar").onclick = async ()=>{
 };
 $("#vNueva").onclick = ()=>{
   vSel = { colegio:null, prenda:null }; pagoSel = null;
+  venderCliente = null; lastVentaWhats = null; renderVCliPick();   // Etapa 3
   vStep("armar"); buildVColegios(); buildVPrendas(); buildVTalles(); renderCart(); renderPago();
 };
 $("#vListo").onclick = closeVender;
 
 /* ── Ajustes de cobro (Antonella) ── */
-$("#ajustesLink").onclick = ()=>{
+function openAjustes(){
   $("#ajRecargo").value = recargoPct || "";
+  $("#ajAlias").value   = pagoCfg.alias   || "";
+  $("#ajCbu").value     = pagoCfg.cbu     || "";
+  $("#ajTitular").value = pagoCfg.titular || "";
   $("#ajScrim").classList.add("show"); $("#ajSheet").classList.add("show");
-};
+}
+$("#ajustesLink").onclick = openAjustes;
+$("#ajustesLinkCli").onclick = openAjustes;   // Etapa 3: mismo acceso desde Clientas
 function closeAjustes(){ $("#ajScrim").classList.remove("show"); $("#ajSheet").classList.remove("show"); }
 $("#ajClose").onclick = closeAjustes;
 $("#ajScrim").onclick = closeAjustes;
 $("#ajGuardar").onclick = async ()=>{
   const v = Math.max(0, parseFloat($("#ajRecargo").value)||0);
   recargoPct = v;
-  try{ await setDoc(cfgRef, { recargoTransferencia:v }, { merge:true }); toast("Recargo guardado ✓","ok"); closeAjustes(); }
+  pagoCfg = {
+    alias:   $("#ajAlias").value.trim(),
+    cbu:     $("#ajCbu").value.trim(),
+    titular: $("#ajTitular").value.trim()
+  };
+  try{
+    await setDoc(cfgRef, {
+      recargoTransferencia: v,
+      aliasMP: pagoCfg.alias, cbuMP: pagoCfg.cbu, titularMP: pagoCfg.titular
+    }, { merge:true });
+    toast("Ajustes guardados ✓","ok"); closeAjustes();
+  }
   catch(err){ console.error("Ajustes:", err.code, err.message); toast("No se pudo guardar.","err"); }
 };
 async function loadRecargo(){
-  try{ const s = await getDoc(cfgRef); if(s.exists()) recargoPct = Number(s.data().recargoTransferencia)||0; }
+  try{
+    const s = await getDoc(cfgRef);
+    if(s.exists()){
+      const d = s.data();
+      recargoPct = Number(d.recargoTransferencia)||0;
+      pagoCfg = { alias: d.aliasMP||"", cbu: d.cbuMP||"", titular: d.titularMP||"" };
+    }
+  }
   catch(err){ console.warn("config:", err.code); }
 }
 
@@ -1156,7 +1399,347 @@ onSnapshot(colRef, { includeMetadataChanges:true }, snap=>{
 window.addEventListener("online",  ()=> setConn("online"));
 window.addEventListener("offline", ()=> setConn("offline"));
 
+/* ════════════════════════════════════════════════════════════════
+   ETAPA 3 · CLIENTAS + WHATSAPP
+   Colección: clientes_pos_cascanueces
+   Todo el código de clientas vive en este bloque autocontenido.
+   ════════════════════════════════════════════════════════════════ */
+const clientesRef = collection(db, "clientes_pos_cascanueces");
+
+let clientes = [];
+let cliFiltro = "";
+let cliEditId = null;
+let cliForm = { colegio:null, hijos:[] };
+let pendingPickAfterSave = false;     // venimos de "Clienta nueva" dentro de una venta
+let cliDelArmed = false, cliDelTimer = null;
+
+const esc = s => (s||"").toString().replace(/[&<>"]/g, m=>({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[m]));
+const cliInitial = n => { const s=(n||"").trim(); return s ? esc(s[0].toUpperCase()) : "👩"; };
+
+/* ── Número → link de WhatsApp (Argentina) ── */
+function waNorm(phone){
+  let d = (phone||"").replace(/\D/g,"");
+  if(!d) return "";
+  if(d.startsWith("00")) d = d.slice(2);
+  if(d.startsWith("54")) d = d.slice(2);
+  else if(d.startsWith("0")) d = d.slice(1);
+  if(d.startsWith("9")) d = d.slice(1);
+  if(d.length < 8) return "";          // demasiado corto para ser un celular
+  return "549" + d;                    // formato internacional de celular AR
+}
+function openWa(phone, text){
+  const n = waNorm(phone);
+  if(!n){ toast("Esa clienta no tiene WhatsApp cargado","err"); return; }
+  window.open(`https://wa.me/${n}?text=${encodeURIComponent(text)}`, "_blank");
+}
+
+/* ── Mensajes listos, en voz Cascanueces ── */
+function msgConfirmacion(cli, venta){
+  const lineas = (venta?.items||[]).map(l=>
+    `• ${l.prenda} talle ${l.talle}${l.cant>1?` x${l.cant}`:""} — ${money(l.subtotal)}`).join("\n");
+  const recargoLinea = (venta?.pago==="transferencia" && venta?.recargo>0)
+    ? `\n(Incluye ${recargoPct}% por transferencia / MP)` : "";
+  const hola = cli?.nombre ? `¡Hola ${cli.nombre}!` : "¡Hola!";
+  return `${hola} 🌰 Soy de Cascanueces.
+Te confirmo tu pedido:
+
+${lineas}
+
+Total: ${money(venta?.total||0)}${recargoLinea}
+
+Apenas lo tenga listo te aviso para coordinar la entrega 💙
+¡Gracias por elegirnos!`;
+}
+function msgPago(cli){
+  const hola = cli?.nombre ? `¡Hola ${cli.nombre}!` : "¡Hola!";
+  const datos = [];
+  if(pagoCfg.alias)   datos.push(`Alias: ${pagoCfg.alias}`);
+  if(pagoCfg.cbu)     datos.push(`CBU/CVU: ${pagoCfg.cbu}`);
+  if(pagoCfg.titular) datos.push(`A nombre de: ${pagoCfg.titular}`);
+  const bloque = datos.length ? datos.join("\n") : "(pedímelos y te los paso)";
+  const recargoNota = recargoPct>0
+    ? `\n\nOjo: si pagás por transferencia o con tarjeta se suma un ${recargoPct}%. En efectivo no tiene recargo 😉`
+    : "";
+  return `${hola} 🌰 Acá te paso los datos para abonar por Mercado Pago:
+
+${bloque}${recargoNota}
+
+Cuando lo hagas, mandame el comprobante y coordinamos la entrega 💙`;
+}
+function msgAgenda(cli){
+  const hola = cli?.nombre ? `¡Hola ${cli.nombre}!` : "¡Hola!";
+  const cole = cli?.colegio ? ` (uniformes ${corto(cli.colegio)})` : "";
+  return `${hola} 🌰 Soy Cascanueces${cole}.
+Agendá este número así no se te pierde y cualquier cosa me escribís por acá. ¡Te mando un beso! 💙`;
+}
+function sendPago(cli){
+  if(!pagoCfg.alias && !pagoCfg.cbu){
+    toast("Primero cargá tu alias o CBU en Ajustes","err");
+    openAjustes(); return;
+  }
+  openWa(cli?.whatsapp, msgPago(cli));
+}
+
+/* ── Lista de clientas (con búsqueda) ── */
+function cliMatch(c, q){
+  return (c.nombre||"").toLowerCase().includes(q)
+      || (c.colegio||"").toLowerCase().includes(q)
+      || corto(c.colegio||"").toLowerCase().includes(q);
+}
+function renderClientes(){
+  const cont = $("#listaClientes"); if(!cont) return;
+  const q = cliFiltro.trim().toLowerCase();
+  let lista = clientes.slice().sort((a,b)=> (a.nombre||"").localeCompare(b.nombre||""));
+  if(q) lista = lista.filter(c=> cliMatch(c, q));
+
+  if(clientes.length===0){
+    cont.innerHTML = `<div class="empty"><div class="ico">👩</div>
+      <h3>Todavía no hay clientas</h3>
+      <p>Cargá la primera y guardá sus datos y los talles de sus chicos.</p>
+      <button class="btn btn-primary" style="max-width:280px;margin:0 auto" id="cliEmptyAdd">+ Agregar clienta</button></div>`;
+    $("#cliEmptyAdd").onclick = ()=> openCliSheet();
+    return;
+  }
+  if(lista.length===0){
+    cont.innerHTML = `<div class="empty"><div class="ico">🔍</div>
+      <h3>Sin resultados</h3><p>No encontré ninguna clienta con “${esc(cliFiltro)}”.</p></div>`;
+    return;
+  }
+  cont.innerHTML = "";
+  lista.forEach(c=> cont.appendChild(cliCard(c)));
+}
+function cliCard(c){
+  const el = document.createElement("button");
+  el.className = "cli";
+  const nh = (c.hijos||[]).length;
+  const hasWa = !!waNorm(c.whatsapp);
+  el.innerHTML = `
+    <span class="cli-av">${cliInitial(c.nombre)}</span>
+    <span class="cli-main">
+      <span class="cli-name">${esc(c.nombre||"Sin nombre")}</span>
+      <span class="cli-meta">
+        ${c.colegio?`<span class="tag colegio">${esc(corto(c.colegio))}</span>`:""}
+        ${nh?`<span class="tag hijos">${nh} ${nh>1?"hijos":"hijo"}</span>`:""}
+        <span class="tag ${hasWa?"swa":"nowa"}">${hasWa?"WhatsApp ✓":"sin WhatsApp"}</span>
+      </span>
+    </span>
+    <span class="cli-arrow">›</span>`;
+  el.onclick = ()=> openCliSheet(c);
+  return el;
+}
+$("#cliSearch").addEventListener("input", e=>{ cliFiltro = e.target.value; renderClientes(); });
+
+/* ── Sheet agregar / editar clienta ── */
+function clientesColegios(){
+  const set = new Set(COLEGIOS_BASE);
+  clientes.forEach(c=> c.colegio && set.add(c.colegio));
+  if(cliForm.colegio) set.add(cliForm.colegio);
+  return [...set];
+}
+function renderCliColegio(){
+  const cont = $("#cliChipsColegio"); cont.innerHTML = "";
+  clientesColegios().forEach(op=>{
+    const b = document.createElement("button");
+    b.className = "chip" + (op===cliForm.colegio?" on":"");
+    b.textContent = corto(op);
+    b.onclick = ()=>{ cliForm.colegio = (cliForm.colegio===op ? null : op); renderCliColegio(); };
+    cont.appendChild(b);
+  });
+  const add = document.createElement("button");
+  add.className = "chip add"; add.textContent = "+ Otro colegio";
+  add.onclick = ()=> otroInline(cont, "Nombre del colegio", v=>{ cliForm.colegio = v; renderCliColegio(); });
+  cont.appendChild(add);
+}
+function renderHijos(){
+  const cont = $("#cliHijos"); cont.innerHTML = "";
+  cliForm.hijos.forEach((h,i)=>{
+    const row = document.createElement("div"); row.className = "hijo-row";
+    row.innerHTML = `
+      <div class="hijo-top">
+        <input class="hijo-in" type="text" placeholder="Nombre del hijo/a" value="${esc(h.nombre)}" autocomplete="off">
+        <button class="hijo-del" title="Quitar">✕</button>
+      </div>
+      <input class="hijo-talles" type="text" placeholder="Talles (ej: Remera 12, Pantalón 14)" value="${esc(h.talles)}" autocomplete="off">`;
+    const nIn = row.querySelector(".hijo-in");
+    const tIn = row.querySelector(".hijo-talles");
+    nIn.addEventListener("input", ()=> cliForm.hijos[i].nombre = nIn.value);
+    tIn.addEventListener("input", ()=> cliForm.hijos[i].talles = tIn.value);
+    row.querySelector(".hijo-del").onclick = ()=>{
+      cliForm.hijos.splice(i,1);
+      if(cliForm.hijos.length===0) cliForm.hijos.push({ nombre:"", talles:"" });
+      renderHijos();
+    };
+    cont.appendChild(row);
+  });
+}
+$("#cliHijoAdd").onclick = ()=>{ cliForm.hijos.push({ nombre:"", talles:"" }); renderHijos(); };
+
+function openCliSheet(cli=null){
+  cliEditId = cli ? cli.id : null;
+  $("#cliSheetTitle").textContent = cli ? "Editar clienta" : "Agregar clienta";
+  $("#cliDelete").style.display = cli ? "flex" : "none";
+  $("#cliSave").textContent = cli ? "Guardar cambios" : "Guardar";
+  $("#cliWaWrap").style.display = cli ? "block" : "none";
+
+  $("#cliNombre").value    = cli?.nombre    || "";
+  $("#cliWhats").value     = cli?.whatsapp  || "";
+  $("#cliDireccion").value = cli?.direccion || "";
+  cliForm.colegio = cli?.colegio || null;
+  cliForm.hijos = (cli?.hijos||[]).map(h=>({ nombre:h.nombre||"", talles:h.talles||"" }));
+  if(cliForm.hijos.length===0) cliForm.hijos.push({ nombre:"", talles:"" });
+  cliDelArmed = false;
+
+  renderCliColegio();
+  renderHijos();
+
+  $("#cliWaPago").onclick   = ()=> sendPago(cli);
+  $("#cliWaAgenda").onclick = ()=> openWa(cli?.whatsapp, msgAgenda(cli));
+
+  $("#cliScrim").classList.add("show");
+  $("#cliSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+function closeCliSheet(){
+  $("#cliScrim").classList.remove("show");
+  $("#cliSheet").classList.remove("show");
+  document.body.style.overflow = "";
+  pendingPickAfterSave = false;
+}
+$("#cliClose").onclick = closeCliSheet;
+$("#cliScrim").onclick = closeCliSheet;
+$("#fabAddCli").onclick = ()=> openCliSheet();
+
+async function saveCli(){
+  const nombre = $("#cliNombre").value.trim();
+  if(!nombre){ toast("Ponele un nombre a la clienta","err"); $("#cliNombre").focus(); return; }
+  const hijos = cliForm.hijos
+    .map(h=>({ nombre:(h.nombre||"").trim(), talles:(h.talles||"").trim() }))
+    .filter(h=> h.nombre || h.talles);
+  const data = {
+    nombre,
+    whatsapp:  $("#cliWhats").value.trim(),
+    colegio:   cliForm.colegio || "",
+    direccion: $("#cliDireccion").value.trim(),
+    hijos,
+    ts: Date.now()
+  };
+  const doPick = pendingPickAfterSave;
+  $("#cliSave").disabled = true;
+  try{
+    let savedId = cliEditId;
+    if(cliEditId){
+      await setDoc(doc(db,"clientes_pos_cascanueces",cliEditId), data, { merge:true });
+      toast("Clienta guardada ✓","ok");
+    } else {
+      const ref = await addDoc(clientesRef, { ...data, creado: serverTimestamp() });
+      savedId = ref.id;
+      toast("Clienta agregada ✓","ok");
+    }
+    closeCliSheet();
+    if(doPick && savedId){ venderCliente = { id:savedId, ...data }; renderVCliPick(); }
+  }catch(err){
+    console.error("Guardar clienta:", err.code, err.message);
+    toast("No se pudo guardar. Probá de nuevo.","err");
+  }finally{
+    $("#cliSave").disabled = false;
+  }
+}
+$("#cliSave").onclick = saveCli;
+
+/* Borrar clienta: dos toques (sin diálogos del sistema, estilo mamá) */
+$("#cliDelete").onclick = async ()=>{
+  if(!cliEditId) return;
+  if(!cliDelArmed){
+    cliDelArmed = true; toast("Tocá de nuevo para borrar la clienta");
+    cliDelTimer = setTimeout(()=> cliDelArmed = false, 3000); return;
+  }
+  clearTimeout(cliDelTimer); cliDelArmed = false;
+  try{ await deleteDoc(doc(db,"clientes_pos_cascanueces",cliEditId)); toast("Clienta borrada"); closeCliSheet(); }
+  catch(err){ console.error("Borrar clienta:", err.code, err.message); toast("No se pudo borrar.","err"); }
+};
+
+/* ── Vincular clienta a una venta ── */
+function renderVCliPick(){
+  const row = $("#vCliPick"); if(!row) return;
+  if(venderCliente){
+    row.classList.add("set");
+    $("#vCliName").textContent = venderCliente.nombre || "Clienta";
+    const wa = waNorm(venderCliente.whatsapp);
+    $("#vCliSub").textContent = (venderCliente.colegio ? corto(venderCliente.colegio)+" · " : "") + (wa ? "WhatsApp ✓" : "sin WhatsApp");
+    $("#vCliAct").textContent = "Cambiar";
+  } else {
+    row.classList.remove("set");
+    $("#vCliName").textContent = "Sin clienta";
+    $("#vCliSub").textContent = "Tocá para elegir o crear (opcional)";
+    $("#vCliAct").textContent = "Elegir";
+  }
+}
+function openPickSheet(){
+  $("#pickSearch").value = "";
+  renderPickList("");
+  $("#pickScrim").classList.add("show"); $("#pickSheet").classList.add("show");
+}
+function closePickSheet(){ $("#pickScrim").classList.remove("show"); $("#pickSheet").classList.remove("show"); }
+function renderPickList(q){
+  const cont = $("#pickList"); cont.innerHTML = "";
+  const qq = (q||"").trim().toLowerCase();
+  let lista = clientes.slice().sort((a,b)=> (a.nombre||"").localeCompare(b.nombre||""));
+  if(qq) lista = lista.filter(c=> cliMatch(c, qq));
+
+  if(venderCliente){
+    const none = document.createElement("button");
+    none.className = "cli-pick-item";
+    none.innerHTML = `<span class="cli-av" style="background:var(--gris-100);color:var(--gris-500)">✕</span>
+      <span class="cpi-tx"><b>Sin clienta</b><span>Vender sin vincular</span></span>`;
+    none.onclick = ()=>{ venderCliente = null; renderVCliPick(); closePickSheet(); };
+    cont.appendChild(none);
+  }
+  if(lista.length===0){
+    const d = document.createElement("p"); d.className = "v-hint"; d.style.marginTop = "6px";
+    d.textContent = clientes.length===0 ? "Todavía no cargaste clientas. Tocá “Clienta nueva”." : "No encontré ninguna.";
+    cont.appendChild(d); return;
+  }
+  lista.forEach(c=>{
+    const nh = (c.hijos||[]).length;
+    const b = document.createElement("button");
+    b.className = "cli-pick-item";
+    b.innerHTML = `<span class="cli-av">${cliInitial(c.nombre)}</span>
+      <span class="cpi-tx"><b>${esc(c.nombre||"Sin nombre")}</b>
+        <span>${c.colegio?esc(corto(c.colegio)):""}${nh?` · ${nh} ${nh>1?"hijos":"hijo"}`:""}</span></span>`;
+    b.onclick = ()=>{ venderCliente = { id:c.id, ...c }; renderVCliPick(); closePickSheet(); };
+    cont.appendChild(b);
+  });
+}
+$("#vCliPick").onclick = openPickSheet;
+$("#pickClose").onclick = closePickSheet;
+$("#pickScrim").onclick = closePickSheet;
+$("#pickSearch").addEventListener("input", e=> renderPickList(e.target.value));
+$("#pickNueva").onclick = ()=>{ closePickSheet(); pendingPickAfterSave = true; openCliSheet(); };
+
+/* ── Botones de WhatsApp en la pantalla de "¡Venta hecha!" ── */
+function renderVOkWa(){
+  const wrap = $("#vOkWa");
+  if(venderCliente && waNorm(venderCliente.whatsapp)){
+    wrap.style.display = "flex";
+    $("#waConfirm").onclick = ()=> openWa(venderCliente.whatsapp, msgConfirmacion(venderCliente, lastVentaWhats));
+    $("#waPago").onclick    = ()=> sendPago(venderCliente);
+  } else {
+    wrap.style.display = "none";
+  }
+}
+
+/* ── Sync en tiempo real de clientas ── */
+onSnapshot(clientesRef, snap=>{
+  clientes = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+  renderClientes();
+}, err=>{
+  console.error("Firestore [clientes]:", err.code, err.message);
+  if(err.code==="permission-denied") toast("Sin permisos para clientas en Firestore.","err");
+});
+/* ──────────────────── fin ETAPA 3 ──────────────────── */
+
 renderInicio(); renderFiltros(); renderLista();
+renderClientes();
 loadRecargo();
 </script>
 </body>
