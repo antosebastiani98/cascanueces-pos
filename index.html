@@ -2245,6 +2245,27 @@ function vozShowPane(name){
 }
 
 /* ── Escuchar (Web Speech API) con fallback a texto ── */
+/* Colapsa frases repetidas CONSECUTIVAS. Chrome en Android, en modo
+   continuous, re-emite el mismo resultado final varias veces dentro de
+   e.results, y el dictado termina saliendo duplicado ("vendí... vendí...").
+   Esto colapsa cualquier bloque de palabras repetido pegado a sí mismo. */
+function vozDedup(text){
+  const words = (text||"").replace(/\s+/g," ").trim().split(" ").filter(Boolean);
+  if(words.length < 2) return words.join(" ");
+  const low = words.map(w=> w.toLowerCase().replace(/[.,;:!?¡¿]+/g,""));
+  let changed = true;
+  while(changed){
+    changed = false;
+    for(let len = Math.floor(words.length/2); len >= 1 && !changed; len--){
+      for(let i = 0; i + 2*len <= words.length; i++){
+        let dup = true;
+        for(let k = 0; k < len; k++){ if(low[i+k] !== low[i+len+k]){ dup = false; break; } }
+        if(dup){ words.splice(i+len, len); low.splice(i+len, len); changed = true; break; }
+      }
+    }
+  }
+  return words.join(" ");
+}
 function vozStart(clear){
   vozShowPane("listen");
   // `vozBase` guarda lo dictado en sesiones previas (al "seguir escuchando").
@@ -2269,25 +2290,29 @@ function vozStart(clear){
   if(vozFinal.trim()) $("#vozTrans").innerHTML = esc(vozFinal.trim());
   try{
     vozRec = new VozSR();
-    vozRec.lang = "es-AR"; vozRec.continuous = true; vozRec.interimResults = true; vozRec.maxAlternatives = 1;
+    // continuous=false: capturamos UNA frase y paramos. En Android el modo
+    // continuo re-reconoce y duplica los finales; así se evita de raíz.
+    vozRec.lang = "es-AR"; vozRec.continuous = false; vozRec.interimResults = true; vozRec.maxAlternatives = 1;
     vozRec.onstart = ()=>{ vozListening = true; $("#vozMic").classList.add("rec"); };
     vozRec.onresult = (e)=>{
-      // Reconstruimos el texto DESDE CERO en cada evento (no acumulamos con +=):
-      // recorremos todos los resultados, los FINALES (isFinal) arman el transcript
-      // y el INTERIM se muestra aparte sin sumarse. Así el dictado sale UNA vez.
-      let sessionFinal = "", interim = "";
+      // Reconstruimos (ASIGNACIÓN, no +=) el texto en cada evento: solo los
+      // resultados FINALES (isFinal) arman el transcript; el INTERIM se muestra
+      // aparte y NUNCA se acumula. El dedup colapsa repeticiones de Android.
+      let finalChunk = "", interim = "";
       for(let i=0; i<e.results.length; i++){
         const r = e.results[i];
-        if(r.isFinal) sessionFinal += r[0].transcript + " ";
+        if(r.isFinal) finalChunk += r[0].transcript + " ";
         else interim += r[0].transcript;
       }
-      vozFinal = vozBase + sessionFinal;
+      vozFinal = vozDedup(vozBase + finalChunk);
       const finalTxt = vozFinal.trim(), interimTxt = interim.trim();
       const html = esc(finalTxt)
         + (interimTxt ? `${finalTxt?" ":""}<span class="interim">${esc(interimTxt)}</span>` : "");
       $("#vozTrans").innerHTML = html.trim() ? html : '<span class="ph">Hablá tranquila…</span>';
     };
     vozRec.onerror = (e)=> vozRecError(e && e.error);
+    // NO reiniciamos el reconocimiento acá: reiniciarlo en onend re-emite y
+    // vuelve a acumular lo anterior. Si querés seguir, tocás el micrófono.
     vozRec.onend = ()=>{ vozListening = false; $("#vozMic").classList.remove("rec"); };
     vozRec.start();
   }catch(err){ vozRecError("start"); }
@@ -2314,7 +2339,9 @@ $("#vozMic").onclick = ()=>{ if(vozSupported && !vozListening) vozStart(false); 
 /* ── Mandar al proxy de IA con el catálogo y parsear el JSON ── */
 async function vozEntender(){
   vozStop();
-  const txt = ($("#vozTa").style.display !== "none" ? $("#vozTa").value : vozFinal).trim();
+  // Tomamos el transcript UNA sola vez, ya deduplicado (red de seguridad final).
+  const raw = $("#vozTa").style.display !== "none" ? $("#vozTa").value : vozFinal;
+  const txt = vozDedup(raw).trim();
   if(txt.length < 3){ toast("Decime qué vendiste primero 🙂"); return; }
   vozLastText = txt;
   vozShowPane("think");
