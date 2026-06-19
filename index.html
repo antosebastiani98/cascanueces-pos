@@ -702,9 +702,78 @@ textarea.txtin{font-family:inherit}
 .edit-total{display:flex;align-items:baseline;justify-content:space-between;gap:10px;background:var(--celeste-pale);border-radius:16px;padding:16px 18px;margin-top:20px}
 .edit-total .et-l{font-size:14px;color:var(--navy);font-weight:600}
 .edit-total .et-n{font-family:var(--titf);font-weight:600;font-size:30px;color:var(--navy);line-height:1}
+
+/* ====== LOGIN con PIN (traba simple del lado del cliente, a prueba de mamá) ====== */
+#lockScreen{display:flex;position:fixed;inset:0;z-index:9999;background:linear-gradient(168deg,var(--celeste-pale) 0%,var(--crema) 60%);
+  flex-direction:column;align-items:center;justify-content:flex-start;
+  padding:max(38px,env(safe-area-inset-top)) 24px calc(28px + env(safe-area-inset-bottom));overflow-y:auto}
+html.unlocked #lockScreen{display:none}
+.lock-brand{display:flex;flex-direction:column;align-items:center;gap:5px;margin-top:14px}
+.lock-brand .ele{width:74px;height:74px;border-radius:21px;background:#fff;display:flex;align-items:center;justify-content:center;padding:9px;box-shadow:var(--card-shadow);margin-bottom:8px}
+.lock-brand .ele img{width:100%;height:100%;object-fit:contain}
+.lock-brand .bn{font-family:'Dancing Script',cursive;font-weight:700;font-size:36px;color:var(--navy);line-height:1}
+.lock-brand .bs{font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gris-500)}
+.lock-card{width:100%;max-width:330px;margin:24px auto 0;text-align:center}
+.lock-title{font-family:var(--titf);font-weight:600;font-size:22px;color:var(--gris-900);margin-bottom:5px}
+.lock-sub{font-size:14px;color:var(--texto-suave);margin-bottom:20px}
+.lock-dots{display:flex;justify-content:center;gap:16px;margin-bottom:12px}
+.lock-dots .pd{width:16px;height:16px;border-radius:50%;background:transparent;border:2.5px solid var(--celeste);transition:transform .15s ease,background .15s ease,border-color .15s ease}
+.lock-dots .pd.on{background:var(--celeste-deep);border-color:var(--celeste-deep);transform:scale(1.08)}
+.lock-err{min-height:20px;font-size:13.5px;font-weight:600;color:var(--rojo);margin-bottom:14px;opacity:0;transition:opacity .2s}
+.lock-err.show{opacity:1}
+#lockScreen.shake .lock-dots{animation:lockShake .42s}
+@keyframes lockShake{0%,100%{transform:none}20%{transform:translateX(-9px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;max-width:296px;margin:0 auto}
+.keypad .key{height:72px;border-radius:19px;background:var(--blanco);box-shadow:var(--card-shadow);
+  font-family:var(--titf);font-weight:600;font-size:29px;color:var(--gris-900);
+  display:flex;align-items:center;justify-content:center;transition:transform .1s ease,box-shadow .1s ease;user-select:none}
+.keypad .key:active{transform:scale(.93);box-shadow:0 4px 14px rgba(42,42,42,.12)}
+.keypad .key.fn{background:transparent;box-shadow:none;font-size:25px;color:var(--celeste-deep)}
+.keypad .key.empty{visibility:hidden;pointer-events:none}
+.lock-foot{margin-top:24px;font-size:11.5px;color:var(--gris-500);text-align:center;line-height:1.5}
+.cfg-lock-btn{width:100%;margin-top:4px}
 </style>
+<!-- Desbloqueo recordado: evita el parpadeo de la app antes de cargar el módulo -->
+<script>try{if(localStorage.getItem('casc_unlock_pos')==='1')document.documentElement.classList.add('unlocked');}catch(e){}</script>
 </head>
 <body>
+
+<!-- ===== PANTALLA DE INGRESO (LOGIN con PIN) ===== -->
+<div id="lockScreen" role="dialog" aria-label="Ingresá tu PIN">
+  <div class="lock-brand">
+    <div class="ele"><img src="data:image/png;base64,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" alt="Cascanueces"/></div>
+    <div class="bn">Cascanueces</div>
+    <div class="bs">Gestión</div>
+  </div>
+
+  <div class="lock-card">
+    <div class="lock-title">Ingresá tu PIN</div>
+    <div class="lock-sub">Poné los 4 números para entrar.</div>
+
+    <div class="lock-dots" id="lockDots">
+      <span class="pd"></span><span class="pd"></span><span class="pd"></span><span class="pd"></span>
+    </div>
+    <div class="lock-err" id="lockErr"></div>
+
+    <div class="keypad" id="lockKeys">
+      <button class="key" type="button" data-k="1">1</button>
+      <button class="key" type="button" data-k="2">2</button>
+      <button class="key" type="button" data-k="3">3</button>
+      <button class="key" type="button" data-k="4">4</button>
+      <button class="key" type="button" data-k="5">5</button>
+      <button class="key" type="button" data-k="6">6</button>
+      <button class="key" type="button" data-k="7">7</button>
+      <button class="key" type="button" data-k="8">8</button>
+      <button class="key" type="button" data-k="9">9</button>
+      <span class="key empty" aria-hidden="true"></span>
+      <button class="key" type="button" data-k="0">0</button>
+      <button class="key fn" type="button" data-k="back" aria-label="Borrar">⌫</button>
+    </div>
+
+    <div class="lock-foot">Es una traba simple para el día a día.<br/>El PIN se cambia en Configuración.</div>
+  </div>
+</div>
+
 <div class="app">
 
   <!-- SIDEBAR (desktop) -->
@@ -959,6 +1028,16 @@ textarea.txtin{font-family:inherit}
         <div class="field"><label>Umbral de stock bajo (unidades)</label>
           <input class="txtin" type="number" id="cfgStockBajo" inputmode="numeric" min="1" step="1" placeholder="3">
           <p class="hint">Un uniforme con esta cantidad o menos se marca como “queda poco”.</p></div>
+      </div>
+
+      <!-- 7 · ACCESO / PIN -->
+      <div class="cfg-card">
+        <div class="cfg-h"><span class="cfg-ic">🔒</span><div><b>Acceso</b><span>PIN para abrir la app</span></div></div>
+        <div class="field"><label>PIN de 4 dígitos</label>
+          <input class="txtin" type="text" id="cfgPin" inputmode="numeric" maxlength="4" pattern="[0-9]*" placeholder="2704" autocomplete="off">
+          <p class="hint">Con este número se desbloquea la app al abrirla. Anotalo en un lugar seguro. Es una traba simple para el día a día, no una contraseña fuerte.</p></div>
+        <button class="btn btn-ghost cfg-lock-btn" id="cfgLockNow" type="button">🔒 Bloquear ahora</button>
+        <p class="hint">Bloquea la app en este momento: la próxima vez va a pedir el PIN.</p>
       </div>
 
       <div class="cfg-actions">
@@ -1657,6 +1736,78 @@ function prendasDe(colegio){
   if(form.prenda && form.colegio===colegio && !base.includes(form.prenda)) base.push(form.prenda);
   return base;
 }
+
+/* ════════════════════════════════════════════════════════════════
+   LOGIN con PIN — traba simple del lado del cliente (no seguridad fuerte)
+   - El PIN vive en config_pos_cascanueces (campo pinAcceso, default 2704)
+     y se edita desde Configuración. Lo cacheamos en localStorage para que
+     la pantalla de ingreso funcione al instante, aun antes de que cargue
+     Firestore y estando sin conexión.
+   - El desbloqueo se recuerda en localStorage (casc_unlock_pos) para que
+     mamá NO tenga que ingresarlo cada vez. El botón "Bloquear ahora" de
+     Configuración borra ese recuerdo y vuelve a pedir el PIN.
+   - El parpadeo inicial lo evita el <script> del <head>, que ya pone la
+     clase .unlocked en <html> si el desbloqueo está recordado.
+   ════════════════════════════════════════════════════════════════ */
+const PIN_DEFAULT = "2704";
+const LOCK_KEY = "casc_unlock_pos";
+const PIN_KEY  = "casc_pin_pos";
+const isPin = v => /^\d{4}$/.test(String(v||""));
+let pinAcceso = (()=>{ try{ const c=localStorage.getItem(PIN_KEY); return isPin(c)?c:PIN_DEFAULT; }catch(e){ return PIN_DEFAULT; } })();
+let pinBuffer = "";
+
+function currentPin(){
+  try{ const c=localStorage.getItem(PIN_KEY); if(isPin(c)) return c; }catch(e){}
+  return isPin(pinAcceso) ? pinAcceso : PIN_DEFAULT;
+}
+function cachePin(v){ pinAcceso = isPin(v)?String(v):PIN_DEFAULT; try{ localStorage.setItem(PIN_KEY, pinAcceso); }catch(e){} }
+function renderPinDots(){
+  const dots = document.querySelectorAll("#lockDots .pd");
+  dots.forEach((d,i)=> d.classList.toggle("on", i<pinBuffer.length));
+}
+function lockApp(){
+  pinBuffer=""; renderPinDots();
+  const err=$("#lockErr"); if(err) err.classList.remove("show");
+  try{ localStorage.removeItem(LOCK_KEY); }catch(e){}
+  document.documentElement.classList.remove("unlocked");
+  window.scrollTo(0,0);
+}
+function unlockApp(){
+  try{ localStorage.setItem(LOCK_KEY,"1"); }catch(e){}
+  document.documentElement.classList.add("unlocked");
+  pinBuffer=""; renderPinDots();
+  const err=$("#lockErr"); if(err) err.classList.remove("show");
+}
+function pinPress(d){
+  if(pinBuffer.length>=4) return;
+  pinBuffer += d; renderPinDots();
+  $("#lockErr").classList.remove("show");
+  if(pinBuffer.length===4){
+    if(pinBuffer===currentPin()){
+      setTimeout(unlockApp, 130);
+    }else{
+      const ls=$("#lockScreen");
+      ls.classList.add("shake");
+      const err=$("#lockErr"); err.textContent="PIN incorrecto. Probá de nuevo."; err.classList.add("show");
+      setTimeout(()=>{ ls.classList.remove("shake"); pinBuffer=""; renderPinDots(); }, 430);
+    }
+  }
+}
+function pinBack(){ pinBuffer=pinBuffer.slice(0,-1); renderPinDots(); $("#lockErr").classList.remove("show"); }
+
+document.querySelectorAll("#lockKeys [data-k]").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    const k=b.getAttribute("data-k");
+    if(k==="back") pinBack(); else pinPress(k);
+  });
+});
+/* Teclado físico (por si entra desde una compu) */
+window.addEventListener("keydown", e=>{
+  if(document.documentElement.classList.contains("unlocked")) return;
+  if(/^[0-9]$/.test(e.key)) pinPress(e.key);
+  else if(e.key==="Backspace"){ e.preventDefault(); pinBack(); }
+});
+renderPinDots();
 
 /* ════════════════════════════════════════════════════════════════
    NAVEGACIÓN CON EL BOTÓN ATRÁS DEL DISPOSITIVO (History API)
@@ -2924,6 +3075,8 @@ function configDefaults(){
     colegios: [...COLEGIOS_DEFAULT],
     // Stock
     stockBajo: STOCK_BAJO_DEFAULT,
+    // Acceso · PIN para abrir la app (traba simple del lado del cliente)
+    pinAcceso: PIN_DEFAULT,
     // Plantillas de mensajes y textos de recibo
     ...TPL_DEFAULT
   };
@@ -2946,6 +3099,7 @@ function applyConfig(d){
     ? d.colegios.map(c=> String(c).trim()).filter(Boolean)
     : [...COLEGIOS_DEFAULT];
   STOCK_BAJO = Number(d.stockBajo)>0 ? Number(d.stockBajo) : STOCK_BAJO_DEFAULT;
+  cachePin(isPin(d.pinAcceso) ? d.pinAcceso : PIN_DEFAULT);
   Object.keys(TPL_DEFAULT).forEach(k=>{
     tpl[k] = (typeof d[k]==="string" && d[k].trim()) ? d[k] : TPL_DEFAULT[k];
   });
@@ -3036,6 +3190,8 @@ function renderConfig(){
   cfgColDraft = [...COLEGIOS_BASE];
   renderCfgColegios();
   $("#cfgStockBajo").value = STOCK_BAJO || "";
+  // Acceso · PIN
+  $("#cfgPin").value = currentPin();
 }
 
 $("#cfgColAdd").onclick = cfgAddColegio;
@@ -3065,13 +3221,16 @@ function cfgFromForm(){
     graciasMsg:      tpv("cfgMsgGracias").trim() || TPL_DEFAULT.graciasMsg,
     msgAgenda:       tpv("cfgMsgAgenda").trim()  || TPL_DEFAULT.msgAgenda,
     colegios:  cfgColDraft.slice(),
-    stockBajo: Math.max(1, parseInt($("#cfgStockBajo").value,10)||STOCK_BAJO_DEFAULT)
+    stockBajo: Math.max(1, parseInt($("#cfgStockBajo").value,10)||STOCK_BAJO_DEFAULT),
+    pinAcceso: (isPin($("#cfgPin").value.trim()) ? $("#cfgPin").value.trim() : currentPin())
   };
 }
 
 $("#cfgGuardar").onclick = ()=>{
+  if(!isPin($("#cfgPin").value.trim())){ toast("El PIN tiene que ser de 4 números","err"); $("#cfgPin").focus(); return; }
   showConfirm("cfgConfirm");
 };
+$("#cfgLockNow").onclick = ()=>{ lockApp(); };
 $("#cfgConfirmCancel").onclick = ()=> hideConfirm("cfgConfirm");
 $("#cfgConfirmOk").onclick = async ()=>{
   hideConfirm("cfgConfirm");
