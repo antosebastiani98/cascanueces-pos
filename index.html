@@ -444,6 +444,9 @@ img{display:block;max-width:100%}
   .stat-row{grid-template-columns:repeat(3,1fr)}
   .stat.full{grid-column:auto}
   .vender-btn{max-width:560px}
+  .cfg-card{max-width:680px}
+  .cfg-actions{bottom:20px;max-width:680px}
+  .s-nav-cfg{margin-top:10px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
 }
 
 /* ════════════════ CLIENTES + WHATSAPP (Etapa 3) ════════════════ */
@@ -523,6 +526,33 @@ img{display:block;max-width:100%}
 .cli-block .cb-hijo{font-size:14px;color:var(--gris-700)}
 .cli-block .cb-hijo b{color:var(--gris-900)}
 .section-lbl{font-size:13px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--gris-500);margin:26px 0 12px}
+
+/* ════════════════ CONFIGURACIÓN ════════════════ */
+.top-right{display:flex;align-items:center;gap:10px}
+.top-cfg{width:42px;height:42px;border-radius:13px;background:var(--blanco);box-shadow:var(--card-shadow);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;color:inherit;text-decoration:none;transition:transform .15s ease}
+.top-cfg:active{transform:scale(.94)}
+.cfg-card{background:var(--blanco);border-radius:22px;padding:20px 18px 22px;box-shadow:var(--card-shadow);margin-bottom:16px}
+.cfg-h{display:flex;align-items:center;gap:13px;margin-bottom:6px}
+.cfg-h .cfg-ic{width:46px;height:46px;border-radius:14px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.cfg-h>div{display:flex;flex-direction:column;min-width:0}
+.cfg-h b{font-family:var(--titf);font-weight:600;font-size:21px;color:var(--gris-900);line-height:1.1}
+.cfg-h>div span{font-size:13px;color:var(--texto-suave);margin-top:2px}
+.cfg-ta{width:100%;resize:vertical;min-height:96px;line-height:1.45;font-size:15px}
+textarea.txtin{font-family:inherit}
+.var-hint{font-size:13px;color:var(--texto-suave);margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.var-hint code,.hint code{background:var(--blanco);color:var(--celeste-deep);border:1px solid var(--celeste-light);border-radius:8px;padding:2px 7px;font-size:12.5px;font-weight:600;font-family:'DM Sans',monospace;white-space:nowrap}
+.col-list{display:flex;flex-direction:column;gap:9px;margin:4px 0 14px}
+.col-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--crema);border-radius:14px;padding:13px 14px}
+.col-name{font-size:15.5px;font-weight:500;color:var(--gris-900);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.col-rm{width:34px;height:34px;border-radius:10px;background:var(--rojo-pale);color:var(--rojo);font-size:15px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:transform .15s ease}
+.col-rm:active{transform:scale(.9)}
+.col-empty{font-size:14px;color:var(--texto-suave);background:var(--celeste-pale);border-radius:14px;padding:14px 16px}
+.col-add{display:flex;gap:10px;align-items:center}
+.col-add .txtin{flex:1}
+.col-add-btn{width:54px;height:54px;flex-shrink:0;border-radius:16px;background:var(--celeste-deep);color:#fff;font-size:26px;font-weight:400;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(94,143,168,.3);transition:transform .15s ease}
+.col-add-btn:active{transform:scale(.94)}
+.cfg-actions{position:sticky;bottom:calc(var(--nav-h) + 12px);margin-top:22px;z-index:5}
+.cfg-actions .btn{width:100%;box-shadow:0 10px 28px rgba(94,143,168,.4)}
 
 /* ════════════════ ENTREGAS / REPARTO (Etapa 4) ════════════════ */
 .ent-add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--celeste-deep);color:#fff;border-radius:18px;padding:17px;font-size:16px;font-weight:600;min-height:56px;box-shadow:0 8px 22px rgba(94,143,168,.34);margin:2px 0 16px;transition:transform .15s ease}
@@ -691,6 +721,7 @@ img{display:block;max-width:100%}
         <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span> Clientas</a>
         <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span> Reparto</a>
         <a href="#" class="nav-link" data-go="caja"><span class="bi">💰</span> Caja</a>
+        <a href="#" class="nav-link s-nav-cfg" data-go="config"><span class="bi">⚙️</span> Configuración</a>
       </nav>
     </div>
     <div class="s-foot">Cascanueces · Mar del Plata<br/><br/>hecho por <span class="asg">ASG<em>digital</em>.pro</span></div>
@@ -702,7 +733,10 @@ img{display:block;max-width:100%}
       <div class="ele"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAIAAAAErfB6AAAhkUlEQVR42u1dd1hUV9o/995pMAzFYaiCohQBu9iAiBps6yoxG0tieSxRsmZNNGbNalx3o7sx0bViDMaoqOsmumYti24UOyAQYjAgRdrCIMWhM8AM0+73xxvOd3eAkTLMXHDOHz7Ddco55/e287ZD0DSNLKP/DtKyBRaALcMCsGVYALYMC8CWYQHYMiwAW4YFYAvAlmEB2DL6xOD0m5XQrYP5kCCItu/BD4nW0Y8BJvquL5qJKEEQJNl9aaTVagH4Hn6PBWAjDJ1OB2DoIdHQ0FBaWlpUVPT8+fPy8vLy8vLKysqWlhYgBYQQj8cTi8UuLi729vYDBgyQSCQDBw50dXV1cHDQY2KtVosQIkmyHzB3nwGYpmmdTsfEtaGhIS8v78mTJxkZGWlpaYWFhTKZrLm5ufPfaWVlJRaLPT09R48ePXz48ICAAG9vb3d39xcSkwVg40NLURT8KZVK79+/f/PmzeTk5OLiYrVa/T9GY6fZDr5W76Gzs7O/v//48eNDQ0MnTJjg4uLCfqRbWloIguDxeH0PYCa0CoXi1q1bZ86cuXPnTk1NDX4PRVGAKGDAtJ5e+OV6hhhIZibYwcHBERER06ZN8/T0xO9hD8xAc7m5uTqdbtiwYTqdru3EWAowTdNarZbD4SCEZDLZuXPnYmJi0tPTfzH9ORwmotgY1ul0bZnyxUKMARiATRCEVqvFXyUWi8PCwhYtWjRz5kwHBwf802ZX0oDozZs3ORzO9OnT+wzAoGsJgqitrT127NjRo0dLSkows2JpCUOj0TA/S1GUvb29s7Ozi4uLnZ2dUCikKAqWTdO0SqVqaWlRKpUNDQ3V1dU1NTVyubypqUlvAvAR+BWdToc529PTc968ecuXL584cSJmaDPCrNVqKYo6fvy4SCRasmQJ/Ml2gPEsz507t3PnztzcXGBZrDJhQ5m4enp6+vn5jRs3bvTo0d7e3s7Ozo6OjgKBwPAPKRSKurq6uro6mUxWWFiYlZWVmZmZn59fVFTE1OscDgcoSavVAtIcDmf27Nlr1qyZM2cOn8/vJZiBHLlcrgF1AHu1c+dOV1fXtWvXtgvw/58m2TA0Gg1N00VFRQsWLMD7C3tHkiS8huc8Hm/8+PHbtm2Lj4+vqqpq+1XAeZo2A3DqaAJ1dXWPHz8+c+bMypUrAwICuFwuk615PB6Px8NAjhkz5siRI/X19XjyIF2MNZ48eaJSqQy8ARaybt266OhovHt6gy0AAx40TcfGxoJFQ1EUyGSCIICNYFuDgoJ2796dlpbGxEmn0zHx68xGg8IGIlCr1W3haWpqevTo0RdffLFw4UJsZAHN8fl8sAMQQr6+vkeOHGloaGDSaM+HXC6/fPmyAVqEJdA0PWvWrJMnT7IaYIzu/v37YeOwYMQalCTJhQsXxsXFMYkaQDUi3zD5nvm8qqrq2rVra9euZSINDA2vAwMDjx07plAogLF6AjNQXkZGxvHjxzGbdoSuWq0eNWrUhQsX2AswMB9N0x9++CEAyWRc2L65c+fGx8czcTVM2sYFm/lbVVVV58+fX7BggZ2dHcyNy+WCJkYIjRo16uLFi1h+dm+SsBsHDhz45ptvDIgE+HKpVOrs7Hz//v2OSMH8AMMCtmzZoqdxwV4ICAi4cuUKXpLR9VyXqJC513l5eQcPHgwKCsIaGpt18+fPT01NxXNWq9WdnzOQRXV19fTp06VSqQEOhsncvn1bKBQ+ffqUpQDDLA8ePMhEF/su3n333Zqamp5wQy8hjSejUqmuXbv2m9/8BptjILT5fP6SJUvu3bvHRA4+aABsTEPr1q17//33DaCLt27v3r0ikaiurg4LbRYBDFO8du0ah8MBXQvogpf4xIkT8Da1Wk2zbwBr4j9/+OGHyMhILLfxcSU8PPz06dMVFRV6n21r3mN4Pv3002HDhtXU1BimBsB+wYIFgwYNgrexC2CYfWlpqbu7O+Za2BcnJ6fbt28DtGYRyN0W3fn5+du3b/fw8NA7i7q5uS1cuPDo0aOpqamNjY0dbUhCQsKcOXNsbW0fPXpkmH1hW5qamiQSSXh4eEfo0jRtNkcHnMqXLFly/vx5DocDvgKdTufg4BAbGzt58mSNRoONrL4SxAQCraqqunLlyqVLlx4+fFhbW8t8G4/H8/b29vLy8vPz8/X1hUhlfX19WlpafHx8RkaGt7f3N998ExQU1L7XgrF7JEneunVr5syZ27dv37VrV4fbZUbhfPHiRXwiIkmSJEkrK6ubN2+yVix3VW7n5+efOnUKfCa2traGSWTo0KF79uxpamrqzGEa3rBhwwaE0N///ncDO2YGDoZflMvlEydOzMnJAa8vRVEajeaLL75Yv3593+LdjoJgTOdlc3OzVCrNyMgoLCwsKSkpLy8Hx4hAIHB3d/fz8wsKCpo0aRIYaO3GDNoGkerr68eOHVtUVPTo0aPRo0d3+CnTkznQ2uHDhzH7ApyLFi3qu7zbEUO39ZkY3pnO2BxgkV27dg0hNGzYsObmZgM6mGN66qYoqrm5OTo6miAIHLFxdHT8/PPPIQbXb/Kh8Fr0EgLhOSwfByXB2d7J+CZBEJcvXyYIIiwszMrKyoDC5pjeGKEo6vr161lZWRRFwcy0Wu1HH300ePDgvi6cDUPS7nMDlpSBWGpJSQn4f8LCwpjJC+0QmemXihA6e/YsjrRrtVpvb+/IyEhmXo5lGFbAx48fl8lk9vb2oaGhTFFhZoDBEJBKpffu3cPEiBBavny5SCRiZiybPnsEHz9YnsNEkmRJScnXX38N8tnDw8OwUWZqgBFC33//fUNDA4hirVZrbW29ZMkSc6ELRIYlB/hbWIsxzHb//v3l5eU0Tb/11luG5bOpdTBAmJiYiOWzTqd79dVXfX19X3g26D2GkMlk+/btS0hIoChq5syZ7733nq2trbkI7oWuoaysrJiYGJIk/fz8fvWrX73YLDWlVw9OAuPGjcPxfIQQBKtNfzqCsOuzZ89GjBjB3JDg4OCqqir4X7b5RHU63bx582CeR48e7cy+mRrgsrIyiUSC3fFWVlYFBQWG/a696k1bvXo1BH8oiuJwOBDy27hxoxFzM4zoPDh06BCYVB4eHjU1NZ2hQmTKUz9N06mpqSBSAOAJEyYAYZqYXeDnZDKZs7MzeEmZCSQBAQEtLS0GvAdmQTclJUUkEkFc8sCBA50kQdKUCg8hVFhYyHTjjRkzhqIobE6beDIKhQKA1NNWCoVCpVKxRPWCb6C4uHjZsmVyuVyj0YwbN27dunUQb3ixs8XE0y0oKECMYgJfX19z+Zh0Op27u/vw4cNpmgaTHpymNE37+voKhULTk11H6JaVlb322mt5eXk8Ho/D4URFRVlbW6M2xbGsALiyshJ76RBCAwcONOOZkqKo7du3c7lcnMinUqlsbW0/+eQTs0MLEpjD4RQVFUVERDx+/FggEKhUqo8++mjy5MmGg4nmsaJBYbzzzjuoNTsHIXTjxg0zmjM4UXfUqFECgcDa2jo4ODgpKcm82hdnIdI0ffPmTS8vLzADEUKvvvpqS0tLlxLTTA0wWK04zzkxMdEsJrTerJRKZWZmZk5ODszEXPPR6XT42NPc3PyXv/wFAohg2wcGBkLqT5emZ2rPPk4kBglpZWVlXkkIJh6fzw8ICGD6U80SQoajmlwuP3Xq1IkTJ9LT0wmCEAgESqXS3d390qVLzs7OXRDOZokmMUuGWOIqgowD2hitIHoCLUVRdXV1Z8+ePXbsWGZmJjCDTqdTKpUjRoz4xz/+4ePj01V0TQow7OCAAQOYvjelUsnmcJ7JoK2oqDhz5szXX3+dl5eHbRQ4qr399tuff/75gAEDuoGuSQGGHYSMQ/D00jTd0NDwQnd5vxyAFkVRZWVlx44dO336dHFxMYYW8kCGDBly+PDhuXPnotY4ejd+yNQiGgAGPafVapm1+i8btHV1dceOHYuKiiotLcWGp06nU6lUJEmuX7/+T3/6k5OTU097Cpj4TJKbmwuGFfgW/va3v7HN62uC849Wqz179mxgYOAvTNY64M/p06ffuXOHaeT3ZJg62FBbWwsFemBOb968+SUBGK8xPj5+2rRpGFqKonDZy+jRo//5z39i/7NRTmvIxCSs0+lCQkLwyX3ZsmX9HmDMuHV1dVu3boWFU60DZK+7u3tUVBQkReNiWqMMZHoqXr58OQY4NDSUbZFXoysmQOv+/ftjxozBjMvMoVy9enVJSYmxZLI5AQY3zWeffYZFtKOjI2SfsKR4sDcIWqPR7Nq1CwgaoMWMO2bMmNjY2C4lRfcBDo6PjydbB0II6sz6n5SGFRUUFMyZMwe1ZsgSBAEal8PhbNu2DQrRerWe3dQ6mKbpxsbGQYMGYSbeunVrPwMYK93bt2/DsRDXX4FYDgwMhBIsEywcmYWucaIMQigkJMRcdfu9iu6pU6cgagvoYjdFZGQkVLWbZtXmAfjq1av4KCwQCDIyMvqHGsbo7tq1C9tTuPiKz+dDppwpJRYyzbL1Xsvl8qFDhyKEQCHt37+/H0hpjO6OHTsQow0UrHHo0KEPHjygTV7V3usAA19WVVVhBoVd+MMf/oDV8CuvvGKW1DvjogtnBEAX9xsB3p04cWJxcTFtjuzg3gUYsExMTAQhDPgB0tnZ2dbW1qCcKIrq67Y0IAfdZHC/EeDdOXPmVFdX02aqjEW9jW5CQsLJkyf1vDPwGtJ3wNSaOXNmD/uHmf1EdP36dXApM9F94403lEqlGS0M1KtrTktLW7JkSdsmP9CBRSqVOjo6kiQJe3H27Fm6DxaA4yAKdA9nSuZ58+YBumYkXNR7ay4vLx8+fPitW7fapV9Yc1RUFGhigiAGDx4sk8mM64k1jWGlUqmgThdwhRNReHg41N6bdzmol9asVquDg4M3bNhggH4hrD19+nScyvPmm2/SfaF7kh6Z7t+/H6ML7jkfH5/nz5+z4eyHegNdmqaXL1/u4+OjVCoNHOdh8fn5+SDcQFDv3Lmzr2AMiiY/P9/BwQEXv5AkKRQKk5OTWaJujAwwLGn37t0IIUgwNqx+4H/j4uKg/Aswxt2PWY4xbtes59CAZiMsMSaQ0eVVbGwsQmj9+vWdXCS858yZM8ABgPHu3btN7PHpHrqZmZlCoZDZhHHixIkqlYo91ImMi252drZEIvH09Kyuru5kY2782fPnzwuFQuz9iIyMlMvltKmaB3dPVn388cfMWAJC6OrVq6yiS+MADKZvXV3d+PHjEULfffddVxcJ+3X//n0INAEfjxs3Djds7VLDKRMYzzqdTqFQQPE4JKxDzo1KpWKVZkFGZN+1a9fC4a97JAwfKS0thZQPXAnx29/+Nj8/n/m2zsuGXjWek5KScO9yoMg9e/awTa0gY632q6++QgjZ2Nikp6d3+3iAt+bq1avDhw/HMDs6Oq5btw6sNr1TFoBtYrxhnkePHsV9WwiC4PP5PVk7SwGGpf7888/QKhnaWPeEhLHDsqGh4dChQ6NGjcIwc7ncqVOnHjlyBLo+tPvBdu9YMfqOwwx///vfY88znH3hzob+I6Lh1KtQKKZMmYIQGjRokLFcUZhElErl5cuXFy1a5ObmhpG2sbGZOnXqtm3b/vWvf2VnZ4MtZnoTGroYYYDDwsJYaO33qLIB6im2bt364MEDSHKWSCRGaUdIURTsI5/Pj4iIiIiIkMlkKSkp169fT0pKysrKunfvHnRTQwg5Ozu7ubl5eno6Ozvb29u7urqKxWIbGxuIU/H5fBcXl8GDB9vY2Bi9/J5ZlQNHAJpl/Zc4PSzBiIuLO3DgAEmS/v7+a9asMWI7QtxQAVopODk5zZs3b968eSqVqrCwsKysrKio6NmzZxUVFTKZrLa2ViaTVVVVCYXCwsJCe3t7iUQikUhcXV3hqmArKysjbj3deiEx8yHcVcy2wen2CgmCqKur27RpExDyH//4R2tr6052BukSzEAxWLfxeLxhw4YNGzbM7HsHlZJQUIQQkslkIL1YxcTdBBg4dc+ePZmZmQRBhISEvPHGG73aTZSJ9C/mQ3vFn/C87f/2xo4PHjwYzwcArq+vF4vFfZ6DQTj/8MMPhw8fhgr5HTt2QFdgs9fympJ1oMgKE1N1dXVZWZlYLGYVB3dZnMLslUrle++919TUpNPpZsyYER4e3r3y5D46AD+4LwYAhqLeoqIitpU7dxlgKO09ffp0SkoKl8ulafqDDz5gW99O0wDs6upqb2+PAUYIQaVvHwYY0JXJZLt376YoSq1Wh4aGhoeHv5y9vB0dHR0dHZl6ARowsGp0DWCQz7t37y4uLobD7ubNm+HM+rJxME3TQqEQUhWwoM7JyUEG+6+zGmBg3/T09K+++oqiqJaWluDg4F//+td0/7pJo/O7Ac47pvVeWloKu8Qeiie7Srmffvppc3MzsO+GDRs4HA4bejqafgCEQ4YMYf4plUrZpoY7CzB4MFJTU69cuQLNHX18fCAy+BKyL9a70EyVbu2xVVtbm52d3ScBhvV89tlnSqUSlO6iRYtY0pLVjAMaSTINaalU2veMLGDf5OTkq1evUhQFLVlXrVpFs+9iA9NtHEmCiJZIJEx+zcrK6nsAA4qHDh3SaDRcLlen00VERAwdOtQsbR1ZZUi7uLiAlMb7AF0I2bMtL54HoJiTkxMbG0uSpFqtRghBKPQlH2BI+/n5IUbIIT8/v7GxkT1387wYYJjoyZMnGxsbuVyuVqsNDAycOnXqS2te6Y0JEyZgniYIorS0FNwdfQNgmqYpimpoaLhw4QJWt6+99ppAIIAWey8ztLD84cOH40ALuAceP36M+ZvtAMO8r1y5UlxcDL5JkiShPeZLji7egZEjR3p6eoK9CU9SUlLYsz/kC21FmqZPnDiBWi+y8Pf3Hzt2LGKZQ85cAOt0OpFIBBuC1XBqairE1tggpckXmlcZGRlJSUnYaoiIiODz+Rb5zDRQJk+ejFpzThBCeXl57Ikbki+c/dWrV1UqFYfD0Wg0FEVFRERY5LOelJ40aRIkPoAalsvlycnJLFHDpGH5rNPp/vOf/2C8fX19R44caZHPBtQwPL916xZL2IA0IJ8JgsjPz//555/xw1deeQXsZwu0emp40qRJUH8GYi81NVWhULBBDZOGT/G3b99uamqCTEGEUHBwMHopO/C/0N0RHh6O8/0IgigoKIDYMHsBBiF8/fp1+BOclFBIYpHPbTdqxowZAwYM0Gg0wMdKpTIhIYG9AIOXqrKy8scff8SzHDhwoI+Pj8XCatdS8fDwgD7umPpv3rzJBmYgDYid9PT0iooKfFMoe65sZOFhiaZpuLoZSh0RQg8fPnz27JnZndKkgQMSRL4wDYJX3aKA22VigiDCw8MlEgkwAIfDqampgW4W5rVJSQPWP1M+I4SgYNcCcEe2tLu7++zZs5kscfHiRbOHZEgDhgO4YzCoOIPQgmhHMu/NN99ErS4tgiASExOzsrJASbMIYDD0m5qaKioqmNOVSCQWgA1IaZqmp02bFhgYiC+sUyqVFy9eNK/YIzsixqqqKrjMGZ7Y2NhAkrdlGJDSAoFgzZo1zPK4CxcuKBQKMybSdqgeGhsbFQoF/tPGxgaaNFg42DATr1ixYuDAgTg8nJ2dfffuXRxoYhfAkJ0Dg8vl4gu6WKX5dK1Da4yBv60bDAcoisXit99+G4eHaZqOiooyY3ZihyK6ubmZGRPEp2FWGTXgNoJBGWPgb4PFdhVmQHTVqlX29vZAJSRJxsXFPXjwAC7jNP1GdVgfrCdSgLpZpfNomq6vr29qampoaKitra2urq6vr1cqlWq1Wq1WKxQKuO4eugridAsAj8fj8Xg8gUBgZWVlZWXF5/PhtbW1tY2NjVAoFAqFzs7OXT3hAIqenp5r167du3cvVF9qNJo9e/ZAnxqzeWHadri5c+cOYtyI7ejoWFpayoYeQXA7wvXr19966y1PT8+eN3zRG1wu19bWViwWL168uBtt64ATysrKgD5AKnA4HGjZZ/oeaaijHkEPHz7ELXIRQjwe76effmJDly/QkXK5PC8vLzY2dufOna+//rq/v78e0tC7lsfj8fl8Pp/P4/G4XC603Dcslpmje0uGtoxHjhxBrVfHIoSmT5+O1TwrAM7IyIAm3ZiJ//3vf7O2/WtTU9Pjx4+//PLLlStXhoSEGJCu0OuDCTMTYDygv+ipU6e60RgYLL6Wlhbo3Am/hRCKiYkxfZvhdlzhkIpVUlIyduzYqqoqWLxGo4mOjo6MjGRPqwasL5j3isGQyWTPnj3Lz88vLCwsKiqSSqVlZWVlZWW1tbW4uVVHLmWceaPRaH73u99FRUV1Y8nwkYSEhKlTp+LZOjk5paSkeHh4mNJ/yenIEe3k5OTi4lJVVYUFV1JSUmRkJHtsaSauTN8CRVFOTk5OTk6Q7AhDrVbX1NQA8Hl5eSUlJZWVlVVVVWVlZc+fP29qalKpVPjcj9cIlWTdWDJkSoeGhn7wwQd79+4FeVBRUbFx40ZoxWu6g5OBVn1wbSbIMYRQYGBgS0sL23oxGhCScHWE4XbTGo2murpaKpU+ffr04cOHoaGhzCUHBQV12+aAOTQ3N0+aNImpjA8fPmxKQY0MmAmffPIJYnRTFQgEaWlpdN+8ZBA7Q/Raleq9LTo6mqk1hwwZ0tDQ0G2aBnslNzdXLBaDXofWinfv3jWZNWMoXBgWFobj1eA6hywFVh2IOy/PwVrUs5+ZRy+tVgsV+9iTVVtbW1tb2+0fBUHt4+MTExMDCXgEQbS0tKxevRoyKUyxkx3RO5im3t7eTJE1fvx4pVLZL29kB24uLCwUiUQ4YMrhcHoutEAcYtkAHt+lS5fSJrl4BBkWLx9++CGc/YH8CYK4ceMG3R8v7IaNVigUmKZBjBnFQQEYb9y4ETYTlPHx48dNoIxfAHB6ejqfz4eTEkxr2rRpZjmwmwxjuKgLriBECF27dq3nAENj7ZaWFjg1cblckiQdHBxyc3N726YhDegPmqZHjBgRFhYGJ2M42929e/fChQvmcp336gCNCByMXXhGaRIM38bj8U6ePOno6AhNaWtra+F6e/OEC/GCQbDgeRAE8fHHH1dWVva//mewHGbjHMTo+t3zaLFGo/Hy8jp48CBwLUVRly5dSkpK6lVrizRsBOp0utmzZ8+YMQMmBMkohYWFmzdvBqdPf8IYWBaaBPfGjkMB39KlSxcvXqzVaqHbyffff496M6fnxRX+BEH89a9/5fF48Fqr1XI4nLNnz+7bt89kLYRNOZycnBCjM79x/bJw7Ny0aRPWcRkZGb2aJ0N25iQ3fvz4999/H7tkgY+3bNly/vx5DofDTPzoBxzs4OAA1AwPraysjLndJEkQRGBgoJeXF+wbdMYzjw5mBrF37NgxYsQItVoNqhck2OrVq7/99lsulwtGZv8AWCQSAajQHQz37TfiD1lZWdnb28NrCNmZE2BYm42NzYkTJ0QiESwbJFhzc/OyZcuOHz8OJ6j+Ia5FIhHcz9J7uaR1dXXPnz8H0zogIMCcOlhPUJ88eRLwBgsLkF63bt22bdug/r8fsDLk7sBrsVhs3GxwZtkSFOWGhISYwVVpwB2zb98+1HobFM55A8d1dnY2zbgjuo86OpRKJb7SJTg42Ij35oHHm6ZpcHdQFOXm5iaTyXo1QIe64XLbu3cv6Gbw55EkCf5ViUQSFRUF6PZFmGGX1Wo1tKlACK1cudJYflmdTqdSqWiaPnz4MEKIz+ej1quke3Wjuny1HcwmOjoau+NxjgtsypQpU8C9R7feJ9hXnJowT61WO3r0aFjL/v37jeIuxqHJmJgYSOhECE2ePFkul/f2/nTn7kJY8KVLl1xdXbFnFQfjYGvmzJkTHx/P/Aj7o8h6ABME8eDBA9pId23qdLo///nPqPW+tKFDh/73v/81QdgGdZskaZrOy8uDrA/MyiC6gblJkpw/f/6lS5eam5uZq2Ut0gCwSqWCa5+9vb3r6+u7pyBBQ2HwkpOTZ82aBbuEEBo7dqwJwgw9AhjzsVar3bt3L5iaEHHCDiBseY4YMWLnzp2ZmZlMuoZkGlZJbxwxhKPLu+++21UO08OVpunHjx+vXbvW2toaOxXeeeeduro6k4Vce3S9LA4aFhQUrFq1CkwtyIUDiY2Dbggha2vriIiImJgYEE16QowN8UeYQHV1taenJ0EQnY8E42Qg/KS2tvbKlSsrVqyA9AGAdu7cuffv32fmF7AdYD1rOTExccGCBZhxIQUJ5yHjg5mDg8OsWbP27NmTmJjY2NioBzZOkzP9vd6w6U+ePOFwOGPHjjVc1oCZlQlVY2PjjRs3Nm3aBN1qYAwYMGDx4sW3bt3C2s2U60LG2hoMc3x8/IoVK8DDB7KaibRePrCPj8/SpUu//PLL5ORkEFztfrNpbnOHJdy4cQMhdPr06bb2MwZVbw7Nzc0pKSk7duxgXkvv7Oz8+uuvR0dHY4llFvvDmD1gwE2D2z+cO3fu22+/ffLkCdMjBuEU4HJYLZZggwYNGjlyZFBQkJ+fn5eXl4eHh6OjY7vBHOwM1/OnMv1N3fA9QTTlyJEjBw8ezMzMxNcDw07pzaS6ujorKys9Pf3Ro0ePHj1KT0+H525ublOmTJk/f/7UqVPhlIGz+MxSMGD8Jj8AG8jklpaWuLi47777LiEhIT8/n4k0LnoHyJlgg3h3dHR0dXV1c3Pz9/f39/d3dXV1d3d3d3e3tbXtTKXyLwKK8aJdCmD+C87XLVu2jBs3DkK2epCUl5enpaUlJibeuXMnOzu7vr4envP5fF9f35CQkJkzZ4aFhWHpBfIGHyvME0HpJdexHs3K5fKffvopLi4uPj4+JydHJpPp+bqZhW5Yr7cNwojFYrFY7OzsPGjQoIEDB4rFYicnJ7FYbG9vLxKJhEKhlZWVQCDg8XjdYxeNRpOUlATp7wihpqYmqVSak5OTm5v79OnTgoKCpqYmOzs7d3d3T09PmINEInFxcXF1dcV2Bq4MZkMVSO+26cKylLndFRUVP/74Y1JSUkpKSn5+fllZWbsRZayzcS02JPu1GwuBEkKo7rW1tRUKhfBaJBLZ2dnZ2dlBETDUBFtbW0MpsFAotLOzc3Nzg+4UOM4P/zY2NmZlZclkMq1WC6CKxWJbW9uOClZxH0NWVcqbqA9bu0gjhOrr66VSaWFhYUFBQX5+/vPnz8vLy2UyWV1dnVwuV6lUxpoAn8+Hql+n1uHh4TFkyBAvLy8fHx8cnWXmctAdlA/pWQBYyLOze4kZGu3hDeqI2BsbG6Fiv7y8vLKysr6+vr6+vqamRi6XKxQKpVLZ3NysVCqx7SMQCAQCAXCwnZ0d9IsRiUS2rQNkOPBx90JtbRV2n8liMG/49n8M+tbqEhP8ImJ0+WAt8/UHgNsFQA+JtrpZDw8mYOh/M3zbfuSlu6yctvSe7NfD0trbArBlWAC2DAvAlmEB2DIsAFuGBWDLsABsAdgyLABbRt8Y/wcQrT1BGHI2+QAAAABJRU5ErkJggg==" alt="Cascanueces"/></div>
       <div><div class="bn">Cascanueces</div><div class="bs">Gestión</div></div>
     </div>
-    <div class="conn" id="connMob"><span class="dot"></span><span class="ct">Conectando…</span></div>
+    <div class="top-right">
+      <div class="conn" id="connMob"><span class="dot"></span><span class="ct">Conectando…</span></div>
+      <button class="top-cfg nav-link" data-go="config" aria-label="Configuración">⚙️</button>
+    </div>
   </header>
 
   <main class="main">
@@ -829,6 +863,109 @@ img{display:block;max-width:100%}
       </div>
     </section>
 
+    <!-- ===== VISTA CONFIGURACIÓN ===== -->
+    <section class="view" id="view-config">
+      <div class="eyebrow">Tu negocio, a tu manera</div>
+      <h1 class="h-title">Configuración</h1>
+      <p class="lead">Todo lo de acá se guarda y la app lo usa en <em class="kw">mensajes, recibos, selectores y cálculos</em>. Cambiá lo que quieras y tocá <b>Guardar</b> al final.</p>
+
+      <!-- 1 · NEGOCIO -->
+      <div class="cfg-card">
+        <div class="cfg-h"><span class="cfg-ic">🏡</span><div><b>Negocio</b><span>Aparece en recibos y mensajes</span></div></div>
+        <div class="field"><label>Nombre del negocio</label>
+          <input class="txtin" type="text" id="cfgNegNombre" placeholder="Cascanueces" autocomplete="off"></div>
+        <div class="field"><label>Dirección (quincho)</label>
+          <input class="txtin" type="text" id="cfgNegDir" placeholder="Calle, número, barrio" autocomplete="off"></div>
+        <div class="field"><label>Horarios de atención</label>
+          <input class="txtin" type="text" id="cfgNegHor" placeholder="Ej: Lun a Vie 9 a 18 hs" autocomplete="off">
+          <p class="hint">El nombre va en el recibo. En cualquier mensaje de WhatsApp podés usar <code>{negocio}</code>, <code>{direccion_negocio}</code> y <code>{horarios}</code> y la app los completa solos.</p></div>
+      </div>
+
+      <!-- 2 · PAGO -->
+      <div class="cfg-card">
+        <div class="cfg-h"><span class="cfg-ic">💳</span><div><b>Pago</b><span>Mercado Pago y recargo por transferencia</span></div></div>
+        <div class="field"><label>Alias de Mercado Pago</label>
+          <input class="txtin" type="text" id="cfgAlias" placeholder="cascanueces.mp" autocomplete="off" autocapitalize="off"></div>
+        <div class="field"><label>CBU / CVU (opcional)</label>
+          <input class="txtin" type="text" id="cfgCbu" inputmode="numeric" placeholder="00000000…" autocomplete="off"></div>
+        <div class="field"><label>A nombre de (opcional)</label>
+          <input class="txtin" type="text" id="cfgTitular" placeholder="Antonella" autocomplete="off"></div>
+        <div class="field"><label>Recargo por transferencia / MP (%)</label>
+          <input class="txtin" type="number" id="cfgRecargo" inputmode="decimal" min="0" max="100" step="0.5" placeholder="0">
+          <p class="hint">Se suma solo cuando la clienta paga por transferencia o tarjeta. Vos lo ves al cobrar y va en el mensaje de pago. Es el mismo recargo de “Ajustes de cobro”.</p></div>
+      </div>
+
+      <!-- 3 · WHATSAPP -->
+      <div class="cfg-card">
+        <div class="cfg-h"><span class="cfg-ic">💬</span><div><b>WhatsApp</b><span>Número del negocio y mensajes listos</span></div></div>
+        <div class="field"><label>Número de WhatsApp del negocio</label>
+          <input class="txtin" type="tel" id="cfgWa" inputmode="tel" placeholder="Ej: 223 668 9240" autocomplete="off"></div>
+
+        <div class="section-lbl">Plantillas de mensajes</div>
+        <p class="hint" style="margin-bottom:6px">Escribí los mensajes como quieras. Lo que va entre <b>{llaves}</b> lo completa la app sola (nombre, total, etc.). Abajo de cada uno te digo qué variables podés usar.</p>
+
+        <div class="field"><label>Confirmación de pedido</label>
+          <textarea class="txtin cfg-ta" id="cfgMsgConfirm" rows="6"></textarea>
+          <p class="var-hint">Variables: <code>{clienta}</code> <code>{detalle}</code> <code>{total}</code> <code>{recargo}</code> <code>{negocio}</code></p></div>
+
+        <div class="field"><label>Datos de pago</label>
+          <textarea class="txtin cfg-ta" id="cfgMsgPago" rows="6"></textarea>
+          <p class="var-hint">Variables: <code>{clienta}</code> <code>{datos}</code> <code>{recargo}</code> <code>{alias}</code> <code>{cbu}</code> <code>{titular}</code> <code>{negocio}</code></p></div>
+
+        <div class="field"><label>Voy en camino</label>
+          <textarea class="txtin cfg-ta" id="cfgMsgCamino" rows="6"></textarea>
+          <p class="var-hint">Variables: <code>{clienta}</code> <code>{hora}</code> <code>{direccion}</code> <code>{negocio}</code></p></div>
+
+        <div class="field"><label>Gracias / pedido entregado</label>
+          <textarea class="txtin cfg-ta" id="cfgMsgGracias" rows="5"></textarea>
+          <p class="var-hint">Variables: <code>{clienta}</code> <code>{negocio}</code></p></div>
+
+        <div class="field"><label>“Agendá el número”</label>
+          <textarea class="txtin cfg-ta" id="cfgMsgAgenda" rows="4"></textarea>
+          <p class="var-hint">Variables: <code>{clienta}</code> <code>{colegio}</code> <code>{negocio}</code></p></div>
+      </div>
+
+      <!-- 4 · RECIBO -->
+      <div class="cfg-card">
+        <div class="cfg-h"><span class="cfg-ic">🧾</span><div><b>Recibo</b><span>Comprobante de entrega</span></div></div>
+        <div class="field"><label>Título</label>
+          <input class="txtin" type="text" id="cfgRecTitulo" placeholder="Comprobante de entrega" autocomplete="off"></div>
+        <div class="field"><label>Leyenda legal</label>
+          <input class="txtin" type="text" id="cfgRecLeyenda" placeholder="Documento no válido como factura" autocomplete="off"></div>
+        <div class="field"><label>Mensaje de cierre</label>
+          <input class="txtin" type="text" id="cfgRecPie" placeholder="¡Gracias por elegir Cascanueces! 💙" autocomplete="off"></div>
+        <div class="section-lbl">Contacto del pie</div>
+        <div class="field"><label>Teléfono</label>
+          <input class="txtin" type="tel" id="cfgRecTel" inputmode="tel" placeholder="2236689240" autocomplete="off"></div>
+        <div class="field"><label>Instagram</label>
+          <input class="txtin" type="text" id="cfgRecIg" placeholder="@cascanueces.uniformes" autocomplete="off" autocapitalize="off">
+          <p class="hint">Aparecen al pie del recibo en PDF: “contacto … • …”.</p></div>
+      </div>
+
+      <!-- 5 · COLEGIOS -->
+      <div class="cfg-card">
+        <div class="cfg-h"><span class="cfg-ic">🎒</span><div><b>Colegios</b><span>Alimentan los selectores de toda la app</span></div></div>
+        <div class="col-list" id="cfgColList"></div>
+        <div class="col-add">
+          <input class="txtin" type="text" id="cfgColNuevo" placeholder="Agregar colegio nuevo" autocomplete="off">
+          <button class="col-add-btn" id="cfgColAdd" type="button">＋</button>
+        </div>
+        <p class="hint">Sacar un colegio solo lo quita de los selectores. Las ventas y clientas que ya lo usan no se tocan.</p>
+      </div>
+
+      <!-- 6 · STOCK -->
+      <div class="cfg-card">
+        <div class="cfg-h"><span class="cfg-ic">📦</span><div><b>Stock</b><span>Cuándo avisar “queda poco”</span></div></div>
+        <div class="field"><label>Umbral de stock bajo (unidades)</label>
+          <input class="txtin" type="number" id="cfgStockBajo" inputmode="numeric" min="1" step="1" placeholder="3">
+          <p class="hint">Un uniforme con esta cantidad o menos se marca como “queda poco”.</p></div>
+      </div>
+
+      <div class="cfg-actions">
+        <button class="btn btn-primary" id="cfgGuardar">Guardar configuración</button>
+      </div>
+    </section>
+
   </main>
 
   <!-- BOTTOM NAV (mobile) -->
@@ -919,6 +1056,19 @@ img{display:block;max-width:100%}
     <div class="cbtns">
       <button class="btn btn-ghost" id="cfNo">Cancelar</button>
       <button class="btn btn-primary" id="cfYes" style="background:var(--rojo);box-shadow:none">Borrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmación de guardado de Configuración -->
+<div class="confirm" id="cfgConfirm">
+  <div class="box">
+    <div class="ico">⚙️</div>
+    <h3>¿Guardar configuración?</h3>
+    <p>Esto cambia los mensajes, recibos, selectores y cálculos de toda la app.</p>
+    <div class="cbtns">
+      <button class="btn btn-ghost" id="cfgConfirmCancel">Revisar</button>
+      <button class="btn btn-primary" id="cfgConfirmOk">Sí, guardar</button>
     </div>
   </div>
 </div>
@@ -1461,14 +1611,19 @@ const colRef = collection(db, COL);
 const ventasRef = collection(db, "ventas_pos_cascanueces");
 const cfgRef = doc(db, "config_pos_cascanueces", "general");
 
-/* ── Datos reales de la ficha ── */
-const COLEGIOS_BASE = ["Instituto Sarmiento", "Instituto Minerva"];
+/* ── Datos reales de la ficha ──
+   COLEGIOS_BASE y STOCK_BAJO ya NO son fijos: arrancan con estos valores
+   (defaults que siembran el doc de config) pero la página de Configuración
+   los reemplaza con lo que viva en config_pos_cascanueces. Por eso son `let`. */
+const COLEGIOS_DEFAULT = ["Instituto Sarmiento", "Instituto Minerva"];
+const STOCK_BAJO_DEFAULT = 3;
+let COLEGIOS_BASE = [...COLEGIOS_DEFAULT];
 const PRENDAS_POR_COLEGIO = {
   "Instituto Sarmiento": ["Chomba","Sweater","Buzo polar","Pollera","Bermuda","Campera gimnasia","Pantalón gimnasia","Conjunto gimnasia"],
   "Instituto Minerva":   ["Remera","Sweater liso","Campera gimnasia","Pantalón gimnasia","Conjunto gimnasia"]
 };
 const TALLES_SUGER = ["2","4","6","8","10","12","14","16","XS","S","M","L","XL","XXL","Único"];
-const STOCK_BAJO = 3;
+let STOCK_BAJO = STOCK_BAJO_DEFAULT;
 
 /* ── Estado ── */
 let productos = [];
@@ -1585,6 +1740,7 @@ function go(view, fromPop){
   $("#fabAdd").style.display = view==="stock" ? "flex" : "none";
   $("#fabAddCli").style.display = view==="clientes" ? "flex" : "none";   // Etapa 3
   if(view==="caja") renderCaja();                                        // Etapa 6
+  if(view==="config") renderConfig();                                    // Configuración
   window.scrollTo({top:0,behavior:"smooth"});
   if(fromPop!==true && view!==prev) navGoView(view);
 }
@@ -1940,20 +2096,40 @@ let vSel = { colegio:null, prenda:null };
 let recargoPct = 0;
 let pagoCfg = { alias:"", cbu:"", titular:"" };   // Etapa 3: datos de pago configurables
 
+/* ── Datos del negocio (editables en Configuración) ──
+   Aparecen en recibos y mensajes. Arrancan con los valores que la app ya
+   usaba y se siembran en config_pos_cascanueces si el doc no existe.        */
+let negocioCfg = { nombre:"Cascanueces", direccion:"", horarios:"" };
+let waNegocio  = "2236689240";                    // WhatsApp del negocio
+let reciboCto  = { tel:"2236689240", ig:"@cascanueces.uniformes" };  // pie del recibo
+let cfgDoc     = {};   // última copia del doc de config (para guardados parciales)
+
 /* ── Plantillas de texto EDITABLES (viven en config_pos_cascanueces) ──
    No están hardcodeadas en la lógica: se cargan del doc de config y, si
-   faltan, se siembran ahí los valores por defecto para poder editarlas
-   más adelante desde una página de configuración.
-   Placeholders disponibles: {nombre} {fecha} {items} {total} {pago}
-   {notas} {leyenda} {titulo} {pie}                                      */
+   faltan, se siembran ahí los valores por defecto. Se editan desde la
+   pestaña Configuración (sección WhatsApp y Recibo). Cada plantilla usa
+   {variables} que la app reemplaza al enviar (ver getMsgVars).             */
 const TPL_DEFAULT = {
-  graciasMsg:   "¡Hola {nombre}! 🌰 Soy de Cascanueces.\n¡Gracias por tu compra! Tu pedido ya fue entregado 💙\n¡Que lo disfruten! Cualquier cosa que necesites, escribime por acá.",
+  /* — Mensajes de WhatsApp — */
+  msgConfirmacion: "¡Hola {clienta}! 🌰 Soy de {negocio}.\nTe confirmo tu pedido:\n\n{detalle}\n\nTotal: {total}{recargo}\n\nApenas lo tenga listo te aviso para coordinar la entrega 💙\n¡Gracias por elegirnos!",
+  msgPago:         "¡Hola {clienta}! 🌰 Acá te paso los datos para abonar por Mercado Pago:\n\n{datos}{recargo}\n\nCuando lo hagas, mandame el comprobante y coordinamos la entrega 💙",
+  msgCamino:       "¡Hola {clienta}! 🌰 Soy de {negocio}.\n¡Ya salí con tu pedido! 🚗💨\nCalculo llegar cerca de las {hora}.{direccion}\nSi no llegás a estar o cambió algo, escribime por acá y lo vemos 💙",
+  graciasMsg:      "¡Hola {clienta}! 🌰 Soy de {negocio}.\n¡Gracias por tu compra! Tu pedido ya fue entregado 💙\n¡Que lo disfruten! Cualquier cosa que necesites, escribime por acá.",
+  msgAgenda:       "¡Hola {clienta}! 🌰 Soy {negocio}{colegio}.\nAgendá este número así no se te pierde y cualquier cosa me escribís por acá. ¡Te mando un beso! 💙",
+  /* — Textos del recibo / comprobante — */
   reciboTitulo: "Comprobante de entrega",
   reciboLeyenda:"Documento no válido como factura",
   reciboPie:    "¡Gracias por elegir Cascanueces! 💙",
-  reciboWhats:  "🌰 *CASCANUECES*\n{titulo}\n\nClienta: {nombre}\nCel: {tel}\nFecha: {fecha}\n\n{items}\n\nTotal: {total}\nPago: {pago}\n{notas}_{leyenda}_\n\n{pie}"
+  reciboWhats:  "🌰 *{negocioMay}*\n{titulo}\n\nClienta: {nombre}\nCel: {tel}\nFecha: {fecha}\n\n{items}\n\nTotal: {total}\nPago: {pago}\n{notas}_{leyenda}_\n\n{pie}"
 };
 let tpl = { ...TPL_DEFAULT };
+
+/* Pie de contacto del recibo, compuesto desde los datos editables. */
+function reciboContacto(){
+  const tel = (reciboCto.tel||"").trim(), ig = (reciboCto.ig||"").trim();
+  const partes = [tel && ("contacto " + tel), ig].filter(Boolean);
+  return partes.join(" • ");
+}
 
 /* Reemplaza {placeholders} en una plantilla con los valores del mapa */
 function fillTpl(str, map){
@@ -2724,29 +2900,195 @@ $("#ajGuardar").onclick = async ()=>{
   }
   catch(err){ console.error("Ajustes:", err.code, err.message); toast("No se pudo guardar.","err"); }
 };
+/* ── Documento de configuración (config_pos_cascanueces/general) ──
+   ÚNICA fuente de verdad de todo lo editable. configDefaults() son los
+   valores que la app YA usa hoy: con eso se siembra el doc si no existe,
+   para no romper nada. applyConfig() vuelca el doc al estado de la app
+   (negocio, pago, plantillas, colegios, stock, recibo). Editar desde la
+   pestaña Configuración escribe acá y la app lo toma en todos lados.        */
+function configDefaults(){
+  return {
+    // Negocio
+    negocioNombre: "Cascanueces",
+    negocioDireccion: "",
+    negocioHorarios: "",
+    // WhatsApp del negocio
+    waNegocio: "2236689240",
+    // Pago
+    recargoTransferencia: 0,
+    aliasMP: "", cbuMP: "", titularMP: "",
+    // Recibo · datos de contacto del pie
+    reciboTel: "2236689240",
+    reciboIg:  "@cascanueces.uniformes",
+    // Colegios que alimentan los selectores de toda la app
+    colegios: [...COLEGIOS_DEFAULT],
+    // Stock
+    stockBajo: STOCK_BAJO_DEFAULT,
+    // Plantillas de mensajes y textos de recibo
+    ...TPL_DEFAULT
+  };
+}
+function applyConfig(d){
+  d = d || {};
+  cfgDoc = d;
+  const def = configDefaults();
+  const str = (k)=> (d[k]!=null ? String(d[k]) : def[k]);
+  negocioCfg = {
+    nombre:    (d.negocioNombre!=null && String(d.negocioNombre).trim()) ? String(d.negocioNombre) : def.negocioNombre,
+    direccion: str("negocioDireccion"),
+    horarios:  str("negocioHorarios")
+  };
+  waNegocio  = str("waNegocio");
+  recargoPct = Math.max(0, Number(d.recargoTransferencia)||0);
+  pagoCfg    = { alias: d.aliasMP||"", cbu: d.cbuMP||"", titular: d.titularMP||"" };
+  reciboCto  = { tel: str("reciboTel"), ig: str("reciboIg") };
+  COLEGIOS_BASE = (Array.isArray(d.colegios) && d.colegios.length)
+    ? d.colegios.map(c=> String(c).trim()).filter(Boolean)
+    : [...COLEGIOS_DEFAULT];
+  STOCK_BAJO = Number(d.stockBajo)>0 ? Number(d.stockBajo) : STOCK_BAJO_DEFAULT;
+  Object.keys(TPL_DEFAULT).forEach(k=>{
+    tpl[k] = (typeof d[k]==="string" && d[k].trim()) ? d[k] : TPL_DEFAULT[k];
+  });
+  // Refrescar lo que depende de config (umbral de stock, colegios, etc.)
+  try{ if(productos){ renderStockStats(); renderFiltros(); renderLista(); } }catch(e){}
+}
 async function loadConfig(){
   try{
     const s = await getDoc(cfgRef);
+    const d = s.exists() ? s.data() : {};
+    applyConfig(d);
+    // Sembrar SOLO las claves que faltan: respeta lo ya cargado, completa el resto.
+    const def = configDefaults();
     const faltan = {};
-    if(s.exists()){
-      const d = s.data();
-      recargoPct = Number(d.recargoTransferencia)||0;
-      pagoCfg = { alias: d.aliasMP||"", cbu: d.cbuMP||"", titular: d.titularMP||"" };
-      // Plantillas de texto: uso lo que haya en config; lo que falte lo siembro.
-      Object.keys(TPL_DEFAULT).forEach(k=>{
-        if(typeof d[k]==="string" && d[k].trim()) tpl[k] = d[k];
-        else faltan[k] = TPL_DEFAULT[k];
-      });
-    } else {
-      Object.assign(faltan, TPL_DEFAULT);
-    }
+    Object.keys(def).forEach(k=>{ if(d[k]===undefined) faltan[k] = def[k]; });
     if(Object.keys(faltan).length){
       try{ await setDoc(cfgRef, faltan, { merge:true }); }
-      catch(e){ console.warn("seed plantillas:", e.code); }
+      catch(e){ console.warn("seed config:", e.code); }
     }
   }
   catch(err){ console.warn("config:", err.code); }
 }
+/* Mantener la config viva (otra pestaña / la propia pantalla de Configuración). */
+onSnapshot(cfgRef, snap=>{ applyConfig(snap.exists() ? snap.data() : {}); },
+  err=> console.warn("config snapshot:", err.code));
+
+/* ════════════════════════════════════════════════════════════════
+   PESTAÑA CONFIGURACIÓN (para Antonella, no para la venta diaria)
+   - Vuelca el estado actual a los campos (renderConfig).
+   - La lista de colegios se edita en un borrador local hasta Guardar.
+   - Guardar escribe TODO el doc config_pos_cascanueces de una; el
+     onSnapshot de arriba vuelve a aplicar la config a la app.
+   ════════════════════════════════════════════════════════════════ */
+let cfgColDraft = [];   // borrador editable de la lista de colegios
+
+function renderCfgColegios(){
+  const cont = $("#cfgColList"); if(!cont) return;
+  cont.innerHTML = "";
+  if(!cfgColDraft.length){
+    cont.innerHTML = `<div class="col-empty">Todavía no hay colegios. Agregá uno abajo.</div>`;
+    return;
+  }
+  cfgColDraft.forEach((nom, i)=>{
+    const row = document.createElement("div");
+    row.className = "col-row";
+    row.innerHTML = `<span class="col-name">${esc(nom)}</span>
+      <button class="col-rm" type="button" aria-label="Sacar">✕</button>`;
+    row.querySelector(".col-rm").onclick = ()=>{ cfgColDraft.splice(i,1); renderCfgColegios(); };
+    cont.appendChild(row);
+  });
+}
+function cfgAddColegio(){
+  const inp = $("#cfgColNuevo");
+  const v = (inp.value||"").trim();
+  if(!v) return;
+  const existe = cfgColDraft.some(c=> c.toLowerCase()===v.toLowerCase());
+  if(existe){ toast("Ese colegio ya está en la lista","err"); return; }
+  cfgColDraft.push(v);
+  inp.value = "";
+  renderCfgColegios();
+}
+
+/* Vuelca el estado actual de la config a los campos del formulario. */
+function renderConfig(){
+  // Negocio
+  $("#cfgNegNombre").value = negocioCfg.nombre || "";
+  $("#cfgNegDir").value    = negocioCfg.direccion || "";
+  $("#cfgNegHor").value    = negocioCfg.horarios || "";
+  // Pago
+  $("#cfgAlias").value   = pagoCfg.alias   || "";
+  $("#cfgCbu").value     = pagoCfg.cbu     || "";
+  $("#cfgTitular").value = pagoCfg.titular || "";
+  $("#cfgRecargo").value = recargoPct || "";
+  // WhatsApp
+  $("#cfgWa").value          = waNegocio || "";
+  $("#cfgMsgConfirm").value  = tpl.msgConfirmacion;
+  $("#cfgMsgPago").value     = tpl.msgPago;
+  $("#cfgMsgCamino").value   = tpl.msgCamino;
+  $("#cfgMsgGracias").value  = tpl.graciasMsg;
+  $("#cfgMsgAgenda").value   = tpl.msgAgenda;
+  // Recibo
+  $("#cfgRecTitulo").value  = tpl.reciboTitulo;
+  $("#cfgRecLeyenda").value = tpl.reciboLeyenda;
+  $("#cfgRecPie").value     = tpl.reciboPie;
+  $("#cfgRecTel").value     = reciboCto.tel || "";
+  $("#cfgRecIg").value      = reciboCto.ig  || "";
+  // Colegios (borrador) + Stock
+  cfgColDraft = [...COLEGIOS_BASE];
+  renderCfgColegios();
+  $("#cfgStockBajo").value = STOCK_BAJO || "";
+}
+
+$("#cfgColAdd").onclick = cfgAddColegio;
+$("#cfgColNuevo").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); cfgAddColegio(); } });
+
+/* Junta todo lo del formulario en el objeto que se guarda en Firestore. */
+function cfgFromForm(){
+  const tpv = id => $("#"+id).value;          // texto tal cual (plantillas con saltos)
+  const tx  = id => $("#"+id).value.trim();    // campos de una línea
+  return {
+    negocioNombre:    tx("cfgNegNombre") || "Cascanueces",
+    negocioDireccion: tx("cfgNegDir"),
+    negocioHorarios:  tx("cfgNegHor"),
+    waNegocio:        tx("cfgWa"),
+    recargoTransferencia: Math.max(0, parseFloat($("#cfgRecargo").value)||0),
+    aliasMP:   tx("cfgAlias"),
+    cbuMP:     tx("cfgCbu"),
+    titularMP: tx("cfgTitular"),
+    reciboTel: tx("cfgRecTel"),
+    reciboIg:  tx("cfgRecIg"),
+    reciboTitulo:  tx("cfgRecTitulo")  || TPL_DEFAULT.reciboTitulo,
+    reciboLeyenda: tx("cfgRecLeyenda") || TPL_DEFAULT.reciboLeyenda,
+    reciboPie:     tx("cfgRecPie")     || TPL_DEFAULT.reciboPie,
+    msgConfirmacion: tpv("cfgMsgConfirm").trim() || TPL_DEFAULT.msgConfirmacion,
+    msgPago:         tpv("cfgMsgPago").trim()    || TPL_DEFAULT.msgPago,
+    msgCamino:       tpv("cfgMsgCamino").trim()  || TPL_DEFAULT.msgCamino,
+    graciasMsg:      tpv("cfgMsgGracias").trim() || TPL_DEFAULT.graciasMsg,
+    msgAgenda:       tpv("cfgMsgAgenda").trim()  || TPL_DEFAULT.msgAgenda,
+    colegios:  cfgColDraft.slice(),
+    stockBajo: Math.max(1, parseInt($("#cfgStockBajo").value,10)||STOCK_BAJO_DEFAULT)
+  };
+}
+
+$("#cfgGuardar").onclick = ()=>{
+  showConfirm("cfgConfirm");
+};
+$("#cfgConfirmCancel").onclick = ()=> hideConfirm("cfgConfirm");
+$("#cfgConfirmOk").onclick = async ()=>{
+  hideConfirm("cfgConfirm");
+  const data = cfgFromForm();
+  if(!data.colegios.length){ toast("Dejá al menos un colegio","err"); return; }
+  const btn = $("#cfgGuardar"); btn.disabled = true; const prev = btn.textContent; btn.textContent = "Guardando…";
+  try{
+    await setDoc(cfgRef, data, { merge:true });
+    applyConfig({ ...cfgDoc, ...data });   // aplico ya (preservo campos no editados acá)
+    toast("Configuración guardada ✓","ok");
+  }catch(err){
+    console.error("Config guardar:", err.code, err.message);
+    toast("No se pudo guardar. Probá de nuevo.","err");
+  }finally{
+    btn.disabled = false; btn.textContent = prev;
+  }
+};
 
 /* ── Sync en tiempo real ── */
 onSnapshot(colRef, { includeMetadataChanges:true }, snap=>{
@@ -2795,25 +3137,25 @@ function openWa(phone, text){
   window.open(`https://wa.me/${n}?text=${encodeURIComponent(text)}`, "_blank");
 }
 
-/* ── Mensajes listos, en voz Cascanueces ── */
+/* ── Mensajes listos, armados desde las plantillas editables (Configuración) ──
+   La voz/estilo de cada mensaje vive en config_pos_cascanueces; acá solo se
+   calculan las {variables} que la plantilla reemplaza. Así Antonella puede
+   reescribir cualquier mensaje sin tocar el código.                          */
+function bizVars(){   // variables del negocio disponibles en todas las plantillas
+  return { negocio: negocioCfg.nombre, direccion_negocio: negocioCfg.direccion,
+           horarios: negocioCfg.horarios, whatsapp: waNegocio };
+}
 function msgConfirmacion(cli, venta){
   const lineas = (venta?.items||[]).map(l=>
     `• ${l.prenda} talle ${l.talle}${l.cant>1?` x${l.cant}`:""} — ${money(l.subtotal)}`).join("\n");
   const recargoLinea = (venta?.pago==="transferencia" && venta?.recargo>0)
     ? `\n(Incluye ${recargoPct}% por transferencia / MP)` : "";
-  const hola = cli?.nombre ? `¡Hola ${cli.nombre}!` : "¡Hola!";
-  return `${hola} 🌰 Soy de Cascanueces.
-Te confirmo tu pedido:
-
-${lineas}
-
-Total: ${money(venta?.total||0)}${recargoLinea}
-
-Apenas lo tenga listo te aviso para coordinar la entrega 💙
-¡Gracias por elegirnos!`;
+  return fillMsg(tpl.msgConfirmacion, {
+    ...bizVars(), clienta: cli?.nombre || "", nombre: cli?.nombre || "",
+    detalle: lineas, total: money(venta?.total||0), recargo: recargoLinea
+  });
 }
 function msgPago(cli){
-  const hola = cli?.nombre ? `¡Hola ${cli.nombre}!` : "¡Hola!";
   const datos = [];
   if(pagoCfg.alias)   datos.push(`Alias: ${pagoCfg.alias}`);
   if(pagoCfg.cbu)     datos.push(`CBU/CVU: ${pagoCfg.cbu}`);
@@ -2822,17 +3164,17 @@ function msgPago(cli){
   const recargoNota = recargoPct>0
     ? `\n\nOjo: si pagás por transferencia o con tarjeta se suma un ${recargoPct}%. En efectivo no tiene recargo 😉`
     : "";
-  return `${hola} 🌰 Acá te paso los datos para abonar por Mercado Pago:
-
-${bloque}${recargoNota}
-
-Cuando lo hagas, mandame el comprobante y coordinamos la entrega 💙`;
+  return fillMsg(tpl.msgPago, {
+    ...bizVars(), clienta: cli?.nombre || "", nombre: cli?.nombre || "",
+    datos: bloque, recargo: recargoNota,
+    alias: pagoCfg.alias || "", cbu: pagoCfg.cbu || "", titular: pagoCfg.titular || ""
+  });
 }
 function msgAgenda(cli){
-  const hola = cli?.nombre ? `¡Hola ${cli.nombre}!` : "¡Hola!";
   const cole = cli?.colegio ? ` (uniformes ${corto(cli.colegio)})` : "";
-  return `${hola} 🌰 Soy Cascanueces${cole}.
-Agendá este número así no se te pierde y cualquier cosa me escribís por acá. ¡Te mando un beso! 💙`;
+  return fillMsg(tpl.msgAgenda, {
+    ...bizVars(), clienta: cli?.nombre || "", nombre: cli?.nombre || "", colegio: cole
+  });
 }
 function sendPago(cli){
   if(!pagoCfg.alias && !pagoCfg.cbu){
@@ -3252,14 +3594,13 @@ function etaTexto(){
 }
 function clienteDe(ent){ return clientes.find(c=>c.id===ent.clienteId) || null; }
 
-/* ── Mensaje "Voy en camino" (voz Cascanueces, con hora estimada) ── */
+/* ── Mensaje "Voy en camino" (plantilla editable, con hora estimada) ── */
 function msgEnCamino(cli, ent){
-  const hola = cli?.nombre ? `¡Hola ${cli.nombre}!` : "¡Hola!";
-  const dir  = (ent?.direccion) ? `\n📍 Voy para ${ent.direccion}.` : "";
-  return `${hola} 🌰 Soy de Cascanueces.
-¡Ya salí con tu pedido! 🚗💨
-Calculo llegar cerca de las ${etaTexto()}.${dir}
-Si no llegás a estar o cambió algo, escribime por acá y lo vemos 💙`;
+  const dir = (ent?.direccion) ? `\n📍 Voy para ${ent.direccion}.` : "";
+  return fillMsg(tpl.msgCamino, {
+    ...bizVars(), clienta: cli?.nombre || "", nombre: cli?.nombre || "",
+    hora: etaTexto(), direccion: dir
+  });
 }
 
 /* ── Filtros (día + estado) ── */
@@ -3613,7 +3954,8 @@ onSnapshot(ventasRef, snap=>{
 
 /* Mensaje "Gracias / pedido entregado" desde la plantilla editable */
 function msgGracias(cli, e){
-  return fillMsg(tpl.graciasMsg, { nombre: cli?.nombre || e?.clienteNombre || "" });
+  const nom = cli?.nombre || e?.clienteNombre || "";
+  return fillMsg(tpl.graciasMsg, { ...bizVars(), nombre: nom, clienta: nom });
 }
 
 /* Venta vinculada a una entrega (para el detalle del recibo) */
@@ -3668,7 +4010,7 @@ function reciboHTML(d){
   return `<div class="recibo-doc">
     <div class="ri-head">
       ${logoSrc ? `<img class="ri-logo" src="${logoSrc}" alt="Cascanueces"/>` : ""}
-      <div><div class="ri-brand">Cascanueces</div><div class="ri-sub">${esc(tpl.reciboTitulo)}</div></div>
+      <div><div class="ri-brand">${esc(negocioCfg.nombre)}</div><div class="ri-sub">${esc(tpl.reciboTitulo)}</div></div>
     </div>
     <div class="ri-meta">
       <b>${esc(d.nombre)}</b>
@@ -3694,7 +4036,8 @@ function reciboTexto(d){
   let txt = fillTpl(tpl.reciboWhats, {
     nombre: d.nombre, tel: d.tel, fecha: fechaLarga(d.fechaMs), items, total: money(d.total),
     pago: pagoLabel(d.pago), notas, leyenda: tpl.reciboLeyenda,
-    titulo: tpl.reciboTitulo, pie: tpl.reciboPie
+    titulo: tpl.reciboTitulo, pie: tpl.reciboPie,
+    negocio: negocioCfg.nombre, negocioMay: (negocioCfg.nombre||"").toUpperCase()
   });
   // Plantillas viejas (ya sembradas) no traen {tel}: lo agrego bajo la clienta.
   if(d.tel && txt.indexOf(d.tel)===-1){
@@ -3716,7 +4059,7 @@ function reciboPDF(d){
   try{ if(logoSrc) doc.addImage(logoSrc, "PNG", M, y-5, 16, 16); }catch(e){}
   // Dancing Script no entra en el PDF: va en el celeste de la marca + texto.
   doc.setFont("helvetica","bold"); doc.setFontSize(20); doc.setTextColor(143,178,200);
-  doc.text("Cascanueces Uniformes", M+20, y+3);
+  doc.text(negocioCfg.nombre || "Cascanueces", M+20, y+3);
   doc.setFont("helvetica","normal"); doc.setFontSize(10); doc.setTextColor(107,107,107);
   doc.text(tpl.reciboTitulo, M+20, y+9);
   y += 20;
@@ -3772,7 +4115,8 @@ function reciboPDF(d){
   doc.text(tpl.reciboPie.replace(/[^\x00-\x7F]/g,"").trim() || "Gracias por elegir Cascanueces", W/2, y, { align:"center" });
   y += 5;
   doc.setFontSize(8); doc.setTextColor(143,178,200);
-  doc.text("contacto 2236689240 • @cascanueces.uniformes", W/2, y, { align:"center" });
+  const ctoLine = reciboContacto();
+  if(ctoLine) doc.text(ctoLine, W/2, y, { align:"center" });
   return doc;
 }
 
