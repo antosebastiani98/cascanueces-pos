@@ -365,6 +365,10 @@ img{display:block;max-width:100%}
 .btn-wa .wtx span{font-size:12.5px;opacity:.92;display:block;margin-top:3px}
 .btn-wa.soft .wtx span{color:var(--texto-suave);opacity:1}
 .wa-disabled{opacity:.5;pointer-events:none}
+/* botón "programar entrega" en la pantalla de ¡Venta hecha! */
+.btn-wa.deliver{background:var(--celeste-deep);color:#fff;box-shadow:0 8px 22px rgba(94,143,168,.34)}
+.btn-wa.deliver .wico{background:rgba(255,255,255,.22)}
+.btn-wa.deliver.done{background:var(--sage);box-shadow:none;pointer-events:none}
 
 /* selector de cliente dentro de Vender */
 .cli-pick-row{display:flex;align-items:center;gap:13px;width:100%;background:#fff;border:2px solid #fff;border-radius:18px;padding:15px 17px;box-shadow:var(--card-shadow);text-align:left;margin-bottom:18px;transition:border-color .15s ease}
@@ -681,6 +685,13 @@ img{display:block;max-width:100%}
         <h2>¡Venta hecha!</h2>
         <div class="amt" id="vOkAmt">$0</div>
         <div class="way" id="vOkWay"></div>
+
+        <div class="wa-group" id="vOkEntrega" style="display:none;margin-bottom:14px;text-align:left">
+          <button class="btn-wa deliver" id="vEntregaBtn">
+            <span class="wico">🚗</span>
+            <span class="wtx"><b id="vEntregaTit">Programar entrega a domicilio</b><span id="vEntregaSub">La llevás vos · queda lista en Reparto</span></span>
+          </button>
+        </div>
 
         <div class="wa-group" id="vOkWa" style="display:none;margin-bottom:22px;text-align:left">
           <button class="btn-wa" id="waConfirm">
@@ -1232,6 +1243,8 @@ let pagoSel = null;
 let vStepNow = "armar";
 let venderCliente = null;   // Etapa 3: clienta vinculada a la venta en curso
 let lastVentaWhats = null;  // Etapa 3: datos de la última venta para los mensajes
+let lastVentaInfo = null;   // Etapa 4: {ventaId, total} para generar la entrega con un toque
+let entregaYaCreada = false;// evita duplicar la entrega desde "¡Venta hecha!"
 
 const tOrder = t => { const i = TALLES_SUGER.indexOf(String(t)); return i<0 ? 999 : i; };
 const vendibles = () => productos.filter(p => p.activo!==false && (Number(p.stock)||0) > 0);
@@ -1239,6 +1252,7 @@ const vendibles = () => productos.filter(p => p.activo!==false && (Number(p.stoc
 function openVender(){
   venderCart = []; vSel = { colegio:null, prenda:null }; pagoSel = null;
   venderCliente = null; renderVCliPick();   // Etapa 3
+  lastVentaInfo = null; entregaYaCreada = false;   // Etapa 4
   vStep("armar");
   buildVColegios(); buildVPrendas(); buildVTalles(); renderCart(); renderPago();
   const v = $("#vender"); v.classList.add("show"); v.setAttribute("aria-hidden","false");
@@ -1414,13 +1428,16 @@ $("#vConfirmar").onclick = async ()=>{
     });
     await batch.commit();
     lastVentaWhats = { items: itemsVenta, subtotal: sub, recargo, total, pago: pagoSel }; // Etapa 3
+    lastVentaInfo = { ventaId: ventaRef.id, total };   // Etapa 4: para generar la entrega
+    entregaYaCreada = false;
     $("#vOkAmt").textContent = money(total);
     $("#vOkWay").textContent = pagoSel==="efectivo"
       ? "Cobrado en efectivo 💵"
       : "Cobrado por transferencia / MP 📲" + (recargo>0 ? " (recargo incluido)" : "");
     venderCart = []; pagoSel = null;
     vStep("ok");
-    renderVOkWa();   // Etapa 3: botones de WhatsApp post-venta
+    renderVOkWa();        // Etapa 3: botones de WhatsApp post-venta
+    renderVOkEntrega();   // Etapa 4: programar la entrega con un toque
   }catch(err){
     console.error("Confirmar venta:", err.code, err.message);
     toast("No se pudo cobrar. Probá de nuevo.", "err");
@@ -1430,6 +1447,7 @@ $("#vConfirmar").onclick = async ()=>{
 $("#vNueva").onclick = ()=>{
   vSel = { colegio:null, prenda:null }; pagoSel = null;
   venderCliente = null; lastVentaWhats = null; renderVCliPick();   // Etapa 3
+  lastVentaInfo = null; entregaYaCreada = false;   // Etapa 4
   vStep("armar"); buildVColegios(); buildVPrendas(); buildVTalles(); renderCart(); renderPago();
 };
 $("#vListo").onclick = closeVender;
@@ -1815,6 +1833,56 @@ function renderVOkWa(){
     $("#waPago").onclick    = ()=> sendPago(venderCliente);
   } else {
     wrap.style.display = "none";
+  }
+}
+
+/* ── Programar la entrega a domicilio con UN toque, desde "¡Venta hecha!" ──
+   Solo si la venta tiene clienta. Toma dirección y WhatsApp de su ficha,
+   crea la entrega (estado "pendiente") vinculada a la venta y aparece en Reparto. */
+function renderVOkEntrega(){
+  const wrap = $("#vOkEntrega"); if(!wrap) return;
+  const btn = $("#vEntregaBtn");
+  if(!venderCliente || !lastVentaInfo){ wrap.style.display = "none"; return; }
+  wrap.style.display = "flex";
+  if(entregaYaCreada){
+    btn.classList.add("done");
+    $("#vEntregaTit").textContent = "✓ Entrega programada";
+    $("#vEntregaSub").textContent = "La encontrás en la pestaña Reparto";
+    return;
+  }
+  btn.classList.remove("done");
+  $("#vEntregaTit").textContent = "Programar entrega a domicilio";
+  const tieneDir = !!(venderCliente.direccion && venderCliente.direccion.trim());
+  $("#vEntregaSub").textContent = tieneDir
+    ? "La llevás vos · queda lista en Reparto"
+    : "Sin dirección — la cargás después en Reparto";
+  btn.onclick = crearEntregaDesdeVenta;
+}
+async function crearEntregaDesdeVenta(){
+  if(entregaYaCreada || !venderCliente || !lastVentaInfo) return;
+  const btn = $("#vEntregaBtn");
+  btn.classList.add("wa-disabled");
+  try{
+    await addDoc(entregasRef, {
+      ventaId:       lastVentaInfo.ventaId,
+      clienteId:     venderCliente.id,
+      clienteNombre: venderCliente.nombre || "",
+      direccion:     (venderCliente.direccion || "").trim(),
+      fecha:         hoyYmd(),
+      notas:         "",
+      total:         Number(lastVentaInfo.total)||0,
+      estado:        "pendiente",
+      ts:            Date.now(),
+      creado:        serverTimestamp()
+    });
+    entregaYaCreada = true;
+    toast("¡Entrega programada! 🚗 Está en Reparto", "ok");
+  }catch(err){
+    console.error("Crear entrega desde venta:", err.code, err.message);
+    toast("No se pudo programar la entrega. Probá desde Reparto.", "err");
+  }finally{
+    btn.classList.remove("wa-disabled");
+    renderVOkEntrega();
   }
 }
 
