@@ -210,6 +210,9 @@ img{display:block;max-width:100%}
 /* ====== VENDER / POS (a prueba de mamá) ====== */
 .vender{position:fixed;inset:0;z-index:60;background:var(--crema);max-width:600px;margin:0 auto;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .34s cubic-bezier(.22,1,.36,1)}
 .vender.show{transform:translateY(0)}
+/* el selector / alta de clienta se abre DESDE Vender (z-index 60): tienen que quedar por encima */
+#pickScrim,#cliScrim{z-index:65}
+#pickSheet,#cliSheet{z-index:66}
 .v-head{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--gris-900);color:#fff;flex-shrink:0}
 .v-back{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;flex-shrink:0}
 .v-head .vt{font-family:var(--titf);font-weight:600;font-size:23px;flex:1}
@@ -262,16 +265,16 @@ img{display:block;max-width:100%}
 .v-total-box .lbl{font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--gris-500)}
 .v-total-box .big{font-family:var(--titf);font-weight:600;font-size:46px;color:var(--gris-900);line-height:1.1;margin-top:6px}
 .v-total-box .det{font-size:13.5px;color:var(--texto-suave);margin-top:8px}
-.pago-opts{display:flex;flex-direction:column;gap:12px}
-.pago{display:flex;align-items:center;gap:16px;width:100%;background:#fff;border:2px solid #fff;border-radius:18px;padding:20px;box-shadow:var(--card-shadow);text-align:left;transition:all .15s ease;min-height:74px}
-.pago:active{transform:scale(.99)}
+.pago-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pago{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;width:100%;background:#fff;border:2px solid #fff;border-radius:18px;padding:20px 12px;box-shadow:var(--card-shadow);text-align:center;transition:all .15s ease;min-height:130px}
+.pago:active{transform:scale(.98)}
 .pago.on{border-color:var(--celeste-deep);background:var(--celeste-pale)}
 .pago .pico{width:54px;height:54px;border-radius:16px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
 .pago.on .pico{background:#fff}
-.pago .ptx{flex:1}
-.pago .ptx b{font-size:18px;color:var(--gris-900);display:block}
-.pago .ptx span{font-size:13.5px;color:var(--texto-suave)}
-.pago .pcheck{width:28px;height:28px;border-radius:50%;border:2px solid var(--gris-300);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px}
+.pago .ptx{flex:1;display:flex;flex-direction:column;justify-content:center}
+.pago .ptx b{font-size:16px;color:var(--gris-900);display:block;line-height:1.15}
+.pago .ptx span{font-size:12px;color:var(--texto-suave);display:block;margin-top:4px}
+.pago .pcheck{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;border:2px solid var(--gris-300);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px}
 .pago.on .pcheck{background:var(--celeste-deep);border-color:var(--celeste-deep)}
 .v-confirm{margin-top:24px}
 .v-confirm .btn{width:100%}
@@ -650,11 +653,20 @@ img{display:block;max-width:100%}
 
     <!-- PASO 2: cobrar -->
     <div class="v-step" id="vCobrar">
-      <button class="cli-pick-row" id="vCliPick">
+      <!-- Dos switches independientes, a prueba de mamá -->
+      <div class="switch-row" id="vSwClientaRow">
+        <div class="st"><b>👩 Clienta</b><span id="vSwClientaSub">Guardá la venta en su historial</span></div>
+        <button class="switch" id="vSwClienta" type="button" aria-pressed="false"><span class="knob"></span></button>
+      </div>
+      <button class="cli-pick-row" id="vCliPick" type="button" style="display:none">
         <span class="cp-ico">👩</span>
-        <span class="cp-tx"><b id="vCliName">Sin clienta</b><span id="vCliSub">Tocá para elegir o crear (opcional)</span></span>
+        <span class="cp-tx"><b id="vCliName">Sin clienta</b><span id="vCliSub">Tocá para elegir o crear</span></span>
         <span class="cp-act" id="vCliAct">Elegir</span>
       </button>
+      <div class="switch-row" id="vSwRepartoRow">
+        <div class="st"><b>🚗 Reparto a domicilio</b><span id="vSwRepartoSub">Programá la entrega en Reparto</span></div>
+        <button class="switch" id="vSwReparto" type="button" aria-pressed="false"><span class="knob"></span></button>
+      </div>
       <div class="v-total-box">
         <div class="lbl">Total a cobrar</div>
         <div class="big" id="vPagoTotal">$0</div>
@@ -824,7 +836,7 @@ img{display:block;max-width:100%}
   <div class="sheet-body">
     <div class="cli-search-wrap">
       <span class="cli-search-ico">🔍</span>
-      <input class="cli-search" id="pickSearch" type="text" placeholder="Buscar clienta…" autocomplete="off"/>
+      <input class="cli-search" id="pickSearch" type="text" placeholder="Buscar por nombre o WhatsApp…" autocomplete="off"/>
     </div>
     <button class="hijo-add" id="pickNueva" style="background:var(--celeste-deep);color:#fff;margin-bottom:14px">＋ Clienta nueva</button>
     <div class="cli-pick-list" id="pickList"></div>
@@ -1242,6 +1254,8 @@ let pagoCfg = { alias:"", cbu:"", titular:"" };   // Etapa 3: datos de pago conf
 let pagoSel = null;
 let vStepNow = "armar";
 let venderCliente = null;   // Etapa 3: clienta vinculada a la venta en curso
+let venderUsaClienta = false; // switch "Clienta" (off por defecto = mostrador)
+let venderUsaReparto = false; // switch "Reparto" (off por defecto)
 let lastVentaWhats = null;  // Etapa 3: datos de la última venta para los mensajes
 let lastVentaInfo = null;   // Etapa 4: {ventaId, total} para generar la entrega con un toque
 let entregaYaCreada = false;// evita duplicar la entrega desde "¡Venta hecha!"
@@ -1251,7 +1265,8 @@ const vendibles = () => productos.filter(p => p.activo!==false && (Number(p.stoc
 
 function openVender(){
   venderCart = []; vSel = { colegio:null, prenda:null }; pagoSel = null;
-  venderCliente = null; renderVCliPick();   // Etapa 3
+  venderCliente = null; venderUsaClienta = false; venderUsaReparto = false;
+  renderVCliPick(); renderVSwitches();   // Etapa 3
   lastVentaInfo = null; entregaYaCreada = false;   // Etapa 4
   vStep("armar");
   buildVColegios(); buildVPrendas(); buildVTalles(); renderCart(); renderPago();
@@ -1401,6 +1416,9 @@ document.querySelectorAll(".pago").forEach(b=>{
 /* ── Confirmar venta: descuenta stock + guarda venta ── */
 $("#vConfirmar").onclick = async ()=>{
   if(!pagoSel || venderCart.length===0) return;
+  if(venderUsaReparto && !venderCliente){
+    toast("Elegí la clienta para el reparto","err"); openPickSheet(); return;
+  }
   $("#vConfirmar").disabled = true;
   const sub = cartSubtotal();
   const recargo = pagoSel==="transferencia" ? Math.round(sub*recargoPct/100) : 0;
@@ -1430,6 +1448,27 @@ $("#vConfirmar").onclick = async ()=>{
     lastVentaWhats = { items: itemsVenta, subtotal: sub, recargo, total, pago: pagoSel }; // Etapa 3
     lastVentaInfo = { ventaId: ventaRef.id, total };   // Etapa 4: para generar la entrega
     entregaYaCreada = false;
+    // Switch "Reparto" ON → generar la entrega vinculada a la venta y la clienta
+    if(venderUsaReparto && venderCliente){
+      try{
+        await addDoc(entregasRef, {
+          ventaId:       ventaRef.id,
+          clienteId:     venderCliente.id,
+          clienteNombre: venderCliente.nombre || "",
+          direccion:     (venderCliente.direccion || "").trim(),
+          fecha:         hoyYmd(),
+          notas:         "",
+          total:         Number(total)||0,
+          estado:        "pendiente",
+          ts:            Date.now(),
+          creado:        serverTimestamp()
+        });
+        entregaYaCreada = true;
+      }catch(err){
+        console.error("Crear entrega (reparto):", err.code, err.message);
+        toast("Venta guardada, pero no pude programar el reparto. Hacelo desde Reparto.","err");
+      }
+    }
     $("#vOkAmt").textContent = money(total);
     $("#vOkWay").textContent = pagoSel==="efectivo"
       ? "Cobrado en efectivo 💵"
@@ -1446,7 +1485,8 @@ $("#vConfirmar").onclick = async ()=>{
 };
 $("#vNueva").onclick = ()=>{
   vSel = { colegio:null, prenda:null }; pagoSel = null;
-  venderCliente = null; lastVentaWhats = null; renderVCliPick();   // Etapa 3
+  venderCliente = null; venderUsaClienta = false; venderUsaReparto = false;
+  lastVentaWhats = null; renderVCliPick(); renderVSwitches();   // Etapa 3
   lastVentaInfo = null; entregaYaCreada = false;   // Etapa 4
   vStep("armar"); buildVColegios(); buildVPrendas(); buildVTalles(); renderCart(); renderPago();
 };
@@ -1590,9 +1630,11 @@ function sendPago(cli){
 
 /* ── Lista de clientas (con búsqueda) ── */
 function cliMatch(c, q){
+  const qd = q.replace(/\D/g,"");
   return (c.nombre||"").toLowerCase().includes(q)
       || (c.colegio||"").toLowerCase().includes(q)
-      || corto(c.colegio||"").toLowerCase().includes(q);
+      || corto(c.colegio||"").toLowerCase().includes(q)
+      || (qd.length>=3 && (c.whatsapp||"").replace(/\D/g,"").includes(qd));
 }
 function renderClientes(){
   const cont = $("#listaClientes"); if(!cont) return;
@@ -1744,7 +1786,7 @@ async function saveCli(){
       toast("Clienta agregada ✓","ok");
     }
     closeCliSheet();
-    if(doPick && savedId){ venderCliente = { id:savedId, ...data }; renderVCliPick(); }
+    if(doPick && savedId){ venderCliente = { id:savedId, ...data }; venderUsaClienta = true; renderVCliPick(); renderVSwitches(); }
   }catch(err){
     console.error("Guardar clienta:", err.code, err.message);
     toast("No se pudo guardar. Probá de nuevo.","err");
@@ -1778,10 +1820,44 @@ function renderVCliPick(){
   } else {
     row.classList.remove("set");
     $("#vCliName").textContent = "Sin clienta";
-    $("#vCliSub").textContent = "Tocá para elegir o crear (opcional)";
+    $("#vCliSub").textContent = "Tocá para elegir o crear";
     $("#vCliAct").textContent = "Elegir";
   }
 }
+
+/* ── Switches "Clienta" y "Reparto" (independientes, a prueba de mamá) ── */
+function renderVSwitches(){
+  const swC = $("#vSwClienta"), swR = $("#vSwReparto"); if(!swC || !swR) return;
+  swC.classList.toggle("on", venderUsaClienta);
+  swC.setAttribute("aria-pressed", venderUsaClienta ? "true" : "false");
+  swR.classList.toggle("on", venderUsaReparto);
+  swR.setAttribute("aria-pressed", venderUsaReparto ? "true" : "false");
+  $("#vCliPick").style.display = venderUsaClienta ? "flex" : "none";
+  $("#vSwClientaSub").textContent = venderUsaClienta
+    ? (venderCliente ? "Queda en su historial" : "Elegí o creá la clienta")
+    : "Guardá la venta en su historial";
+  $("#vSwRepartoSub").textContent = venderUsaReparto
+    ? (venderCliente ? "Se programa la entrega de esta venta" : "Necesita una clienta con dirección")
+    : "Programá la entrega en Reparto";
+}
+$("#vSwClienta").onclick = ()=>{
+  venderUsaClienta = !venderUsaClienta;
+  if(!venderUsaClienta){
+    venderCliente = null;
+    if(venderUsaReparto){ venderUsaReparto = false; toast("El reparto necesita una clienta"); }
+  }
+  renderVCliPick(); renderVSwitches();
+};
+$("#vSwReparto").onclick = ()=>{
+  venderUsaReparto = !venderUsaReparto;
+  if(venderUsaReparto){
+    venderUsaClienta = true;        // reparto necesita clienta (para la dirección)
+    renderVCliPick(); renderVSwitches();
+    if(!venderCliente) openPickSheet();   // que la elija ya mismo
+    return;
+  }
+  renderVSwitches();
+};
 function openPickSheet(){
   $("#pickSearch").value = "";
   renderPickList("");
@@ -1799,7 +1875,7 @@ function renderPickList(q){
     none.className = "cli-pick-item";
     none.innerHTML = `<span class="cli-av" style="background:var(--gris-100);color:var(--gris-500)">✕</span>
       <span class="cpi-tx"><b>Sin clienta</b><span>Vender sin vincular</span></span>`;
-    none.onclick = ()=>{ venderCliente = null; renderVCliPick(); closePickSheet(); };
+    none.onclick = ()=>{ venderCliente = null; renderVCliPick(); renderVSwitches(); closePickSheet(); };
     cont.appendChild(none);
   }
   if(lista.length===0){
@@ -1814,7 +1890,7 @@ function renderPickList(q){
     b.innerHTML = `<span class="cli-av">${cliInitial(c.nombre)}</span>
       <span class="cpi-tx"><b>${esc(c.nombre||"Sin nombre")}</b>
         <span>${c.colegio?esc(corto(c.colegio)):""}${nh?` · ${nh} ${nh>1?"hijos":"hijo"}`:""}</span></span>`;
-    b.onclick = ()=>{ venderCliente = { id:c.id, ...c }; renderVCliPick(); closePickSheet(); };
+    b.onclick = ()=>{ venderCliente = { id:c.id, ...c }; venderUsaClienta = true; renderVCliPick(); renderVSwitches(); closePickSheet(); };
     cont.appendChild(b);
   });
 }
