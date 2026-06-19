@@ -422,6 +422,49 @@ img{display:block;max-width:100%}
 .ent-state.en_reparto{background:var(--celeste-deep);box-shadow:0 8px 22px rgba(94,143,168,.34)}
 .ent-state.done{background:var(--sage);box-shadow:none}
 .ent-undo{width:100%;min-height:48px;border-radius:50px;font-size:14.5px;font-weight:500;color:var(--gris-500);background:var(--blanco);box-shadow:var(--card-shadow)}
+
+/* ════════════════ NOTAS + RECIBO / COMPROBANTE (Etapa 5) ════════════════ */
+/* editor de notas (venta + clienta), con switch "mostrar en recibo" */
+.nota-row{background:var(--blanco);border-radius:16px;padding:13px 14px;box-shadow:var(--card-shadow);margin-bottom:11px}
+.nota-in{width:100%;border:none;outline:none;background:none;resize:vertical;color:var(--gris-900);font-family:inherit;font-size:16px;line-height:1.45;min-height:46px}
+.nota-in::placeholder{color:var(--gris-300)}
+.nota-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;border-top:1px solid var(--crema-dark);padding-top:10px}
+.nota-sw{display:flex;align-items:center;gap:9px;background:none;color:var(--gris-700);font-size:13.5px;font-weight:500}
+.nota-sw .switch{width:46px;height:27px}
+.nota-sw .switch .knob{width:21px;height:21px}
+.nota-sw .switch.on .knob{transform:translateX(19px)}
+.nota-del{width:40px;height:40px;border-radius:12px;background:var(--rojo-pale);color:var(--rojo);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.nota-add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--celeste-pale);color:var(--navy);border-radius:15px;padding:14px;font-size:15px;font-weight:600;min-height:50px}
+.notas-hint{font-size:13px;color:var(--texto-suave);margin-top:8px;line-height:1.45}
+
+/* botones extra en la tarjeta de entrega ya entregada */
+.ent-gracias{background:#25D366;box-shadow:0 8px 22px rgba(37,211,102,.32)}
+.ent-recibo{background:var(--navy);box-shadow:0 8px 22px rgba(41,74,122,.3)}
+
+/* documento de recibo: visual prolijo para captura / compartir */
+.recibo-doc{background:#fff;border-radius:20px;padding:22px 20px;box-shadow:var(--card-shadow);color:var(--gris-900)}
+.ri-head{display:flex;align-items:center;gap:13px;padding-bottom:14px;border-bottom:2px solid var(--celeste-pale)}
+.ri-logo{width:50px;height:50px;border-radius:13px;background:#fff;object-fit:contain;flex-shrink:0;box-shadow:var(--card-shadow);padding:4px}
+.ri-brand{font-family:'Dancing Script',cursive;font-weight:700;font-size:27px;color:var(--navy);line-height:1}
+.ri-sub{font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gris-500);margin-top:3px}
+.ri-meta{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:15px 0 12px}
+.ri-meta b{font-size:18px;color:var(--gris-900)}
+.ri-meta .ri-fecha{font-size:13px;color:var(--texto-suave);text-align:right;flex-shrink:0}
+.ri-items{width:100%;border-collapse:collapse;margin-bottom:4px}
+.ri-items td{padding:7px 0;font-size:14.5px;vertical-align:top;border-bottom:1px solid var(--crema-dark)}
+.ri-name{color:var(--gris-900)}
+.ri-talle{color:var(--celeste-deep);font-weight:600;white-space:nowrap}
+.ri-cant{text-align:center;color:var(--texto-suave);white-space:nowrap;width:42px}
+.ri-price{text-align:right;font-weight:600;color:var(--gris-900);white-space:nowrap}
+.ri-empty{text-align:center;color:var(--gris-300);font-style:italic}
+.ri-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:9px;font-size:15px}
+.ri-row.sub{font-size:13px;color:var(--texto-suave);margin-top:6px}
+.ri-row.total{font-family:var(--titf);font-weight:600;font-size:22px;color:var(--gris-900);border-top:2px solid var(--celeste-pale);padding-top:11px;margin-top:11px}
+.ri-row.pago{font-size:14px;color:var(--texto-suave)}
+.ri-notas{background:var(--mostaza-pale);border-radius:13px;padding:12px 14px;margin-top:14px;font-size:14px;color:var(--gris-700);display:flex;flex-direction:column;gap:6px;word-break:break-word}
+.ri-leyenda{text-align:center;font-size:12px;color:var(--gris-500);font-style:italic;margin-top:18px;padding-top:14px;border-top:1px dashed var(--gris-300)}
+.ri-pie{text-align:center;font-size:13.5px;color:var(--celeste-deep);font-weight:500;margin-top:8px}
+.recibo-acts{display:flex;flex-direction:column;gap:11px;margin-top:18px}
 </style>
 </head>
 <body>
@@ -817,6 +860,12 @@ img{display:block;max-width:100%}
       <button class="hijo-add" id="cliHijoAdd">＋ Agregar hijo/a</button>
     </div>
 
+    <div class="field">
+      <label>Notas de la clienta</label>
+      <div id="cliNotas"></div>
+      <p class="notas-hint">Las notas con “Mostrar en recibo” en ON salen impresas en el comprobante de sus entregas.</p>
+    </div>
+
     <div class="sheet-actions">
       <button class="btn-danger btn" id="cliDelete" style="display:none">🗑️</button>
       <button class="btn btn-primary" id="cliSave">Guardar</button>
@@ -893,6 +942,36 @@ img{display:block;max-width:100%}
   </div>
 </div>
 
+<!-- ===== SHEET: RECIBO / COMPROBANTE (Etapa 5) ===== -->
+<div class="scrim" id="reciboScrim"></div>
+<div class="sheet" id="reciboSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>Recibo</h2>
+    <button class="sheet-x" id="reciboClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <p class="hint">Mostráselo a la clienta o sacale una captura. También lo podés mandar por WhatsApp o guardarlo en PDF.</p>
+    <div id="reciboPreview" style="margin-top:14px"></div>
+
+    <div class="section-lbl">Notas de esta venta</div>
+    <div id="reciboNotas"></div>
+    <p class="notas-hint" id="reciboNotasHint">Solo las notas con “Mostrar en recibo” en ON aparecen en el comprobante. Las notas de la clienta se editan desde su ficha.</p>
+
+    <div class="recibo-acts">
+      <button class="btn-wa" id="reciboWa">
+        <span class="wico">🧾</span>
+        <span class="wtx"><b>Mandar recibo por WhatsApp</b><span>Comprobante en texto, listo para enviar</span></span>
+      </button>
+      <button class="btn-wa ent-recibo" id="reciboPdf">
+        <span class="wico">⬇️</span>
+        <span class="wtx"><b>Descargar / compartir PDF</b><span>Para guardarlo en Drive o mandarlo</span></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
@@ -1251,6 +1330,67 @@ let venderCart = [];
 let vSel = { colegio:null, prenda:null };
 let recargoPct = 0;
 let pagoCfg = { alias:"", cbu:"", titular:"" };   // Etapa 3: datos de pago configurables
+
+/* ── Plantillas de texto EDITABLES (viven en config_pos_cascanueces) ──
+   No están hardcodeadas en la lógica: se cargan del doc de config y, si
+   faltan, se siembran ahí los valores por defecto para poder editarlas
+   más adelante desde una página de configuración.
+   Placeholders disponibles: {nombre} {fecha} {items} {total} {pago}
+   {notas} {leyenda} {titulo} {pie}                                      */
+const TPL_DEFAULT = {
+  graciasMsg:   "¡Hola {nombre}! 🌰 Soy de Cascanueces.\n¡Gracias por tu compra! Tu pedido ya fue entregado 💙\n¡Que lo disfruten! Cualquier cosa que necesites, escribime por acá.",
+  reciboTitulo: "Comprobante de entrega",
+  reciboLeyenda:"Documento no válido como factura",
+  reciboPie:    "¡Gracias por elegir Cascanueces! 💙",
+  reciboWhats:  "🌰 *CASCANUECES*\n{titulo}\n\nClienta: {nombre}\nFecha: {fecha}\n\n{items}\n\nTotal: {total}\nPago: {pago}\n{notas}_{leyenda}_\n\n{pie}"
+};
+let tpl = { ...TPL_DEFAULT };
+
+/* Reemplaza {placeholders} en una plantilla con los valores del mapa */
+function fillTpl(str, map){
+  return (str||"").replace(/\{(\w+)\}/g, (m,k)=> (k in map ? (map[k]==null?"":String(map[k])) : m));
+}
+/* Igual que fillTpl pero limpia espacios sueltos (para mensajes con nombre vacío) */
+function fillMsg(str, map){
+  return fillTpl(str, map).replace(/[ \t]{2,}/g," ").replace(/[ \t]+([!?.,])/g,"$1");
+}
+
+/* ── Notas con switch "Mostrar en recibo" (compartido venta + clienta) ── */
+function normNotas(arr){
+  return (Array.isArray(arr)?arr:[])
+    .map(n=>({ texto:(n&&n.texto||"").toString(), recibo: !!(n&&n.recibo) }))
+    .filter(n=> n.texto.trim());
+}
+/* Editor reutilizable: pinta la lista de notas dentro de `cont`, ligada al
+   array `arr` (lo muta en vivo). onChange se llama tras cada cambio. */
+function renderNotasEditor(cont, arr, onChange){
+  if(!cont) return;
+  cont.innerHTML = "";
+  arr.forEach((n,i)=>{
+    const row = document.createElement("div"); row.className = "nota-row";
+    row.innerHTML = `
+      <textarea class="nota-in" rows="2" placeholder="Ej: queda saldo a cuenta, se llevó otro talle…" autocomplete="off"></textarea>
+      <div class="nota-foot">
+        <button class="nota-sw" type="button">
+          <span class="switch${n.recibo?" on":""}"><span class="knob"></span></span>
+          <span>Mostrar en recibo</span>
+        </button>
+        <button class="nota-del" type="button" title="Quitar nota">🗑️</button>
+      </div>`;
+    const ta = row.querySelector(".nota-in"); ta.value = n.texto;
+    ta.addEventListener("input", ()=>{ arr[i].texto = ta.value; onChange && onChange(); });
+    row.querySelector(".nota-sw").onclick = ()=>{ arr[i].recibo = !arr[i].recibo; renderNotasEditor(cont, arr, onChange); onChange && onChange(); };
+    row.querySelector(".nota-del").onclick = ()=>{ arr.splice(i,1); renderNotasEditor(cont, arr, onChange); onChange && onChange(); };
+    cont.appendChild(row);
+  });
+  const add = document.createElement("button");
+  add.type = "button"; add.className = "nota-add"; add.textContent = "＋ Agregar nota";
+  add.onclick = ()=>{ arr.push({ texto:"", recibo:false }); renderNotasEditor(cont, arr, onChange); onChange && onChange(); };
+  cont.appendChild(add);
+}
+
+/* Logo Cascanueces (data URL ya embebido en el header) para recibo y PDF */
+const logoSrc = (document.querySelector(".ele img")||{}).src || "";
 let pagoSel = null;
 let vStepNow = "armar";
 let venderCliente = null;   // Etapa 3: clienta vinculada a la venta en curso
@@ -1441,6 +1581,7 @@ $("#vConfirmar").onclick = async ()=>{
       pago: pagoSel,
       clienteId: venderCliente?.id || null,         // Etapa 3
       clienteNombre: venderCliente?.nombre || null, // Etapa 3
+      notas: [],                                     // Etapa 5: notas de la venta (editables en el recibo)
       fecha: serverTimestamp(),
       ts: Date.now()
     });
@@ -1522,13 +1663,25 @@ $("#ajGuardar").onclick = async ()=>{
   }
   catch(err){ console.error("Ajustes:", err.code, err.message); toast("No se pudo guardar.","err"); }
 };
-async function loadRecargo(){
+async function loadConfig(){
   try{
     const s = await getDoc(cfgRef);
+    const faltan = {};
     if(s.exists()){
       const d = s.data();
       recargoPct = Number(d.recargoTransferencia)||0;
       pagoCfg = { alias: d.aliasMP||"", cbu: d.cbuMP||"", titular: d.titularMP||"" };
+      // Plantillas de texto: uso lo que haya en config; lo que falte lo siembro.
+      Object.keys(TPL_DEFAULT).forEach(k=>{
+        if(typeof d[k]==="string" && d[k].trim()) tpl[k] = d[k];
+        else faltan[k] = TPL_DEFAULT[k];
+      });
+    } else {
+      Object.assign(faltan, TPL_DEFAULT);
+    }
+    if(Object.keys(faltan).length){
+      try{ await setDoc(cfgRef, faltan, { merge:true }); }
+      catch(e){ console.warn("seed plantillas:", e.code); }
     }
   }
   catch(err){ console.warn("config:", err.code); }
@@ -1557,7 +1710,7 @@ const clientesRef = collection(db, "clientes_pos_cascanueces");
 let clientes = [];
 let cliFiltro = "";
 let cliEditId = null;
-let cliForm = { colegio:null, hijos:[] };
+let cliForm = { colegio:null, hijos:[], notas:[] };
 let pendingPickAfterSave = false;     // venimos de "Clienta nueva" dentro de una venta
 let cliDelArmed = false, cliDelTimer = null;
 
@@ -1737,10 +1890,12 @@ function openCliSheet(cli=null){
   cliForm.colegio = cli?.colegio || null;
   cliForm.hijos = (cli?.hijos||[]).map(h=>({ nombre:h.nombre||"", talles:h.talles||"" }));
   if(cliForm.hijos.length===0) cliForm.hijos.push({ nombre:"", talles:"" });
+  cliForm.notas = (cli?.notas||[]).map(n=>({ texto:n.texto||"", recibo:!!n.recibo }));
   cliDelArmed = false;
 
   renderCliColegio();
   renderHijos();
+  renderNotasEditor($("#cliNotas"), cliForm.notas);
 
   $("#cliWaPago").onclick   = ()=> sendPago(cli);
   $("#cliWaAgenda").onclick = ()=> openWa(cli?.whatsapp, msgAgenda(cli));
@@ -1771,6 +1926,7 @@ async function saveCli(){
     colegio:   cliForm.colegio || "",
     direccion: $("#cliDireccion").value.trim(),
     hijos,
+    notas:     normNotas(cliForm.notas),
     ts: Date.now()
   };
   const doPick = pendingPickAfterSave;
@@ -2124,6 +2280,25 @@ function entCard(e){
     const done = document.createElement("div");
     done.className = "ent-state done"; done.textContent = "✓ Entregada";
     acts.appendChild(done);
+
+    // Gracias / pedido entregado: mensaje listo por WhatsApp (voz Cascanueces)
+    const gr = document.createElement("button");
+    gr.className = "btn-wa ent-gracias" + (hasWa ? "" : " wa-disabled");
+    gr.innerHTML = `<span class="wico">💙</span>
+      <span class="wtx"><b>Gracias / pedido entregado</b>
+      <span>${hasWa ? "Mensaje listo por WhatsApp" : "Esta clienta no tiene WhatsApp"}</span></span>`;
+    gr.onclick = ()=> openWa(cli?.whatsapp, msgGracias(cli, e));
+    acts.appendChild(gr);
+
+    // Recibo / comprobante de la venta
+    const rb = document.createElement("button");
+    rb.className = "btn-wa ent-recibo";
+    rb.innerHTML = `<span class="wico">🧾</span>
+      <span class="wtx"><b>Recibo / comprobante</b>
+      <span>Verlo, mandarlo o descargarlo en PDF</span></span>`;
+    rb.onclick = ()=> openRecibo(e);
+    acts.appendChild(rb);
+
     const undo = document.createElement("button");
     undo.className = "ent-undo"; undo.textContent = "↩︎ Volver a “en reparto”";
     undo.onclick = ()=> setEstado(e, "en_reparto");
@@ -2343,10 +2518,255 @@ onSnapshot(ventasRef, snap=>{
 }, err=>{ console.error("Firestore [ventas→entregas]:", err.code, err.message); });
 /* ──────────────────── fin ETAPA 4 ──────────────────── */
 
+/* ════════════════════════════════════════════════════════════════
+   ETAPA 5 · GRACIAS + RECIBO / COMPROBANTE + NOTAS
+   - "Gracias / pedido entregado": WhatsApp listo (plantilla de config).
+   - Recibo con marca, detalle, total, pago, fecha, nombre, notas marcadas
+     "mostrar en recibo" y la leyenda "Documento no válido como factura".
+   - Se puede: mandar por WhatsApp (texto), ver en pantalla (captura) y
+     descargar/compartir como PDF (jsPDF).
+   - Los TEXTOS viven en config_pos_cascanueces (objeto `tpl`), no acá.
+   ════════════════════════════════════════════════════════════════ */
+
+/* Mensaje "Gracias / pedido entregado" desde la plantilla editable */
+function msgGracias(cli, e){
+  return fillMsg(tpl.graciasMsg, { nombre: cli?.nombre || e?.clienteNombre || "" });
+}
+
+/* Venta vinculada a una entrega (para el detalle del recibo) */
+function ventaDeEntrega(e){
+  if(e && e.ventaId){ const v = ventasParaEntrega.find(x=> x.id===e.ventaId); if(v) return v; }
+  return null;
+}
+function pagoLabel(p){
+  return p==="efectivo" ? "Efectivo 💵" : p==="transferencia" ? "Transferencia / MP 📲" : (p || "—");
+}
+function fechaLarga(ms){
+  return new Date(ms).toLocaleDateString("es-AR",{ day:"numeric", month:"long", year:"numeric" });
+}
+
+/* Arma todos los datos del recibo. `ventaNotasOverride` permite previsualizar
+   las notas que mamá está editando en el momento (antes de guardarlas). */
+function reciboData(e, ventaNotasOverride){
+  const v   = ventaDeEntrega(e);
+  const cli = clienteDe(e);
+  const vNotas = (ventaNotasOverride!=null) ? normNotas(ventaNotasOverride) : normNotas(v?.notas);
+  const notas = [
+    ...vNotas.filter(n=> n.recibo),
+    ...normNotas(cli?.notas).filter(n=> n.recibo)
+  ].map(n=> n.texto.trim());
+  return {
+    nombre:    e.clienteNombre || v?.clienteNombre || cli?.nombre || "Clienta",
+    items:     Array.isArray(v?.items) ? v.items : [],
+    subtotal:  Number(v?.subtotal)||0,
+    recargo:   Number(v?.recargo)||0,
+    recargoPct:Number(v?.recargoPct)||0,
+    total:     Number(v?.total ?? e.total ?? 0),
+    pago:      v?.pago || "",
+    fechaMs:   v?.ts || e.ts || Date.now(),
+    notas
+  };
+}
+
+/* Recibo visual (HTML) para ver en pantalla / sacar captura */
+function reciboHTML(d){
+  const items = d.items.length
+    ? d.items.map(it=> `<tr>
+        <td class="ri-name">${esc(it.prenda)} <span class="ri-talle">t.${esc(it.talle)}</span></td>
+        <td class="ri-cant">${Number(it.cant)||1}×</td>
+        <td class="ri-price">${money(it.subtotal)}</td></tr>`).join("")
+    : `<tr><td colspan="3" class="ri-empty">Venta sin detalle de prendas</td></tr>`;
+  const recargo = d.recargo>0
+    ? `<div class="ri-row sub"><span>Subtotal</span><span>${money(d.subtotal)}</span></div>
+       <div class="ri-row sub"><span>Recargo ${d.recargoPct}%</span><span>${money(d.recargo)}</span></div>` : "";
+  const notas = d.notas.length
+    ? `<div class="ri-notas">${d.notas.map(n=> `<div>📝 ${esc(n)}</div>`).join("")}</div>` : "";
+  return `<div class="recibo-doc">
+    <div class="ri-head">
+      ${logoSrc ? `<img class="ri-logo" src="${logoSrc}" alt="Cascanueces"/>` : ""}
+      <div><div class="ri-brand">Cascanueces</div><div class="ri-sub">${esc(tpl.reciboTitulo)}</div></div>
+    </div>
+    <div class="ri-meta">
+      <b>${esc(d.nombre)}</b>
+      <span class="ri-fecha">${esc(fechaLarga(d.fechaMs))}</span>
+    </div>
+    <table class="ri-items">${items}</table>
+    ${recargo}
+    <div class="ri-row total"><span>Total</span><span>${money(d.total)}</span></div>
+    <div class="ri-row pago"><span>Medio de pago</span><span>${esc(pagoLabel(d.pago))}</span></div>
+    ${notas}
+    <div class="ri-leyenda">${esc(tpl.reciboLeyenda)}</div>
+    <div class="ri-pie">${esc(tpl.reciboPie)}</div>
+  </div>`;
+}
+
+/* Recibo en texto para WhatsApp, desde la plantilla editable */
+function reciboTexto(d){
+  const items = d.items.length
+    ? d.items.map(it=> `• ${it.prenda} t.${it.talle}${(Number(it.cant)||1)>1?` x${it.cant}`:""} — ${money(it.subtotal)}`).join("\n")
+    : "(sin detalle de prendas)";
+  const notas = d.notas.length ? d.notas.map(n=> `📝 ${n}`).join("\n") + "\n\n" : "";
+  return fillTpl(tpl.reciboWhats, {
+    nombre: d.nombre, fecha: fechaLarga(d.fechaMs), items, total: money(d.total),
+    pago: pagoLabel(d.pago), notas, leyenda: tpl.reciboLeyenda,
+    titulo: tpl.reciboTitulo, pie: tpl.reciboPie
+  });
+}
+
+/* Recibo como PDF (jsPDF, dibujado a mano: queda liviano y prolijo) */
+function reciboPDF(d){
+  const jsPDFctor = window.jspdf && window.jspdf.jsPDF;
+  if(!jsPDFctor) return null;
+  const doc = new jsPDFctor({ unit:"mm", format:"a5" });
+  const W = doc.internal.pageSize.getWidth();
+  const M = 14;
+  let y = 16;
+  try{ if(logoSrc) doc.addImage(logoSrc, "PNG", M, y-5, 16, 16); }catch(e){}
+  doc.setFont("helvetica","bold"); doc.setFontSize(22); doc.setTextColor(41,74,122);
+  doc.text("Cascanueces", M+20, y+3);
+  doc.setFont("helvetica","normal"); doc.setFontSize(10); doc.setTextColor(107,107,107);
+  doc.text(tpl.reciboTitulo, M+20, y+9);
+  y += 20;
+  doc.setDrawColor(143,178,200); doc.setLineWidth(0.5); doc.line(M, y, W-M, y); y += 8;
+
+  doc.setTextColor(42,42,42); doc.setFont("helvetica","bold"); doc.setFontSize(13);
+  doc.text(String(d.nombre), M, y);
+  doc.setFont("helvetica","normal"); doc.setFontSize(10); doc.setTextColor(107,107,107);
+  doc.text(fechaLarga(d.fechaMs), W-M, y, { align:"right" });
+  y += 9;
+
+  doc.setTextColor(42,42,42); doc.setFontSize(11);
+  if(d.items.length){
+    d.items.forEach(it=>{
+      const left = `${it.prenda}  t.${it.talle}${(Number(it.cant)||1)>1?`  x${it.cant}`:""}`;
+      doc.text(doc.splitTextToSize(left, W-2*M-28)[0], M, y);
+      doc.text(money(it.subtotal), W-M, y, { align:"right" });
+      doc.setDrawColor(235,235,235); doc.setLineWidth(0.2); doc.line(M, y+2.5, W-M, y+2.5);
+      y += 8;
+    });
+  } else {
+    doc.setTextColor(150,150,150); doc.text("Venta sin detalle de prendas", M, y);
+    doc.setTextColor(42,42,42); y += 8;
+  }
+  y += 1;
+  if(d.recargo>0){
+    doc.setFontSize(10); doc.setTextColor(107,107,107);
+    doc.text("Subtotal", M, y); doc.text(money(d.subtotal), W-M, y, { align:"right" }); y += 6;
+    doc.text(`Recargo ${d.recargoPct}%`, M, y); doc.text(money(d.recargo), W-M, y, { align:"right" }); y += 7;
+    doc.setTextColor(42,42,42);
+  }
+  doc.setDrawColor(143,178,200); doc.setLineWidth(0.5); doc.line(M, y, W-M, y); y += 8;
+  doc.setFont("helvetica","bold"); doc.setFontSize(15);
+  doc.text("Total", M, y); doc.text(money(d.total), W-M, y, { align:"right" }); y += 8;
+  doc.setFont("helvetica","normal"); doc.setFontSize(10); doc.setTextColor(107,107,107);
+  doc.text("Medio de pago: " + pagoLabel(d.pago).replace(/[^\x00-\x7F]/g,"").trim(), M, y);
+  y += 9;
+
+  if(d.notas.length){
+    doc.setTextColor(42,42,42); doc.setFontSize(10);
+    d.notas.forEach(n=>{
+      const lines = doc.splitTextToSize("• " + n, W-2*M);
+      doc.text(lines, M, y); y += lines.length*5 + 1.5;
+    });
+    y += 3;
+  }
+  y += 2;
+  doc.setFont("helvetica","italic"); doc.setFontSize(9); doc.setTextColor(150,150,150);
+  doc.text(tpl.reciboLeyenda, W/2, y, { align:"center" }); y += 8;
+  doc.setFont("helvetica","normal"); doc.setTextColor(94,143,168);
+  doc.text(tpl.reciboPie.replace(/[^\x00-\x7F]/g,"").trim() || "Gracias por elegir Cascanueces", W/2, y, { align:"center" });
+  return doc;
+}
+
+/* ── Sheet del recibo ── */
+let reciboEnt = null;          // entrega actual
+let reciboVentaId = null;      // venta vinculada (para guardar sus notas)
+let reciboVentaNotas = [];     // notas de la venta, editables en vivo
+let reciboSaveTimer = null;
+
+function reciboNombreArchivo(d){
+  const base = ("Recibo Cascanueces " + (d.nombre||"")).replace(/[^\w\sÀ-ÿ-]/g,"").replace(/\s+/g," ").trim();
+  return (base || "Recibo Cascanueces") + ".pdf";
+}
+function renderReciboPreview(){
+  if(!reciboEnt) return;
+  const d = reciboData(reciboEnt, reciboVentaNotas);
+  $("#reciboPreview").innerHTML = reciboHTML(d);
+}
+function guardarVentaNotas(){
+  if(!reciboVentaId) return;
+  clearTimeout(reciboSaveTimer);
+  reciboSaveTimer = setTimeout(async ()=>{
+    try{ await setDoc(doc(db,"ventas_pos_cascanueces",reciboVentaId), { notas: normNotas(reciboVentaNotas) }, { merge:true }); }
+    catch(err){ console.warn("guardar notas venta:", err.code); }
+  }, 700);
+}
+function openRecibo(e){
+  reciboEnt = e;
+  const v = ventaDeEntrega(e);
+  reciboVentaId = v?.id || null;
+  reciboVentaNotas = (v?.notas||[]).map(n=>({ texto:n.texto||"", recibo:!!n.recibo }));
+
+  const hint = $("#reciboNotasHint");
+  if(reciboVentaId){
+    renderNotasEditor($("#reciboNotas"), reciboVentaNotas, ()=>{ renderReciboPreview(); guardarVentaNotas(); });
+    hint.style.display = "block";
+  } else {
+    // entrega sin venta vinculada: no hay dónde guardar notas de venta
+    $("#reciboNotas").innerHTML = "";
+    hint.textContent = "Esta entrega no está vinculada a una venta, así que no tiene notas propias. Las notas de la clienta se editan desde su ficha.";
+    hint.style.display = "block";
+  }
+  renderReciboPreview();
+
+  const cli = clienteDe(e);
+  $("#reciboWa").classList.toggle("wa-disabled", !waNorm(cli?.whatsapp));
+  $("#reciboWa").onclick  = ()=> openWa(cli?.whatsapp, reciboTexto(reciboData(reciboEnt, reciboVentaNotas)));
+  $("#reciboPdf").onclick = ()=> compartirReciboPDF(reciboData(reciboEnt, reciboVentaNotas));
+
+  $("#reciboScrim").classList.add("show");
+  $("#reciboSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+function closeRecibo(){
+  // Guarda inmediato de las notas de la venta por si quedó un cambio en cola
+  if(reciboVentaId){
+    clearTimeout(reciboSaveTimer);
+    setDoc(doc(db,"ventas_pos_cascanueces",reciboVentaId), { notas: normNotas(reciboVentaNotas) }, { merge:true })
+      .catch(err=> console.warn("guardar notas venta (cierre):", err.code));
+  }
+  $("#reciboScrim").classList.remove("show");
+  $("#reciboSheet").classList.remove("show");
+  document.body.style.overflow = "";
+}
+async function compartirReciboPDF(d){
+  const doc = reciboPDF(d);
+  if(!doc){ toast("No se pudo generar el PDF. Revisá la conexión.", "err"); return; }
+  const nombre = reciboNombreArchivo(d);
+  try{
+    const blob = doc.output("blob");
+    const file = new File([blob], nombre, { type:"application/pdf" });
+    if(navigator.canShare && navigator.canShare({ files:[file] })){
+      await navigator.share({ files:[file], title:"Recibo Cascanueces", text:"Comprobante de tu compra 🌰" });
+      return;
+    }
+    doc.save(nombre);
+    toast("Recibo descargado ✓", "ok");
+  }catch(err){
+    if(err && err.name==="AbortError") return;   // mamá canceló el menú de compartir
+    console.error("Compartir recibo PDF:", err);
+    try{ doc.save(nombre); toast("Recibo descargado ✓", "ok"); }
+    catch(e2){ toast("No se pudo compartir el recibo.", "err"); }
+  }
+}
+$("#reciboClose").onclick = closeRecibo;
+$("#reciboScrim").onclick = closeRecibo;
+/* ──────────────────── fin ETAPA 5 ──────────────────── */
+
 renderInicio(); renderFiltros(); renderLista();
 renderClientes();
 renderEntFiltros(); renderEntregas();
-loadRecargo();
+loadConfig();
 </script>
 </body>
 </html>
