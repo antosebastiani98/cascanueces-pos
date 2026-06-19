@@ -523,6 +523,29 @@ img{display:block;max-width:100%}
 .top-row .tn span{font-size:13px;color:var(--texto-suave)}
 .top-row .tq{font-family:var(--titf);font-weight:600;font-size:25px;color:var(--sage);flex-shrink:0}
 .top-row .tq small{font-size:12px;color:var(--gris-300);font-weight:400;display:block;text-align:right}
+
+/* — Venta cancelada en el historial — */
+.tag.cancelada{background:var(--rojo-pale);color:var(--rojo);font-weight:600}
+.vh.cancelada{opacity:.62}
+.vh.cancelada .vh-total{text-decoration:line-through;color:var(--gris-500)}
+.vh-ico.can{background:var(--rojo-pale)}
+
+/* — Editor de venta — */
+.eitem{background:var(--blanco);border-radius:16px;padding:14px 15px;box-shadow:var(--card-shadow);margin-bottom:12px}
+.eitem-top{display:flex;align-items:center;gap:11px}
+.eitem-tx{flex:1;min-width:0}
+.eitem-tx b{font-size:15.5px;color:var(--gris-900);display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eitem-tx span{font-size:13px;color:var(--texto-suave)}
+.eitem-del{width:42px;height:42px;border-radius:12px;background:var(--rojo-pale);color:var(--rojo);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.etalle-row{margin-top:12px;border-top:1px solid var(--crema-dark);padding-top:11px}
+.etalle-lbl{font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--gris-500);margin-bottom:8px}
+.etalle-chips{display:flex;flex-wrap:wrap;gap:7px}
+.etalle{min-width:46px;min-height:42px;padding:0 13px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;border-radius:12px;background:var(--crema);color:var(--gris-700);box-shadow:var(--card-shadow);transition:all .15s ease}
+.etalle.on{background:var(--celeste-deep);color:#fff;box-shadow:0 6px 16px rgba(94,143,168,.3)}
+.etalle.cero{opacity:.4}
+.edit-total{display:flex;align-items:baseline;justify-content:space-between;gap:10px;background:var(--celeste-pale);border-radius:16px;padding:16px 18px;margin-top:20px}
+.edit-total .et-l{font-size:14px;color:var(--navy);font-weight:600}
+.edit-total .et-n{font-family:var(--titf);font-weight:600;font-size:30px;color:var(--navy);line-height:1}
 </style>
 </head>
 <body>
@@ -786,6 +809,79 @@ img{display:block;max-width:100%}
     <div class="cbtns">
       <button class="btn btn-ghost" id="ccNo">Todavía no</button>
       <button class="btn btn-primary" id="ccYes">Sí, cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SHEET: DETALLE / ACCIONES DE VENTA (Etapa 6) ===== -->
+<div class="scrim" id="ventaDetScrim"></div>
+<div class="sheet" id="ventaDetSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>Venta</h2>
+    <button class="sheet-x" id="ventaDetClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div id="ventaDetPreview"></div>
+    <div class="recibo-acts" id="ventaDetActs"></div>
+  </div>
+</div>
+
+<!-- ===== SHEET: EDITAR VENTA (Etapa 6) ===== -->
+<div class="scrim" id="ventaEditScrim"></div>
+<div class="sheet" id="ventaEditSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>Editar venta</h2>
+    <button class="sheet-x" id="ventaEditClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div class="field">
+      <label>Clienta</label>
+      <div class="dropdown">
+        <button class="dd-head" id="editCliHead"><span class="ddv" id="editCliVal">Mostrador</span><span class="dd-chev">▾</span></button>
+        <div class="dd-panel" id="editCliPanel"><div class="cli-pick-list" id="editCliList" style="margin-top:11px"></div></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Fecha de la venta</label>
+      <input type="date" id="editFecha" class="cli-search" style="padding-left:18px"/>
+    </div>
+
+    <div class="field">
+      <label>¿Cómo pagó?</label>
+      <div class="pago-opts" id="editPago"></div>
+    </div>
+
+    <div class="field">
+      <label>Prendas</label>
+      <div id="editItems"></div>
+      <button class="nota-add" id="editAddToggle" style="margin-top:4px">＋ Agregar prenda</button>
+      <div id="editAddPanel" style="display:none;margin-top:14px"></div>
+    </div>
+
+    <div class="edit-total">
+      <span class="et-l" id="editTotalLbl">Total</span>
+      <span class="et-n" id="editTotalVal">$ 0</span>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn btn-ghost" id="editCancelBtn">Cerrar</button>
+      <button class="btn btn-primary" id="editSaveBtn">Guardar cambios</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmación de cancelar venta (Etapa 6) -->
+<div class="confirm" id="ventaCancelConfirm">
+  <div class="box">
+    <div class="ico">🚫</div>
+    <h3>¿Cancelar esta venta?</h3>
+    <p id="vcText"></p>
+    <div class="cbtns">
+      <button class="btn btn-ghost" id="vcNo">No, dejarla</button>
+      <button class="btn btn-primary" id="vcYes" style="background:var(--rojo);box-shadow:none">Sí, cancelar</button>
     </div>
   </div>
 </div>
@@ -2918,6 +3014,7 @@ function ventaMs(v){
 function ventaYmd(v){ const ms = ventaMs(v); return ms ? ymd(new Date(ms)) : ""; }
 function ventaHora(ms){ return new Date(ms).toLocaleTimeString("es-AR",{ hour:"2-digit", minute:"2-digit" }); }
 function ventaPrendas(v){ return (Array.isArray(v.items)?v.items:[]).reduce((a,it)=> a + (Number(it.cant)||0), 0); }
+function ventaActiva(v){ return !!v && v.estado!=="cancelada"; }   // las canceladas no suman en caja/reportes
 function inicioSemana(){ const d=new Date(); d.setHours(0,0,0,0); const dow=(d.getDay()+6)%7; d.setDate(d.getDate()-dow); return d; }
 function inicioMes(){ const d=new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); }
 function entregaDeVenta(v){ return entregas.find(e=> e.ventaId===v.id) || null; }
@@ -2950,7 +3047,7 @@ function renderCaja(){
 /* ── 1) CAJA DEL DÍA ── */
 function renderCajaHoy(){
   const hoy = hoyYmd();
-  const vts = ventasParaEntrega.filter(v=> ventaYmd(v)===hoy);
+  const vts = ventasParaEntrega.filter(v=> ventaActiva(v) && ventaYmd(v)===hoy);
   const efe = vts.filter(v=> v.pago==="efectivo").reduce((a,v)=> a + (Number(v.total)||0), 0);
   const tra = vts.filter(v=> v.pago==="transferencia").reduce((a,v)=> a + (Number(v.total)||0), 0);
   const total = vts.reduce((a,v)=> a + (Number(v.total)||0), 0);
@@ -3046,6 +3143,7 @@ function renderHistQuick(){
 }
 function vhCard(v){
   const efe = v.pago==="efectivo", tra = v.pago==="transferencia";
+  const cancelada = !ventaActiva(v);
   const ms = ventaMs(v);
   const nombre = v.clienteNombre || "Mostrador";
   const prendas = ventaPrendas(v);
@@ -3054,14 +3152,16 @@ function vhCard(v){
                 : tra ? `<span class="tag pago-tra">📲 Transf.</span>`
                 : `<span class="tag">${esc(pagoLabel(v.pago))}</span>`;
   let estadoTag = `<span class="tag est-ent">✓ Cobrada</span>`;
-  if(ent && (ent.estado||"pendiente")!=="entregada"){
+  if(cancelada){
+    estadoTag = `<span class="tag cancelada">🚫 Cancelada</span>`;
+  } else if(ent && (ent.estado||"pendiente")!=="entregada"){
     const info = ESTADOS[ent.estado||"pendiente"] || ESTADOS.pendiente;
     estadoTag = `<span class="tag ${info.badge}">${info.emoji} ${info.label}</span>`;
   }
   const el = document.createElement("button");
-  el.className = "vh";
+  el.className = "vh" + (cancelada?" cancelada":"");
   el.innerHTML = `
-    <div class="vh-ico ${efe?"efe":tra?"tra":""}">${efe?"💵":tra?"📲":"🧾"}</div>
+    <div class="vh-ico ${cancelada?"can":efe?"efe":tra?"tra":""}">${cancelada?"🚫":efe?"💵":tra?"📲":"🧾"}</div>
     <div class="vh-main">
       <div class="vh-name">${esc(nombre)}</div>
       <div class="vh-meta">${prendas} ${prendas===1?"prenda":"prendas"} · ${esc(diaLabel(ventaYmd(v)))} ${ms?ventaHora(ms):""}</div>
@@ -3070,17 +3170,20 @@ function vhCard(v){
       <div class="vh-total">${money(v.total)}</div>
       <div class="vh-tags">${pagoTag}${estadoTag}</div>
     </div>`;
-  el.onclick = ()=> openRecibo(ventaComoEntrega(v));
+  el.onclick = ()=> openVentaDet(v);
   return el;
 }
 function renderHist(){
   renderHistPago(); renderHistQuick();
   const lista = histVentasFiltradas();
-  const total = lista.reduce((a,v)=> a + (Number(v.total)||0), 0);
+  const activas = lista.filter(ventaActiva);
+  const canceladas = lista.length - activas.length;
+  const total = activas.reduce((a,v)=> a + (Number(v.total)||0), 0);   // las canceladas no suman
   const rs = $("#histResumen");
   if(lista.length){
     rs.style.display = "flex";
-    $("#histResLbl").textContent = (lista.length===1?"1 venta":lista.length+" ventas");
+    $("#histResLbl").textContent = (activas.length===1?"1 venta":activas.length+" ventas")
+      + (canceladas? ` · ${canceladas} cancelada${canceladas>1?"s":""}` : "");
     $("#histResTotal").textContent = money(total);
   } else rs.style.display = "none";
 
@@ -3109,7 +3212,7 @@ function renderResumen(){
   else if(resPeriodo==="semana"){ desde = ymd(inicioSemana()); lbl = "Esta semana"; }
   else { desde = ymd(inicioMes()); lbl = "Este mes"; }
   const hoy = hoyYmd();
-  const vts = ventasParaEntrega.filter(v=>{ const f = ventaYmd(v); return f && f>=desde && f<=hoy; });
+  const vts = ventasParaEntrega.filter(v=>{ const f = ventaYmd(v); return ventaActiva(v) && f && f>=desde && f<=hoy; });
   const total = vts.reduce((a,v)=> a + (Number(v.total)||0), 0);
   $("#resLbl").textContent = lbl;
   $("#resTotal").textContent = money(total);
@@ -3152,6 +3255,292 @@ onSnapshot(cajaRef, snap=>{
   console.error("Firestore [caja]:", err.code, err.message);
   if(err.code==="permission-denied") toast("Sin permisos para caja en Firestore.", "err");
 });
+
+/* ════════════════════════════════════════════════════════════════
+   DETALLE · EDITAR · CANCELAR una venta (desde el Historial)
+   ════════════════════════════════════════════════════════════════ */
+let detVenta = null;
+let editVenta = null;       // venta original que se está editando
+let editCart = [];          // [{id,colegio,prenda,talle,precio,cant}]
+let editCliente = null;     // {id,nombre,…} | null (Mostrador)
+let editPagoSel = null;     // efectivo | transferencia
+let editFechaYmd = "";
+let editAddSel = { colegio:null, prenda:null };
+let cancelPendVenta = null;
+
+/* ── Hoja de detalle + acciones ── */
+function openVentaDet(v){
+  detVenta = v;
+  $("#ventaDetPreview").innerHTML = reciboHTML(reciboData(ventaComoEntrega(v)));
+  const acts = $("#ventaDetActs"); acts.innerHTML = "";
+  const cancelada = !ventaActiva(v);
+  if(cancelada){
+    const note = document.createElement("div");
+    note.className = "caja-cerrada"; note.style.background = "var(--rojo-pale)"; note.style.color = "var(--rojo)";
+    note.innerHTML = `🚫 Venta cancelada<span>Las prendas volvieron al stock y no suma en caja.</span>`;
+    acts.appendChild(note);
+  }
+  const rb = document.createElement("button"); rb.className = "btn-wa ent-recibo";
+  rb.innerHTML = `<span class="wico">🧾</span><span class="wtx"><b>Recibo / comprobante</b><span>Verlo, mandarlo o descargarlo</span></span>`;
+  rb.onclick = ()=>{ closeVentaDet(); openRecibo(ventaComoEntrega(v)); };
+  acts.appendChild(rb);
+  if(!cancelada){
+    const ed = document.createElement("button"); ed.className = "btn-wa"; ed.style.background = "var(--celeste-deep)";
+    ed.innerHTML = `<span class="wico">✏️</span><span class="wtx"><b>Editar venta</b><span>Prendas, pago, clienta o fecha</span></span>`;
+    ed.onclick = ()=>{ closeVentaDet(); openVentaEdit(v); };
+    acts.appendChild(ed);
+    const cb = document.createElement("button"); cb.className = "btn-wa"; cb.style.background = "var(--rojo)";
+    cb.innerHTML = `<span class="wico">🚫</span><span class="wtx"><b>Cancelar venta</b><span>Devuelve el stock · no suma en caja</span></span>`;
+    cb.onclick = ()=> pedirCancelVenta(v);
+    acts.appendChild(cb);
+  }
+  $("#ventaDetScrim").classList.add("show"); $("#ventaDetSheet").classList.add("show");
+}
+function closeVentaDet(){ $("#ventaDetScrim").classList.remove("show"); $("#ventaDetSheet").classList.remove("show"); }
+$("#ventaDetClose").onclick = closeVentaDet;
+$("#ventaDetScrim").onclick = closeVentaDet;
+
+/* ── Cancelar venta (acción delicada → confirmación) ── */
+function pedirCancelVenta(v){
+  cancelPendVenta = v;
+  const prendas = ventaPrendas(v);
+  $("#vcText").innerHTML = `Vas a cancelar la venta de <b>${esc(v.clienteNombre||"Mostrador")}</b> por <b>${money(v.total)}</b>.<br>
+    Se devuelven ${prendas} ${prendas===1?"prenda":"prendas"} al stock y deja de sumar en caja.`;
+  $("#ventaCancelConfirm").classList.add("show");
+}
+$("#vcNo").onclick = ()=>{ cancelPendVenta = null; $("#ventaCancelConfirm").classList.remove("show"); };
+$("#vcYes").onclick = async ()=>{
+  const v = cancelPendVenta;
+  $("#ventaCancelConfirm").classList.remove("show"); cancelPendVenta = null;
+  if(!v) return;
+  if(!ventaActiva(v)){ toast("Esa venta ya estaba cancelada"); return; }
+  try{
+    const batch = writeBatch(db);
+    (Array.isArray(v.items)?v.items:[]).forEach(it=>{
+      const p = it.productoId ? productos.find(x=>x.id===it.productoId) : null;
+      if(!p) return;   // si el producto fue borrado, no se puede devolver
+      batch.set(doc(db, COL, it.productoId), { stock: (Number(p.stock)||0) + (Number(it.cant)||0) }, { merge:true });
+    });
+    batch.set(doc(db,"ventas_pos_cascanueces",v.id), { estado:"cancelada", canceladaTs:Date.now() }, { merge:true });
+    await batch.commit();
+    closeVentaDet();
+    toast("Venta cancelada · stock devuelto ✓", "ok");
+  }catch(err){ console.error("Cancelar venta:", err.code, err.message); toast("No se pudo cancelar la venta.", "err"); }
+};
+
+/* ── Editar venta ── */
+function origCantDe(pid){ const it = (editVenta?.items||[]).find(x=>x.productoId===pid); return it ? (Number(it.cant)||0) : 0; }
+function editHeadroom(pid){ const p = productos.find(x=>x.id===pid); return (p?Number(p.stock)||0:0) + origCantDe(pid); }
+function tallesDe(colegio, prenda){
+  return productos.filter(p=> p.colegio===colegio && p.prenda===prenda).sort((a,b)=> tOrder(a.talle)-tOrder(b.talle));
+}
+function editSubtotal(){ return editCart.reduce((a,l)=> a + l.precio*l.cant, 0); }
+function editTotals(){
+  const sub = editSubtotal();
+  const recargo = editPagoSel==="transferencia" ? Math.round(sub*(recargoPct||0)/100) : 0;
+  return { sub, recargo, total: sub + recargo };
+}
+function openVentaEdit(v){
+  editVenta = v;
+  editCart = (Array.isArray(v.items)?v.items:[]).map(it=>({
+    id: it.productoId, colegio: it.colegio, prenda: it.prenda, talle: String(it.talle),
+    precio: Number(it.precio)||0, cant: Number(it.cant)||0
+  }));
+  editCliente = v.clienteId ? { id:v.clienteId, ...(clientes.find(c=>c.id===v.clienteId) || { nombre:v.clienteNombre }) } : null;
+  editPagoSel = v.pago || "efectivo";
+  editFechaYmd = ventaYmd(v) || hoyYmd();
+  editAddSel = { colegio:null, prenda:null };
+  $("#editFecha").value = editFechaYmd;
+  $("#editCliPanel").classList.remove("open"); $("#editCliHead").classList.remove("open");
+  $("#editAddPanel").style.display = "none";
+  renderEditCliVal(); renderEditCliList(); renderEditPago(); renderEditItems(); renderEditTotal();
+  $("#editSaveBtn").disabled = false;
+  $("#ventaEditScrim").classList.add("show"); $("#ventaEditSheet").classList.add("show");
+}
+function closeVentaEdit(){ $("#ventaEditScrim").classList.remove("show"); $("#ventaEditSheet").classList.remove("show"); }
+$("#ventaEditClose").onclick = closeVentaEdit;
+$("#ventaEditScrim").onclick = closeVentaEdit;
+$("#editCancelBtn").onclick = closeVentaEdit;
+
+function renderEditCliVal(){ $("#editCliVal").textContent = editCliente ? (editCliente.nombre||"Clienta") : "Mostrador (sin clienta)"; }
+function renderEditCliList(){
+  const cont = $("#editCliList"); cont.innerHTML = "";
+  const mk = (label, sub, mostrador, active, onClick)=>{
+    const b = document.createElement("button"); b.className = "cli-pick-item";
+    if(active) b.style.boxShadow = "0 0 0 2px var(--celeste-deep)";
+    b.innerHTML = `<span class="cli-av"${mostrador?' style="background:var(--gris-100);color:var(--gris-500)"':''}>${mostrador?"🛒":cliInitial(label)}</span>
+      <span class="cpi-tx"><b>${esc(label)}</b><span>${esc(sub)}</span></span>`;
+    b.onclick = onClick; cont.appendChild(b);
+  };
+  mk("Mostrador (sin clienta)", "Venta de mostrador", true, !editCliente, ()=>{ editCliente=null; afterEditCli(); });
+  clientes.slice().sort((a,b)=> (a.nombre||"").localeCompare(b.nombre||"")).forEach(c=>{
+    mk(c.nombre||"Sin nombre", c.colegio?corto(c.colegio):"", false, editCliente&&editCliente.id===c.id, ()=>{ editCliente={id:c.id,...c}; afterEditCli(); });
+  });
+}
+function afterEditCli(){ renderEditCliVal(); renderEditCliList(); $("#editCliPanel").classList.remove("open"); $("#editCliHead").classList.remove("open"); }
+$("#editCliHead").onclick = ()=>{ const open = $("#editCliPanel").classList.toggle("open"); $("#editCliHead").classList.toggle("open", open); };
+
+function renderEditPago(){
+  const cont = $("#editPago"); cont.innerHTML = "";
+  [["efectivo","💵","Efectivo","En mano, sin recargo"],
+   ["transferencia","📲","Transferencia / MP", (recargoPct>0?`Recargo ${recargoPct}%`:"Sin recargo")]].forEach(([val,ico,t,sub])=>{
+    const b = document.createElement("button"); b.className = "pago" + (editPagoSel===val?" on":"");
+    b.innerHTML = `<span class="pico">${ico}</span><span class="ptx"><b>${t}</b><span>${esc(sub)}</span></span><span class="pcheck">✓</span>`;
+    b.onclick = ()=>{ editPagoSel = val; renderEditPago(); renderEditTotal(); };
+    cont.appendChild(b);
+  });
+}
+function renderEditItems(){
+  const cont = $("#editItems"); cont.innerHTML = "";
+  if(editCart.length===0){
+    cont.innerHTML = `<p class="v-hint" style="text-align:left">Esta venta quedó sin prendas. Agregá al menos una, o cerrá y cancelá la venta.</p>`;
+    return;
+  }
+  editCart.forEach((l, idx)=>{
+    const box = document.createElement("div"); box.className = "eitem";
+    box.innerHTML = `
+      <div class="eitem-top">
+        <div class="eitem-tx"><b>${esc(l.prenda)}</b><span>${esc(corto(l.colegio))} · ${money(l.precio)} c/u</span></div>
+        <div class="ci-step"><button data-d="-1">−</button><span class="q">${l.cant}</span><button data-d="1">＋</button></div>
+        <button class="eitem-del" title="Quitar">🗑</button>
+      </div>
+      <div class="etalle-row"><div class="etalle-lbl">Talle</div><div class="etalle-chips"></div></div>`;
+    box.querySelectorAll(".ci-step button").forEach(b=>{
+      b.onclick = ()=>{
+        const d = Number(b.dataset.d);
+        if(d>0){ if(l.cant >= editHeadroom(l.id)){ toast("No hay más stock de ese talle"); return; } l.cant++; }
+        else { l.cant--; if(l.cant<=0) editCart.splice(idx,1); }
+        renderEditItems(); renderEditTotal();
+      };
+    });
+    box.querySelector(".eitem-del").onclick = ()=>{ editCart.splice(idx,1); renderEditItems(); renderEditTotal(); };
+    const chips = box.querySelector(".etalle-chips");
+    tallesDe(l.colegio, l.prenda).forEach(p=>{
+      const stock = Number(p.stock)||0;
+      const isCur = p.id===l.id;
+      const dup = !isCur && editCart.some(x=>x.id===p.id);
+      const chip = document.createElement("button");
+      chip.className = "etalle" + (isCur?" on":"") + ((editHeadroom(p.id)<=0 && !isCur)?" cero":"");
+      chip.textContent = p.talle;
+      chip.onclick = ()=>{
+        if(isCur) return;
+        if(dup){ toast("Ese talle ya está en la venta"); return; }
+        if(editHeadroom(p.id)<=0){ toast("Ese talle no tiene stock"); return; }
+        l.id = p.id; l.talle = String(p.talle); l.precio = Number(p.precio)||0; l.colegio = p.colegio; l.prenda = p.prenda;
+        l.cant = Math.min(l.cant, editHeadroom(l.id));
+        renderEditItems(); renderEditTotal();
+      };
+      chips.appendChild(chip);
+    });
+    cont.appendChild(box);
+  });
+}
+function renderEditTotal(){
+  const { recargo, total } = editTotals();
+  $("#editTotalVal").textContent = money(total);
+  $("#editTotalLbl").textContent = recargo>0 ? `Total (incluye recargo ${recargoPct}%)` : "Total";
+}
+
+/* Agregar prenda (panel inline, mismo flujo que Vender) */
+$("#editAddToggle").onclick = ()=>{
+  const p = $("#editAddPanel");
+  const show = p.style.display==="none";
+  p.style.display = show ? "block" : "none";
+  $("#editAddToggle").textContent = show ? "✕ Cerrar agregar prenda" : "＋ Agregar prenda";
+  if(show){ editAddSel = { colegio:null, prenda:null }; renderEditAdd(); }
+};
+function renderEditAdd(){
+  const panel = $("#editAddPanel");
+  panel.innerHTML = `
+    <div class="v-q" style="font-size:16px;margin:2px 0 9px">Colegio</div>
+    <div class="v-chips" id="eaCol"></div>
+    <div class="v-q" style="font-size:16px;margin:16px 0 9px">Prenda</div>
+    <div class="v-chips" id="eaPr"></div>
+    <div class="v-q" style="font-size:16px;margin:16px 0 9px">Talle</div>
+    <div class="v-talles" id="eaTa"></div>`;
+  const cols = [...new Set(vendibles().map(p=>p.colegio))].sort();
+  const colC = panel.querySelector("#eaCol");
+  if(cols.length===0){ colC.innerHTML = `<p class="v-hint">No hay stock disponible para agregar.</p>`; }
+  cols.forEach(col=>{
+    const b = document.createElement("button"); b.className = "v-chip" + (editAddSel.colegio===col?" on":""); b.textContent = col;
+    b.onclick = ()=>{ editAddSel.colegio = col; editAddSel.prenda = null; renderEditAdd(); }; colC.appendChild(b);
+  });
+  const prC = panel.querySelector("#eaPr");
+  if(!editAddSel.colegio){ prC.innerHTML = `<p class="v-hint">Elegí un colegio.</p>`; }
+  else {
+    [...new Set(vendibles().filter(p=>p.colegio===editAddSel.colegio).map(p=>p.prenda))].forEach(pr=>{
+      const b = document.createElement("button"); b.className = "v-chip" + (editAddSel.prenda===pr?" on":""); b.textContent = pr;
+      b.onclick = ()=>{ editAddSel.prenda = pr; renderEditAdd(); }; prC.appendChild(b);
+    });
+  }
+  const taC = panel.querySelector("#eaTa");
+  if(!editAddSel.colegio || !editAddSel.prenda){ taC.innerHTML = `<p class="v-hint">Elegí prenda.</p>`; }
+  else {
+    const prods = productos.filter(p=> p.activo!==false && p.colegio===editAddSel.colegio && p.prenda===editAddSel.prenda)
+      .sort((a,b)=> tOrder(a.talle)-tOrder(b.talle));
+    if(prods.length===0){ taC.innerHTML = `<p class="v-hint">No hay talles para esta prenda.</p>`; }
+    prods.forEach(p=>{
+      const stock = Number(p.stock)||0;
+      const enCart = editCart.find(x=>x.id===p.id);
+      const card = document.createElement("button"); card.className = "t-card" + (stock<=0 && !enCart?" cero":"");
+      card.innerHTML = `<span class="tt">${p.talle}</span>
+        <span class="ti"><b>${money(p.precio)}</b><span>${stock<=0?"Sin stock":"Quedan "+stock}${enCart?` · ${enCart.cant} en la venta`:""}</span></span>
+        <span class="tadd">＋</span>`;
+      if(editHeadroom(p.id)>0) card.onclick = ()=>{
+        const line = editCart.find(x=>x.id===p.id);
+        if(line){ if(line.cant >= editHeadroom(p.id)){ toast("No hay más stock de ese talle"); return; } line.cant++; }
+        else editCart.push({ id:p.id, colegio:p.colegio, prenda:p.prenda, talle:String(p.talle), precio:Number(p.precio)||0, cant:1 });
+        renderEditItems(); renderEditTotal(); renderEditAdd();
+      };
+      taC.appendChild(card);
+    });
+  }
+}
+$("#editFecha").addEventListener("change", e=>{ editFechaYmd = e.target.value || editFechaYmd; });
+
+$("#editSaveBtn").onclick = async ()=>{
+  if(!editVenta) return;
+  if(editCart.length===0){ toast("Agregá al menos una prenda, o cancelá la venta","err"); return; }
+  if(!editPagoSel){ toast("Elegí el medio de pago","err"); return; }
+  $("#editSaveBtn").disabled = true;
+  try{
+    // Stock: devolver lo anterior y descontar lo nuevo (delta por producto)
+    const delta = {};
+    (editVenta.items||[]).forEach(it=>{ if(it.productoId) delta[it.productoId] = (delta[it.productoId]||0) + (Number(it.cant)||0); });
+    editCart.forEach(l=>{ delta[l.id] = (delta[l.id]||0) - l.cant; });
+    const { sub, recargo, total } = editTotals();
+    const items = editCart.map(l=>({ productoId:l.id, colegio:l.colegio, prenda:l.prenda, talle:l.talle,
+      precio:l.precio, cant:l.cant, subtotal:l.precio*l.cant }));
+    // Fecha: conserva la hora original sobre el día elegido
+    let ts = ventaMs(editVenta) || Date.now();
+    if(editFechaYmd){ const [y,m,d] = editFechaYmd.split("-").map(Number); const nd = new Date(ts); nd.setFullYear(y, m-1, d); ts = nd.getTime(); }
+    const batch = writeBatch(db);
+    Object.keys(delta).forEach(pid=>{
+      if(!delta[pid]) return;
+      const p = productos.find(x=>x.id===pid); if(!p) return;
+      batch.set(doc(db, COL, pid), { stock: Math.max(0, (Number(p.stock)||0) + delta[pid]) }, { merge:true });
+    });
+    batch.set(doc(db,"ventas_pos_cascanueces",editVenta.id), {
+      items, subtotal:sub, recargoPct: editPagoSel==="transferencia" ? (recargoPct||0) : 0, recargo, total,
+      pago: editPagoSel, clienteId: editCliente?.id || null, clienteNombre: editCliente?.nombre || null,
+      ts, editadoTs: Date.now()
+    }, { merge:true });
+    // Mantener en sintonía la entrega vinculada (si existe)
+    const ent = entregaDeVenta(editVenta);
+    if(ent){
+      batch.set(doc(db,"entregas_pos_cascanueces",ent.id), {
+        total, clienteId: editCliente?.id || ent.clienteId, clienteNombre: editCliente?.nombre || ent.clienteNombre
+      }, { merge:true });
+    }
+    await batch.commit();
+    closeVentaEdit();
+    toast("Venta actualizada ✓", "ok");
+  }catch(err){
+    console.error("Editar venta:", err.code, err.message);
+    toast("No se pudo guardar. Probá de nuevo.", "err");
+  }
+  $("#editSaveBtn").disabled = false;
+};
 
 aplicarHistQuick("hoy");   // historial arranca mostrando lo de hoy
 /* ──────────────────── fin ETAPA 6 ──────────────────── */
