@@ -450,6 +450,7 @@ img{display:block;max-width:100%}
 .ri-meta{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:15px 0 12px}
 .ri-meta b{font-size:18px;color:var(--gris-900)}
 .ri-meta .ri-fecha{font-size:13px;color:var(--texto-suave);text-align:right;flex-shrink:0}
+.ri-tel{font-size:13px;color:var(--texto-suave);margin:-6px 0 12px}
 .ri-items{width:100%;border-collapse:collapse;margin-bottom:4px}
 .ri-items td{padding:7px 0;font-size:14.5px;vertical-align:top;border-bottom:1px solid var(--crema-dark)}
 .ri-name{color:var(--gris-900)}
@@ -539,7 +540,7 @@ img{display:block;max-width:100%}
       <nav class="s-nav">
         <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span> Inicio</a>
         <a href="#" class="nav-link" data-go="stock"><span class="bi">📦</span> Stock</a>
-        <a href="#" class="nav-link" data-go="clientes"><span class="bi">👩</span> Clientas</a>
+        <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span> Clientas</a>
         <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span> Reparto</a>
         <a href="#" class="nav-link" data-go="caja"><span class="bi">💰</span> Caja</a>
       </nav>
@@ -583,7 +584,7 @@ img{display:block;max-width:100%}
       </button>
 
       <button class="quick" data-go="clientes">
-        <div class="ico">👩</div>
+        <div class="ico">🪪</div>
         <div class="tx"><b>Mis clientas</b><span>Datos, hijos y mensajes de WhatsApp</span></div>
         <div class="arrow">→</div>
       </button>
@@ -689,7 +690,7 @@ img{display:block;max-width:100%}
   <nav class="botnav">
     <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span>Inicio</a>
     <a href="#" class="nav-link" data-go="stock"><span class="bi">📦</span>Stock</a>
-    <a href="#" class="nav-link" data-go="clientes"><span class="bi">👩</span>Clientas</a>
+    <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span>Clientas</a>
     <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span>Reparto</a>
     <a href="#" class="nav-link" data-go="caja"><span class="bi">💰</span>Caja</a>
   </nav>
@@ -834,6 +835,10 @@ img{display:block;max-width:100%}
       <div class="switch-row" id="vSwRepartoRow">
         <div class="st"><b>🚗 Reparto a domicilio</b><span id="vSwRepartoSub">Programá la entrega en Reparto</span></div>
         <button class="switch" id="vSwReparto" type="button" aria-pressed="false"><span class="knob"></span></button>
+      </div>
+      <div class="switch-row" style="display:block">
+        <div class="st" style="margin-bottom:10px"><b>📅 Fecha de la venta</b><span id="vFechaSub">Hoy</span></div>
+        <input class="txtin" type="date" id="vFecha" style="margin-top:0">
       </div>
       <div class="v-total-box">
         <div class="lbl">Total a cobrar</div>
@@ -1079,6 +1084,12 @@ img{display:block;max-width:100%}
     <p class="hint">Mostráselo a la clienta o sacale una captura. También lo podés mandar por WhatsApp o guardarlo en PDF.</p>
     <div id="reciboPreview" style="margin-top:14px"></div>
 
+    <div id="reciboFechaWrap" style="display:none">
+      <div class="section-lbl">Fecha de la venta</div>
+      <input class="txtin" type="date" id="reciboFecha">
+      <p class="notas-hint">Cambiala si esta venta fue otro día. Se actualiza en el recibo y en la caja.</p>
+    </div>
+
     <div class="section-lbl">Notas de esta venta</div>
     <div id="reciboNotas"></div>
     <p class="notas-hint" id="reciboNotasHint">Solo las notas con “Mostrar en recibo” en ON aparecen en el comprobante. Las notas de la clienta se editan desde su ficha.</p>
@@ -1088,9 +1099,13 @@ img{display:block;max-width:100%}
         <span class="wico">🧾</span>
         <span class="wtx"><b>Mandar recibo por WhatsApp</b><span>Comprobante en texto, listo para enviar</span></span>
       </button>
-      <button class="btn-wa ent-recibo" id="reciboPdf">
+      <button class="btn-wa ent-recibo" id="reciboPdfDl">
         <span class="wico">⬇️</span>
-        <span class="wtx"><b>Descargar / compartir PDF</b><span>Para guardarlo en Drive o mandarlo</span></span>
+        <span class="wtx"><b>Descargar PDF</b><span>Guarda el archivo en el teléfono</span></span>
+      </button>
+      <button class="btn-wa soft" id="reciboPdf">
+        <span class="wico">📤</span>
+        <span class="wtx"><b>Compartir PDF</b><span>Mandalo por WhatsApp, mail o Drive</span></span>
       </button>
     </div>
   </div>
@@ -1167,8 +1182,82 @@ function prendasDe(colegio){
   return base;
 }
 
+/* ════════════════════════════════════════════════════════════════
+   NAVEGACIÓN CON EL BOTÓN ATRÁS DEL DISPOSITIVO (History API)
+   - El gesto/botón Atrás de Android navega DENTRO de la app:
+     cierra el sheet/modal abierto, o vuelve a la vista anterior,
+     en vez de salir de la página.
+   - `navStack` refleja lo que hay apilado en el history:
+       { kind:'view', view } | { kind:'overlay', id, close }
+   - Cada apertura hace pushState; cada cierre consume ese estado.
+   - `ignorePop` evita que el history.back() que disparamos nosotros
+     (al cerrar desde la UI) se procese como un "Atrás" del usuario.
+   ════════════════════════════════════════════════════════════════ */
+let currentView = "inicio";
+let navStack = [{ kind:"view", view:"inicio" }];
+let ignorePop = false;
+history.replaceState({ casc:true, kind:"view", view:"inicio" }, "");
+
+function pushBack(id, closeFn){
+  navStack.push({ kind:"overlay", id, close: closeFn });
+  history.pushState({ casc:true, kind:"overlay", id }, "");
+}
+function syncBack(id){
+  for(let i=navStack.length-1; i>=0; i--){
+    if(navStack[i].kind==="overlay" && navStack[i].id===id){
+      navStack.splice(i,1);
+      ignorePop = true;
+      history.back();
+      return;
+    }
+  }
+}
+function navGoView(view){
+  navStack.push({ kind:"view", view });
+  history.pushState({ casc:true, kind:"view", view }, "");
+}
+/* Reemplaza un overlay por otro en el MISMO estado del history (evita el
+   problema de history.back()+pushState en el mismo tick, p.ej. pick→ficha). */
+function replaceTopOverlay(oldId, newId, closeFn){
+  for(let i=navStack.length-1; i>=0; i--){
+    if(navStack[i].kind==="overlay" && navStack[i].id===oldId){
+      navStack[i] = { kind:"overlay", id:newId, close: closeFn };
+      history.replaceState({ casc:true, kind:"overlay", id:newId }, "");
+      return true;
+    }
+  }
+  return false;
+}
+/* Modales de confirmación: Atrás del dispositivo los descarta (como Cancelar) */
+function showConfirm(id, onDismiss){
+  $("#"+id).classList.add("show");
+  pushBack(id, (fromPop)=>{ $("#"+id).classList.remove("show"); onDismiss && onDismiss(); if(fromPop!==true) syncBack(id); });
+}
+function hideConfirm(id){ $("#"+id).classList.remove("show"); syncBack(id); }
+window.addEventListener("popstate", ()=>{
+  if(ignorePop){ ignorePop = false; return; }
+  const top = navStack[navStack.length-1];
+  if(!top){ return; }
+  if(top.kind==="overlay"){          // hay un sheet/modal abierto → cerralo
+    navStack.pop();
+    try{ top.close(true); }catch(e){ console.warn("popstate close:", e); }
+    return;
+  }
+  // el tope es una vista → volver a la anterior
+  if(navStack.length>1){
+    navStack.pop();
+    const prev = navStack[navStack.length-1];
+    if(prev && prev.kind==="view") go(prev.view, true);
+  } else {
+    // estamos en la raíz: re-apilo para no salir de la app sin querer
+    history.pushState({ casc:true, kind:"view", view: top.view }, "");
+  }
+});
+
 /* ── Navegación entre vistas ── */
-function go(view){
+function go(view, fromPop){
+  const prev = currentView;
+  currentView = view;
   document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
   $("#view-"+view).classList.add("active");
   document.querySelectorAll(".nav-link").forEach(a=> a.classList.toggle("on", a.dataset.go===view));
@@ -1176,6 +1265,7 @@ function go(view){
   $("#fabAddCli").style.display = view==="clientes" ? "flex" : "none";   // Etapa 3
   if(view==="caja") renderCaja();                                        // Etapa 6
   window.scrollTo({top:0,behavior:"smooth"});
+  if(fromPop!==true && view!==prev) navGoView(view);
 }
 document.addEventListener("click", e=>{
   const link = e.target.closest("[data-go]");
@@ -1305,11 +1395,13 @@ function openSheet(prod=null){
   $("#scrim").classList.add("show");
   $("#sheet").classList.add("show");
   document.body.style.overflow = "hidden";
+  pushBack("sheet", closeSheet);
 }
-function closeSheet(){
+function closeSheet(fromPop){
   $("#scrim").classList.remove("show");
   $("#sheet").classList.remove("show");
   document.body.style.overflow = "";
+  if(fromPop!==true) syncBack("sheet");
 }
 $("#sheetClose").onclick = closeSheet;
 $("#scrim").onclick = closeSheet;
@@ -1442,11 +1534,11 @@ $("#btnDelete").onclick = ()=>{
   if(!editId) return;
   const p = productos.find(x=>x.id===editId);
   $("#cfText").textContent = `Vas a borrar "${p?.prenda||""} talle ${p?.talle||""}". No se puede deshacer. Si solo querés pausarlo, usá "En venta".`;
-  $("#confirm").classList.add("show");
+  showConfirm("confirm");
 };
-$("#cfNo").onclick = ()=> $("#confirm").classList.remove("show");
+$("#cfNo").onclick = ()=> hideConfirm("confirm");
 $("#cfYes").onclick = async ()=>{
-  $("#confirm").classList.remove("show");
+  hideConfirm("confirm");
   try{ await deleteDoc(doc(db, COL, editId)); toast("Uniforme borrado"); closeSheet(); }
   catch(err){ console.error("Borrar:", err.code, err.message); toast("No se pudo borrar. Probá de nuevo.", "err"); }
 };
@@ -1468,7 +1560,7 @@ const TPL_DEFAULT = {
   reciboTitulo: "Comprobante de entrega",
   reciboLeyenda:"Documento no válido como factura",
   reciboPie:    "¡Gracias por elegir Cascanueces! 💙",
-  reciboWhats:  "🌰 *CASCANUECES*\n{titulo}\n\nClienta: {nombre}\nFecha: {fecha}\n\n{items}\n\nTotal: {total}\nPago: {pago}\n{notas}_{leyenda}_\n\n{pie}"
+  reciboWhats:  "🌰 *CASCANUECES*\n{titulo}\n\nClienta: {nombre}\nCel: {tel}\nFecha: {fecha}\n\n{items}\n\nTotal: {total}\nPago: {pago}\n{notas}_{leyenda}_\n\n{pie}"
 };
 let tpl = { ...TPL_DEFAULT };
 
@@ -1518,6 +1610,7 @@ function renderNotasEditor(cont, arr, onChange){
 /* Logo Cascanueces (data URL ya embebido en el header) para recibo y PDF */
 const logoSrc = (document.querySelector(".ele img")||{}).src || "";
 let pagoSel = null;
+let venderFecha = "";       // fecha de la venta (YYYY-MM-DD); por defecto hoy, editable
 let vStepNow = "armar";
 let venderCliente = null;   // Etapa 3: clienta vinculada a la venta en curso
 let venderUsaClienta = false; // switch "Clienta" (off por defecto = mostrador)
@@ -1532,14 +1625,28 @@ const vendibles = () => productos.filter(p => p.activo!==false && (Number(p.stoc
 function openVender(){
   venderCart = []; vSel = { colegio:null, prenda:null }; pagoSel = null;
   venderCliente = null; venderUsaClienta = false; venderUsaReparto = false;
+  venderFecha = hoyYmd(); setVFecha();
   renderVCliPick(); renderVSwitches();   // Etapa 3
   lastVentaInfo = null; entregaYaCreada = false;   // Etapa 4
   vStep("armar");
   buildVColegios(); buildVPrendas(); buildVTalles(); renderCart(); renderPago();
   const v = $("#vender"); v.classList.add("show"); v.setAttribute("aria-hidden","false");
+  pushBack("vender", venderPopClose);    // botón Atrás del dispositivo
 }
-function closeVender(){
+/* Refleja la fecha elegida en el selector y su subtítulo ("Hoy" / día) */
+function setVFecha(){
+  const inp = $("#vFecha"); if(!inp) return;
+  inp.value = venderFecha;
+  $("#vFechaSub").textContent = venderFecha===hoyYmd() ? "Hoy" : diaLabel(venderFecha);
+}
+function closeVender(fromPop){
   const v = $("#vender"); v.classList.remove("show"); v.setAttribute("aria-hidden","true");
+  if(fromPop!==true) syncBack("vender");
+}
+/* Atrás del dispositivo dentro de Vender: cobrar→armar, o cierra */
+function venderPopClose(){
+  if(vStepNow==="cobrar"){ vStep("armar"); renderPago(); pushBack("vender", venderPopClose); return; }
+  closeVender(true);
 }
 function vStep(name){
   vStepNow = name;
@@ -1636,8 +1743,8 @@ function renderCart(){
     const row = document.createElement("div");
     row.className = "ci";
     row.innerHTML = `
-      <div class="cn"><b>${l.prenda} · talle ${l.talle}</b>
-        <span>${l.colegio} · $ ${(l.precio).toLocaleString("es-AR")} c/u</span></div>
+      <div class="cn"><b>${esc(l.prenda)} · ${esc(corto(l.colegio))}</b>
+        <span>Talle ${esc(l.talle)} · $ ${(l.precio).toLocaleString("es-AR")} c/u</span></div>
       <div class="ci-step">
         <button data-d="-1">−</button><span class="q">${l.cant}</span><button data-d="1">＋</button>
       </div>`;
@@ -1678,6 +1785,10 @@ function renderPago(){
 document.querySelectorAll(".pago").forEach(b=>{
   b.onclick = ()=>{ pagoSel = b.dataset.pago; renderPago(); };
 });
+$("#vFecha").addEventListener("change", e=>{
+  venderFecha = e.target.value || hoyYmd();
+  $("#vFechaSub").textContent = venderFecha===hoyYmd() ? "Hoy" : diaLabel(venderFecha);
+});
 
 /* ── Confirmar venta: descuenta stock + guarda venta ── */
 $("#vConfirmar").onclick = async ()=>{
@@ -1709,7 +1820,7 @@ $("#vConfirmar").onclick = async ()=>{
       clienteNombre: venderCliente?.nombre || null, // Etapa 3
       notas: [],                                     // Etapa 5: notas de la venta (editables en el recibo)
       fecha: serverTimestamp(),
-      ts: Date.now()
+      ts: ymdToTs(venderFecha)                       // fecha elegida (hoy por defecto, editable)
     });
     await batch.commit();
     lastVentaWhats = { items: itemsVenta, subtotal: sub, recargo, total, pago: pagoSel }; // Etapa 3
@@ -1752,6 +1863,7 @@ $("#vConfirmar").onclick = async ()=>{
 };
 $("#vNueva").onclick = ()=>{
   vSel = { colegio:null, prenda:null }; pagoSel = null;
+  venderFecha = hoyYmd(); setVFecha();
   venderCliente = null; venderUsaClienta = false; venderUsaReparto = false;
   lastVentaWhats = null; renderVCliPick(); renderVSwitches();   // Etapa 3
   lastVentaInfo = null; entregaYaCreada = false;   // Etapa 4
@@ -1766,10 +1878,11 @@ function openAjustes(){
   $("#ajCbu").value     = pagoCfg.cbu     || "";
   $("#ajTitular").value = pagoCfg.titular || "";
   $("#ajScrim").classList.add("show"); $("#ajSheet").classList.add("show");
+  pushBack("ajustes", closeAjustes);
 }
 $("#ajustesLink").onclick = openAjustes;
 $("#ajustesLinkCli").onclick = openAjustes;   // Etapa 3: mismo acceso desde Clientas
-function closeAjustes(){ $("#ajScrim").classList.remove("show"); $("#ajSheet").classList.remove("show"); }
+function closeAjustes(fromPop){ $("#ajScrim").classList.remove("show"); $("#ajSheet").classList.remove("show"); if(fromPop!==true) syncBack("ajustes"); }
 $("#ajClose").onclick = closeAjustes;
 $("#ajScrim").onclick = closeAjustes;
 $("#ajGuardar").onclick = async ()=>{
@@ -2003,7 +2116,7 @@ function renderHijos(){
 }
 $("#cliHijoAdd").onclick = ()=>{ cliForm.hijos.push({ nombre:"", talles:"" }); renderHijos(); };
 
-function openCliSheet(cli=null){
+function openCliSheet(cli=null, replacePick=false){
   cliEditId = cli ? cli.id : null;
   $("#cliSheetTitle").textContent = cli ? "Editar clienta" : "Agregar clienta";
   $("#cliDelete").style.display = cli ? "flex" : "none";
@@ -2029,12 +2142,15 @@ function openCliSheet(cli=null){
   $("#cliScrim").classList.add("show");
   $("#cliSheet").classList.add("show");
   document.body.style.overflow = "hidden";
+  if(replacePick) replaceTopOverlay("pick", "cli", closeCliSheet);   // venía de "Clienta nueva"
+  else pushBack("cli", closeCliSheet);
 }
-function closeCliSheet(){
+function closeCliSheet(fromPop){
   $("#cliScrim").classList.remove("show");
   $("#cliSheet").classList.remove("show");
   document.body.style.overflow = "";
   pendingPickAfterSave = false;
+  if(fromPop!==true) syncBack("cli");
 }
 $("#cliClose").onclick = closeCliSheet;
 $("#cliScrim").onclick = closeCliSheet;
@@ -2144,8 +2260,9 @@ function openPickSheet(){
   $("#pickSearch").value = "";
   renderPickList("");
   $("#pickScrim").classList.add("show"); $("#pickSheet").classList.add("show");
+  pushBack("pick", closePickSheet);
 }
-function closePickSheet(){ $("#pickScrim").classList.remove("show"); $("#pickSheet").classList.remove("show"); }
+function closePickSheet(fromPop){ $("#pickScrim").classList.remove("show"); $("#pickSheet").classList.remove("show"); if(fromPop!==true) syncBack("pick"); }
 function renderPickList(q){
   const cont = $("#pickList"); cont.innerHTML = "";
   const qq = (q||"").trim().toLowerCase();
@@ -2180,7 +2297,12 @@ $("#vCliPick").onclick = openPickSheet;
 $("#pickClose").onclick = closePickSheet;
 $("#pickScrim").onclick = closePickSheet;
 $("#pickSearch").addEventListener("input", e=> renderPickList(e.target.value));
-$("#pickNueva").onclick = ()=>{ closePickSheet(); pendingPickAfterSave = true; openCliSheet(); };
+$("#pickNueva").onclick = ()=>{
+  // Oculto el chooser y abro la ficha nueva reusando el mismo estado del historial
+  $("#pickScrim").classList.remove("show"); $("#pickSheet").classList.remove("show");
+  pendingPickAfterSave = true;
+  openCliSheet(null, true);
+};
 
 /* ── Botones de WhatsApp en la pantalla de "¡Venta hecha!" ── */
 function renderVOkWa(){
@@ -2284,6 +2406,13 @@ const ESTADO_ORDEN = { pendiente:0, en_reparto:1, entregada:2 };
 /* ── Fechas (siempre día local) ── */
 function ymd(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
 function hoyYmd(){ return ymd(new Date()); }
+/* YYYY-MM-DD → timestamp. Hoy mantiene la hora real; otro día va al mediodía local. */
+function ymdToTs(s){
+  if(!s || s===hoyYmd()) return Date.now();
+  const [y,m,d] = s.split("-").map(Number);
+  if(!y) return Date.now();
+  return new Date(y, m-1, d, 12, 0, 0).getTime();
+}
 function mananaYmd(){ const d=new Date(); d.setDate(d.getDate()+1); return ymd(d); }
 function diaLabel(f){
   if(!f) return "Sin fecha";
@@ -2497,11 +2626,13 @@ function openEntSheet(ent=null){
   $("#entScrim").classList.add("show");
   $("#entSheet").classList.add("show");
   document.body.style.overflow = "hidden";
+  pushBack("ent", closeEntSheet);
 }
-function closeEntSheet(){
+function closeEntSheet(fromPop){
   $("#entScrim").classList.remove("show");
   $("#entSheet").classList.remove("show");
   document.body.style.overflow = "";
+  if(fromPop!==true) syncBack("ent");
 }
 
 function ventaResumen(v){
@@ -2684,6 +2815,7 @@ function reciboData(e, ventaNotasOverride){
   ].map(n=> n.texto.trim());
   return {
     nombre:    e.clienteNombre || v?.clienteNombre || cli?.nombre || "Clienta",
+    tel:       (cli?.whatsapp || "").toString().trim(),
     items:     Array.isArray(v?.items) ? v.items : [],
     subtotal:  Number(v?.subtotal)||0,
     recargo:   Number(v?.recargo)||0,
@@ -2699,7 +2831,7 @@ function reciboData(e, ventaNotasOverride){
 function reciboHTML(d){
   const items = d.items.length
     ? d.items.map(it=> `<tr>
-        <td class="ri-name">${esc(it.prenda)} <span class="ri-talle">t.${esc(it.talle)}</span></td>
+        <td class="ri-name">${esc(it.prenda)}${it.colegio?` · ${esc(corto(it.colegio))}`:""} <span class="ri-talle">t.${esc(it.talle)}</span></td>
         <td class="ri-cant">${Number(it.cant)||1}×</td>
         <td class="ri-price">${money(it.subtotal)}</td></tr>`).join("")
     : `<tr><td colspan="3" class="ri-empty">Venta sin detalle de prendas</td></tr>`;
@@ -2717,6 +2849,7 @@ function reciboHTML(d){
       <b>${esc(d.nombre)}</b>
       <span class="ri-fecha">${esc(fechaLarga(d.fechaMs))}</span>
     </div>
+    ${d.tel ? `<div class="ri-tel">📱 ${esc(d.tel)}</div>` : ""}
     <table class="ri-items">${items}</table>
     ${recargo}
     <div class="ri-row total"><span>Total</span><span>${money(d.total)}</span></div>
@@ -2730,14 +2863,21 @@ function reciboHTML(d){
 /* Recibo en texto para WhatsApp, desde la plantilla editable */
 function reciboTexto(d){
   const items = d.items.length
-    ? d.items.map(it=> `• ${it.prenda} t.${it.talle}${(Number(it.cant)||1)>1?` x${it.cant}`:""} — ${money(it.subtotal)}`).join("\n")
+    ? d.items.map(it=> `• ${it.prenda}${it.colegio?` · ${corto(it.colegio)}`:""} t.${it.talle}${(Number(it.cant)||1)>1?` x${it.cant}`:""} — ${money(it.subtotal)}`).join("\n")
     : "(sin detalle de prendas)";
   const notas = d.notas.length ? d.notas.map(n=> `📝 ${n}`).join("\n") + "\n\n" : "";
-  return fillTpl(tpl.reciboWhats, {
-    nombre: d.nombre, fecha: fechaLarga(d.fechaMs), items, total: money(d.total),
+  let txt = fillTpl(tpl.reciboWhats, {
+    nombre: d.nombre, tel: d.tel, fecha: fechaLarga(d.fechaMs), items, total: money(d.total),
     pago: pagoLabel(d.pago), notas, leyenda: tpl.reciboLeyenda,
     titulo: tpl.reciboTitulo, pie: tpl.reciboPie
   });
+  // Plantillas viejas (ya sembradas) no traen {tel}: lo agrego bajo la clienta.
+  if(d.tel && txt.indexOf(d.tel)===-1){
+    txt = txt.replace(/(Clienta:[^\n]*\n)/, `$1Cel: ${d.tel}\n`);
+  }
+  // Limpia una posible línea "Cel:" vacía si no hay teléfono.
+  txt = txt.replace(/\n?Cel:\s*(?=\n)/g, "");
+  return txt;
 }
 
 /* Recibo como PDF (jsPDF, dibujado a mano: queda liviano y prolijo) */
@@ -2760,12 +2900,14 @@ function reciboPDF(d){
   doc.text(String(d.nombre), M, y);
   doc.setFont("helvetica","normal"); doc.setFontSize(10); doc.setTextColor(107,107,107);
   doc.text(fechaLarga(d.fechaMs), W-M, y, { align:"right" });
-  y += 9;
+  y += 6;
+  if(d.tel){ doc.setFontSize(10); doc.setTextColor(107,107,107); doc.text("Cel: " + d.tel, M, y); y += 5; }
+  y += 3;
 
   doc.setTextColor(42,42,42); doc.setFontSize(11);
   if(d.items.length){
     d.items.forEach(it=>{
-      const left = `${it.prenda}  t.${it.talle}${(Number(it.cant)||1)>1?`  x${it.cant}`:""}`;
+      const left = `${it.prenda}${it.colegio?` · ${corto(it.colegio)}`:""}  t.${it.talle}${(Number(it.cant)||1)>1?`  x${it.cant}`:""}`;
       doc.text(doc.splitTextToSize(left, W-2*M-28)[0], M, y);
       doc.text(money(it.subtotal), W-M, y, { align:"right" });
       doc.setDrawColor(235,235,235); doc.setLineWidth(0.2); doc.line(M, y+2.5, W-M, y+2.5);
@@ -2828,11 +2970,35 @@ function guardarVentaNotas(){
     catch(err){ console.warn("guardar notas venta:", err.code); }
   }, 700);
 }
+/* Cambiar la fecha de una venta desde el recibo / historial */
+async function cambiarFechaVenta(v, ymdStr){
+  if(!v || !ymdStr) return;
+  const nuevoTs = ymdToTs(ymdStr);
+  v.ts = nuevoTs;                                    // misma ref que ventasParaEntrega
+  const vp = ventasParaEntrega.find(x=> x.id===v.id); if(vp) vp.ts = nuevoTs;
+  renderReciboPreview();
+  if($("#view-caja")?.classList.contains("active")) renderCaja();
+  try{
+    await setDoc(doc(db,"ventas_pos_cascanueces", v.id), { ts: nuevoTs }, { merge:true });
+    toast("Fecha actualizada ✓","ok");
+  }catch(err){ console.error("Cambiar fecha venta:", err.code, err.message); toast("No se pudo cambiar la fecha.","err"); }
+}
 function openRecibo(e){
   reciboEnt = e;
   const v = ventaDeEntrega(e);
   reciboVentaId = v?.id || null;
   reciboVentaNotas = (v?.notas||[]).map(n=>({ texto:n.texto||"", recibo:!!n.recibo }));
+
+  // Editor de fecha de la venta (sólo si hay venta vinculada)
+  const fechaWrap = $("#reciboFechaWrap"), fechaInp = $("#reciboFecha");
+  if(reciboVentaId && v){
+    fechaWrap.style.display = "block";
+    fechaInp.value = ventaYmd(v);
+    fechaInp.onchange = ()=> cambiarFechaVenta(v, fechaInp.value);
+  } else {
+    fechaWrap.style.display = "none";
+    fechaInp.onchange = null;
+  }
 
   const hint = $("#reciboNotasHint");
   if(reciboVentaId){
@@ -2848,14 +3014,16 @@ function openRecibo(e){
 
   const cli = clienteDe(e);
   $("#reciboWa").classList.toggle("wa-disabled", !waNorm(cli?.whatsapp));
-  $("#reciboWa").onclick  = ()=> openWa(cli?.whatsapp, reciboTexto(reciboData(reciboEnt, reciboVentaNotas)));
-  $("#reciboPdf").onclick = ()=> compartirReciboPDF(reciboData(reciboEnt, reciboVentaNotas));
+  $("#reciboWa").onclick    = ()=> openWa(cli?.whatsapp, reciboTexto(reciboData(reciboEnt, reciboVentaNotas)));
+  $("#reciboPdfDl").onclick = ()=> descargarReciboPDF(reciboData(reciboEnt, reciboVentaNotas));
+  $("#reciboPdf").onclick   = ()=> compartirReciboPDF(reciboData(reciboEnt, reciboVentaNotas));
 
   $("#reciboScrim").classList.add("show");
   $("#reciboSheet").classList.add("show");
   document.body.style.overflow = "hidden";
+  pushBack("recibo", closeRecibo);
 }
-function closeRecibo(){
+function closeRecibo(fromPop){
   // Guarda inmediato de las notas de la venta por si quedó un cambio en cola
   if(reciboVentaId){
     clearTimeout(reciboSaveTimer);
@@ -2865,7 +3033,17 @@ function closeRecibo(){
   $("#reciboScrim").classList.remove("show");
   $("#reciboSheet").classList.remove("show");
   document.body.style.overflow = "";
+  if(fromPop!==true) syncBack("recibo");
 }
+/* Descarga REAL del PDF (guarda el archivo en el dispositivo) */
+function descargarReciboPDF(d){
+  const doc = reciboPDF(d);
+  if(!doc){ toast("No se pudo generar el PDF. Revisá la conexión.", "err"); return; }
+  const nombre = reciboNombreArchivo(d);
+  try{ doc.save(nombre); toast("Recibo descargado ✓", "ok"); }
+  catch(err){ console.error("Descargar recibo PDF:", err); toast("No se pudo descargar el recibo.", "err"); }
+}
+/* Compartir el PDF (WhatsApp, mail, Drive…); si no se puede, lo descarga */
 async function compartirReciboPDF(d){
   const doc = reciboPDF(d);
   if(!doc){ toast("No se pudo generar el PDF. Revisá la conexión.", "err"); return; }
@@ -2987,12 +3165,12 @@ function pedirCierre(d){
   cajaCierrePend = d;
   $("#ccText").innerHTML = `Vas a guardar el cierre de <b>${diaLabel(d.fecha)}</b>:<br>
     Total <b>${money(d.total)}</b> · 💵 ${money(d.totalEfectivo)} · 📲 ${money(d.totalTransferencia)} · ${d.count} ${d.count===1?"venta":"ventas"}.`;
-  $("#cajaConfirm").classList.add("show");
+  showConfirm("cajaConfirm", ()=>{ cajaCierrePend = null; });
 }
-$("#ccNo").onclick = ()=>{ cajaCierrePend = null; $("#cajaConfirm").classList.remove("show"); };
+$("#ccNo").onclick = ()=>{ cajaCierrePend = null; hideConfirm("cajaConfirm"); };
 $("#ccYes").onclick = async ()=>{
   const d = cajaCierrePend;
-  $("#cajaConfirm").classList.remove("show"); cajaCierrePend = null;
+  hideConfirm("cajaConfirm"); cajaCierrePend = null;
   if(!d) return;
   try{
     const payload = { fecha:d.fecha, total:d.total, totalEfectivo:d.totalEfectivo,
