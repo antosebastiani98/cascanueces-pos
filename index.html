@@ -700,7 +700,7 @@ img{display:block;max-width:100%}
 .menu-chev:active{background:var(--crema)}
 .menu-group.open .menu-chev{transform:rotate(90deg)}
 .menu-children{overflow:hidden;max-height:0;opacity:.4;transition:max-height .26s ease, opacity .26s ease}
-.menu-group.open .menu-children{max-height:180px;opacity:1}
+.menu-group.open .menu-children{max-height:280px;opacity:1}
 .menu-children .menu-item{margin-left:14px;padding-left:12px;border-left:2px solid var(--celeste-pale)}
 .menu-children .menu-item.on{border-left-color:transparent}
 
@@ -719,6 +719,9 @@ img{display:block;max-width:100%}
 
 /* ════════════════ MENSAJES (difusión por WhatsApp) ════════════════ */
 .msg-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+/* Acceso discreto a las plantillas (link de texto, no otro engranaje) */
+.msg-tpl-link{display:inline-flex;align-items:center;gap:6px;background:none;color:var(--celeste-deep);font-size:14px;font-weight:600;padding:6px 2px;margin:-4px 0 16px;text-decoration:underline;text-underline-offset:3px;-webkit-tap-highlight-color:transparent}
+.msg-tpl-link:active{opacity:.6}
 .msg-dif-btn{margin:4px 0 20px;position:relative}
 .msg-dif-chev{flex-shrink:0;font-size:24px;color:var(--celeste-deep);font-weight:700;line-height:1}
 .msg-group{margin-bottom:22px}
@@ -763,8 +766,14 @@ img{display:block;max-width:100%}
 .dif-link-send{flex-shrink:0;min-height:46px;padding:0 16px;border-radius:12px;background:#25D366;color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;gap:7px}
 .dif-link-row.sent .dif-link-send{background:var(--gris-100);color:var(--gris-500)}
 .dif-links-title{font-size:14px;font-weight:700;color:var(--gris-700);margin:18px 2px 11px}
-.cfg-card{background:var(--blanco);border-radius:22px;padding:20px 18px 22px;box-shadow:var(--card-shadow);margin-bottom:16px}
-.cfg-h{display:flex;align-items:center;gap:13px;margin-bottom:6px}
+.cfg-card{background:var(--blanco);border-radius:22px;padding:0;box-shadow:var(--card-shadow);margin-bottom:16px;overflow:hidden}
+/* Encabezado clickable de cada card (acordeón) */
+.cfg-h{display:flex;align-items:center;gap:13px;margin-bottom:0;padding:18px 16px;width:100%;text-align:left;background:none;cursor:pointer;min-height:64px;-webkit-tap-highlight-color:transparent}
+.cfg-h:active{background:var(--crema)}
+.cfg-h .cfg-chev{flex-shrink:0;margin-left:auto;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--gris-500);transition:transform .25s ease}
+.cfg-card.open .cfg-h .cfg-chev{transform:rotate(90deg)}
+.cfg-body{padding:0 16px;max-height:0;opacity:0;overflow:hidden;transition:max-height .32s ease, opacity .25s ease, padding .25s ease}
+.cfg-card.open .cfg-body{max-height:6000px;opacity:1;padding-bottom:20px}
 .cfg-h .cfg-ic{width:46px;height:46px;border-radius:14px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
 .cfg-h>div{display:flex;flex-direction:column;min-width:0}
 .cfg-h b{font-family:var(--titf);font-weight:600;font-size:21px;color:var(--gris-900);line-height:1.1}
@@ -1005,7 +1014,8 @@ html.unlocked #lockScreen{display:none}
 /* ====== ENCARGOS (Etapa 8) ====== */
 #encScrim,#encCobrarScrim{z-index:66}
 #encSheet,#encCobrarSheet{z-index:68}
-.bn-badge{position:absolute;top:9px;margin-left:34px;width:9px;height:9px;border-radius:50%;background:var(--rojo);box-shadow:0 0 0 2px var(--blanco)}
+/* Burbuja de notificación (círculo rojo, número blanco) sobre el ícono de la barra flotante */
+.bn-badge{position:absolute;top:4px;left:calc(50% + 7px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--rojo);color:#fff;font-size:11px;font-weight:700;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px var(--blanco);z-index:2}
 .botnav a{position:relative}
 .s-nav-badge{margin-left:auto;background:var(--rojo);color:#fff;font-size:12px;font-weight:700;border-radius:50px;padding:1px 9px;min-width:22px;text-align:center}
 /* Tarjeta de encargo */
@@ -1572,9 +1582,10 @@ html.unlocked #lockScreen{display:none}
           <div class="eyebrow">WhatsApp</div>
           <h1 class="h-title">Mensajes</h1>
         </div>
-        <button class="top-cfg" id="msgConfigBtn" type="button" aria-label="Plantillas de mensajes">⚙️</button>
       </div>
       <p class="lead">Todo lo que tenés <em class="kw">pendiente de avisar</em>, junto. Tocá <b>Enviar por WhatsApp</b> y el mensaje sale armado solo.</p>
+
+      <button class="msg-tpl-link" id="msgConfigBtn" type="button">✏️ Editar plantillas de mensajes</button>
 
       <button class="cli-shortcut msg-dif-btn" type="button" id="msgDifBtn">
         <span class="csi">📣</span>
@@ -1591,8 +1602,8 @@ html.unlocked #lockScreen{display:none}
   <nav class="botnav">
     <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span>Inicio</a>
     <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span>Reparto</a>
-    <a href="#" class="nav-link" data-go="stock"><span class="bi">🏷</span>Productos</a>
-    <a href="#" class="nav-link" data-go="clientes"><span class="bi">👸🏻</span>Clientas</a>
+    <a href="#" class="nav-link" data-go="stock"><span class="bi">🏷</span>Productos<span class="bn-badge" id="botnavProdBadge" style="display:none">0</span></a>
+    <a href="#" class="nav-link" data-go="clientes"><span class="bi">👸🏻</span>Clientas<span class="bn-badge" id="botnavCliBadge" style="display:none">0</span></a>
     <a href="#" class="nav-link" data-go="caja"><span class="bi">🖥️</span>Caja</a>
   </nav>
 
@@ -3021,28 +3032,43 @@ window.addEventListener("scroll", ()=>{ refreshVozCollapse(); }, {passive:true})
    Mapa completo de la app desde una config fácil de ampliar (sumar una
    sección nueva = agregar un objeto a MENU_SECTIONS). Grupos colapsables,
    sección activa en celeste, cierra al tocar ítem / afuera / con Atrás. */
+/* Sub-pestañas = ATAJOS de navegación a una parte de la pestaña existente.
+   `scroll` lleva a un bloque dentro de la misma vista; `tab` selecciona una
+   solapa interna (Caja). `noHi` evita marcar como activo los atajos que viven
+   dentro de la misma vista que el padre (Catálogo/Stock, Historial/Reportes). */
 const MENU_SECTIONS = [
   { go:"inicio",   icon:"🏠", label:"Inicio" },
   { go:"entregas", icon:"🚗", label:"Reparto" },
-  { go:"stock",    icon:"🏷", label:"Productos" },
-  { go:"clientes", icon:"👸🏻", label:"Clientas", children:[
-      { go:"encargos", icon:"🧾", label:"Encargos",
-        badge:()=> (typeof encargos!=="undefined" ? encargos.filter(e=> e.estado==="listo" && !e.avisado).length : 0) },
-      { go:"cuentas",  icon:"📒", label:"Cuentas",
-        badge:()=> (typeof clientasQueDeben==="function" ? clientasQueDeben().length : 0) },
+  { go:"stock",    icon:"🏷", label:"Productos", children:[
+      { go:"espera", icon:"⏳", label:"Lista de espera", badge:()=> esperaPendientes() },
+      { go:"stock",  icon:"📚", label:"Catálogo", scroll:"#catalogoBlock", noHi:true },
+      { go:"stock",  icon:"📊", label:"Stock",    scroll:"#stockResumen",  noHi:true },
   ]},
-  { go:"caja",     icon:"🖥️", label:"Caja" },
-  { go:"mensajes", icon:"💬", label:"Mensajes",
-    badge:()=> (typeof totalMensajesPendientes==="function" ? totalMensajesPendientes() : 0) },
+  { go:"clientes", icon:"👸🏻", label:"Clientas", children:[
+      { go:"encargos", icon:"🧾", label:"Encargos", badge:()=> encargosPendientes() },
+      { go:"cuentas",  icon:"📒", label:"Cuentas",  badge:()=> cuentasPendientes() },
+  ]},
+  { go:"mensajes", icon:"💬", label:"Mensajes", badge:()=> totalMensajesPendientes() },
+  // Caja SIEMPRE última, debajo de Mensajes.
+  { go:"caja",     icon:"🖥️", label:"Caja", children:[
+      { go:"caja", icon:"📜", label:"Historial", tab:"hist", noHi:true },
+      { go:"caja", icon:"📊", label:"Reportes",  tab:"res",  noHi:true },
+  ]},
 ];
-function menuBadge(item){
-  if(!item.badge) return "";
-  let n = 0; try{ n = item.badge() || 0; }catch(e){ n = 0; }
-  return n>0 ? `<span class="menu-mbadge">${n}</span>` : "";
+/* Conteo de pendientes de un ítem. El de un padre = SUMA de sus hijos. */
+function menuBadgeCount(item){
+  if(item.children) return item.children.reduce((a,c)=> a + menuBadgeCount(c), 0);
+  if(!item.badge) return 0;
+  try{ return item.badge() || 0; }catch(e){ return 0; }
 }
+function menuBadgeHtml(n){ return n>0 ? `<span class="menu-mbadge">${n}</span>` : ""; }
 function menuItemHtml(item, active){
-  return `<button class="menu-item${item.go===active?" on":""}" type="button" data-menu-go="${item.go}">`
-       + `<span class="mi">${item.icon}</span><span class="ml">${item.label}</span>${menuBadge(item)}</button>`;
+  const on = !item.noHi && item.go===active;
+  const attrs = `data-menu-go="${item.go}"`
+    + (item.tab    ? ` data-menu-tab="${item.tab}"` : "")
+    + (item.scroll ? ` data-menu-scroll="${item.scroll}"` : "");
+  return `<button class="menu-item${on?" on":""}" type="button" ${attrs}>`
+       + `<span class="mi">${item.icon}</span><span class="ml">${item.label}</span>${menuBadgeHtml(menuBadgeCount(item))}</button>`;
 }
 function renderMenu(){
   const active = currentView;
@@ -3078,18 +3104,30 @@ function openMenu(){
   renderMenu(); menuOpen = true; menuSetUI(true); refreshVozCollapse();
   pushBack("menu", menuPopClose);
 }
-function menuNavTo(view){
-  // Mismo destino: solo cierro el menú (consume su entrada de history).
-  if(view===currentView){ menuPopClose(); return; }
+function menuApplyShortcut(opts){
+  // Atajos dentro de la vista: solapa interna de Caja y scroll a un bloque.
+  if(opts.tab){ cajaTab = opts.tab; try{ renderCaja(); }catch(e){} }
+  if(opts.scroll){
+    const el = $(opts.scroll);
+    if(el) setTimeout(()=> el.scrollIntoView({ behavior:"smooth", block:"start" }), 80);
+  }
+}
+function menuNavTo(view, opts){
+  opts = opts || {};
+  // Mismo destino: solo cierro el menú (consume su entrada de history) y, si el
+  // ítem es un atajo (solapa / scroll), lo aplico igual.
+  if(view===currentView){ menuPopClose(); menuApplyShortcut(opts); return; }
   // Destino distinto: colapso la entrada del menú en la vista nueva, sin
   // entradas colgadas ni carrera con popstate.
   menuOpen = false; menuSetUI(false);
   for(let i=navStack.length-1;i>=0;i--){
     if(navStack[i].kind==="overlay" && navStack[i].id==="menu"){ navStack.splice(i,1); break; }
   }
+  if(opts.tab) cajaTab = opts.tab;   // dejo la solapa lista antes de renderizar Caja
   navStack.push({ kind:"view", view });
   history.replaceState({ casc:true, kind:"view", view }, "");
   go(view, true);
+  menuApplyShortcut({ scroll: opts.scroll });
 }
 $("#topMenu").addEventListener("click", ()=>{ menuOpen ? menuPopClose() : openMenu(); });
 $("#menuScrim").addEventListener("click", ()=> menuPopClose());
@@ -3097,7 +3135,7 @@ $("#menuPop").addEventListener("click", (e)=>{
   const tog = e.target.closest("[data-menu-toggle]");
   if(tog){ const g = $(`.menu-group[data-group="${tog.dataset.menuToggle}"]`); if(g) g.classList.toggle("open"); return; }
   const item = e.target.closest("[data-menu-go]");
-  if(item) menuNavTo(item.dataset.menuGo);
+  if(item) menuNavTo(item.dataset.menuGo, { tab:item.dataset.menuTab, scroll:item.dataset.menuScroll });
 });
 
 /* ── Botón Vender → abre el flujo POS ── */
@@ -4862,7 +4900,47 @@ function cfgAddColegio(){
 }
 
 /* Vuelca el estado actual de la config a los campos del formulario. */
+/* ── Configuración en cards desplegables (acordeón) ──
+   Cada card muestra SOLO su título cuando está colapsada; al tocar el
+   encabezado se despliega. Arranca todo colapsado. Se arma una sola vez. */
+function setupCfgAccordion(){
+  document.querySelectorAll("#view-config .cfg-card").forEach(card=>{
+    if(card.dataset.acc) return;          // ya procesada
+    const head = card.querySelector(".cfg-h");
+    if(!head) return;
+    card.dataset.acc = "1";
+    // Todo lo que sigue al encabezado pasa a un cuerpo colapsable.
+    const body = document.createElement("div");
+    body.className = "cfg-body";
+    let node = head.nextSibling;
+    while(node){ const next = node.nextSibling; body.appendChild(node); node = next; }
+    card.appendChild(body);
+    // Indicador de desplegado.
+    const chev = document.createElement("span");
+    chev.className = "cfg-chev"; chev.textContent = "▸";
+    head.appendChild(chev);
+    head.setAttribute("role","button");
+    head.setAttribute("tabindex","0");
+    head.setAttribute("aria-expanded","false");
+    const toggle = ()=>{
+      const open = card.classList.toggle("open");
+      head.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    head.addEventListener("click", toggle);
+    head.addEventListener("keydown", e=>{ if(e.key==="Enter" || e.key===" "){ e.preventDefault(); toggle(); } });
+  });
+}
+/* Abre una card puntual del acordeón (y la deja a la vista). */
+function openCfgCard(sel){
+  setupCfgAccordion();
+  const card = $(sel); if(!card) return;
+  card.classList.add("open");
+  const head = card.querySelector(".cfg-h");
+  if(head) head.setAttribute("aria-expanded","true");
+}
+
 function renderConfig(){
+  setupCfgAccordion();
   // Negocio
   $("#cfgNegNombre").value = negocioCfg.nombre || "";
   $("#cfgNegDir").value    = negocioCfg.direccion || "";
@@ -8290,6 +8368,7 @@ function updateCuentaBadge(){
     const el = $(sel); if(!el) return;
     el.textContent = n; el.style.display = n>0 ? "" : "none";
   });
+  if(typeof refreshLiveBadges==="function") refreshLiveBadges();
 }
 
 /* ── Ficha de la clienta: saldo + movimientos + encargos pendientes ── */
@@ -8547,16 +8626,33 @@ onSnapshot(cuentaRef, snap=>{
    msgEncargoListo, msgRecordatorioCuenta, avisarEspera, avisarListo, openWa,
    waNorm, corto, esc, cliInitial, money, encResumenItems, encSaldoDe.
    ════════════════════════════════════════════════════════════════ */
+/* ── Conteos de pendientes (una sola fuente de verdad para todos los badges) ──
+   Lista de espera = talles que ya tienen stock y falta avisar.
+   Encargos = listos sin avisar.  Cuentas = clientas con saldo pendiente.       */
+function esperaPendientes(){ try{ return esperasParaAvisar().length; }catch(e){ return 0; } }
+function encargosPendientes(){ try{ return encargos.filter(e=> e.estado==="listo" && !e.avisado).length; }catch(e){ return 0; } }
+function cuentasPendientes(){ try{ return (typeof clientasQueDeben==="function" ? clientasQueDeben().length : 0); }catch(e){ return 0; } }
+
 function totalMensajesPendientes(){
-  let n = 0;
-  try{ n += esperasParaAvisar().length; }catch(e){}
-  try{ n += encargos.filter(e=> e.estado==="listo" && !e.avisado).length; }catch(e){}
-  return n;
+  // Total de TODO lo pendiente: avisos de espera + encargos listos + saldos.
+  return esperaPendientes() + encargosPendientes() + cuentasPendientes();
+}
+/* Burbujas rojas en la barra flotante: Productos (espera) y Clientas (encargos+cuentas) */
+function updateBotnavBadges(){
+  const set = (sel, n)=>{ const el = $(sel); if(!el) return; el.textContent = n>99 ? "99+" : n; el.style.display = n>0 ? "flex" : "none"; };
+  set("#botnavProdBadge", esperaPendientes());
+  set("#botnavCliBadge",  encargosPendientes() + cuentasPendientes());
+}
+/* Refresca los badges "vivos" (barra flotante + menú abierto) */
+function refreshLiveBadges(){
+  try{ updateBotnavBadges(); }catch(e){}
+  if(menuOpen){ try{ renderMenu(); }catch(e){} }
 }
 function updateMensajesBadge(){
   const n = totalMensajesPendientes();
   const sb = $("#mensajesSideBadge");
   if(sb){ sb.textContent = n; sb.style.display = n>0 ? "" : "none"; }
+  refreshLiveBadges();
 }
 
 function msgCardEl({ av, nombre, motivo, tag, tagCls, hasWa, onSend }){
@@ -8641,10 +8737,13 @@ function renderMensajesView(){
   }
 }
 
-/* Engranaje → Configuración, directo a las plantillas de WhatsApp */
+/* "Editar plantillas" → Configuración, abre y desplaza a la card de WhatsApp */
 $("#msgConfigBtn").onclick = ()=>{
   go("config");
-  setTimeout(()=>{ const c = $("#cfgWhatsappCard"); if(c) c.scrollIntoView({ behavior:"smooth", block:"start" }); }, 80);
+  setTimeout(()=>{
+    openCfgCard("#cfgWhatsappCard");
+    const c = $("#cfgWhatsappCard"); if(c) c.scrollIntoView({ behavior:"smooth", block:"start" });
+  }, 90);
 };
 
 /* ════════ Difusión por colegio ════════ */
