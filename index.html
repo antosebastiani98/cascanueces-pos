@@ -44,10 +44,17 @@ img{display:block;max-width:100%}
 .brand .ele img{width:100%;height:100%;object-fit:contain}
 .brand .bn{font-family:'Dancing Script',cursive;font-weight:700;font-size:25px;color:var(--navy);line-height:1}
 .brand .bs{font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gris-500);margin-top:2px}
-.conn{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:500;color:var(--gris-500);background:var(--blanco);padding:7px 12px;border-radius:50px;box-shadow:var(--card-shadow)}
-.conn .dot{width:9px;height:9px;border-radius:50%;background:var(--gris-300);flex-shrink:0;transition:background .3s}
-.conn.online .dot{background:var(--ok)}
-.conn.offline .dot{background:var(--mostaza)}
+/* Lucecita de conexión (mobile): SOLO el punto, tappable. Muestra el estado
+   en una burbujita de chat por <1s al tocarla. */
+.conn{position:relative;display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:13px;background:var(--blanco);box-shadow:var(--card-shadow);flex-shrink:0;cursor:pointer;transition:transform .15s ease}
+.conn:active{transform:scale(.94)}
+.conn .ct{display:none}
+.conn .dot{width:12px;height:12px;border-radius:50%;background:var(--gris-300);flex-shrink:0;transition:background .3s, box-shadow .3s}
+.conn.online .dot{background:var(--ok);box-shadow:0 0 0 4px rgba(43,182,115,.16)}
+.conn.offline .dot{background:var(--mostaza);box-shadow:0 0 0 4px rgba(212,168,67,.18)}
+.conn-bubble{position:absolute;top:50%;right:calc(100% + 9px);transform:translateY(-50%) translateX(6px) scale(.92);background:var(--gris-900);color:#fff;font-size:12.5px;font-weight:600;letter-spacing:.2px;padding:7px 12px;border-radius:14px 14px 4px 14px;white-space:nowrap;box-shadow:0 8px 22px rgba(42,42,42,.24);opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease;z-index:5}
+.conn-bubble::after{content:"";position:absolute;right:-5px;bottom:7px;width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:6px solid var(--gris-900)}
+.conn.show-state .conn-bubble{opacity:1;transform:translateY(-50%) translateX(0) scale(1)}
 
 .main{flex:1;padding:4px 20px calc(var(--nav-h) + 28px)}
 .view{display:none;animation:fade .35s ease}
@@ -95,16 +102,19 @@ img{display:block;max-width:100%}
 
 /* resumen de movimientos de HOY (Inicio) */
 .mov-title{font-family:var(--titf);font-weight:600;font-size:16px;color:var(--gris-900);margin:28px 4px 2px}
-.mov-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:12px}
-.mov-card{background:var(--blanco);border-radius:20px;padding:16px 15px 12px;box-shadow:var(--card-shadow);display:flex;flex-direction:column;min-height:152px}
-.mov-card .mh{display:flex;align-items:center;gap:8px;margin-bottom:11px}
-.mov-card .mh .mi{font-size:18px;line-height:1}
-.mov-card .mh b{font-size:14px;color:var(--gris-900);font-family:var(--titf);font-weight:600}
-.mov-card .mh .mc{margin-left:auto;font-size:11.5px;font-weight:600;color:var(--celeste-deep);background:var(--celeste-pale);border-radius:50px;padding:2px 9px}
+/* minmax(0,1fr) evita que un texto largo desborde la columna; en pantallas
+   muy angostas cae a 1 sola columna. */
+.mov-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:12px}
+.mov-card{background:var(--blanco);border-radius:20px;padding:16px 15px 12px;box-shadow:var(--card-shadow);display:flex;flex-direction:column;min-height:152px;min-width:0;overflow:hidden}
+.mov-card .mh{display:flex;align-items:flex-start;gap:8px;margin-bottom:11px}
+.mov-card .mh .mi{font-size:18px;line-height:1.2;flex-shrink:0}
+.mov-card .mh b{flex:1;min-width:0;font-size:14px;color:var(--gris-900);font-family:var(--titf);font-weight:600;line-height:1.18}
+.mov-card .mh .mc{flex-shrink:0;font-size:11.5px;font-weight:600;color:var(--celeste-deep);background:var(--celeste-pale);border-radius:50px;padding:2px 9px}
 .mov-list{flex:1;display:flex;flex-direction:column;gap:7px}
-.mov-it{font-size:12.5px;color:var(--gris-700);line-height:1.25;display:flex;gap:7px;align-items:baseline}
+.mov-it{font-size:12.5px;color:var(--gris-700);line-height:1.25;display:flex;gap:7px;align-items:baseline;min-width:0}
 .mov-it .mt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mov-it .mv{flex-shrink:0;font-weight:600;color:var(--gris-900)}
+.mov-it .mv{flex-shrink:0;max-width:50%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;color:var(--gris-900)}
+@media(max-width:359px){.mov-grid{grid-template-columns:1fr}}
 .mov-empty{font-size:12.5px;color:var(--gris-300);padding:4px 0}
 .mov-more{margin-top:11px;font-size:12.5px;font-weight:600;color:var(--celeste-deep);text-align:left;padding:3px 0;align-self:flex-start}
 .mov-more:active{opacity:.55}
@@ -150,8 +160,11 @@ img{display:block;max-width:100%}
    z-index 61: queda por encima de Vender (60), debajo del overlay de voz (62). */
 .fab-voz{position:fixed;bottom:calc(var(--nav-h) + 18px);right:max(18px, calc(50vw - 300px + 18px));z-index:61;display:none;align-items:center;gap:11px;background:transparent;border:0;padding:0}
 .fab-voz.over-vender{bottom:calc(var(--nav-h) + 40px)}   /* despeja la barra "Cobrar" de Vender */
-.fab-voz .fv-lbl{background:#fff;color:var(--navy);font-size:14.5px;font-weight:700;padding:9px 14px;border-radius:16px 16px 4px 16px;box-shadow:0 8px 22px rgba(42,42,42,.16);white-space:nowrap;line-height:1.12;text-align:right}
+.fab-voz .fv-lbl{background:#fff;color:var(--navy);font-size:14.5px;font-weight:700;padding:9px 14px;border-radius:16px 16px 4px 16px;box-shadow:0 8px 22px rgba(42,42,42,.16);white-space:nowrap;line-height:1.12;text-align:right;overflow:hidden;max-width:240px;transition:opacity .25s ease, max-width .3s cubic-bezier(.22,1,.36,1), padding .3s ease, transform .3s ease}
 .fab-voz .fv-lbl em{display:block;font-style:normal;font-weight:500;font-size:11.5px;color:var(--texto-suave);margin-top:1px}
+/* Colapsada: queda solo la burbuja redonda con el ícono. */
+.fab-voz.collapsed{gap:0}
+.fab-voz.collapsed .fv-lbl{opacity:0;max-width:0;padding-left:0;padding-right:0;transform:translateX(14px) scale(.9);pointer-events:none}
 .fab-voz .fv-bubble{position:relative;width:66px;height:66px;border-radius:50%;background:linear-gradient(150deg,var(--wa) 0%,#46c87b 100%);display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px rgba(105,224,150,.5)}
 .fab-voz .fv-mic{font-size:31px;line-height:1;filter:drop-shadow(0 2px 3px rgba(20,90,55,.35))}
 .fab-voz .fv-bubble::after{content:"";position:absolute;inset:0;border-radius:50%;animation:fabVozPulse 2.3s ease-out infinite}
@@ -159,11 +172,14 @@ img{display:block;max-width:100%}
 @keyframes fabVozPulse{0%{box-shadow:0 0 0 0 rgba(105,224,150,.45)}70%{box-shadow:0 0 0 16px rgba(105,224,150,0)}100%{box-shadow:0 0 0 0 rgba(105,224,150,0)}}
 @media(prefers-reduced-motion:reduce){.fab-voz .fv-bubble::after{animation:none}}
 
-/* ====== BOTTOM NAV (mom-friendly) ====== */
-.botnav{position:fixed;bottom:0;left:0;right:0;z-index:40;height:var(--nav-h);background:var(--blanco);border-top:1px solid var(--crema-dark);display:flex;max-width:600px;margin:0 auto;box-shadow:0 -6px 24px rgba(42,42,42,.06)}
-.botnav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--gris-300);font-size:11.5px;font-weight:500;text-decoration:none;transition:color .2s ease}
-.botnav a .bi{font-size:25px;line-height:1}
-.botnav a.on{color:var(--celeste-deep)}
+/* ====== BARRA FLOTANTE (mom-friendly) ======
+   Card/pill redondeada, separada del borde, con sombra de la marca. Siempre
+   visible. 5 ítems fijos, cada uno ≥56px. Activo en celeste #8FB2C8. */
+.botnav{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;z-index:40;width:calc(100% - 24px);max-width:560px;height:62px;background:var(--blanco);border-radius:24px;display:flex;padding:4px 6px;box-shadow:0 14px 34px rgba(94,143,168,.30),0 3px 12px rgba(42,42,42,.08)}
+.botnav a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:56px;border-radius:18px;color:var(--gris-300);font-size:11px;font-weight:600;text-decoration:none;transition:color .2s ease, background .2s ease}
+.botnav a .bi{font-size:23px;line-height:1}
+.botnav a.on{color:#8FB2C8;background:var(--celeste-pale)}
+.botnav a.on .bi{transform:translateY(-1px)}
 
 /* ====== SHEET / MODAL ====== */
 .scrim{position:fixed;inset:0;background:rgba(42,42,42,.42);z-index:50;opacity:0;pointer-events:none;transition:opacity .28s ease}
@@ -451,6 +467,8 @@ img{display:block;max-width:100%}
   .app{max-width:none;width:100vw;flex-direction:row}
   .topbar{display:none}
   .botnav{display:none}
+  .menu-pop,.menu-scrim{display:none!important}
+  .cli-shortcuts{display:none}
   .fab-add{right:48px;bottom:40px;height:64px;font-size:17px}
   .fab-voz{right:48px;bottom:40px}
   .fab-voz.over-vender{bottom:40px}
@@ -597,9 +615,49 @@ img{display:block;max-width:100%}
 .v-chip.small{font-size:14.5px;padding:11px 16px;min-height:46px}
 
 /* ════════════════ CONFIGURACIÓN ════════════════ */
-.top-right{display:flex;align-items:center;gap:10px}
+.top-right{display:flex;align-items:center;gap:9px}
 .top-cfg{width:42px;height:42px;border-radius:13px;background:var(--blanco);box-shadow:var(--card-shadow);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;color:inherit;text-decoration:none;transition:transform .15s ease}
 .top-cfg:active{transform:scale(.94)}
+/* Botón hamburguesa (mismo formato que Ajustes) */
+.top-menu .ham{display:flex;flex-direction:column;justify-content:center;gap:4px;width:21px;height:21px}
+.top-menu .ham i{display:block;width:100%;height:2.5px;border-radius:2px;background:var(--gris-700);transition:transform .25s ease, opacity .2s ease}
+.top-menu[aria-expanded="true"] .ham i:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.top-menu[aria-expanded="true"] .ham i:nth-child(2){opacity:0}
+.top-menu[aria-expanded="true"] .ham i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ====== MENÚ HAMBURGUESA · popover (mobile) ====== */
+.menu-scrim{position:fixed;inset:0;z-index:70;background:rgba(42,42,42,.12);opacity:0;pointer-events:none;transition:opacity .2s ease}
+.menu-scrim.show{opacity:1;pointer-events:auto}
+.menu-pop{position:fixed;top:62px;right:14px;z-index:71;width:min(82vw,312px);background:var(--blanco);border-radius:22px;box-shadow:0 22px 54px rgba(42,42,42,.22),0 6px 16px rgba(94,143,168,.20);padding:9px;transform-origin:top right;transform:scale(.86) translateY(-8px);opacity:0;pointer-events:none;transition:opacity .2s ease, transform .22s cubic-bezier(.22,1,.36,1);max-height:calc(100dvh - 88px);overflow-y:auto}
+.menu-pop.show{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}
+.menu-item{display:flex;align-items:center;gap:13px;min-height:56px;padding:0 14px;border-radius:15px;color:var(--gris-900);font-size:16px;font-weight:500;text-decoration:none;width:100%;text-align:left;background:none;transition:background .15s ease, color .15s ease}
+.menu-item:active{background:var(--crema)}
+.menu-item .mi{font-size:22px;width:26px;text-align:center;flex-shrink:0}
+.menu-item .ml{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.menu-item.on{background:#8FB2C8;color:#fff}
+.menu-item.on:active{background:#82a8bf}
+.menu-mbadge{flex-shrink:0;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:var(--rojo);color:#fff;font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.menu-item.on .menu-mbadge{background:#fff;color:#8FB2C8}
+/* grupo colapsable */
+.menu-group{border-radius:15px}
+.menu-parent{display:flex;align-items:stretch}
+.menu-parent .menu-item{flex:1;border-radius:15px}
+.menu-chev{flex-shrink:0;width:52px;min-height:56px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--gris-500);background:none;border-radius:15px;transition:transform .22s ease, background .15s ease}
+.menu-chev:active{background:var(--crema)}
+.menu-group.open .menu-chev{transform:rotate(90deg)}
+.menu-children{overflow:hidden;max-height:0;opacity:.4;transition:max-height .26s ease, opacity .26s ease}
+.menu-group.open .menu-children{max-height:180px;opacity:1}
+.menu-children .menu-item{margin-left:14px;padding-left:12px;border-left:2px solid var(--celeste-pale)}
+.menu-children .menu-item.on{border-left-color:transparent}
+
+/* ====== Clientas · accesos a Encargos y Cuentas (mobile) ====== */
+.cli-shortcuts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:2px 0 18px}
+.cli-shortcut{display:flex;align-items:center;gap:12px;min-height:64px;background:var(--blanco);border-radius:18px;padding:12px 14px;box-shadow:var(--card-shadow);text-align:left;width:100%;transition:transform .15s ease}
+.cli-shortcut:active{transform:scale(.97)}
+.cli-shortcut .csi{width:42px;height:42px;border-radius:13px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
+.cli-shortcut .cst{flex:1;min-width:0}
+.cli-shortcut .cst b{display:block;font-size:15.5px;color:var(--gris-900);font-weight:600;line-height:1.1}
+.cli-shortcut .cst span{display:block;font-size:11.5px;color:var(--texto-suave);margin-top:2px}
 .cfg-card{background:var(--blanco);border-radius:22px;padding:20px 18px 22px;box-shadow:var(--card-shadow);margin-bottom:16px}
 .cfg-h{display:flex;align-items:center;gap:13px;margin-bottom:6px}
 .cfg-h .cfg-ic{width:46px;height:46px;border-radius:14px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
@@ -1034,8 +1092,9 @@ html.unlocked #lockScreen{display:none}
       <div><div class="bn">Cascanueces</div><div class="bs">Gestión</div></div>
     </div>
     <div class="top-right">
-      <div class="conn" id="connMob"><span class="dot"></span><span class="ct">Conectando…</span></div>
+      <button class="conn" id="connMob" type="button" aria-label="Estado de conexión"><span class="dot"></span><span class="ct">Conectando…</span><span class="conn-bubble" id="connBubble">Conectando…</span></button>
       <button class="top-cfg nav-link" data-go="config" aria-label="Configuración">⚙️</button>
+      <button class="top-cfg top-menu" id="topMenu" type="button" aria-label="Menú" aria-expanded="false"><span class="ham"><i></i><i></i><i></i></span></button>
     </div>
   </header>
 
@@ -1083,6 +1142,11 @@ html.unlocked #lockScreen{display:none}
       <div class="eyebrow">Tu gente</div>
       <h1 class="h-title">Clientas</h1>
       <p class="lead">Guardá los datos de cada mamá y sus chicos. Después les mandás los mensajes con un toque.</p>
+
+      <div class="cli-shortcuts">
+        <button class="cli-shortcut" type="button" data-go="encargos"><span class="csi">🎁</span><span class="cst"><b>Encargos</b><span>Pedidos y señas</span></span></button>
+        <button class="cli-shortcut" type="button" data-go="cuentas"><span class="csi">📒</span><span class="cst"><b>Cuentas</b><span>Saldos y fiado</span></span></button>
+      </div>
 
       <div class="cli-search-wrap">
         <span class="cli-search-ico">🔍</span>
@@ -1326,15 +1390,13 @@ html.unlocked #lockScreen{display:none}
 
   </main>
 
-  <!-- BOTTOM NAV (mobile) -->
+  <!-- BARRA FLOTANTE (mobile) -->
   <nav class="botnav">
     <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span>Inicio</a>
-    <a href="#" class="nav-link" data-go="stock"><span class="bi">📦</span>Stock</a>
-    <a href="#" class="nav-link" data-go="encargos"><span class="bi">🧾</span>Encargos<span class="bn-badge" id="encargoNavBadge" style="display:none"></span></a>
-    <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span>Clientas</a>
     <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span>Reparto</a>
+    <a href="#" class="nav-link" data-go="stock"><span class="bi">🏷</span>Productos</a>
+    <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span>Clientas</a>
     <a href="#" class="nav-link" data-go="caja"><span class="bi">🖥️</span>Caja</a>
-    <a href="#" class="nav-link" data-go="cuentas"><span class="bi">📒</span>Cuentas<span class="bn-badge" id="cuentaNavBadge" style="display:none"></span></a>
   </nav>
 
   <!-- FAB agregar (solo en Stock) -->
@@ -1344,6 +1406,10 @@ html.unlocked #lockScreen{display:none}
   <button class="fab-add" id="fabAddCli" style="display:none"><span class="plus">+</span> Agregar clienta</button>
 
 </div>
+
+<!-- ===== MENÚ HAMBURGUESA (mobile) ===== -->
+<div class="menu-scrim" id="menuScrim"></div>
+<nav class="menu-pop" id="menuPop" aria-hidden="true"></nav>
 
 <!-- ===== BURBUJA FLOTANTE: CARGAR HABLANDO (voz) =====
      Burbuja de chat con micrófono, visible en Inicio y Vender. -->
@@ -2388,13 +2454,27 @@ function toast(msg, kind=""){
   const t = $("#toast"); t.textContent = msg; t.className = "toast show " + kind;
   clearTimeout(toast._t); toast._t = setTimeout(()=> t.classList.remove("show"), 2700);
 }
+function connWord(state){ return state==="online" ? "Conectado" : state==="offline" ? "Sin conexión" : "Conectando…"; }
 function setConn(state){
   ["#connMob","#connDesk"].forEach(sel=>{
     const el = $(sel); if(!el) return;
     el.classList.remove("online","offline"); el.classList.add(state);
     el.querySelector(".ct").textContent = state==="online" ? "Conectado" : "Sin conexión · guarda local";
   });
+  // mobile: actualizo la palabra de la burbujita (la lucecita ya cambió de color)
+  const b = $("#connBubble"); if(b) b.textContent = connWord(state);
 }
+/* Lucecita (mobile): al tocarla, muestro la palabra del estado <1s y se desvanece. */
+(function(){
+  const c = $("#connMob"); if(!c) return;
+  c.addEventListener("click", ()=>{
+    const state = c.classList.contains("online") ? "online" : c.classList.contains("offline") ? "offline" : "";
+    const b = $("#connBubble"); if(b) b.textContent = connWord(state);
+    c.classList.add("show-state");
+    clearTimeout(c._stateT);
+    c._stateT = setTimeout(()=> c.classList.remove("show-state"), 900);
+  });
+})();
 function colegiosActivos(){
   const set = new Set(COLEGIOS_BASE);
   productos.forEach(p => p.colegio && set.add(p.colegio));
@@ -2493,6 +2573,7 @@ renderPinDots();
 let currentView = "inicio";
 let navStack = [{ kind:"view", view:"inicio" }];
 let ignorePop = false;
+let menuOpen = false;
 history.replaceState({ casc:true, kind:"view", view:"inicio" }, "");
 
 function pushBack(id, closeFn){
@@ -2582,7 +2663,99 @@ function updateFabVoz(){
   const show = venderOpen || currentView==="inicio";
   fab.style.display = show ? "flex" : "none";
   fab.classList.toggle("over-vender", venderOpen);
+  refreshVozCollapse();
 }
+/* ── Colapso de la burbuja de voz ──
+   Queda solo la burbuja redonda al deslizar hacia abajo en Inicio, al abrir el
+   menú o al cambiar de pestaña; vuelve a expandirse arriba de todo / en reposo. */
+function refreshVozCollapse(){
+  const fab = $("#fabVoz"); if(!fab) return;
+  const venderOpen = $("#vender").classList.contains("show");
+  const collapse = menuOpen || (currentView==="inicio" && !venderOpen && window.scrollY > 36);
+  fab.classList.toggle("collapsed", collapse);
+}
+window.addEventListener("scroll", ()=>{ refreshVozCollapse(); }, {passive:true});
+
+/* ════════════════ MENÚ HAMBURGUESA (mobile) ════════════════
+   Mapa completo de la app desde una config fácil de ampliar (sumar una
+   sección nueva = agregar un objeto a MENU_SECTIONS). Grupos colapsables,
+   sección activa en celeste, cierra al tocar ítem / afuera / con Atrás. */
+const MENU_SECTIONS = [
+  { go:"inicio",   icon:"🏠", label:"Inicio" },
+  { go:"entregas", icon:"🚗", label:"Reparto" },
+  { go:"stock",    icon:"🏷", label:"Productos" },
+  { go:"clientes", icon:"🪪", label:"Clientas", children:[
+      { go:"encargos", icon:"🎁", label:"Encargos",
+        badge:()=> (typeof encargos!=="undefined" ? encargos.filter(e=> e.estado==="listo" && !e.avisado).length : 0) },
+      { go:"cuentas",  icon:"📒", label:"Cuentas",
+        badge:()=> (typeof clientasQueDeben==="function" ? clientasQueDeben().length : 0) },
+  ]},
+  { go:"caja",     icon:"🖥️", label:"Caja" },
+];
+function menuBadge(item){
+  if(!item.badge) return "";
+  let n = 0; try{ n = item.badge() || 0; }catch(e){ n = 0; }
+  return n>0 ? `<span class="menu-mbadge">${n}</span>` : "";
+}
+function menuItemHtml(item, active){
+  return `<button class="menu-item${item.go===active?" on":""}" type="button" data-menu-go="${item.go}">`
+       + `<span class="mi">${item.icon}</span><span class="ml">${item.label}</span>${menuBadge(item)}</button>`;
+}
+function renderMenu(){
+  const active = currentView;
+  $("#menuPop").innerHTML = MENU_SECTIONS.map(sec=>{
+    if(sec.children){
+      const childActive = sec.children.some(c=> c.go===active);
+      const open = childActive || sec.go===active;
+      const children = sec.children.map(c=> menuItemHtml(c, active)).join("");
+      return `<div class="menu-group${open?" open":""}" data-group="${sec.go}">
+        <div class="menu-parent">
+          ${menuItemHtml(sec, active)}
+          <button class="menu-chev" type="button" data-menu-toggle="${sec.go}" aria-label="Desplegar ${sec.label}">▸</button>
+        </div>
+        <div class="menu-children">${children}</div>
+      </div>`;
+    }
+    return menuItemHtml(sec, active);
+  }).join("");
+}
+function menuSetUI(open){
+  $("#menuScrim").classList.toggle("show", open);
+  $("#menuPop").classList.toggle("show", open);
+  $("#menuPop").setAttribute("aria-hidden", open ? "false" : "true");
+  $("#topMenu").setAttribute("aria-expanded", open ? "true" : "false");
+}
+function menuPopClose(fromPop){
+  if(!menuOpen) return;
+  menuOpen = false; menuSetUI(false); refreshVozCollapse();
+  if(fromPop!==true) syncBack("menu");
+}
+function openMenu(){
+  if(menuOpen) return;
+  renderMenu(); menuOpen = true; menuSetUI(true); refreshVozCollapse();
+  pushBack("menu", menuPopClose);
+}
+function menuNavTo(view){
+  // Mismo destino: solo cierro el menú (consume su entrada de history).
+  if(view===currentView){ menuPopClose(); return; }
+  // Destino distinto: colapso la entrada del menú en la vista nueva, sin
+  // entradas colgadas ni carrera con popstate.
+  menuOpen = false; menuSetUI(false);
+  for(let i=navStack.length-1;i>=0;i--){
+    if(navStack[i].kind==="overlay" && navStack[i].id==="menu"){ navStack.splice(i,1); break; }
+  }
+  navStack.push({ kind:"view", view });
+  history.replaceState({ casc:true, kind:"view", view }, "");
+  go(view, true);
+}
+$("#topMenu").addEventListener("click", ()=>{ menuOpen ? menuPopClose() : openMenu(); });
+$("#menuScrim").addEventListener("click", ()=> menuPopClose());
+$("#menuPop").addEventListener("click", (e)=>{
+  const tog = e.target.closest("[data-menu-toggle]");
+  if(tog){ const g = $(`.menu-group[data-group="${tog.dataset.menuToggle}"]`); if(g) g.classList.toggle("open"); return; }
+  const item = e.target.closest("[data-menu-go]");
+  if(item) menuNavTo(item.dataset.menuGo);
+});
 
 /* ── Botón Vender → abre el flujo POS ── */
 $("#venderBtn").addEventListener("click", openVender);
