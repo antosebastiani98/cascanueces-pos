@@ -1815,8 +1815,8 @@ html.unlocked #lockScreen{display:none}
 
 <!-- ===== BURBUJA FLOTANTE: CARGAR HABLANDO (voz) =====
      Burbuja de chat con micrófono, visible en Inicio y Vender. -->
-<button class="fab-voz" id="fabVoz" type="button" aria-label="Contame qué vendiste · dictá la venta">
-  <span class="fv-lbl">Contame qué vendiste<em>Tocá y dictá la venta</em></span>
+<button class="fab-voz" id="fabVoz" type="button" aria-label="Contame una venta o un gasto · dictalo">
+  <span class="fv-lbl">Contame una venta o un gasto<em>Tocá y dictá</em></span>
   <span class="fv-bubble"><span class="fv-mic">💬</span></span>
 </button>
 
@@ -2083,7 +2083,7 @@ html.unlocked #lockScreen{display:none}
     <div class="v-step on" id="vArmar">
       <button class="voz-cta" id="vozBtn" type="button">
         <span class="mic">🎤</span>
-        <span class="tx"><b>Cargar hablando</b><span>Decí la venta y yo la armo sola</span></span>
+        <span class="tx"><b>Cargar hablando</b><span>Decí una venta o un gasto y yo lo armo</span></span>
       </button>
       <div class="v-q">¿De qué colegio?</div>
       <div class="v-chips" id="vColegios"></div>
@@ -2264,14 +2264,14 @@ html.unlocked #lockScreen{display:none}
       <div class="voz-listen">
         <div class="mic-big" id="vozMic">🎤</div>
         <h2 id="vozListenTit">Te escucho…</h2>
-        <p class="sub" id="vozListenSub">Decí qué vendiste. Por ejemplo: “2 pantalones Sarmiento talle 10, pagó por transferencia”.</p>
+        <p class="sub" id="vozListenSub">Contame una venta o un gasto. Ej: “2 pantalones Sarmiento talle 10, pagó por transferencia” o “gasté 5000 en tela”.</p>
         <div class="voz-rec" id="vozRecMeter">
           <span class="rec-dot"></span>
           <span class="rec-waves" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
           <span class="rec-time" id="vozTimer">0:00</span>
         </div>
         <div class="voz-trans" id="vozTrans"><span class="ph">Hablá tranquila, lo voy escribiendo acá…</span></div>
-        <textarea class="voz-ta" id="vozTa" placeholder="Escribí la venta: ej. 2 pantalones Sarmiento talle 10, pagó por transferencia" style="display:none"></textarea>
+        <textarea class="voz-ta" id="vozTa" placeholder="Escribí la venta o el gasto: ej. 2 pantalones Sarmiento talle 10, pagó por transferencia · o: gasté 5000 en tela" style="display:none"></textarea>
         <div class="voz-actions">
           <button class="btn btn-primary" id="vozEntender">Listo, entendé</button>
           <button class="btn btn-ghost" id="vozCancelar">Cancelar</button>
@@ -2284,7 +2284,7 @@ html.unlocked #lockScreen{display:none}
       <div class="voz-think">
         <div class="voz-spin"></div>
         <h2>Estoy entendiendo…</h2>
-        <p>Dame un segundo que armo la venta.</p>
+        <p>Dame un segundo y lo armo.</p>
       </div>
     </div>
 
@@ -2336,6 +2336,66 @@ html.unlocked #lockScreen{display:none}
         <button class="btn btn-primary" id="vozConfirmar" disabled>Confirmar venta</button>
         <button class="btn btn-ghost" id="vozRepetir">🎤 Repetir</button>
         <button class="btn btn-ghost" id="vozAMano">Mejor la cargo a mano</button>
+      </div>
+    </div>
+
+    <!-- Pane: previsualización de GASTO -->
+    <div class="voz-pane" id="vozGasto">
+      <div class="voz-prev-h">Entendí esto 👇</div>
+      <p class="voz-prev-sub">Esto es un <b>gasto</b>. Revisá y tocá lo que falte. Nada se carga hasta que confirmes.</p>
+      <div class="voz-said" id="vozGSaid"><b>Dijiste</b><span id="vozGSaidTx"></span></div>
+
+      <div class="voz-sec-lbl">¿Cuánto gastaste?</div>
+      <div class="voz-field" id="vozGMontoField">
+        <div class="precio-wrap"><span class="pe">$</span>
+          <input id="vozGMonto" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+        </div>
+        <div class="pend-tag" id="vozGMontoPend" style="display:none">⚠️ Falta: ¿cuánto gastaste?</div>
+      </div>
+
+      <div class="voz-sec-lbl">¿En qué?</div>
+      <div class="voz-field" id="vozGQueField">
+        <input class="txtin" id="vozGQue" type="text" placeholder="Ej: tela, taller, luz" autocomplete="off" style="margin-top:0">
+        <div class="pend-tag" id="vozGQuePend" style="display:none">⚠️ Falta: ¿en qué gastaste?</div>
+      </div>
+
+      <div class="voz-sec-lbl">¿Cómo lo pagaste?</div>
+      <div class="voz-field" id="vozGPagoField">
+        <div class="voz-pago2">
+          <button class="voz-pago" data-vgp="efectivo" type="button">💵 Efectivo</button>
+          <button class="voz-pago" data-vgp="transferencia" type="button">📲 Transferencia / MP</button>
+        </div>
+        <div class="pend-tag" id="vozGPagoPend" style="display:none">⚠️ Falta: elegí cómo lo pagaste</div>
+      </div>
+
+      <div class="voz-sec-lbl">¿Qué día fue?</div>
+      <div class="voz-field">
+        <input class="txtin" type="date" id="vozGFecha" style="margin-top:0">
+        <span class="vi-cant-lbl" id="vozGFechaSub" style="display:block;margin-top:8px">Hoy</span>
+      </div>
+
+      <div class="voz-sec-lbl">Proveedor (opcional)</div>
+      <div class="voz-field">
+        <div class="chips" id="vozGProvs"></div>
+        <p class="hint gasto-cfg-hint" id="vozGProvEmpty" style="display:none">Cargá tus proveedores en <b>Configuración → Gastos</b>.</p>
+      </div>
+
+      <div class="voz-sec-lbl">Categoría (opcional)</div>
+      <div class="voz-field">
+        <div class="chips" id="vozGCats"></div>
+        <p class="hint gasto-cfg-hint" id="vozGCatEmpty" style="display:none">Cargá tus categorías en <b>Configuración → Gastos</b>.</p>
+      </div>
+
+      <div class="voz-total" id="vozGTotalBox">
+        <div><div class="lbl2">Sale de la caja</div><div class="big2" id="vozGTotal">$0</div></div>
+        <div class="det2" id="vozGTotalDet"></div>
+      </div>
+      <div class="voz-warn" id="vozGWarn" style="display:none"></div>
+
+      <div class="voz-actions" style="margin-top:18px">
+        <button class="btn btn-primary" id="vozGConfirmar" disabled>Confirmar gasto</button>
+        <button class="btn btn-ghost" id="vozGRepetir">🎤 Repetir</button>
+        <button class="btn btn-ghost" id="vozGAMano">Mejor lo cargo a mano</button>
       </div>
     </div>
 
@@ -4732,6 +4792,8 @@ const VozSR = window.SpeechRecognition || window.webkitSpeechRecognition;
 const vozSupported = !!VozSR;
 let vozRec = null, vozFinal = "", vozBase = "", vozListening = false, vozLastText = "";
 let vozDraft = { items:[], metodoPago:null, cliente:null, clientaTxt:"", notas:"", fecha:hoyYmd(), saidTxt:"" };
+/* Borrador del gasto cargado por voz (paralelo al de venta) */
+let vozGastoDraft = { monto:null, enQue:"", metodoPago:null, proveedor:null, categoria:null, fecha:hoyYmd(), saidTxt:"" };
 
 /* Normaliza para comparar (minúsculas, sin tildes, sin "Instituto ") */
 function vNorm(s){ return (s||"").toString().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/instituto /g,"").replace(/\s+/g," ").trim(); }
@@ -4775,6 +4837,7 @@ function vozCatalogo(){
 /* ── Overlay ── */
 function vozOpen(){
   vozDraft = { items:[], metodoPago:null, cliente:null, clientaTxt:"", notas:"", fecha:hoyYmd(), saidTxt:"" };
+  vozGastoDraft = { monto:null, enQue:"", metodoPago:null, proveedor:null, categoria:null, fecha:hoyYmd(), saidTxt:"" };
   const el = $("#voz"); el.classList.add("show"); el.setAttribute("aria-hidden","false");
   pushBack("voz", vozClose);
   vozStart(true);
@@ -4785,7 +4848,7 @@ function vozClose(fromPop){
   if(fromPop!==true) syncBack("voz");
 }
 function vozShowPane(name){
-  ["Listen","Think","Preview","Err"].forEach(p=>
+  ["Listen","Think","Preview","Gasto","Err"].forEach(p=>
     $("#voz"+p).classList.toggle("on", p.toLowerCase()===name));
   $("#voz .voz-body").scrollTop = 0;
 }
@@ -4823,8 +4886,8 @@ function vozStart(clear){
   if(!vozSupported){
     $("#vozMic").classList.remove("rec"); $("#vozMic").textContent = "⌨️";
     vozTimerStop();
-    $("#vozListenTit").textContent = "Escribí la venta";
-    $("#vozListenSub").textContent = "Tu navegador no permite dictar acá. Escribila y la armo igual.";
+    $("#vozListenTit").textContent = "Escribí la venta o el gasto";
+    $("#vozListenSub").textContent = "Tu navegador no permite dictar acá. Escribilo y lo armo igual.";
     $("#vozTrans").style.display = "none";
     $("#vozTa").style.display = "block"; if(clear) $("#vozTa").value = "";
     setTimeout(()=> $("#vozTa").focus(), 200);
@@ -4833,7 +4896,7 @@ function vozStart(clear){
   $("#vozTa").style.display = "none"; $("#vozTrans").style.display = "block";
   $("#vozMic").textContent = "🎤";
   $("#vozListenTit").textContent = "Te escucho…";
-  $("#vozListenSub").textContent = "Decí qué vendiste. Cuando termines tocá “Listo, entendé”.";
+  $("#vozListenSub").textContent = "Contame una venta o un gasto. Cuando termines tocá “Listo, entendé”.";
   if(vozFinal.trim()) $("#vozTrans").innerHTML = esc(vozFinal.trim());
   try{
     vozRec = new VozSR();
@@ -4885,10 +4948,10 @@ function vozRecError(kind){
   if(kind==="aborted") return;
   // Cualquier otro problema → caemos al campo de texto, siempre hay salida
   $("#vozMic").textContent = "⌨️";
-  $("#vozListenTit").textContent = "Escribí la venta";
+  $("#vozListenTit").textContent = "Escribí la venta o el gasto";
   $("#vozListenSub").textContent = (kind==="not-allowed"||kind==="service-not-allowed")
-    ? "No me diste permiso al micrófono. Escribí la venta y la armo igual."
-    : "Hubo un problema con el micrófono. Escribila y la armo igual.";
+    ? "No me diste permiso al micrófono. Escribilo y lo armo igual."
+    : "Hubo un problema con el micrófono. Escribilo y lo armo igual.";
   $("#vozTrans").style.display = "none";
   $("#vozTa").style.display = "block";
   if(!$("#vozTa").value) $("#vozTa").value = vozFinal.trim();
@@ -4903,14 +4966,20 @@ async function vozEntender(){
   // Tomamos el transcript UNA sola vez, ya deduplicado (red de seguridad final).
   const raw = $("#vozTa").style.display !== "none" ? $("#vozTa").value : vozFinal;
   const txt = vozDedup(raw).trim();
-  if(txt.length < 3){ toast("Decime qué vendiste primero 🙂"); return; }
+  if(txt.length < 3){ toast("Contame una venta o un gasto primero 🙂"); return; }
   vozLastText = txt;
   vozShowPane("think");
   try{
     const parsed = await vozCallAI(txt);
-    vozBuildDraft(parsed, txt);
-    renderVozPreview();
-    vozShowPane("preview");
+    if(vozTipo(parsed)==="gasto"){
+      vozBuildGasto(parsed, txt);
+      renderVozGasto();
+      vozShowPane("gasto");
+    }else{
+      vozBuildDraft(parsed, txt);
+      renderVozPreview();
+      vozShowPane("preview");
+    }
   }catch(err){
     console.error("Voz IA:", err);
     vozShowError(err && err.vozMsg);
@@ -4920,25 +4989,48 @@ async function vozCallAI(texto){
   const catalogo = vozCatalogo();
   if(!catalogo){ const e=new Error("sin-catalogo"); e.vozMsg="No tenés stock cargado todavía. Agregá uniformes en Stock y volvé a probar."; throw e; }
   const nombres = clientes.map(c=>c.nombre).filter(Boolean).slice(0,120).join(", ") || "(ninguna)";
+  const provs = (egresosCfg.proveedores||[]).filter(Boolean).join(", ") || "(ninguno)";
+  const cats  = (egresosCfg.categorias||[]).filter(Boolean).join(", ") || "(ninguna)";
   const userMsg =
-`Sos el asistente de una tienda de uniformes escolares en Argentina. Convertí lo que dictó la vendedora en una venta estructurada.
+`Sos el asistente de una tienda de uniformes escolares en Argentina. La vendedora dicta por voz y puede estar cargando una VENTA (algo que vendió) o un GASTO (plata que salió: gastó, pagó o compró).
 
-CATÁLOGO REAL (usá EXACTAMENTE estos nombres de colegio, prenda y talle; no inventes otros):
+Primero detectá el TIPO de lo dictado:
+- "venta": vendió o le vendió una prenda. Ej: "vendí una remera a 10000", "le vendí a Juana un pantalón Sarmiento".
+- "gasto": gastó, pagó o compró algo para el negocio. Ej: "gasté 5000 en tela", "le pagué 3000 al taller", "compré botones por 2000".
+
+CATÁLOGO REAL (para ventas; usá EXACTAMENTE estos nombres de colegio, prenda y talle; no inventes otros):
 ${catalogo}
 
-CLIENTAS GUARDADAS: ${nombres}
+CLIENTAS GUARDADAS (para ventas): ${nombres}
+
+PROVEEDORES GUARDADOS (para gastos): ${provs}
+CATEGORÍAS DE GASTO (para gastos): ${cats}
 
 LO QUE DICTÓ: "${texto}"
 
-Devolvé EXCLUSIVAMENTE un objeto JSON válido (sin texto antes ni después, sin markdown) con esta forma exacta:
-{"items":[{"prenda":"","colegio":"","talle":"","cant":1}],"metodoPago":null,"clienta":"","notas":""}
+Devolvé EXCLUSIVAMENTE un objeto JSON válido (sin texto antes ni después, sin markdown).
 
-Reglas:
+Si es VENTA, con esta forma exacta:
+{"tipo":"venta","items":[{"prenda":"","colegio":"","talle":"","cant":1}],"metodoPago":null,"clienta":"","notas":""}
+
+Si es GASTO, con esta forma exacta:
+{"tipo":"gasto","monto":null,"enQue":"","metodoPago":null,"proveedor":"","categoria":"","fecha":null}
+
+Regla común:
+- "metodoPago": "transferencia" si menciona transferencia/transfer/MP/mercado pago/tarjeta/débito/crédito; "efectivo" si dice efectivo/contado/en mano; null si no lo aclara.
+
+Reglas de VENTA:
 - Cada item debe usar el colegio, prenda y talle del catálogo que MEJOR coincidan con lo dictado.
 - Si NO se dijo el talle, poné "talle": null. Si NO se dijo la cantidad, poné "cant": null. Nunca inventes datos.
-- "metodoPago": "transferencia" si menciona transferencia/transfer/MP/mercado pago/tarjeta/débito/crédito; "efectivo" si dice efectivo/contado/en mano; null si no lo aclara.
 - "clienta": el nombre de la clienta si lo menciona (idealmente uno de la lista de arriba); si no menciona ninguna, "".
 - "notas": cualquier aclaración extra dicha; si no hay, "".
+
+Reglas de GASTO:
+- "monto": solo el número de pesos que gastó, sin signos ni puntos (ej 5000); null si no lo dijo.
+- "enQue": concepto corto de en qué gastó (ej "tela", "taller", "botones"); si no queda claro, "".
+- "proveedor": SOLO si coincide claramente con uno de PROVEEDORES GUARDADOS; si no, "". Nunca inventes uno nuevo.
+- "categoria": SOLO si coincide claramente con una de CATEGORÍAS DE GASTO; si no, "". Nunca inventes una nueva.
+- "fecha": en formato AAAA-MM-DD solo si menciona un día puntual; null si no lo dijo (se asume hoy).
 Respondé SOLO el JSON.`;
   let res;
   try{
@@ -4952,8 +5044,16 @@ Respondé SOLO el JSON.`;
   const raw = await res.text();
   let data; try{ data = JSON.parse(raw); }catch(_){ data = raw; }
   const parsed = vozParseJSON(vozExtractText(data));
-  if(!parsed || !Array.isArray(parsed.items)){ const e=new Error("parse"); e.vozMsg="No pude entender bien la venta. Probá diciéndola más simple."; throw e; }
+  if(!parsed){ const e=new Error("parse"); e.vozMsg="No pude entender bien lo que dijiste. Probá diciéndolo más simple."; throw e; }
+  if(vozTipo(parsed)==="venta" && !Array.isArray(parsed.items)){ const e=new Error("parse"); e.vozMsg="No pude entender bien la venta. Probá diciéndola más simple."; throw e; }
   return parsed;
+}
+/* Decide si lo parseado es una venta o un gasto (tolera respuestas sin "tipo") */
+function vozTipo(p){
+  if(p && String(p.tipo||"").toLowerCase()==="gasto") return "gasto";
+  if(p && Array.isArray(p.items)) return "venta";
+  if(p && (p.monto!=null || (p.enQue&&String(p.enQue).trim()))) return "gasto";
+  return "venta";
 }
 /* El proxy puede devolver varias formas; sacamos el texto del modelo */
 function vozExtractText(data){
@@ -5157,6 +5257,122 @@ $("#vozReintentar").onclick = ()=> vozStart(true);
 $("#vozAMano").onclick = ()=> vozClose();
 $("#vozErrMano").onclick = ()=> vozClose();
 $("#vozTa").addEventListener("keydown", e=>{ if(e.key==="Enter" && (e.ctrlKey||e.metaKey)){ e.preventDefault(); vozEntender(); } });
+
+/* ════════ Gasto cargado por voz ════════
+   Reusa la transcripción y el parseo de IA; solo arma su propio borrador y
+   preview. Al confirmar registra en egresos_pos_cascanueces con origen:"voz",
+   impactando la caja igual que un gasto cargado a mano. */
+function vozMatchEnLista(txt, lista){
+  if(!txt || !Array.isArray(lista)) return null;
+  const q = vNorm(txt);
+  return lista.find(o=> vNorm(o)===q)
+      || lista.find(o=>{ const n=vNorm(o); return n && (n.includes(q)||q.includes(n)); })
+      || null;
+}
+/* Convierte el JSON de la IA en el borrador editable del gasto */
+function vozBuildGasto(parsed, texto){
+  let monto = Number(parsed.monto);
+  if(!Number.isFinite(monto) || monto<=0) monto = null;
+  const mp = (parsed.metodoPago||"").toString().toLowerCase();
+  let metodo = null;
+  if(/transfer|mp|mercado|tarjet|debito|credito|débito|crédito/.test(mp)) metodo = "transferencia";
+  else if(/efect|contado|mano|cash/.test(mp)) metodo = "efectivo";
+  let fecha = (parsed.fecha||"").toString().trim();
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) fecha = hoyYmd();
+  vozGastoDraft = {
+    monto,
+    enQue: (parsed.enQue||"").toString().trim(),
+    metodoPago: metodo,
+    // Proveedor y categoría: solo si matchean las listas reales; si no, vacíos.
+    proveedor: vozMatchEnLista((parsed.proveedor||"").toString().trim(), egresosCfg.proveedores),
+    categoria: vozMatchEnLista((parsed.categoria||"").toString().trim(), egresosCfg.categorias),
+    fecha,
+    saidTxt: texto
+  };
+}
+function renderVozGasto(){
+  const d = vozGastoDraft;
+  $("#vozGSaidTx").textContent = d.saidTxt || "";
+  // monto (no pisar mientras lo edita)
+  if(document.activeElement !== $("#vozGMonto"))
+    $("#vozGMonto").value = d.monto>0 ? d.monto.toLocaleString("es-AR") : "";
+  $("#vozGMontoField").classList.toggle("pend", !(d.monto>0));
+  $("#vozGMontoPend").style.display = d.monto>0 ? "none" : "block";
+  // ¿en qué?
+  if(document.activeElement !== $("#vozGQue")) $("#vozGQue").value = d.enQue;
+  $("#vozGQueField").classList.toggle("pend", !d.enQue);
+  $("#vozGQuePend").style.display = d.enQue ? "none" : "block";
+  // medio de pago
+  document.querySelectorAll("#vozGPagoField .voz-pago").forEach(b=> b.classList.toggle("on", b.dataset.vgp===d.metodoPago));
+  $("#vozGPagoField").classList.toggle("pend", !d.metodoPago);
+  $("#vozGPagoPend").style.display = d.metodoPago ? "none" : "block";
+  // fecha
+  $("#vozGFecha").value = d.fecha;
+  $("#vozGFechaSub").textContent = d.fecha===hoyYmd() ? "Hoy" : diaLabel(d.fecha);
+  // proveedor / categoría (chips opcionales, mismas listas que el gasto a mano)
+  gastoChips("vozGProvs", egresosCfg.proveedores, d.proveedor, v=>{ d.proveedor=v; renderVozGasto(); }, "vozGProvEmpty");
+  gastoChips("vozGCats",  egresosCfg.categorias,  d.categoria, v=>{ d.categoria=v; renderVozGasto(); }, "vozGCatEmpty");
+  vozGastoRecalc();
+}
+function vozGastoRecalc(){
+  const d = vozGastoDraft; const faltan = [];
+  if(!(d.monto>0)) faltan.push("¿cuánto gastaste?");
+  if(!d.enQue) faltan.push("¿en qué?");
+  if(!d.metodoPago) faltan.push("cómo lo pagaste");
+  $("#vozGTotal").textContent = money(d.monto>0 ? d.monto : 0);
+  $("#vozGTotalDet").textContent = d.metodoPago==="efectivo" ? "Efectivo · baja la caja"
+    : d.metodoPago==="transferencia" ? "Transferencia / MP · sale del banco" : "—";
+  const ok = faltan.length===0;
+  $("#vozGConfirmar").disabled = !ok;
+  $("#vozGWarn").style.display = ok ? "none" : "block";
+  if(!ok) $("#vozGWarn").innerHTML = "⚠️ Para confirmar falta: " + faltan.join(" · ");
+}
+/* ── Wiring del preview de gasto ── */
+document.querySelectorAll("#vozGPagoField .voz-pago").forEach(b=>{
+  b.onclick = ()=>{ vozGastoDraft.metodoPago = b.dataset.vgp; renderVozGasto(); };
+});
+$("#vozGMonto").addEventListener("input", e=>{
+  const n = cuNum(e.target.value);
+  e.target.value = n ? n.toLocaleString("es-AR") : "";
+  vozGastoDraft.monto = n>0 ? n : null;
+  renderVozGasto();
+});
+$("#vozGQue").addEventListener("input", e=>{ vozGastoDraft.enQue = e.target.value.trim(); renderVozGasto(); });
+$("#vozGFecha").addEventListener("change", e=>{ vozGastoDraft.fecha = e.target.value || hoyYmd(); renderVozGasto(); });
+
+/* ── Confirmar el gasto cargado por voz → registra en egresos ── */
+$("#vozGConfirmar").onclick = async ()=>{
+  const d = vozGastoDraft;
+  if(!(d.monto>0)){ toast("Decime cuánto gastaste","err"); return; }
+  if(!d.enQue){ toast("Decime en qué gastaste","err"); return; }
+  if(!d.metodoPago){ toast("Elegí cómo lo pagaste","err"); return; }
+  const fecha = d.fecha || hoyYmd();
+  $("#vozGConfirmar").disabled = true;
+  const payload = {
+    monto: d.monto,
+    concepto: d.enQue || "Gasto",
+    metodo: d.metodoPago,
+    categoria: d.categoria || null,
+    proveedor: d.proveedor || null,
+    fecha,
+    ts: ymdToTs(fecha),
+    origen: "voz",
+    creado: serverTimestamp()
+  };
+  try{
+    await addDoc(egresosRef, payload);
+    toast("Gasto registrado ✓ — bajó la caja","ok");
+    const el = $("#voz"); el.classList.remove("show"); el.setAttribute("aria-hidden","true");
+    syncBack("voz");
+    $("#vozGConfirmar").disabled = false;
+  }catch(err){
+    console.error("Guardar gasto voz:", err.code, err.message);
+    toast("No se pudo guardar el gasto. Probá de nuevo.","err");
+    $("#vozGConfirmar").disabled = false;
+  }
+};
+$("#vozGRepetir").onclick = ()=> vozStart(true);
+$("#vozGAMano").onclick = ()=>{ vozClose(); openGastoSheet(null); };
 
 /* ── Ajustes de cobro (Antonella) ── */
 function openAjustes(){
