@@ -388,6 +388,26 @@ img{display:block;max-width:100%}
 .pago .ptx span{font-size:12px;color:var(--texto-suave);display:block;margin-top:4px}
 .pago .pcheck{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;border:2px solid var(--gris-300);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px}
 .pago.on .pcheck{background:var(--celeste-deep);border-color:var(--celeste-deep)}
+/* ── Calculadora de vuelto (aparece solo con Efectivo) ── */
+.vuelto-box{margin-top:16px;background:var(--celeste-pale);border-radius:18px;padding:16px}
+.vuelto-box .vuelto-q{font-family:var(--titf);font-weight:600;font-size:19px;color:var(--gris-900);margin:0 0 12px}
+.vuelto-box .precio-wrap{background:#fff;border-color:#fff}
+.vuelto-quick{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.vuelto-chip{flex:1 1 calc(50% - 5px);min-width:calc(50% - 5px);min-height:52px;border-radius:14px;background:#fff;color:var(--celeste-deep);font-size:16px;font-weight:700;box-shadow:var(--card-shadow);display:flex;align-items:center;justify-content:center;transition:transform .12s ease}
+.vuelto-chip.exact{background:var(--celeste-deep);color:#fff}
+.vuelto-chip:active{transform:scale(.96)}
+.vuelto-result{margin-top:14px;border-radius:16px;padding:18px 16px;text-align:center;background:#fff}
+.vuelto-result.empty{background:transparent;padding:10px 4px 2px}
+.vuelto-result .vr-hint{font-size:14px;color:var(--texto-suave)}
+.vuelto-result .vr-lbl{display:block;font-size:13px;font-weight:700;color:var(--texto-suave);letter-spacing:.5px;text-transform:uppercase}
+.vuelto-result .vr-big{display:block;font-family:var(--titf);font-weight:600;font-size:48px;line-height:1.02;margin-top:5px}
+.vuelto-result .vr-emoji{font-size:42px;display:block;margin-top:4px}
+.vuelto-result.ok{background:#eaf6ee}
+.vuelto-result.ok .vr-lbl,.vuelto-result.ok .vr-big{color:#2e7d4f}
+.vuelto-result.justo{background:#eaf6ee}
+.vuelto-result.justo .vr-lbl{color:#2e7d4f}
+.vuelto-result.falta{background:var(--rojo-pale)}
+.vuelto-result.falta .vr-lbl,.vuelto-result.falta .vr-big{color:var(--rojo)}
 .v-confirm{margin-top:24px}
 .v-confirm .btn{width:100%}
 
@@ -2047,6 +2067,16 @@ html.unlocked #lockScreen{display:none}
         </button>
       </div>
 
+      <!-- Calculadora de vuelto: solo cuando paga en Efectivo -->
+      <div class="vuelto-box" id="vVueltoBox" style="display:none">
+        <div class="vuelto-q">¿Con cuánto paga?</div>
+        <div class="precio-wrap"><span class="pe">$</span>
+          <input id="vVueltoPaga" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+        </div>
+        <div class="vuelto-quick" id="vVueltoQuick"></div>
+        <div class="vuelto-result empty" id="vVueltoResult"></div>
+      </div>
+
       <!-- Fiado: cuánto paga ahora (opcional) y cuánto queda a cuenta -->
       <div id="vFiadoBox" style="display:none">
         <div class="v-q">¿Paga algo ahora? <span style="font-weight:500;color:var(--texto-suave);font-size:14px">(opcional)</span></div>
@@ -2413,6 +2443,15 @@ html.unlocked #lockScreen{display:none}
           <span class="pcheck">✓</span>
         </button>
       </div>
+      <!-- Calculadora de vuelto: solo cuando paga en Efectivo -->
+      <div class="vuelto-box" id="cuVueltoBox" style="display:none">
+        <div class="vuelto-q">¿Con cuánto paga?</div>
+        <div class="precio-wrap"><span class="pe">$</span>
+          <input id="cuVueltoPaga" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+        </div>
+        <div class="vuelto-quick" id="cuVueltoQuick"></div>
+        <div class="vuelto-result empty" id="cuVueltoResult"></div>
+      </div>
       <p class="hint">El pago entra en la caja de hoy y le baja el saldo a la clienta.</p>
     </div>
     <div class="sheet-actions">
@@ -2730,6 +2769,16 @@ html.unlocked #lockScreen{display:none}
         <span class="ptx"><b>Transferencia / MP</b><span id="encCobrarTransSub">Pago con celular</span></span>
         <span class="pcheck">✓</span>
       </button>
+    </div>
+
+    <!-- Calculadora de vuelto: solo cuando paga el saldo en Efectivo -->
+    <div class="vuelto-box" id="encVueltoBox" style="display:none">
+      <div class="vuelto-q">¿Con cuánto paga?</div>
+      <div class="precio-wrap"><span class="pe">$</span>
+        <input id="encVueltoPaga" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+      </div>
+      <div class="vuelto-quick" id="encVueltoQuick"></div>
+      <div class="vuelto-result empty" id="encVueltoResult"></div>
     </div>
 
     <div class="sheet-actions">
@@ -4253,9 +4302,83 @@ $("#comboPickAdd").onclick = ()=>{
   renderCart(); buildVTalles();
   toast("Combo agregado ✓", "ok");
 };
-$("#vCobrarBtn").onclick = ()=>{ if(venderCart.length===0) return; resetFiado(); pagoSel=null; vStep("cobrar"); renderPago(); renderVHijoPick(); };
+$("#vCobrarBtn").onclick = ()=>{ if(venderCart.length===0) return; resetFiado(); resetVuelto(VUELTO.vender); pagoSel=null; vStep("cobrar"); renderPago(); renderVHijoPick(); };
 
 function resetFiado(){ fiadoAhora = 0; fiadoMetodo = null; const f=$("#vFiadoAhora"); if(f) f.value = ""; }
+
+/* ════════════════ CALCULADORA DE VUELTO (solo Efectivo) ════════════════
+   Ayuda visual para dar el cambio. NO toca el total ni lo que se registra:
+   el método sigue siendo Efectivo y el total el mismo. Aparece en Vender,
+   al cobrar saldo de cuenta y al cobrar saldo de encargo, solo en Efectivo.
+   vuelto = lo que paga − total · de menos => "Falta $X" (no muestra negativo).
+   ──────────────────────────────────────────────────────────────────────── */
+const VUELTO = {
+  vender:  { box:"vVueltoBox",   input:"vVueltoPaga",   quick:"vVueltoQuick",   result:"vVueltoResult" },
+  cuenta:  { box:"cuVueltoBox",  input:"cuVueltoPaga",  quick:"cuVueltoQuick",  result:"cuVueltoResult" },
+  encargo: { box:"encVueltoBox", input:"encVueltoPaga", quick:"encVueltoQuick", result:"encVueltoResult" }
+};
+function vueltoNum(v){ return Math.max(0, parseInt(String(v||"").replace(/\D/g,""),10) || 0); }
+/* "Monto exacto" + próximos redondeos hacia arriba ($1.000 / $5.000 / $10.000). */
+function vueltoSugeridos(total){
+  if(total<=0) return [];
+  const arr = [{ label:"Monto exacto", val: total, exact:true }];
+  [1000,5000,10000].forEach(s=>{
+    const up = Math.ceil(total/s)*s;
+    if(up>total && !arr.some(o=> o.val===up)) arr.push({ label: money(up), val: up });
+  });
+  return arr;
+}
+/* Limpia el campo (al abrir cada flujo o al cambiar de método). */
+function resetVuelto(ids){
+  const inp = document.getElementById(ids.input); if(inp) inp.value = "";
+  const box = document.getElementById(ids.box); if(box){ box.dataset.total = ""; box.style.display = "none"; }
+}
+function renderVuelto(ids, total, show){
+  const box = document.getElementById(ids.box); if(!box) return;
+  if(!show){ box.style.display = "none"; return; }
+  box.style.display = "block";
+  // Botones sugeridos: se rearman solo si cambió el total (para no pisar un toque).
+  const quick = document.getElementById(ids.quick);
+  if(box.dataset.total !== String(total)){
+    box.dataset.total = String(total);
+    quick.innerHTML = "";
+    vueltoSugeridos(total).forEach(s=>{
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "vuelto-chip" + (s.exact ? " exact" : "");
+      b.textContent = s.label;
+      b.onclick = ()=>{
+        document.getElementById(ids.input).value = s.val.toLocaleString("es-AR");
+        renderVuelto(ids, total, true);
+      };
+      quick.appendChild(b);
+    });
+  }
+  // Resultado bien grande y claro.
+  const paga = vueltoNum(document.getElementById(ids.input).value);
+  const res = document.getElementById(ids.result);
+  if(paga<=0){
+    res.className = "vuelto-result empty";
+    res.innerHTML = `<span class="vr-hint">Tocá un monto o escribí con cuánto paga 👆</span>`;
+  } else if(paga===total){
+    res.className = "vuelto-result justo";
+    res.innerHTML = `<span class="vr-lbl">Justo, sin vuelto</span><span class="vr-emoji">👌</span>`;
+  } else if(paga>total){
+    res.className = "vuelto-result ok";
+    res.innerHTML = `<span class="vr-lbl">Vuelto a devolver</span><span class="vr-big">${money(paga-total)}</span>`;
+  } else {
+    res.className = "vuelto-result falta";
+    res.innerHTML = `<span class="vr-lbl">Falta</span><span class="vr-big">${money(total-paga)}</span>`;
+  }
+}
+/* Cada campo recalcula su propio vuelto al escribir. */
+$("#vVueltoPaga").addEventListener("input", ()=> renderVuelto(VUELTO.vender, cartSubtotal(), pagoSel==="efectivo"));
+$("#cuVueltoPaga").addEventListener("input", ()=> renderVuelto(VUELTO.cuenta, cuNum($("#cuPagoMonto").value), cuPagoMetodo==="efectivo" && cuNum($("#cuPagoMonto").value)>0));
+$("#encVueltoPaga").addEventListener("input", ()=>{
+  const enc = cobrarEnc; if(!enc) return;
+  const saldo = encSaldoDe(enc);
+  renderVuelto(VUELTO.encargo, saldo, cobrarMetodo==="efectivo" && saldo>0);
+});
 
 /* ── PASO 2: cobrar ── */
 function renderPago(){
@@ -4281,6 +4404,8 @@ function renderPago(){
   }
   $("#vPagoTotal").textContent = money(total);
   $("#vPagoDet").textContent = det;
+  // Vuelto: solo con Efectivo (compara contra el subtotal, sin recargo).
+  renderVuelto(VUELTO.vender, sub, pagoSel==="efectivo");
   document.querySelectorAll(".pago-opts > .pago[data-pago]").forEach(b=> b.classList.toggle("on", b.dataset.pago===pagoSel));
   let ok = !!pagoSel;
   if(fiadoOn){
@@ -4292,6 +4417,7 @@ function renderPago(){
 document.querySelectorAll(".pago-opts > .pago[data-pago]").forEach(b=>{
   b.onclick = ()=>{
     pagoSel = b.dataset.pago;
+    if(pagoSel!=="efectivo") resetVuelto(VUELTO.vender);   // al irse de Efectivo, limpio el vuelto
     if(pagoSel==="fiado" && !venderCliente){ openPickSheet(()=> renderPago()); }
     renderPago();
   };
@@ -8229,6 +8355,7 @@ async function reabrirEncargo(enc){
 /* ── Entregar / cobrar saldo ── */
 function openCobrar(enc){
   cobrarEnc = enc; cobrarMetodo = null;
+  resetVuelto(VUELTO.encargo);
   const saldo = encSaldoDe(enc);
   $("#encCobrarLead").textContent = `Encargo de ${enc.clienteNombre||"la clienta"}: ${encResumenItems(enc)}.`;
   $("#encCobrarPagoQ").style.display   = saldo>0 ? "block" : "none";
@@ -8251,6 +8378,7 @@ function renderCobrar(){
     $("#encCobrarDet").textContent = "Ya está todo pago. Solo confirmá la entrega.";
     $("#encCobrarConfirm").disabled = false;
     $("#encCobrarConfirm").textContent = "Marcar entregado";
+    renderVuelto(VUELTO.encargo, 0, false);
     return;
   }
   let recargo = 0, total = saldo, det = `Seña ${money(enc.sena)} ya cobrada`;
@@ -8260,6 +8388,8 @@ function renderCobrar(){
   }
   $("#encCobrarTotal").textContent = money(total);
   $("#encCobrarDet").textContent = det;
+  // Vuelto: solo con Efectivo (el saldo, sin recargo).
+  renderVuelto(VUELTO.encargo, saldo, cobrarMetodo==="efectivo");
   document.querySelectorAll("#encCobrarPagoOpts .pago").forEach(b=> b.classList.toggle("on", b.dataset.cobpago===cobrarMetodo));
   $("#encCobrarConfirm").disabled = !cobrarMetodo;
   $("#encCobrarConfirm").textContent = "Cobrar y marcar entregado";
@@ -8618,6 +8748,7 @@ function openCuPagoSheet(cli){
   $("#cuPagoSaldo").textContent = money(saldo);
   $("#cuPagoMonto").value = saldo ? saldo.toLocaleString("es-AR") : "";
   document.querySelectorAll("#cuPagoSheet .pago").forEach(b=> b.classList.remove("on"));
+  resetVuelto(VUELTO.cuenta);
   renderCuPago();
   $("#cuPagoScrim").classList.add("show"); $("#cuPagoSheet").classList.add("show");
   document.body.style.overflow = "hidden";
@@ -8631,6 +8762,8 @@ function closeCuPagoSheet(fromPop){
 function renderCuPago(){
   const monto = cuNum($("#cuPagoMonto").value);
   document.querySelectorAll("#cuPagoSheet .pago").forEach(b=> b.classList.toggle("on", b.dataset.cupago===cuPagoMetodo));
+  // Vuelto: solo con Efectivo, comparando contra el monto que se cobra.
+  renderVuelto(VUELTO.cuenta, monto, cuPagoMetodo==="efectivo" && monto>0);
   $("#cuPagoConfirm").disabled = !(monto>0 && cuPagoMetodo);
 }
 $("#cuPagoClose").onclick = ()=> closeCuPagoSheet();
