@@ -1293,6 +1293,48 @@ html.unlocked #lockScreen{display:none}
 /* Línea de combo en el carrito / edición */
 .ci.combo,.eitem.combo{box-shadow:inset 0 0 0 1.5px #e6d29a}
 .ci .ci-combo-det,.eitem .ei-combo-det{font-size:12px;color:#7a6010;margin-top:4px;line-height:1.45}
+
+/* ====== TUTORIALES ====== */
+/* Lista de tutoriales dentro de la card de Configuración */
+.tut-intro{font-size:14px;color:var(--texto-suave);line-height:1.45;margin:2px 0 12px}
+.tut-list{display:flex;flex-direction:column}
+.tut-item{display:flex;align-items:center;gap:14px;width:100%;background:none;border:0;border-top:1px solid var(--gris-100);text-align:left;padding:15px 4px;cursor:pointer;transition:background .12s ease}
+.tut-item:active{background:var(--crema)}
+.tut-item .ti-ic{width:48px;height:48px;border-radius:14px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.tut-item .ti-tx{flex:1;min-width:0}
+.tut-item .ti-tx b{display:block;font-size:16.5px;color:var(--gris-900);font-weight:600;line-height:1.2}
+.tut-item .ti-tx span{display:block;font-size:13px;color:var(--texto-suave);margin-top:2px;line-height:1.35}
+.tut-item .ti-play{flex-shrink:0;font-size:13px;font-weight:700;color:var(--celeste-deep);background:var(--celeste-pale);border-radius:50px;padding:8px 14px;white-space:nowrap}
+/* Destacado: Tour para mamá */
+.tut-item.feat{border-top:0;background:linear-gradient(135deg,var(--celeste-deep) 0%,var(--navy) 100%);border-radius:20px;padding:18px 16px;margin:0 0 6px;box-shadow:0 10px 26px rgba(41,74,122,.28)}
+.tut-item.feat:active{background:linear-gradient(135deg,var(--navy) 0%,var(--navy) 100%)}
+.tut-item.feat .ti-ic{background:rgba(255,255,255,.22);font-size:27px}
+.tut-item.feat .ti-tx b{color:#fff;font-family:var(--titf);font-weight:600;font-size:21px}
+.tut-item.feat .ti-tx span{color:rgba(255,255,255,.88)}
+.tut-item.feat .ti-play{background:#fff;color:var(--celeste-deep)}
+
+/* Motor de tour guiado: overlay spotlight + globito (hecho a mano, sin librerías) */
+.tour{position:fixed;inset:0;z-index:9000;display:none;pointer-events:auto}
+.tour.show{display:block}
+.tour-hole{position:absolute;left:50%;top:42%;width:0;height:0;border-radius:18px;box-shadow:0 0 0 9999px rgba(26,36,48,.66);pointer-events:none;transition:left .34s cubic-bezier(.22,1,.36,1),top .34s cubic-bezier(.22,1,.36,1),width .34s cubic-bezier(.22,1,.36,1),height .34s cubic-bezier(.22,1,.36,1)}
+.tour-hole.ring{outline:3px solid var(--celeste);outline-offset:5px}
+.tour-pop{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(92vw,420px);background:var(--blanco);border-radius:24px;padding:22px 20px 18px;box-shadow:0 22px 64px rgba(26,36,48,.42);opacity:0;pointer-events:auto;transition:opacity .26s ease}
+.tour-pop.in{opacity:1}
+.tour-pop .tp-step{font-size:11.5px;letter-spacing:1.8px;text-transform:uppercase;color:var(--celeste-deep);font-weight:700;margin-bottom:7px}
+.tour-pop h3{font-family:var(--titf);font-weight:600;font-size:25px;color:var(--gris-900);line-height:1.14;margin-bottom:9px}
+.tour-pop p.tp-text{font-size:16.5px;color:var(--texto);line-height:1.52}
+.tour-pop p.tp-text b{color:var(--gris-900)}
+.tp-dots{display:flex;gap:6px;justify-content:center;margin-top:16px}
+.tp-dots i{width:7px;height:7px;border-radius:50%;background:var(--gris-300);transition:background .2s ease,width .2s ease}
+.tp-dots i.on{background:var(--celeste-deep);width:20px;border-radius:4px}
+.tour-dontshow{display:flex;align-items:center;gap:11px;margin-top:16px;padding:11px 12px;background:var(--celeste-pale);border-radius:14px;font-size:15px;color:var(--texto);cursor:pointer;user-select:none}
+.tour-dontshow input{width:24px;height:24px;accent-color:var(--celeste-deep);flex-shrink:0;cursor:pointer}
+.tour-nav{display:flex;align-items:center;gap:10px;margin-top:18px}
+.tour-skip{background:none;border:0;color:var(--gris-500);font-size:15px;font-weight:600;padding:12px 6px;cursor:pointer}
+.tour-nav-r{margin-left:auto;display:flex;gap:10px}
+.tour-prev{background:var(--celeste-pale);color:var(--celeste-deep);border:0;border-radius:15px;padding:14px 18px;font-size:16px;font-weight:700;cursor:pointer}
+.tour-next{background:var(--celeste-deep);color:#fff;border:0;border-radius:15px;padding:14px 24px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(94,143,168,.42)}
+.tour-next:active,.tour-prev:active{transform:scale(.97)}
 </style>
 <!-- Desbloqueo recordado: evita el parpadeo de la app antes de cargar el módulo -->
 <script>try{if(localStorage.getItem('casc_unlock_pos')==='1')document.documentElement.classList.add('unlocked');}catch(e){}</script>
@@ -1572,6 +1614,44 @@ html.unlocked #lockScreen{display:none}
       <h1 class="h-title">Configuración</h1>
       <p class="lead">Todo lo de acá se guarda y la app lo usa en <em class="kw">mensajes, recibos, selectores y cálculos</em>. Cambiá lo que quieras y tocá <b>Guardar</b> al final.</p>
 
+      <!-- 0 · TUTORIALES (siempre la primera card) -->
+      <div class="cfg-card tut-card" id="cfgTutorialesCard">
+        <div class="cfg-h"><span class="cfg-ic">🎓</span><div><b>Tutoriales</b><span>Aprendé a usar la app, paso a paso</span></div></div>
+        <p class="tut-intro">Tocá cualquiera y te lo muestro en la pantalla, con pasos cortos. Lo podés repetir las veces que quieras.</p>
+        <div class="tut-list" id="tutList">
+          <button class="tut-item feat" type="button" data-tour="mama">
+            <span class="ti-ic">💙</span>
+            <span class="ti-tx"><b>Tour para mamá</b><span>Un paseo por lo que más usás, bien fácil</span></span>
+            <span class="ti-play">▶ Empezar</span>
+          </button>
+          <button class="tut-item" type="button" data-tour="venta">
+            <span class="ti-ic">🛒</span>
+            <span class="ti-tx"><b>Cargar una venta</b><span>Elegir colegio, prenda y talle</span></span>
+            <span class="ti-play">▶ Ver</span>
+          </button>
+          <button class="tut-item" type="button" data-tour="cobro">
+            <span class="ti-ic">💵</span>
+            <span class="ti-tx"><b>Cobrar una venta</b><span>Efectivo o transferencia, y el vuelto</span></span>
+            <span class="ti-play">▶ Ver</span>
+          </button>
+          <button class="tut-item" type="button" data-tour="gasto">
+            <span class="ti-ic">➖</span>
+            <span class="ti-tx"><b>Registrar un gasto</b><span>Anotar una salida de plata</span></span>
+            <span class="ti-play">▶ Ver</span>
+          </button>
+          <button class="tut-item" type="button" data-tour="reparto">
+            <span class="ti-ic">🚗</span>
+            <span class="ti-tx"><b>Programar un reparto</b><span>Una entrega a domicilio</span></span>
+            <span class="ti-play">▶ Ver</span>
+          </button>
+          <button class="tut-item" type="button" data-tour="whatsapp">
+            <span class="ti-ic">💬</span>
+            <span class="ti-tx"><b>Avisar por WhatsApp</b><span>Mandar un mensaje desde Mensajes</span></span>
+            <span class="ti-play">▶ Ver</span>
+          </button>
+        </div>
+      </div>
+
       <!-- 1 · NEGOCIO -->
       <div class="cfg-card">
         <div class="cfg-h"><span class="cfg-ic">🏡</span><div><b>Negocio</b><span>Aparece en recibos y mensajes</span></div></div>
@@ -1819,6 +1899,28 @@ html.unlocked #lockScreen{display:none}
   <span class="fv-lbl">Contame una venta o un gasto<em>Tocá y dictá</em></span>
   <span class="fv-bubble"><span class="fv-mic">💬</span></span>
 </button>
+
+<!-- ===== TOUR GUIADO (overlay spotlight/coachmark hecho a mano) ===== -->
+<div class="tour" id="tour" aria-hidden="true">
+  <div class="tour-hole" id="tourHole"></div>
+  <div class="tour-pop" id="tourPop" role="dialog" aria-modal="true" aria-live="polite">
+    <div class="tp-step" id="tourStepNum"></div>
+    <h3 id="tourTitle"></h3>
+    <p class="tp-text" id="tourText"></p>
+    <label class="tour-dontshow" id="tourDontShow" style="display:none">
+      <input type="checkbox" id="tourDontShowChk">
+      <span>No volver a mostrar esto solo</span>
+    </label>
+    <div class="tp-dots" id="tourDots"></div>
+    <div class="tour-nav">
+      <button class="tour-skip" id="tourSkip" type="button">Saltar</button>
+      <div class="tour-nav-r">
+        <button class="tour-prev" id="tourPrev" type="button">Anterior</button>
+        <button class="tour-next" id="tourNext" type="button">Siguiente</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ===== SHEET: AGREGAR / EDITAR ===== -->
 <div class="scrim" id="scrim"></div>
@@ -3260,6 +3362,7 @@ function unlockApp(){
   document.documentElement.classList.add("unlocked");
   pinBuffer=""; renderPinDots();
   const err=$("#lockErr"); if(err) err.classList.remove("show");
+  try{ maybeAutoMamaTour(); }catch(e){}   // Tour para mamá la primera vez que inicia sesión
 }
 function pinPress(d){
   if(pinBuffer.length>=4) return;
@@ -10325,6 +10428,237 @@ $("#restoreC2Ok").onclick = async ()=>{
   await runRestore();
 };
 /* ──────────────────── fin BACKUP ──────────────────── */
+
+/* ════════════════════════════════════════════════════════════════
+   TUTORIALES — motor de tour guiado (spotlight/coachmark) + tours
+   ────────────────────────────────────────────────────────────────
+   · Un overlay hecho a mano oscurece la pantalla, resalta el elemento
+     del paso actual y muestra un globito con texto corto y botones.
+   · Cada "tutorial" es solo una lista de pasos que reusa este motor.
+   · Un paso puede: navegar a una pestaña (view), abrir la pantalla de
+     Vender en su sub-paso (vender), y/o resaltar un elemento (target).
+   · El tour es solo visual: bloquea los toques de abajo para que mamá
+     nunca toque algo sin querer. Avanza con los botones del globito.
+   ════════════════════════════════════════════════════════════════ */
+const TOUR_VISTO = "casc_tour_mama_visto";   // marcado con "No volver a mostrar"
+const TOUR_AUTO  = "casc_tour_mama_auto";    // ya se mostró solo alguna vez
+let tourSteps = null, tourIdx = 0, tourVenderOpen = false, tourIsMama = false, tourRepoTimer = null;
+
+function tourTargetEl(t){
+  if(!t) return null;
+  try{ return (typeof t === "function") ? t() : document.querySelector(t); }
+  catch(e){ return null; }
+}
+function tourCloseVenderIfOpen(){
+  if(tourVenderOpen || $("#vender").classList.contains("show")){
+    try{ closeVender(); }catch(e){}
+  }
+  tourVenderOpen = false;
+}
+function startTour(steps, opts){
+  opts = opts || {};
+  if(!steps || !steps.length) return;
+  tourSteps = steps; tourIdx = 0; tourIsMama = !!opts.mama; tourVenderOpen = false;
+  $("#tour").classList.add("show");
+  $("#tour").setAttribute("aria-hidden","false");
+  if(tourIsMama){
+    try{ $("#tourDontShowChk").checked = (localStorage.getItem(TOUR_VISTO) === "1"); }catch(e){}
+  }
+  window.addEventListener("resize", tourReposition);
+  window.addEventListener("scroll", tourReposition, true);
+  tourGo(0);
+}
+function tourGo(i){
+  if(!tourSteps || i < 0 || i >= tourSteps.length) return;
+  tourIdx = i;
+  const step = tourSteps[i];
+  // 1) Pantalla de Vender (si el paso la necesita) o cerrarla si no.
+  if(step.vender){
+    if(!$("#vender").classList.contains("show")){ try{ openVender(); }catch(e){} }
+    try{ vStep(step.vender); }catch(e){}
+    if(step.vender === "cobrar"){ try{ pagoSel = step.pago || null; renderPago(); }catch(e){} }
+    tourVenderOpen = true;
+  } else {
+    tourCloseVenderIfOpen();
+  }
+  // 2) Pestaña correspondiente.
+  if(step.view){ try{ go(step.view); }catch(e){} }
+  // 3) Globito + posición (esperando a que asienten las transiciones).
+  tourRender(step);
+  requestAnimationFrame(()=> tourPosition(step));
+  clearTimeout(tourRepoTimer);
+  tourRepoTimer = setTimeout(()=> tourPosition(step), step.vender ? 400 : 160);
+}
+function tourRender(step){
+  $("#tourStepNum").textContent = `Paso ${tourIdx+1} de ${tourSteps.length}`;
+  $("#tourTitle").textContent = step.title || "";
+  $("#tourText").innerHTML = step.text || "";
+  const dots = $("#tourDots"); dots.innerHTML = "";
+  for(let k=0; k<tourSteps.length; k++){
+    const d = document.createElement("i");
+    if(k === tourIdx) d.className = "on";
+    dots.appendChild(d);
+  }
+  $("#tourDontShow").style.display = step.dontShow ? "flex" : "none";
+  $("#tourPrev").style.display = tourIdx === 0 ? "none" : "inline-block";
+  const last = tourIdx === tourSteps.length - 1;
+  $("#tourNext").textContent = last ? (tourIsMama ? "¡Listo!" : "Terminar") : "Siguiente";
+  $("#tourSkip").style.display = last ? "none" : "inline-block";
+  const pop = $("#tourPop");
+  pop.classList.remove("in");
+  requestAnimationFrame(()=> pop.classList.add("in"));
+}
+function tourPosition(step){
+  if(!tourSteps) return;
+  const hole = $("#tourHole"), pop = $("#tourPop");
+  const el = tourTargetEl(step.target);
+  if(!el){
+    // Sin objetivo: pantalla oscurecida pareja y globito al centro.
+    hole.classList.remove("ring");
+    hole.style.width = "0px"; hole.style.height = "0px";
+    hole.style.left = "50%"; hole.style.top = "42%";
+    pop.style.left = "50%"; pop.style.top = "50%"; pop.style.transform = "translate(-50%,-50%)";
+    pop.style.width = "min(92vw,420px)";
+    return;
+  }
+  try{ el.scrollIntoView({ block:"center", inline:"nearest" }); }catch(e){}
+  const r = el.getBoundingClientRect();
+  const vw = window.innerWidth, vh = window.innerHeight, pad = 8;
+  const hx = Math.max(6, r.left - pad), hy = Math.max(6, r.top - pad);
+  const hw = Math.min(vw - 12, r.width + pad*2), hh = r.height + pad*2;
+  hole.classList.add("ring");
+  hole.style.left = hx + "px"; hole.style.top = hy + "px";
+  hole.style.width = hw + "px"; hole.style.height = hh + "px";
+  // Globito: debajo del objetivo si entra, si no, arriba.
+  pop.style.transform = "none";
+  const popW = Math.min(vw * 0.92, 420);
+  pop.style.width = popW + "px";
+  const popH = pop.offsetHeight || 260;
+  let px = r.left + r.width/2 - popW/2;
+  px = Math.min(Math.max(10, px), vw - popW - 10);
+  let py;
+  if(r.bottom + 16 + popH < vh - 10) py = r.bottom + 16;
+  else if(r.top - 16 - popH > 10)    py = r.top - 16 - popH;
+  else py = vh - popH - 12;
+  py = Math.min(Math.max(10, py), vh - popH - 10);
+  pop.style.left = px + "px"; pop.style.top = py + "px";
+}
+function tourReposition(){ if(tourSteps) tourPosition(tourSteps[tourIdx]); }
+function tourEnd(){
+  tourCloseVenderIfOpen();
+  $("#tour").classList.remove("show");
+  $("#tour").setAttribute("aria-hidden","true");
+  $("#tourPop").classList.remove("in");
+  window.removeEventListener("resize", tourReposition);
+  window.removeEventListener("scroll", tourReposition, true);
+  clearTimeout(tourRepoTimer);
+  tourSteps = null;
+}
+
+$("#tourNext").onclick = ()=>{
+  if(!tourSteps) return;
+  if(tourIdx === tourSteps.length - 1) tourEnd();
+  else tourGo(tourIdx + 1);
+};
+$("#tourPrev").onclick = ()=>{ if(tourSteps) tourGo(tourIdx - 1); };
+$("#tourSkip").onclick = ()=> tourEnd();
+$("#tourDontShowChk").addEventListener("change", e=>{
+  try{
+    if(e.target.checked) localStorage.setItem(TOUR_VISTO, "1");
+    else localStorage.removeItem(TOUR_VISTO);
+  }catch(err){}
+});
+window.addEventListener("keydown", e=>{
+  if(tourSteps && e.key === "Escape"){ e.preventDefault(); tourEnd(); }
+});
+
+/* ── Listas de pasos: cada tutorial reusa el motor de arriba ── */
+const TOUR_TARGETS = {
+  mensajeEnviar: ()=> document.querySelector(".msg-send") || document.querySelector(".msg-allgood") || document.querySelector("#view-mensajes .lead"),
+  repartoLista:  ()=> document.querySelector("#listaEntregas .ent-card") || document.querySelector("#entAdd")
+};
+
+const MAMA_STEPS = [
+  { title:"¡Hola! 👋", dontShow:true,
+    text:"Te muestro en un minuto lo que más vas a usar. Son pocos pasos y bien cortos. Si querés, podés salir cuando quieras con <b>Saltar</b>." },
+  { view:"inicio", target:"#venderBtn", title:"Para vender",
+    text:"Este botón grande es el más importante. Tocá <b>Vender</b> y arrancás una venta: elegís el colegio, la prenda y el talle." },
+  { view:"inicio", target:"#fabVoz", title:"Contame hablando",
+    text:"¿No querés tocar botones? Tocá esta burbujita verde y <b>contame una venta o un gasto en voz alta</b>. La app lo arma sola." },
+  { vender:"cobrar", pago:"efectivo", target:".pago-opts", title:"Cobrar",
+    text:"Cuando terminás de cargar, tocás <b>Cobrar</b>. Elegís cómo te paga: <b>Efectivo</b> o <b>Transferencia</b>. Si es en efectivo, ponés con cuánto te paga y te digo el <b>vuelto</b> exacto." },
+  { view:"entregas", target:"#entAdd", title:"Programar un reparto",
+    text:"Si la llevás a domicilio, acá tocás <b>Programar entrega</b> y elegís el día. Te queda la lista de lo que tenés que llevar, en orden." },
+  { view:"mensajes", target:TOUR_TARGETS.mensajeEnviar, title:"Avisar por WhatsApp",
+    text:"En <b>Mensajes</b> aparece todo lo que tenés pendiente de avisar. Tocás <b>Enviar por WhatsApp</b> y el mensaje sale escrito solo. ¡Eso es todo! 💙" }
+];
+
+const VENTA_STEPS = [
+  { view:"inicio", target:"#venderBtn", title:"Empezá la venta",
+    text:"Desde <b>Inicio</b>, tocá el botón grande <b>Vender</b>." },
+  { vender:"armar", target:"#vColegios", title:"Elegí qué se lleva",
+    text:"Tocá primero el <b>colegio</b>, después la <b>prenda</b> y el <b>talle</b>. Cada cosa se va sumando al carrito de abajo." },
+  { vender:"armar", target:"#vCobrarBtn", title:"Pasá a cobrar",
+    text:"Cuando tengas todo cargado, tocá <b>Cobrar →</b> acá abajo para seguir." }
+];
+
+const COBRO_STEPS = [
+  { vender:"cobrar", target:".pago-opts", title:"¿Cómo te paga?",
+    text:"Elegí <b>Efectivo</b> o <b>Transferencia</b>. También podés dejar que <b>quede debiendo</b> y se anota en su cuenta." },
+  { vender:"cobrar", pago:"efectivo", target:"#vVueltoBox", title:"El vuelto, solo",
+    text:"Si paga en efectivo, escribí <b>con cuánto te paga</b> y la app te muestra el vuelto exacto. Así no te equivocás." },
+  { vender:"cobrar", target:"#vConfirmar", title:"Confirmá y listo",
+    text:"Tocá <b>Confirmar venta</b> y queda guardada. Después podés mandarle la confirmación por WhatsApp." }
+];
+
+const GASTO_STEPS = [
+  { view:"caja", target:"#cajaHoyEgrAdd", title:"Anotá un gasto",
+    text:"En <b>Caja</b>, en <i>Gastos de hoy</i>, tocá <b>Registrar gasto</b>. Ponés el monto y un concepto (ej: tela, taller, luz) y guardás." },
+  { view:"inicio", target:"#fabVoz", title:"O contámelo hablando",
+    text:"También lo podés cargar por voz: en <b>Inicio</b>, tocá la burbujita y decí el gasto. La app entiende ventas <b>y</b> gastos." }
+];
+
+const REPARTO_STEPS = [
+  { view:"entregas", target:"#entAdd", title:"Programá la entrega",
+    text:"En <b>Reparto</b>, tocá <b>Programar entrega</b>. Elegís la clienta, la dirección y el día." },
+  { view:"entregas", target:TOUR_TARGETS.repartoLista, title:"Tu lista del día",
+    text:"Te queda la lista de lo que tenés que llevar. Tocás <b>Voy en camino</b> para avisarle, y vas marcando cada entrega cuando la hacés." }
+];
+
+const WHATSAPP_STEPS = [
+  { view:"mensajes", target:TOUR_TARGETS.mensajeEnviar, title:"Todo lo pendiente, junto",
+    text:"En <b>Mensajes</b> aparece todo lo que tenés que avisar: confirmaciones, datos de pago, saldos, repos…" },
+  { view:"mensajes", target:TOUR_TARGETS.mensajeEnviar, title:"Sale armado solo",
+    text:"Tocás <b>Enviar por WhatsApp</b> y el mensaje se escribe solo con los datos. Vos solo apretás enviar en WhatsApp." }
+];
+
+const TOUR_MAP = {
+  mama: MAMA_STEPS, venta: VENTA_STEPS, cobro: COBRO_STEPS,
+  gasto: GASTO_STEPS, reparto: REPARTO_STEPS, whatsapp: WHATSAPP_STEPS
+};
+
+function startMamaTour(){ startTour(MAMA_STEPS, { mama:true }); }
+
+/* Disparar un tutorial al tocar su item en la card de Configuración. */
+document.addEventListener("click", e=>{
+  const b = e.target.closest("[data-tour]");
+  if(!b) return;
+  e.preventDefault();
+  const steps = TOUR_MAP[b.dataset.tour];
+  if(steps) startTour(steps, { mama: b.dataset.tour === "mama" });
+});
+
+/* Tour para mamá automático: SOLO la primera vez que se inicia sesión.
+   Si marcó "No volver a mostrar" (TOUR_VISTO), no aparece nunca solo. */
+function maybeAutoMamaTour(){
+  try{
+    if(localStorage.getItem(TOUR_VISTO) === "1") return;
+    if(localStorage.getItem(TOUR_AUTO)  === "1") return;
+    localStorage.setItem(TOUR_AUTO, "1");
+  }catch(e){ return; }
+  setTimeout(()=>{ try{ startMamaTour(); }catch(err){} }, 850);
+}
+/* ──────────────────── fin TUTORIALES ──────────────────── */
 
 renderStockStats(); renderInicio(); renderFiltros(); renderLista();
 try{ renderEsperaView(); }catch(e){}   // siembra la lista de espera (sub-pestaña de Productos)
