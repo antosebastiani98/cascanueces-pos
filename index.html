@@ -146,6 +146,52 @@ img{display:block;max-width:100%}
 .prod .pstock .sl{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--gris-300)}
 .prod .pedit{width:46px;height:46px;border-radius:14px;background:var(--crema);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 
+/* ── Bloques de la pestaña Productos ── */
+.prod-block{margin-top:30px}
+.prod-block .block-title{display:flex;align-items:center;gap:9px;font-family:var(--titf);font-weight:600;font-size:21px;color:var(--gris-900);margin:0 4px 4px}
+.prod-block .block-sub{font-size:14px;color:var(--texto-suave);margin:0 4px 14px}
+
+/* ── Catálogo agrupado por colegio ── */
+.cat-col{background:var(--blanco);border-radius:22px;box-shadow:var(--card-shadow);margin-bottom:14px;overflow:hidden}
+.cat-col-head{width:100%;display:flex;align-items:center;gap:12px;padding:18px 18px;min-height:60px;text-align:left;background:none}
+.cat-col-head .cch-name{flex:1;min-width:0;font-family:var(--titf);font-weight:600;font-size:19px;color:var(--gris-900);line-height:1.15}
+.cat-col-head .cch-meta{font-size:12.5px;color:var(--texto-suave);flex-shrink:0}
+.cat-col-head .cch-chev{font-size:16px;color:var(--celeste-deep);flex-shrink:0;transition:transform .25s ease}
+.cat-col.open .cat-col-head .cch-chev{transform:rotate(180deg)}
+.cat-col-body{display:none;padding:0 12px 8px}
+.cat-col.open .cat-col-body{display:block}
+
+.cat-prod{border-top:1px solid var(--crema-dark)}
+.cat-prod:first-child{border-top:none}
+.cat-prod-head{width:100%;display:flex;align-items:center;gap:12px;padding:15px 6px;min-height:56px;text-align:left;background:none}
+.cat-prod-head .cph-name{flex:1;min-width:0;font-size:16.5px;font-weight:600;color:var(--gris-900)}
+.cat-prod-head .cph-meta{font-size:12.5px;color:var(--texto-suave);flex-shrink:0}
+.cat-prod-head .cph-chev{font-size:14px;color:var(--celeste-deep);flex-shrink:0;transition:transform .25s ease}
+.cat-prod.open .cat-prod-head .cph-chev{transform:rotate(180deg)}
+.cat-prod-head .tag.combo{background:var(--mostaza-pale);color:#8a6d18;font-weight:600}
+.cat-talles{display:none;padding:2px 0 12px}
+.cat-prod.open .cat-talles{display:block}
+
+.cat-talle{display:flex;align-items:center;gap:12px;background:var(--crema);border-radius:16px;padding:12px 14px;min-height:56px;margin:8px 4px;box-shadow:inset 0 0 0 1px var(--crema-dark)}
+.cat-talle .ct-main{flex:1;min-width:0}
+.cat-talle .ct-talle{font-size:15.5px;font-weight:600;color:var(--gris-900)}
+.cat-talle .ct-tags{display:flex;gap:7px;align-items:center;margin-top:6px;flex-wrap:wrap}
+.cat-talle .tag.costo{background:var(--crema-dark);color:var(--gris-700)}
+.cat-talle .ct-stock{text-align:center;flex-shrink:0;min-width:50px}
+.cat-talle .ct-stock .sn{font-family:var(--titf);font-weight:600;font-size:26px;color:var(--gris-900);line-height:1}
+.cat-talle .ct-stock .sl{font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--gris-300)}
+.cat-talle .ct-edit{width:46px;height:46px;border-radius:14px;background:var(--blanco);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:var(--card-shadow)}
+.cat-talle.pausado{opacity:.6}
+.cat-esp{display:flex;align-items:center;justify-content:center;gap:6px;width:calc(100% - 8px);margin:0 4px 8px;min-height:48px;background:var(--mostaza-pale);color:#8a6d18;border:2px solid var(--mostaza);border-radius:14px;font-size:14px;font-weight:600}
+
+/* ── Fila Precio + Costo en el formulario ── */
+.field-row{display:flex;gap:12px;margin-top:20px}
+.field-row .field{margin-top:0;flex:1;min-width:0}
+.field-row .precio-wrap{padding:6px 13px}
+.field-row .precio-wrap .pe{font-size:22px}
+.field-row .precio-wrap input{font-size:22px;padding:11px 0 11px 8px}
+.lbl-opt{font-weight:500;text-transform:none;letter-spacing:0;color:var(--gris-300)}
+
 .empty{text-align:center;padding:54px 24px;background:var(--blanco);border-radius:24px;box-shadow:var(--card-shadow);margin-top:10px}
 .empty .ico{font-size:46px;margin-bottom:14px}
 .empty h3{font-size:23px;margin-bottom:8px}
@@ -1072,10 +1118,9 @@ html.unlocked #lockScreen{display:none}
       <div class="s-conn" id="connDesk"><span class="dot"></span><span class="ct">Conectando…</span></div>
       <nav class="s-nav">
         <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span> Inicio</a>
-        <a href="#" class="nav-link" data-go="stock"><span class="bi">📦</span> Stock</a>
+        <a href="#" class="nav-link" data-go="stock"><span class="bi">🏷</span> Productos</a>
         <a href="#" class="nav-link" data-go="encargos"><span class="bi">🧾</span> Encargos<span class="s-nav-badge" id="encargoSideBadge" style="display:none">0</span></a>
-        <a href="#" class="nav-link" data-go="espera"><span class="bi">⏳</span> Lista de espera</a>
-        <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span> Clientas</a>
+        <a href="#" class="nav-link" data-go="clientes"><span class="bi">👸🏻</span> Clientas</a>
         <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span> Reparto</a>
         <a href="#" class="nav-link" data-go="caja"><span class="bi">🖥️</span> Caja</a>
         <a href="#" class="nav-link" data-go="cuentas"><span class="bi">📒</span> Cuentas<span class="s-nav-badge" id="cuentaSideBadge" style="display:none">0</span></a>
@@ -1116,23 +1161,43 @@ html.unlocked #lockScreen{display:none}
       <div class="mov-grid" id="movResumen"></div>
     </section>
 
-    <!-- ===== VISTA STOCK ===== -->
+    <!-- ===== VISTA PRODUCTOS ===== -->
     <section class="view" id="view-stock">
       <div class="eyebrow">Inventario</div>
-      <h1 class="h-title">Stock</h1>
-      <p class="lead">Cargá cada uniforme una vez. Después se descuenta solo con cada venta.</p>
+      <h1 class="h-title">Productos</h1>
+      <p class="lead">Cargá cada producto una vez. Después se descuenta solo con cada venta.</p>
 
-      <div class="stat-row stock-stats">
-        <div class="stat"><div class="n"><span id="statTotal">0</span><span class="den" id="statTotalDen">/0</span></div><div class="l">uniformes cargados</div></div>
-        <div class="stat warn"><div class="n" id="statBajo">0</div><div class="l">con stock bajo</div></div>
-        <div class="stat zero"><div class="n" id="statCero">0</div><div class="l">faltantes</div></div>
-      </div>
-      <div class="stat full stock-valor"><div class="n" id="statValor">$ 0</div><div class="l">valor del stock en casa</div></div>
+      <!-- (2) Botón principal de agregar producto (el FAB flotante de siempre) -->
+      <button class="ent-add" id="prodAdd"><span style="font-size:21px;line-height:1">＋</span> Agregar producto</button>
 
-      <button class="esp-open" data-go="espera">⏳ Lista de espera<span class="eb" id="esperaOpenBadge" style="display:none">0</span></button>
+      <!-- (3) LISTA DE ESPERA (misma de siempre, ubicada acá) -->
+      <section class="prod-block" id="esperaBlock">
+        <h2 class="block-title">⏳ Lista de espera</h2>
+        <p class="block-sub">Anotá a cada clienta que espera un talle que no tenés. Cuando entre stock, te aviso para que le escribas con un toque.</p>
+        <button class="ent-add" id="esperaAdd"><span style="font-size:21px;line-height:1">＋</span> Anotar una espera</button>
+        <div class="filtros" id="esperaGrupo"></div>
+        <div class="filtros" id="esperaEstado"></div>
+        <div id="listaEspera"></div>
+      </section>
 
-      <div class="filtros" id="filtros"></div>
-      <div id="listaStock"></div>
+      <!-- (4) CATÁLOGO AGRUPADO POR COLEGIO -->
+      <section class="prod-block" id="catalogoBlock">
+        <h2 class="block-title">📚 Catálogo por colegio</h2>
+        <p class="block-sub">Tocá un colegio para abrirlo y un producto para ver sus talles, stock, costo y precio.</p>
+        <div class="filtros" id="filtros"></div>
+        <div id="listaStock"></div>
+      </section>
+
+      <!-- (6) Resumen de stock (cards de siempre) -->
+      <section class="prod-block" id="stockResumen">
+        <h2 class="block-title">📊 Resumen de stock</h2>
+        <div class="stat-row stock-stats">
+          <div class="stat"><div class="n"><span id="statTotal">0</span><span class="den" id="statTotalDen">/0</span></div><div class="l">uniformes cargados</div></div>
+          <div class="stat warn"><div class="n" id="statBajo">0</div><div class="l">con stock bajo</div></div>
+          <div class="stat zero"><div class="n" id="statCero">0</div><div class="l">faltantes</div></div>
+        </div>
+        <div class="stat full stock-valor"><div class="n" id="statValor">$ 0</div><div class="l">valor del stock en casa</div></div>
+      </section>
 
       <button class="ajustes-link" id="ajustesLink">⚙ Ajustes de cobro</button>
     </section>
@@ -1144,7 +1209,7 @@ html.unlocked #lockScreen{display:none}
       <p class="lead">Guardá los datos de cada mamá y sus chicos. Después les mandás los mensajes con un toque.</p>
 
       <div class="cli-shortcuts">
-        <button class="cli-shortcut" type="button" data-go="encargos"><span class="csi">🎁</span><span class="cst"><b>Encargos</b><span>Pedidos y señas</span></span></button>
+        <button class="cli-shortcut" type="button" data-go="encargos"><span class="csi">🧾</span><span class="cst"><b>Encargos</b><span>Pedidos y señas</span></span></button>
         <button class="cli-shortcut" type="button" data-go="cuentas"><span class="csi">📒</span><span class="cst"><b>Cuentas</b><span>Saldos y fiado</span></span></button>
       </div>
 
@@ -1356,20 +1421,6 @@ html.unlocked #lockScreen{display:none}
       </div>
     </section>
 
-    <!-- ===== VISTA LISTA DE ESPERA (Etapa 7) ===== -->
-    <section class="view" id="view-espera">
-      <div class="eyebrow">Lo que falta y quién lo espera</div>
-      <h1 class="h-title">Lista de espera</h1>
-      <p class="lead">Anotá a cada clienta que espera un talle que no tenés. Cuando entre stock, te aviso para que le escribas con un toque.</p>
-
-      <button class="ent-add" id="esperaAdd"><span style="font-size:21px;line-height:1">＋</span> Anotar una espera</button>
-
-      <div class="filtros" id="esperaGrupo"></div>
-      <div class="filtros" id="esperaEstado"></div>
-
-      <div id="listaEspera"></div>
-    </section>
-
     <!-- ===== VISTA ENCARGOS CON SEÑA (Etapa 8) ===== -->
     <section class="view" id="view-encargos">
       <div class="eyebrow">Pedidos con seña</div>
@@ -1395,12 +1446,12 @@ html.unlocked #lockScreen{display:none}
     <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span>Inicio</a>
     <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span>Reparto</a>
     <a href="#" class="nav-link" data-go="stock"><span class="bi">🏷</span>Productos</a>
-    <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span>Clientas</a>
+    <a href="#" class="nav-link" data-go="clientes"><span class="bi">👸🏻</span>Clientas</a>
     <a href="#" class="nav-link" data-go="caja"><span class="bi">🖥️</span>Caja</a>
   </nav>
 
   <!-- FAB agregar (solo en Stock) -->
-  <button class="fab-add" id="fabAdd" style="display:none"><span class="plus">+</span> Agregar uniforme</button>
+  <button class="fab-add" id="fabAdd" style="display:none"><span class="plus">+</span> Agregar producto</button>
 
   <!-- FAB agregar clienta (solo en Clientes) -->
   <button class="fab-add" id="fabAddCli" style="display:none"><span class="plus">+</span> Agregar clienta</button>
@@ -1423,7 +1474,7 @@ html.unlocked #lockScreen{display:none}
 <div class="sheet" id="sheet">
   <div class="sheet-grip"></div>
   <div class="sheet-head">
-    <h2 id="sheetTitle">Agregar uniforme</h2>
+    <h2 id="sheetTitle">Agregar producto</h2>
     <button class="sheet-x" id="sheetClose">✕</button>
   </div>
   <div class="sheet-body">
@@ -1450,12 +1501,26 @@ html.unlocked #lockScreen{display:none}
       </div>
     </div>
 
-    <div class="field">
-      <label>Precio</label>
-      <div class="precio-wrap">
-        <span class="pe">$</span>
-        <input id="inPrecio" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+    <div class="field-row">
+      <div class="field">
+        <label>Precio</label>
+        <div class="precio-wrap">
+          <span class="pe">$</span>
+          <input id="inPrecio" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+        </div>
       </div>
+      <div class="field">
+        <label>Costo <span class="lbl-opt">(opcional)</span></label>
+        <div class="precio-wrap">
+          <span class="pe">$</span>
+          <input id="inCosto" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="switch-row">
+      <div class="st"><b id="tipoLbl">Producto</b><span>Activá si este ítem es un combo</span></div>
+      <div class="switch" id="switchCombo"><div class="knob"></div></div>
     </div>
 
     <div class="field">
@@ -2196,7 +2261,7 @@ html.unlocked #lockScreen{display:none}
       </div>
 
       <div class="enc-cart" id="encCartWrap" style="display:none">
-        <div class="enc-cart-h">🎁 Lo que te encargan</div>
+        <div class="enc-cart-h">🧾 Lo que te encargan</div>
         <div id="encCart"></div>
       </div>
       <p class="hint" id="encCartEmpty">Todavía no agregaste nada. Elegí un talle arriba o cargá algo a medida.</p>
@@ -2444,7 +2509,7 @@ let STOCK_BAJO = STOCK_BAJO_DEFAULT;
 let productos = [];
 let filtroColegio = "todos";
 let editId = null;
-const form = { colegio:null, prenda:null, talle:null, precio:0, stock:0, activo:true };
+const form = { colegio:null, prenda:null, talle:null, precio:0, costo:0, stock:0, activo:true, tipo:"producto" };
 
 /* ── Helpers ── */
 const $ = s => document.querySelector(s);
@@ -2639,12 +2704,12 @@ function go(view, fromPop){
   document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
   $("#view-"+view).classList.add("active");
   document.querySelectorAll(".nav-link").forEach(a=> a.classList.toggle("on", a.dataset.go===view));
-  $("#fabAdd").style.display = view==="stock" ? "flex" : "none";
+  $("#fabAdd").style.display = "none";   // en Productos usamos el botón en línea (#prodAdd)
   $("#fabAddCli").style.display = view==="clientes" ? "flex" : "none";   // Etapa 3
   updateFabVoz();                                                        // burbuja de voz
   if(view==="caja") renderCaja();                                        // Etapa 6
   if(view==="config") renderConfig();                                    // Configuración
-  if(view==="espera") renderEsperaView();                                // Etapa 7
+  if(view==="stock"){ try{ renderEsperaView(); renderLista(); }catch(e){} }  // Productos: refresca espera + catálogo
   if(view==="encargos") renderEncargosView();                            // Etapa 8
   if(view==="cuentas")  renderCuentasView();                             // Etapa 4: cuentas / saldos
   window.scrollTo({top:0,behavior:"smooth"});
@@ -2684,8 +2749,8 @@ const MENU_SECTIONS = [
   { go:"inicio",   icon:"🏠", label:"Inicio" },
   { go:"entregas", icon:"🚗", label:"Reparto" },
   { go:"stock",    icon:"🏷", label:"Productos" },
-  { go:"clientes", icon:"🪪", label:"Clientas", children:[
-      { go:"encargos", icon:"🎁", label:"Encargos",
+  { go:"clientes", icon:"👸🏻", label:"Clientas", children:[
+      { go:"encargos", icon:"🧾", label:"Encargos",
         badge:()=> (typeof encargos!=="undefined" ? encargos.filter(e=> e.estado==="listo" && !e.avisado).length : 0) },
       { go:"cuentas",  icon:"📒", label:"Cuentas",
         badge:()=> (typeof clientasQueDeben==="function" ? clientasQueDeben().length : 0) },
@@ -2822,9 +2887,9 @@ function renderInicio(){
       row:e=>({ t:esc(e.clienteNombre||"Clienta"), v:(ESTADOS[e.estado||"pendiente"]||ESTADOS.pendiente).label }) },
     { ico:"📦", titulo:"Stock", go:"stock", items:movStockHoy(), vacio:"Sin movimientos hoy",
       row:m=>({ t:movStockTxt(m), v:movStockVal(m) }) },
-    { ico:"🎁", titulo:"Encargos", go:"encargos", items:(typeof movEncargosInicio==="function"?movEncargosInicio():[]), vacio:"Sin encargos en curso",
+    { ico:"🧾", titulo:"Encargos", go:"encargos", items:(typeof movEncargosInicio==="function"?movEncargosInicio():[]), vacio:"Sin encargos en curso",
       row:e=>({ t:esc(e.clienteNombre||"Clienta"), v:(e.estado==="listo" && !e.avisado) ? "¡Avisar!" : (e.estado==="listo"?"Listo":"Pendiente") }) },
-    { ico:"🪪", titulo:"Nuevas clientas", go:"clientes", items:movClientasHoy(), vacio:"Sin clientas nuevas hoy",
+    { ico:"👸🏻", titulo:"Nuevas clientas", go:"clientes", items:movClientasHoy(), vacio:"Sin clientas nuevas hoy",
       row:c=>({ t:esc(c.nombre||"Clienta"), v:(c.colegio?esc(corto(c.colegio)):"") }) },
     { ico:"📒", titulo:"Cuentas / fiado", go:"cuentas", items:(typeof clientasQueDeben==="function"?clientasQueDeben():[]), vacio:"Nadie te debe nada",
       row:d=>({ t:esc(d.nombre||"Clienta"), v:money(d.saldo) }) }
@@ -2856,67 +2921,130 @@ function renderFiltros(){
   colegiosActivos().forEach(c=> cont.appendChild(mk(c, corto(c))));
 }
 
-/* ── Render: lista ── */
+/* ── Estado del catálogo: qué colegios/productos están abiertos ──
+   Se conserva entre re-renders para que no se cierre solo al sincronizar. */
+let catColCerrado = {};      // colegio -> true si está plegado (por defecto: abierto)
+let catProdAbierto = {};     // "colegio||prenda" -> true si muestra sus talles
+const tallesSort = (a,b)=> (""+a.talle).localeCompare(""+b.talle, undefined, {numeric:true});
+
+/* ── Render: catálogo agrupado por colegio (card plegable por colegio) ── */
 function renderLista(){
-  const cont = $("#listaStock"); cont.innerHTML = "";
+  const cont = $("#listaStock"); if(!cont) return;
+  cont.innerHTML = "";
   let lista = productos.slice();
   if(filtroColegio!=="todos") lista = lista.filter(p=>p.colegio===filtroColegio);
 
   if(productos.length===0){
     cont.innerHTML = `<div class="empty"><div class="ico">📦</div>
-      <h3>Todavía no hay uniformes</h3>
-      <p>Cargá tu primer uniforme y empezá a tener el stock ordenado.</p>
-      <button class="btn btn-primary" style="max-width:260px;margin:0 auto" id="emptyAdd">+ Agregar uniforme</button></div>`;
+      <h3>Todavía no hay productos</h3>
+      <p>Cargá tu primer producto y empezá a tener el stock ordenado.</p>
+      <button class="btn btn-primary" style="max-width:260px;margin:0 auto" id="emptyAdd">+ Agregar producto</button></div>`;
     $("#emptyAdd").onclick = ()=>openSheet();
     return;
   }
   if(lista.length===0){
     cont.innerHTML = `<div class="empty"><div class="ico">🔍</div>
       <h3>Nada en este colegio</h3>
-      <p>Probá con otro colegio o agregá un uniforme nuevo.</p></div>`;
+      <p>Probá con otro colegio o agregá un producto nuevo.</p></div>`;
     return;
   }
 
-  const grupos = {};
-  lista.forEach(p=>{ (grupos[p.colegio] ||= []).push(p); });
-  Object.keys(grupos).sort().forEach(col=>{
-    const items = grupos[col].sort((a,b)=>
-      (a.prenda||"").localeCompare(b.prenda||"") || (""+a.talle).localeCompare(""+b.talle,undefined,{numeric:true}));
-    const g = document.createElement("div"); g.className = "col-group";
-    g.innerHTML = `<div class="col-head"><span class="cn">${corto(col)}</span>
-      <span class="cc">${items.length} uniforme${items.length>1?"s":""}</span></div>`;
-    items.forEach(p=> g.appendChild(prodCard(p)));
-    cont.appendChild(g);
+  // Agrupar: colegio -> prenda (producto) -> [talles]
+  const porColegio = {};
+  lista.forEach(p=>{
+    const col = p.colegio || "Sin colegio";
+    (porColegio[col] ||= {});
+    (porColegio[col][p.prenda || "—"] ||= []).push(p);
+  });
+
+  Object.keys(porColegio).sort((a,b)=>a.localeCompare(b)).forEach(col=>{
+    const prendas = porColegio[col];
+    const nProd = Object.keys(prendas).length;
+    let totalStock = 0;
+    Object.values(prendas).forEach(arr=> arr.forEach(p=> totalStock += Number(p.stock)||0));
+    const abierto = catColCerrado[col]!==true;   // por defecto abierto
+
+    const card = document.createElement("div");
+    card.className = "cat-col" + (abierto?" open":"");
+
+    const head = document.createElement("button");
+    head.type = "button"; head.className = "cat-col-head";
+    head.innerHTML = `<span class="cch-name">${esc(corto(col))}</span>
+      <span class="cch-meta">${nProd} producto${nProd>1?"s":""} · ${totalStock} en casa</span>
+      <span class="cch-chev">▾</span>`;
+    head.onclick = ()=>{ catColCerrado[col] = abierto; renderLista(); };
+    card.appendChild(head);
+
+    const body = document.createElement("div"); body.className = "cat-col-body";
+    Object.keys(prendas).sort((a,b)=>a.localeCompare(b)).forEach(prenda=>{
+      const talles = prendas[prenda].slice().sort(tallesSort);
+      const key = col + "||" + prenda;
+      const open = !!catProdAbierto[key];
+      const sumStock = talles.reduce((a,p)=> a + (Number(p.stock)||0), 0);
+      const esCombo = talles.some(p=> p.tipo==="combo");
+
+      const pe = document.createElement("div");
+      pe.className = "cat-prod" + (open?" open":"");
+
+      const ph = document.createElement("button");
+      ph.type = "button"; ph.className = "cat-prod-head";
+      ph.innerHTML = `<span class="cph-name">${esc(prenda)}${esCombo?' <span class="tag combo">Combo</span>':''}</span>
+        <span class="cph-meta">${talles.length} talle${talles.length>1?"s":""} · ${sumStock} en casa</span>
+        <span class="cph-chev">▾</span>`;
+      ph.onclick = ()=>{ catProdAbierto[key] = !open; renderLista(); };
+      pe.appendChild(ph);
+
+      const tw = document.createElement("div"); tw.className = "cat-talles";
+      talles.forEach(p=> tw.appendChild(catTalleRow(p)));
+      pe.appendChild(tw);
+
+      body.appendChild(pe);
+    });
+    card.appendChild(body);
+    cont.appendChild(card);
   });
 }
-function prodCard(p){
-  const el = document.createElement("div");
+
+/* Fila de un talle dentro del catálogo: stock, costo y precio + editar. */
+function catTalleRow(p){
   const stock = Number(p.stock)||0;
-  el.className = "prod" + (p.activo===false ? " pausado":"");
+  const costo = Number(p.costo)||0;
+  const nEsp = esperasDe(p.colegio, p.prenda, p.talle).filter(e=> e.estado!=="avisada").length;
   let stockTag = "";
   if(stock===0) stockTag = `<span class="tag cero">Sin stock</span>`;
   else if(stock<=STOCK_BAJO) stockTag = `<span class="tag bajo">Queda poco</span>`;
-  const nEsp = esperasDe(p.colegio, p.prenda, p.talle).filter(e=> e.estado!=="avisada").length;
-  const espTag = stock===0
-    ? `<button class="tag est-esp" data-esp="1">🔔 Anotar espera${nEsp?` · ${nEsp}`:""}</button>`
-    : (nEsp ? `<span class="tag est-esp">⏳ ${nEsp} en espera</span>` : "");
-  el.innerHTML = `
-    <div class="pmain">
-      <div class="pname">${p.prenda||"—"}</div>
-      <div class="pmeta">
-        <span class="tag talle">Talle ${p.talle||"—"}</span>
+  const pausaTag = p.activo===false ? '<span class="tag" style="background:var(--gris-100);color:var(--gris-500)">En pausa</span>' : '';
+  const espTag = (stock>0 && nEsp) ? `<span class="tag est-esp">⏳ ${nEsp} en espera</span>` : '';
+
+  const row = document.createElement("div");
+  row.className = "cat-talle" + (p.activo===false?" pausado":"");
+  row.innerHTML = `
+    <div class="ct-main">
+      <div class="ct-talle">Talle ${esc(p.talle||"—")}</div>
+      <div class="ct-tags">
         <span class="tag precio">${money(p.precio)}</span>
+        ${costo>0?`<span class="tag costo">Costo ${money(costo)}</span>`:""}
         ${stockTag}
         ${espTag}
-        ${p.activo===false?'<span class="tag" style="background:var(--gris-100);color:var(--gris-500)">En pausa</span>':''}
+        ${pausaTag}
       </div>
     </div>
-    <div class="pstock"><div class="sn">${stock}</div><div class="sl">en casa</div></div>
-    <button class="pedit">✏️</button>`;
-  el.querySelector(".pedit").onclick = ()=> openSheet(p);
-  const espBtn = el.querySelector("[data-esp]");
-  if(espBtn) espBtn.onclick = (e)=>{ e.stopPropagation(); openEsperaSheet({ colegio:p.colegio, prenda:p.prenda, talle:String(p.talle) }); };
-  return el;
+    <div class="ct-stock"><div class="sn">${stock}</div><div class="sl">en casa</div></div>
+    <button class="ct-edit" type="button" aria-label="Editar">✏️</button>`;
+  row.querySelector(".ct-edit").onclick = (e)=>{ e.stopPropagation(); openSheet(p); };
+  row.onclick = ()=> openSheet(p);
+
+  // Sin stock: ofrecer anotar una espera (mismo flujo de siempre)
+  if(stock===0){
+    const wrap = document.createElement("div");
+    const esp = document.createElement("button");
+    esp.type = "button"; esp.className = "cat-esp";
+    esp.textContent = `🔔 Anotar espera${nEsp?` · ${nEsp}`:""}`;
+    esp.onclick = (e)=>{ e.stopPropagation(); openEsperaSheet({ colegio:p.colegio, prenda:p.prenda, talle:String(p.talle) }); };
+    wrap.appendChild(row); wrap.appendChild(esp);
+    return wrap;
+  }
+  return row;
 }
 
 /* ── Input "otro" propio de la app (sin prompt del sistema) ── */
@@ -2939,7 +3067,7 @@ function otroInline(container, placeholder, onAdd){
 /* ── Sheet ── */
 function openSheet(prod=null){
   editId = prod ? prod.id : null;
-  $("#sheetTitle").textContent = prod ? "Editar uniforme" : "Agregar uniforme";
+  $("#sheetTitle").textContent = prod ? "Editar producto" : "Agregar producto";
   $("#btnDelete").style.display = prod ? "flex" : "none";
   $("#btnSave").textContent = prod ? "Guardar cambios" : "Guardar";
 
@@ -2947,15 +3075,19 @@ function openSheet(prod=null){
   form.prenda  = prod?.prenda  || null;
   form.talle   = prod ? String(prod.talle) : null;
   form.precio  = prod ? Number(prod.precio)||0 : 0;
+  form.costo   = prod ? Number(prod.costo)||0 : 0;
   form.stock   = prod ? Number(prod.stock)||0 : 0;
   form.activo  = prod ? prod.activo!==false : true;
+  form.tipo    = prod && prod.tipo==="combo" ? "combo" : "producto";
 
   renderColegio();
   renderPrenda();
   renderTalle(false);
   $("#inPrecio").value = form.precio ? Number(form.precio).toLocaleString("es-AR") : "";
+  $("#inCosto").value  = form.costo ? Number(form.costo).toLocaleString("es-AR") : "";
   $("#stockVal").textContent = form.stock;
   $("#switchActivo").classList.toggle("on", form.activo);
+  setTipoUI();
   validate();
 
   $("#scrim").classList.add("show");
@@ -2972,6 +3104,7 @@ function closeSheet(fromPop){
 $("#sheetClose").onclick = closeSheet;
 $("#scrim").onclick = closeSheet;
 $("#fabAdd").onclick = ()=> openSheet();
+$("#prodAdd").onclick = ()=> openSheet();
 
 /* ── Colegio (chips + otro propio) ── */
 function renderColegio(){
@@ -3060,6 +3193,24 @@ $("#inPrecio").addEventListener("input", e=>{
   validate();
 });
 
+/* ── Costo (opcional) ── */
+$("#inCosto").addEventListener("input", e=>{
+  const raw = e.target.value.replace(/\D/g,"");
+  form.costo = raw ? parseInt(raw,10) : 0;
+  e.target.value = raw ? form.costo.toLocaleString("es-AR") : "";
+});
+
+/* ── Switch Producto / Combo (por ahora solo guarda el tipo) ── */
+function setTipoUI(){
+  const combo = form.tipo==="combo";
+  $("#switchCombo").classList.toggle("on", combo);
+  $("#tipoLbl").textContent = combo ? "Combo" : "Producto";
+}
+$("#switchCombo").onclick = ()=>{
+  form.tipo = form.tipo==="combo" ? "producto" : "combo";
+  setTipoUI();
+};
+
 /* ── Stock stepper ── */
 $("#stockMinus").onclick = ()=>{ form.stock = Math.max(0, form.stock-1); $("#stockVal").textContent = form.stock; };
 $("#stockPlus").onclick  = ()=>{ form.stock += 1; $("#stockVal").textContent = form.stock; };
@@ -3081,12 +3232,14 @@ $("#btnSave").onclick = async ()=>{
   if($("#btnSave").disabled) return;
   const data = {
     colegio: form.colegio, prenda: form.prenda, talle: String(form.talle),
-    precio: Number(form.precio)||0, stock: Number(form.stock)||0, activo: !!form.activo
+    precio: Number(form.precio)||0, costo: Number(form.costo)||0,
+    tipo: form.tipo==="combo" ? "combo" : "producto",
+    stock: Number(form.stock)||0, activo: !!form.activo
   };
   $("#btnSave").disabled = true;
   try{
     if(editId){ await setDoc(doc(db, COL, editId), { ...data, editadoTs: Date.now() }, { merge:true }); toast("Cambios guardados ✓", "ok"); }
-    else { await addDoc(colRef, { ...data, creadoTs: Date.now() }); toast("Uniforme agregado ✓", "ok"); }
+    else { await addDoc(colRef, { ...data, creadoTs: Date.now() }); toast("Producto agregado ✓", "ok"); }
     closeSheet();
   }catch(err){
     console.error("Guardar uniforme:", err.code, err.message);
@@ -3105,7 +3258,7 @@ $("#btnDelete").onclick = ()=>{
 $("#cfNo").onclick = ()=> hideConfirm("confirm");
 $("#cfYes").onclick = async ()=>{
   hideConfirm("confirm");
-  try{ await deleteDoc(doc(db, COL, editId)); toast("Uniforme borrado"); closeSheet(); }
+  try{ await deleteDoc(doc(db, COL, editId)); toast("Producto borrado"); closeSheet(); }
   catch(err){ console.error("Borrar:", err.code, err.message); toast("No se pudo borrar. Probá de nuevo.", "err"); }
 };
 
@@ -5823,14 +5976,14 @@ function vhCard(v){
     const el = document.createElement("button");
     el.className = "vh" + (cancelada?" cancelada":"");
     el.innerHTML = `
-      <div class="vh-ico ${cancelada?"can":efe?"efe":"tra"}">${cancelada?"🚫":"🎁"}</div>
+      <div class="vh-ico ${cancelada?"can":efe?"efe":"tra"}">${cancelada?"🚫":"🧾"}</div>
       <div class="vh-main">
         <div class="vh-name">${esc(nombre)}</div>
         <div class="vh-meta">${esc(concepto)} · ${esc(diaLabel(ventaYmd(v)))} ${ms?ventaHora(ms):""}</div>
       </div>
       <div class="vh-right">
         <div class="vh-total">${money(v.total)}</div>
-        <div class="vh-tags">${efe?`<span class="tag pago-efe">💵 Efectivo</span>`:`<span class="tag pago-tra">📲 Transf.</span>`}<span class="tag enc-listo">🎁 Encargo</span></div>
+        <div class="vh-tags">${efe?`<span class="tag pago-efe">💵 Efectivo</span>`:`<span class="tag pago-tra">📲 Transf.</span>`}<span class="tag enc-listo">🧾 Encargo</span></div>
       </div>`;
     el.onclick = ()=> openVentaDet(v);
     return el;
@@ -5991,7 +6144,7 @@ function openVentaDet(v){
   if(esEncargoMov(v)){
     const concepto = v.concepto || (v.tipo==="encargo_saldo" ? "Saldo de encargo" : "Seña de encargo");
     $("#ventaDetPreview").innerHTML = `<div class="recibo-doc" style="padding:22px">
-      <div style="font-size:34px;text-align:center;margin-bottom:8px">🎁</div>
+      <div style="font-size:34px;text-align:center;margin-bottom:8px">🧾</div>
       <h3 style="text-align:center;margin-bottom:6px">${esc(concepto)}</h3>
       <p style="text-align:center;color:var(--texto-suave);font-size:14px">${esc(v.clienteNombre||"Clienta")} · ${esc(diaLabel(ventaYmd(v)))}</p>
       <div class="enc-saldo-box" style="margin-top:16px;background:var(--celeste-pale)">
@@ -6003,7 +6156,7 @@ function openVentaDet(v){
     const enc = encargos.find(e=> e.id===v.encargoId);
     if(enc){
       const gb = document.createElement("button"); gb.className = "btn-wa"; gb.style.background = "var(--celeste-deep)";
-      gb.innerHTML = `<span class="wico">🎁</span><span class="wtx"><b>Ver el encargo</b><span>Abrir el pedido de ${esc(enc.clienteNombre||"la clienta")}</span></span>`;
+      gb.innerHTML = `<span class="wico">🧾</span><span class="wtx"><b>Ver el encargo</b><span>Abrir el pedido de ${esc(enc.clienteNombre||"la clienta")}</span></span>`;
       gb.onclick = ()=>{ closeVentaDet(); go("encargos"); openEncSheet(enc); };
       acts.appendChild(gb);
     }
@@ -6704,8 +6857,8 @@ function renderCliEsperas(cli){
 onSnapshot(esperaRef, snap=>{
   esperas = snap.docs.map(d=>({ id:d.id, ...d.data() }));
   updateEsperaBadge();
-  if(currentView==="espera") renderEsperaView();
-  try{ renderLista(); }catch(e){}   // refresca los tags de espera en Stock
+  if(currentView==="stock") renderEsperaView();
+  try{ renderLista(); }catch(e){}   // refresca los tags de espera en el catálogo
   if(cliEditId && $("#cliSheet").classList.contains("show")){
     const c = clientes.find(x=>x.id===cliEditId); if(c) renderCliEsperas(c);
   }
@@ -7129,7 +7282,7 @@ $("#encDelete").onclick = async ()=>{
 async function marcarListo(enc){
   try{
     await setDoc(doc(db,"encargos_pos_cascanueces",enc.id), { estado:"listo", listoTs:Date.now(), avisado:false }, { merge:true });
-    toast("Encargo listo 🎁 — avisale a la clienta","ok");
+    toast("Encargo listo 🧾 — avisale a la clienta","ok");
   }catch(err){ console.error("Marcar listo:", err.code, err.message); toast("No se pudo actualizar.","err"); }
 }
 function avisarListo(enc){
@@ -7331,7 +7484,7 @@ function renderEncargosView(){
   const cont = $("#listaEncargos"); if(!cont) return; cont.innerHTML = "";
   const lista = encVisibles();
   if(lista.length===0){
-    cont.innerHTML = `<div class="empty"><div class="ico">🎁</div>
+    cont.innerHTML = `<div class="empty"><div class="ico">🧾</div>
       <h3>${encargos.length ? "Nada con este filtro" : "Todavía no hay encargos"}</h3>
       <p>${encargos.length ? "Probá con otro estado o buscá otra clienta." : "Cuando te encarguen algo con seña, cargalo acá y te llevo la cuenta del saldo."}</p></div>`;
     return;
@@ -7349,7 +7502,7 @@ function renderCliEncargos(cli){
     const info = ENC_ESTADOS[e.estado] || ENC_ESTADOS.pendiente;
     const saldo = encSaldoDe(e);
     const it = document.createElement("button"); it.type = "button"; it.className = "cli-enc-item";
-    it.innerHTML = `<span class="enc-av" style="width:38px;height:38px;font-size:17px">🎁</span>
+    it.innerHTML = `<span class="enc-av" style="width:38px;height:38px;font-size:17px">🧾</span>
       <span class="cen-tx"><b>${esc(encResumenItems(e))}</b>
         <span><span class="tag ${info.tag}">${info.emoji} ${info.label}</span> · Saldo ${money(saldo)}${e.fechaListo?` · ${esc(diaLabel(e.fechaListo))}`:""}</span></span>`;
     it.onclick = ()=>{ closeCliSheet(); go("encargos"); openEncSheet(e); };
@@ -7685,6 +7838,7 @@ onSnapshot(cuentaRef, snap=>{
 /* ──────────────────── fin ETAPA 4 (cuentas) ──────────────────── */
 
 renderStockStats(); renderInicio(); renderFiltros(); renderLista();
+try{ renderEsperaView(); }catch(e){}   // siembra la lista de espera dentro de Productos
 renderClientes();
 renderEntFiltros(); renderEntregas();
 updateEsperaBadge();
