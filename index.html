@@ -253,6 +253,9 @@ img{display:block;max-width:100%}
 /* el selector / alta de clienta se abre DESDE Vender (z-index 60): tienen que quedar por encima */
 #pickScrim,#cliScrim{z-index:65}
 #pickSheet,#cliSheet{z-index:66}
+/* La lista de espera se abre desde Vender (60) y desde la ficha de clienta (66): por encima de ambas */
+#esperaScrim,#esperaAvisoScrim{z-index:67}
+#esperaSheet,#esperaAvisoSheet{z-index:68}
 .v-head{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--gris-900);color:#fff;flex-shrink:0}
 .v-back{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;flex-shrink:0}
 .v-head .vt{font-family:var(--titf);font-weight:600;font-size:23px;flex:1}
@@ -758,6 +761,43 @@ html.unlocked #lockScreen{display:none}
 .keypad .key.empty{visibility:hidden;pointer-events:none}
 .lock-foot{margin-top:24px;font-size:11.5px;color:var(--gris-500);text-align:center;line-height:1.5}
 .cfg-lock-btn{width:100%;margin-top:4px}
+
+/* ── Lista de espera por talle ── */
+.esp-open{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:var(--mostaza-pale);color:#8a6d18;border:2px solid var(--mostaza);border-radius:18px;padding:15px;font-size:16px;font-weight:600;min-height:54px;margin:16px 0 4px;transition:transform .15s ease}
+.esp-open:active{transform:scale(.99)}
+.esp-open .eb{background:var(--mostaza);color:#fff;font-size:13px;font-weight:700;border-radius:50px;padding:2px 10px;min-width:24px}
+.esp-group{background:var(--blanco);border-radius:20px;box-shadow:var(--card-shadow);padding:16px;margin-bottom:14px}
+.esp-group .egh{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px}
+.esp-group .egh b{font-family:var(--titf);font-weight:600;font-size:19px;color:var(--gris-900);line-height:1.15}
+.esp-group .egh .egs{display:block;font-size:12.5px;color:var(--texto-suave);margin-top:3px}
+.esp-row{display:flex;align-items:center;gap:11px;padding:11px 0;border-top:1px solid var(--gris-100)}
+.esp-row:first-of-type{border-top:none}
+.esp-row .er-av{width:38px;height:38px;border-radius:12px;background:var(--celeste-pale);color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0}
+.esp-row .er-tx{flex:1;min-width:0}
+.esp-row .er-tx b{font-size:15px;color:var(--gris-900);display:block;line-height:1.15}
+.esp-row .er-tx span{font-size:12.5px;color:var(--texto-suave);display:block;margin-top:2px}
+.esp-row .er-acts{display:flex;gap:7px;flex-shrink:0}
+.esp-row .er-btn{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.esp-row .er-btn.wa{background:var(--wa);color:#fff}
+.esp-row .er-btn.del{background:var(--rojo-pale);color:var(--rojo)}
+.esp-row .er-btn.del.armed{background:var(--rojo);color:#fff}
+.esp-row .er-btn[disabled]{opacity:.35;pointer-events:none}
+.tag.est-esp{background:var(--mostaza-pale);color:var(--mostaza);font-weight:600}
+.tag.est-avi{background:#E7F8EE;color:#1f9d57;font-weight:600}
+.esp-prod-sum{background:var(--celeste-pale);border-radius:16px;padding:14px 16px;color:var(--navy)}
+.esp-prod-sum b{font-family:var(--titf);font-weight:600;font-size:18px;display:block}
+.esp-prod-sum span{font-size:13px;color:var(--gris-700)}
+.esp-cli-row{display:flex;align-items:center;gap:13px;width:100%;background:var(--blanco);border-radius:16px;padding:14px 16px;box-shadow:var(--card-shadow);text-align:left}
+.esp-cli-row .ecp-ico{width:42px;height:42px;border-radius:13px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
+.esp-cli-row .ecp-tx{flex:1;min-width:0}
+.esp-cli-row .ecp-tx b{font-size:16px;color:var(--gris-900);display:block;line-height:1.15}
+.esp-cli-row .ecp-tx span{font-size:12.5px;color:var(--texto-suave);display:block;margin-top:2px}
+.esp-cli-row .ecp-act{font-size:13px;font-weight:600;color:var(--celeste-deep);flex-shrink:0}
+.cli-esp-item{display:flex;align-items:center;gap:10px;background:var(--blanco);border-radius:14px;padding:11px 13px;box-shadow:var(--card-shadow);margin-bottom:9px}
+.cli-esp-item .cei-tx{flex:1;min-width:0;font-size:14px;color:var(--gris-900)}
+.cli-esp-item .cei-tx span{font-size:12px;color:var(--texto-suave);display:block;margin-top:2px}
+.cli-esp-item .cei-del{width:36px;height:36px;border-radius:11px;background:var(--rojo-pale);color:var(--rojo);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cli-esp-item .cei-del.armed{background:var(--rojo);color:#fff}
 </style>
 <!-- Desbloqueo recordado: evita el parpadeo de la app antes de cargar el módulo -->
 <script>try{if(localStorage.getItem('casc_unlock_pos')==='1')document.documentElement.classList.add('unlocked');}catch(e){}</script>
@@ -813,6 +853,7 @@ html.unlocked #lockScreen{display:none}
       <nav class="s-nav">
         <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span> Inicio</a>
         <a href="#" class="nav-link" data-go="stock"><span class="bi">📦</span> Stock</a>
+        <a href="#" class="nav-link" data-go="espera"><span class="bi">⏳</span> Lista de espera</a>
         <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span> Clientas</a>
         <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span> Reparto</a>
         <a href="#" class="nav-link" data-go="caja"><span class="bi">💰</span> Caja</a>
@@ -864,6 +905,8 @@ html.unlocked #lockScreen{display:none}
         <div class="stat zero"><div class="n" id="statCero">0</div><div class="l">faltantes</div></div>
       </div>
       <div class="stat full stock-valor"><div class="n" id="statValor">$ 0</div><div class="l">valor del stock en casa</div></div>
+
+      <button class="esp-open" data-go="espera">⏳ Lista de espera<span class="eb" id="esperaOpenBadge" style="display:none">0</span></button>
 
       <div class="filtros" id="filtros"></div>
       <div id="listaStock"></div>
@@ -1013,6 +1056,10 @@ html.unlocked #lockScreen{display:none}
         <div class="field"><label>“Agendá el número”</label>
           <textarea class="txtin cfg-ta" id="cfgMsgAgenda" rows="4"></textarea>
           <p class="var-hint">Variables: <code>{clienta}</code> <code>{colegio}</code> <code>{negocio}</code></p></div>
+
+        <div class="field"><label>Aviso de reposición (lista de espera)</label>
+          <textarea class="txtin cfg-ta" id="cfgMsgEspera" rows="5"></textarea>
+          <p class="var-hint">Variables: <code>{clienta}</code> <code>{prenda}</code> <code>{colegio}</code> <code>{talle}</code> <code>{negocio}</code></p></div>
       </div>
 
       <!-- 4 · RECIBO -->
@@ -1064,6 +1111,20 @@ html.unlocked #lockScreen{display:none}
       <div class="cfg-actions">
         <button class="btn btn-primary" id="cfgGuardar">Guardar configuración</button>
       </div>
+    </section>
+
+    <!-- ===== VISTA LISTA DE ESPERA (Etapa 7) ===== -->
+    <section class="view" id="view-espera">
+      <div class="eyebrow">Lo que falta y quién lo espera</div>
+      <h1 class="h-title">Lista de espera</h1>
+      <p class="lead">Anotá a cada clienta que espera un talle que no tenés. Cuando entre stock, te aviso para que le escribas con un toque.</p>
+
+      <button class="ent-add" id="esperaAdd"><span style="font-size:21px;line-height:1">＋</span> Anotar una espera</button>
+
+      <div class="filtros" id="esperaGrupo"></div>
+      <div class="filtros" id="esperaEstado"></div>
+
+      <div id="listaEspera"></div>
     </section>
 
   </main>
@@ -1579,6 +1640,12 @@ html.unlocked #lockScreen{display:none}
       <p class="notas-hint">Las notas con “Mostrar en recibo” en ON salen impresas en el comprobante de sus entregas.</p>
     </div>
 
+    <div class="field" id="cliEsperaWrap" style="display:none">
+      <label>Lista de espera</label>
+      <div id="cliEsperas"></div>
+      <button class="hijo-add" id="cliEsperaAdd">＋ Anotar un talle que espera</button>
+    </div>
+
     <div class="sheet-actions">
       <button class="btn-danger btn" id="cliDelete" style="display:none">🗑️</button>
       <button class="btn btn-primary" id="cliSave">Guardar</button>
@@ -1602,6 +1669,73 @@ html.unlocked #lockScreen{display:none}
     </div>
     <button class="hijo-add" id="pickNueva" style="background:var(--celeste-deep);color:#fff;margin-bottom:14px">＋ Clienta nueva</button>
     <div class="cli-pick-list" id="pickList"></div>
+  </div>
+</div>
+
+<!-- ===== SHEET: ANOTAR EN ESPERA (Etapa 7) ===== -->
+<div class="scrim" id="esperaScrim"></div>
+<div class="sheet" id="esperaSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>Anotar en espera</h2>
+    <button class="sheet-x" id="esperaClose">✕</button>
+  </div>
+  <div class="sheet-body">
+
+    <!-- Producto: resumen fijo (si vino de Stock/Vender) o selectores -->
+    <div class="field" id="espProdSumWrap" style="display:none">
+      <label>Talle que falta</label>
+      <div class="esp-prod-sum" id="espProdSum"></div>
+    </div>
+    <div id="espProdPick">
+      <div class="field">
+        <label>Colegio</label>
+        <div class="chips" id="espChipsColegio"></div>
+      </div>
+      <div class="field">
+        <label>Prenda</label>
+        <div class="chips" id="espChipsPrenda"></div>
+        <p class="hint" id="espPrendaHint" style="display:none">Elegí primero el colegio.</p>
+      </div>
+      <div class="field">
+        <label>Talle</label>
+        <div class="dropdown">
+          <button class="dd-head" id="espDdHead"><span class="ddv ph" id="espDdVal">Elegí el talle</span><span class="dd-chev">▾</span></button>
+          <div class="dd-panel" id="espDdPanel"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clienta: resumen fijo (si vino de su ficha) o selector -->
+    <div class="field">
+      <label>¿Quién lo espera?</label>
+      <button class="esp-cli-row" id="espCliPick" type="button">
+        <span class="ecp-ico">👩</span>
+        <span class="ecp-tx"><b id="espCliName">Sin clienta</b><span id="espCliSub">Tocá para elegir o crear</span></span>
+        <span class="ecp-act" id="espCliAct">Elegir</span>
+      </button>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn btn-primary" id="espSave">Anotar en espera</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SHEET: AVISO DE REPOSICIÓN (Etapa 7) ===== -->
+<div class="scrim" id="esperaAvisoScrim"></div>
+<div class="sheet" id="esperaAvisoSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>📦 ¡Entró stock!</h2>
+    <button class="sheet-x" id="esperaAvisoClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <p class="lead" id="esperaAvisoLead" style="margin-bottom:14px"></p>
+    <div id="esperaAvisoBody"></div>
+    <div class="sheet-actions">
+      <button class="btn btn-primary" id="esperaAvisoDone">Listo</button>
+    </div>
   </div>
 </div>
 
@@ -1926,6 +2060,7 @@ function go(view, fromPop){
   updateFabVoz();                                                        // burbuja de voz
   if(view==="caja") renderCaja();                                        // Etapa 6
   if(view==="config") renderConfig();                                    // Configuración
+  if(view==="espera") renderEsperaView();                                // Etapa 7
   window.scrollTo({top:0,behavior:"smooth"});
   if(fromPop!==true && view!==prev) navGoView(view);
 }
@@ -2079,6 +2214,10 @@ function prodCard(p){
   let stockTag = "";
   if(stock===0) stockTag = `<span class="tag cero">Sin stock</span>`;
   else if(stock<=STOCK_BAJO) stockTag = `<span class="tag bajo">Queda poco</span>`;
+  const nEsp = esperasDe(p.colegio, p.prenda, p.talle).filter(e=> e.estado!=="avisada").length;
+  const espTag = stock===0
+    ? `<button class="tag est-esp" data-esp="1">🔔 Anotar espera${nEsp?` · ${nEsp}`:""}</button>`
+    : (nEsp ? `<span class="tag est-esp">⏳ ${nEsp} en espera</span>` : "");
   el.innerHTML = `
     <div class="pmain">
       <div class="pname">${p.prenda||"—"}</div>
@@ -2086,12 +2225,15 @@ function prodCard(p){
         <span class="tag talle">Talle ${p.talle||"—"}</span>
         <span class="tag precio">${money(p.precio)}</span>
         ${stockTag}
+        ${espTag}
         ${p.activo===false?'<span class="tag" style="background:var(--gris-100);color:var(--gris-500)">En pausa</span>':''}
       </div>
     </div>
     <div class="pstock"><div class="sn">${stock}</div><div class="sl">en casa</div></div>
     <button class="pedit">✏️</button>`;
   el.querySelector(".pedit").onclick = ()=> openSheet(p);
+  const espBtn = el.querySelector("[data-esp]");
+  if(espBtn) espBtn.onclick = (e)=>{ e.stopPropagation(); openEsperaSheet({ colegio:p.colegio, prenda:p.prenda, talle:String(p.talle) }); };
   return el;
 }
 
@@ -2311,6 +2453,7 @@ const TPL_DEFAULT = {
   msgCamino:       "¡Hola {clienta}! 🌰 Soy de {negocio}.\n¡Ya salí con tu pedido! 🚗💨\nCalculo llegar cerca de las {hora}.{direccion}\nSi no llegás a estar o cambió algo, escribime por acá y lo vemos 💙",
   graciasMsg:      "¡Hola {clienta}! 🌰 Soy de {negocio}.\n¡Gracias por tu compra! Tu pedido ya fue entregado 💙\n¡Que lo disfruten! Cualquier cosa que necesites, escribime por acá.",
   msgAgenda:       "¡Hola {clienta}! 🌰 Soy {negocio}{colegio}.\nAgendá este número así no se te pierde y cualquier cosa me escribís por acá. ¡Te mando un beso! 💙",
+  msgEspera:       "¡Hola {clienta}! 🌰 Soy de {negocio}.\n¡Llegó el {prenda} {colegio} talle {talle} que esperabas! 💙\n¿Querés que te lo aparte? Escribime y coordinamos 😊",
   /* — Textos del recibo / comprobante — */
   reciboTitulo: "Comprobante de entrega",
   reciboLeyenda:"Documento no válido como factura",
@@ -2477,9 +2620,10 @@ function buildVTalles(){
     card.innerHTML = `
       <span class="tt">${p.talle}</span>
       <span class="ti"><b>$ ${(Number(p.precio)||0).toLocaleString("es-AR")}</b>
-        <span>${stock<=0 ? "Sin stock" : "Quedan "+stock+(enCart?` · ${enCart} en el carrito`:"")}</span></span>
-      <span class="tadd">＋</span>`;
+        <span>${stock<=0 ? "Sin stock · tocá para anotar espera" : "Quedan "+stock+(enCart?` · ${enCart} en el carrito`:"")}</span></span>
+      <span class="tadd">${stock<=0 ? "⏳" : "＋"}</span>`;
     if(stock>0) card.onclick = ()=> addToCart(p);
+    else card.onclick = ()=> openEsperaSheet({ colegio:p.colegio, prenda:p.prenda, talle:String(p.talle) });
     cont.appendChild(card);
   });
 }
@@ -3243,6 +3387,7 @@ function renderConfig(){
   $("#cfgMsgCamino").value   = tpl.msgCamino;
   $("#cfgMsgGracias").value  = tpl.graciasMsg;
   $("#cfgMsgAgenda").value   = tpl.msgAgenda;
+  $("#cfgMsgEspera").value   = tpl.msgEspera;
   // Recibo
   $("#cfgRecTitulo").value  = tpl.reciboTitulo;
   $("#cfgRecLeyenda").value = tpl.reciboLeyenda;
@@ -3283,6 +3428,7 @@ function cfgFromForm(){
     msgCamino:       tpv("cfgMsgCamino").trim()  || TPL_DEFAULT.msgCamino,
     graciasMsg:      tpv("cfgMsgGracias").trim() || TPL_DEFAULT.graciasMsg,
     msgAgenda:       tpv("cfgMsgAgenda").trim()  || TPL_DEFAULT.msgAgenda,
+    msgEspera:       tpv("cfgMsgEspera").trim()  || TPL_DEFAULT.msgEspera,
     colegios:  cfgColDraft.slice(),
     stockBajo: Math.max(1, parseInt($("#cfgStockBajo").value,10)||STOCK_BAJO_DEFAULT),
     pinAcceso: (isPin($("#cfgPin").value.trim()) ? $("#cfgPin").value.trim() : currentPin())
@@ -3317,6 +3463,7 @@ onSnapshot(colRef, { includeMetadataChanges:true }, snap=>{
   productos = snap.docs.map(d=>({ id:d.id, ...d.data() }));
   setConn(snap.metadata.fromCache && !navigator.onLine ? "offline" : "online");
   renderStockStats(); renderFiltros(); renderLista(); renderInicio();
+  try{ checkReposicion(); }catch(e){ console.warn("reposicion:", e); }   // Etapa 7
 }, err=>{
   console.error("Firestore ["+COL+"]:", err.code, err.message);
   setConn("offline");
@@ -3521,6 +3668,13 @@ function openCliSheet(cli=null, replacePick=false){
   renderCliColegio();
   renderHijos();
   renderNotasEditor($("#cliNotas"), cliForm.notas);
+
+  // Lista de espera de la clienta (solo si ya está guardada)
+  $("#cliEsperaWrap").style.display = cli ? "block" : "none";
+  if(cli){
+    renderCliEsperas(cli);
+    $("#cliEsperaAdd").onclick = ()=> openEsperaSheet({ clientaId:cli.id, clientaNombre:cli.nombre });
+  }
 
   $("#cliWaPago").onclick   = ()=> sendPago(cli);
   $("#cliWaAgenda").onclick = ()=> openWa(cli?.whatsapp, msgAgenda(cli));
@@ -5022,9 +5176,441 @@ $("#editSaveBtn").onclick = async ()=>{
 aplicarHistQuick("hoy");   // historial arranca mostrando lo de hoy
 /* ──────────────────── fin ETAPA 6 ──────────────────── */
 
+/* ════════════════════════════════════════════════════════════════
+   ETAPA 7 · LISTA DE ESPERA POR TALLE
+   Colección: espera_pos_cascanueces
+   Doc: { colegio, prenda, talle, clientaId, clientaNombre, fecha("YYYY-MM-DD"),
+          estado("esperando"|"avisada"), ts, creado, avisadaTs? }
+   - Se anota una clienta esperando un talle puntual desde: Stock (faltantes),
+     Vender (talle sin stock) y la ficha de la clienta.
+   - "Lista de espera": quién espera qué, agrupable por producto/talle o clienta.
+   - Aviso de reposición: cuando el stock de un talle pasa de 0 a >0 y había gente
+     esperando, se muestra el aviso con los mensajes de WhatsApp listos. Al avisar,
+     la espera queda 'avisada'. Las plantillas se editan en Configuración.
+   ════════════════════════════════════════════════════════════════ */
+const esperaRef = collection(db, "espera_pos_cascanueces");
+
+let esperas = [];
+let esperaForm = { colegio:null, prenda:null, talle:null, clientaId:null, clientaNombre:null, lockProd:false, lockCli:false };
+let esperaGrupoModo = "producto";     // "producto" | "clienta"
+let esperaEstadoFiltro = "esperando"; // "esperando" | "avisada" | "todas"
+let prevStockMap = {};                 // stock previo por id de producto (para detectar 0→>0)
+let esperaInit = false;                // la primera carga solo siembra prevStockMap
+
+/* ── Helpers ── */
+const sameEsp = (e, k) => e.colegio===k.colegio && e.prenda===k.prenda && String(e.talle)===String(k.talle);
+function esperasDe(colegio, prenda, talle){
+  return esperas.filter(e=> e.colegio===colegio && e.prenda===prenda && String(e.talle)===String(talle));
+}
+function stockDe(colegio, prenda, talle){
+  return productos.filter(p=> p.colegio===colegio && p.prenda===prenda && String(p.talle)===String(talle))
+    .reduce((a,p)=> a + (Number(p.stock)||0), 0);
+}
+function fechaCorta(f){ if(!f) return ""; const p=String(f).split("-"); return p.length===3 ? `${p[2]}/${p[1]}` : f; }
+function esperaActivas(){ return esperas.filter(e=> e.estado!=="avisada"); }
+function updateEsperaBadge(){
+  const b=$("#esperaOpenBadge"); if(!b) return;
+  const n=esperaActivas().length;
+  b.textContent=n; b.style.display = n ? "inline-block" : "none";
+}
+/* Borrar en dos toques (sin diálogos del sistema, estilo mamá) */
+function armDelete(btn, onConfirm){
+  let armed=false, t=null;
+  btn.onclick=(e)=>{
+    e && e.stopPropagation();
+    if(armed){ clearTimeout(t); armed=false; btn.classList.remove("armed"); onConfirm(); return; }
+    armed=true; btn.classList.add("armed"); toast("Tocá de nuevo para borrar");
+    t=setTimeout(()=>{ armed=false; btn.classList.remove("armed"); }, 3000);
+  };
+}
+
+/* ── Mensaje de aviso (plantilla editable en Configuración) ── */
+function msgEspera(e, cli){
+  cli = cli || clientes.find(c=>c.id===e.clientaId);
+  return fillMsg(tpl.msgEspera, {
+    ...bizVars(),
+    clienta: cli?.nombre || e.clientaNombre || "",
+    nombre:  cli?.nombre || e.clientaNombre || "",
+    prenda:  e.prenda || "", colegio: corto(e.colegio||""), talle: e.talle || ""
+  });
+}
+
+/* ── Acciones sobre una espera ── */
+async function borrarEspera(id){
+  try{ await deleteDoc(doc(db,"espera_pos_cascanueces",id)); toast("Espera quitada"); }
+  catch(err){ console.error("Borrar espera:", err.code, err.message); toast("No se pudo quitar.","err"); }
+}
+async function markAvisada(id){
+  try{ await setDoc(doc(db,"espera_pos_cascanueces",id), { estado:"avisada", avisadaTs:Date.now() }, { merge:true }); }
+  catch(err){ console.error("Marcar avisada:", err.code, err.message); }
+}
+function avisarEspera(e, cli){
+  cli = cli || clientes.find(c=>c.id===e.clientaId);
+  if(!cli || !waNorm(cli.whatsapp)){ toast("Esa clienta no tiene WhatsApp cargado","err"); return; }
+  openWa(cli.whatsapp, msgEspera(e, cli));
+  markAvisada(e.id);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SHEET · Anotar en espera (producto + clienta)
+   Elegir/crear clienta reusa el mismo selector que las ventas.
+   ════════════════════════════════════════════════════════════════ */
+function openEsperaSheet(opts){
+  opts = opts || {};
+  esperaForm = {
+    colegio: opts.colegio || null,
+    prenda:  opts.prenda  || null,
+    talle:   opts.talle!=null ? String(opts.talle) : null,
+    clientaId:     opts.clientaId || null,
+    clientaNombre: opts.clientaNombre || null,
+    lockProd: !!(opts.colegio && opts.prenda && opts.talle),
+    lockCli:  !!opts.clientaId
+  };
+  setEspDD(false);
+  renderEsperaSheet();
+  $("#esperaScrim").classList.add("show");
+  $("#esperaSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+  pushBack("esperaSheet", closeEsperaSheet);
+}
+function closeEsperaSheet(fromPop){
+  $("#esperaScrim").classList.remove("show");
+  $("#esperaSheet").classList.remove("show");
+  espElevatePick(false);
+  document.body.style.overflow = $("#cliSheet").classList.contains("show") ? "hidden" : "";
+  if(fromPop!==true) syncBack("esperaSheet");
+}
+$("#esperaClose").onclick = closeEsperaSheet;
+$("#esperaScrim").onclick = closeEsperaSheet;
+$("#esperaAdd").onclick = ()=> openEsperaSheet({});
+
+function renderEsperaSheet(){
+  const f = esperaForm;
+  // Producto: resumen fijo o selectores
+  $("#espProdSumWrap").style.display = f.lockProd ? "block" : "none";
+  $("#espProdPick").style.display    = f.lockProd ? "none" : "block";
+  if(f.lockProd){
+    $("#espProdSum").innerHTML = `<b>${esc(f.prenda)} · ${esc(corto(f.colegio))}</b><span>Talle ${esc(f.talle)}</span>`;
+  } else {
+    renderEspColegio(); renderEspPrenda(); renderEspTalle(false);
+  }
+  // Clienta: resumen fijo (desde su ficha) o selector
+  const act = $("#espCliAct");
+  act.style.display = f.lockCli ? "none" : "block";
+  if(f.clientaId){
+    $("#espCliName").textContent = f.clientaNombre || "Clienta";
+    $("#espCliSub").textContent  = f.lockCli ? "Para esta clienta" : "Tocá para cambiar";
+    act.textContent = "Cambiar";
+  } else {
+    $("#espCliName").textContent = "Sin clienta";
+    $("#espCliSub").textContent  = "Tocá para elegir o crear";
+    act.textContent = "Elegir";
+  }
+  $("#espSave").disabled = !(f.colegio && f.prenda && f.talle && f.clientaId);
+}
+/* Selectores de producto (reutilizan colegios/prendas/talles de la app) */
+function renderEspColegio(){
+  const cont = $("#espChipsColegio"); cont.innerHTML = "";
+  colegiosActivos().forEach(op=>{
+    const b = document.createElement("button");
+    b.className = "chip" + (op===esperaForm.colegio?" on":"");
+    b.textContent = corto(op);
+    b.onclick = ()=>{
+      if(esperaForm.colegio!==op){ esperaForm.colegio = op; if(!prendasDe(op).includes(esperaForm.prenda)) esperaForm.prenda = null; }
+      renderEspColegio(); renderEspPrenda(); renderEsperaSheet();
+    };
+    cont.appendChild(b);
+  });
+  const add = document.createElement("button");
+  add.className = "chip add"; add.textContent = "+ Otro colegio";
+  add.onclick = ()=> otroInline(cont, "Nombre del colegio", v=>{ esperaForm.colegio = v; esperaForm.prenda = null; renderEspColegio(); renderEspPrenda(); renderEsperaSheet(); });
+  cont.appendChild(add);
+}
+function renderEspPrenda(){
+  const cont = $("#espChipsPrenda"), hint = $("#espPrendaHint");
+  cont.innerHTML = "";
+  if(!esperaForm.colegio){ cont.style.display="none"; hint.style.display="block"; return; }
+  cont.style.display="flex"; hint.style.display="none";
+  prendasDe(esperaForm.colegio).forEach(op=>{
+    const b = document.createElement("button");
+    b.className = "chip" + (op===esperaForm.prenda?" on":"");
+    b.textContent = op;
+    b.onclick = ()=>{ esperaForm.prenda = op; renderEspPrenda(); renderEsperaSheet(); };
+    cont.appendChild(b);
+  });
+  const add = document.createElement("button");
+  add.className = "chip add"; add.textContent = "+ Otra prenda";
+  add.onclick = ()=> otroInline(cont, "Nombre de la prenda", v=>{ esperaForm.prenda = v; renderEspPrenda(); renderEsperaSheet(); });
+  cont.appendChild(add);
+}
+function renderEspTalle(open){
+  const val = $("#espDdVal");
+  if(esperaForm.talle){ val.textContent = esperaForm.talle; val.classList.remove("ph"); }
+  else { val.textContent = "Elegí el talle"; val.classList.add("ph"); }
+  const panel = $("#espDdPanel"); panel.innerHTML = "";
+  const grid = document.createElement("div"); grid.className = "dd-grid";
+  const opts = [...TALLES_SUGER];
+  if(esperaForm.talle && !opts.includes(esperaForm.talle)) opts.push(esperaForm.talle);
+  opts.forEach(op=>{
+    const b = document.createElement("button");
+    b.className = "dd-opt" + (op===esperaForm.talle?" on":"");
+    b.textContent = op;
+    b.onclick = ()=>{ esperaForm.talle = op; setEspDD(false); renderEspTalle(false); renderEsperaSheet(); };
+    grid.appendChild(b);
+  });
+  const add = document.createElement("button");
+  add.className = "dd-opt add"; add.textContent = "+ Otro talle";
+  add.onclick = ()=> otroInline(panel, "Talle", v=>{ esperaForm.talle = v; setEspDD(false); renderEspTalle(false); renderEsperaSheet(); });
+  grid.appendChild(add);
+  panel.appendChild(grid);
+  if(open) setEspDD(true);
+}
+function setEspDD(open){ $("#espDdHead").classList.toggle("open", open); $("#espDdPanel").classList.toggle("open", open); }
+$("#espDdHead").onclick = ()=> setEspDD(!$("#espDdPanel").classList.contains("open"));
+
+/* Clienta: reusa el mismo selector de las ventas (elegir o crear).
+   Como el sheet de espera está por encima (z68), elevamos el selector y la
+   ficha nueva por encima de él mientras se usan desde acá. */
+function espElevatePick(on){
+  ["#pickScrim","#cliScrim"].forEach(s=> $(s).style.zIndex = on ? "71" : "");
+  ["#pickSheet","#cliSheet"].forEach(s=> $(s).style.zIndex = on ? "72" : "");
+}
+function openEspCliPick(){
+  espElevatePick(true);
+  openPickSheet(()=>{
+    if(venderCliente){ esperaForm.clientaId = venderCliente.id; esperaForm.clientaNombre = venderCliente.nombre || ""; }
+    else { esperaForm.clientaId = null; esperaForm.clientaNombre = null; }
+    renderEsperaSheet();
+  });
+}
+$("#espCliPick").onclick = ()=>{ if(!esperaForm.lockCli) openEspCliPick(); };
+
+async function saveEspera(){
+  const f = esperaForm;
+  if(!(f.colegio && f.prenda && f.talle)){ toast("Elegí el talle que falta","err"); return; }
+  if(!f.clientaId){ toast("Elegí quién lo espera","err"); return; }
+  const dup = esperas.find(e=> e.estado!=="avisada" && e.clientaId===f.clientaId && sameEsp(e, f));
+  if(dup){ toast("Esa clienta ya está esperando ese talle"); closeEsperaSheet(); return; }
+  $("#espSave").disabled = true;
+  try{
+    await addDoc(esperaRef, {
+      colegio: f.colegio, prenda: f.prenda, talle: String(f.talle),
+      clientaId: f.clientaId, clientaNombre: f.clientaNombre || "",
+      fecha: hoyYmd(), estado: "esperando", ts: Date.now(), creado: serverTimestamp()
+    });
+    toast("Anotada en espera ✓","ok");
+    closeEsperaSheet();
+  }catch(err){
+    console.error("Guardar espera:", err.code, err.message);
+    toast("No se pudo anotar. Probá de nuevo.","err");
+    $("#espSave").disabled = false;
+  }
+}
+$("#espSave").onclick = saveEspera;
+
+/* ════════════════════════════════════════════════════════════════
+   VISTA · Lista de espera
+   ════════════════════════════════════════════════════════════════ */
+function renderEsperaFiltros(){
+  const g = $("#esperaGrupo"); if(g){
+    g.innerHTML = "";
+    [["producto","Por producto"],["clienta","Por clienta"]].forEach(([v,l])=>{
+      const b=document.createElement("button"); b.className="chip-f"+(esperaGrupoModo===v?" on":""); b.textContent=l;
+      b.onclick=()=>{ esperaGrupoModo=v; renderEsperaView(); }; g.appendChild(b);
+    });
+  }
+  const e = $("#esperaEstado"); if(e){
+    e.innerHTML = "";
+    [["esperando","Esperando"],["avisada","Avisadas"],["todas","Todas"]].forEach(([v,l])=>{
+      const b=document.createElement("button"); b.className="chip-f"+(esperaEstadoFiltro===v?" on":""); b.textContent=l;
+      b.onclick=()=>{ esperaEstadoFiltro=v; renderEsperaView(); }; e.appendChild(b);
+    });
+  }
+}
+function esperaRow(e, primary){
+  const row = document.createElement("div"); row.className = "esp-row";
+  const cli = clientes.find(c=>c.id===e.clientaId);
+  const nombre = e.clientaNombre || cli?.nombre || "Clienta";
+  const st = stockDe(e.colegio, e.prenda, e.talle);
+  const hasWa = !!(cli && waNorm(cli.whatsapp));
+  const estadoTag = e.estado==="avisada" ? `<span class="tag est-avi">Avisada</span>` : `<span class="tag est-esp">Esperando</span>`;
+  let titulo, av;
+  if(primary==="clienta"){ titulo = esc(nombre); av = cliInitial(nombre); }
+  else { titulo = `${esc(e.prenda)} · ${esc(corto(e.colegio))} · T${esc(e.talle)}`; av = "📦"; }
+  row.innerHTML = `
+    <span class="er-av">${av}</span>
+    <span class="er-tx"><b>${titulo}</b><span>Anotada ${fechaCorta(e.fecha)} · ${estadoTag}</span></span>
+    <span class="er-acts">
+      <button class="er-btn wa" ${(st>0 && hasWa)?"":"disabled"} title="Avisar por WhatsApp">📲</button>
+      <button class="er-btn del" title="Quitar">🗑️</button>
+    </span>`;
+  const waBtn = row.querySelector(".er-btn.wa");
+  if(st>0 && hasWa) waBtn.onclick = ()=> avisarEspera(e, cli);
+  armDelete(row.querySelector(".er-btn.del"), ()=> borrarEspera(e.id));
+  return row;
+}
+function renderEsperaPorProducto(cont, lista){
+  const groups = {};
+  lista.forEach(e=>{ const k=[e.colegio,e.prenda,e.talle].join("¦"); (groups[k] ||= []).push(e); });
+  Object.keys(groups).sort().forEach(k=>{
+    const items = groups[k].sort((a,b)=>(a.ts||0)-(b.ts||0));
+    const e0 = items[0];
+    const st = stockDe(e0.colegio, e0.prenda, e0.talle);
+    const pend = items.filter(e=> e.estado!=="avisada");
+    const card = document.createElement("div"); card.className = "esp-group";
+    const stTxt = st>0 ? ` · hay ${st} en stock` : "";
+    const showAvisar = st>0 && pend.length>0;
+    card.innerHTML = `<div class="egh">
+        <div><b>${esc(e0.prenda)} · ${esc(corto(e0.colegio))}</b>
+          <span class="egs">Talle ${esc(e0.talle)} · ${items.length} esperando${stTxt}</span></div>
+        ${showAvisar ? `<button class="btn btn-primary" style="padding:9px 14px;min-height:auto;font-size:13px;box-shadow:none" data-avisar="1">Avisar a todas</button>` : ""}
+      </div>`;
+    items.forEach(e=> card.appendChild(esperaRow(e, "clienta")));
+    const ab = card.querySelector("[data-avisar]");
+    if(ab) ab.onclick = ()=> showEsperaAviso([{ colegio:e0.colegio, prenda:e0.prenda, talle:e0.talle, esperas:pend }]);
+    cont.appendChild(card);
+  });
+}
+function renderEsperaPorClienta(cont, lista){
+  const groups = {};
+  lista.forEach(e=>{ (groups[e.clientaId] ||= []).push(e); });
+  const ids = Object.keys(groups).sort((a,b)=>{
+    const na=(groups[a][0].clientaNombre||""), nb=(groups[b][0].clientaNombre||"");
+    return na.localeCompare(nb);
+  });
+  ids.forEach(id=>{
+    const items = groups[id].sort((a,b)=>(b.ts||0)-(a.ts||0));
+    const cli = clientes.find(c=>c.id===id);
+    const nombre = items[0].clientaNombre || cli?.nombre || "Clienta";
+    const card = document.createElement("div"); card.className = "esp-group";
+    card.innerHTML = `<div class="egh"><div><b>${esc(nombre)}</b>
+      <span class="egs">${items.length} talle${items.length>1?"s":""} en espera</span></div></div>`;
+    items.forEach(e=> card.appendChild(esperaRow(e, "producto")));
+    cont.appendChild(card);
+  });
+}
+function renderEsperaView(){
+  updateEsperaBadge();
+  renderEsperaFiltros();
+  const cont = $("#listaEspera"); if(!cont) return; cont.innerHTML = "";
+  let lista = esperas.slice();
+  if(esperaEstadoFiltro==="esperando") lista = lista.filter(e=> e.estado!=="avisada");
+  else if(esperaEstadoFiltro==="avisada") lista = lista.filter(e=> e.estado==="avisada");
+  if(lista.length===0){
+    cont.innerHTML = `<div class="empty"><div class="ico">⏳</div>
+      <h3>${esperas.length ? "Nada para mostrar" : "Todavía no hay esperas"}</h3>
+      <p>${esperas.length ? "Probá con otro filtro arriba." : "Cuando una clienta quiera un talle que no tenés, anotala acá y te aviso apenas entre."}</p></div>`;
+    return;
+  }
+  if(esperaGrupoModo==="producto") renderEsperaPorProducto(cont, lista);
+  else renderEsperaPorClienta(cont, lista);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   AVISO DE REPOSICIÓN — stock de un talle pasó de 0 a >0
+   ════════════════════════════════════════════════════════════════ */
+function showEsperaAviso(groups){
+  groups = (groups||[]).filter(g=> g.esperas && g.esperas.length);
+  if(!groups.length) return;
+  const total = groups.reduce((a,g)=> a + g.esperas.length, 0);
+  $("#esperaAvisoLead").textContent = total===1
+    ? "1 clienta esperaba un talle que volvió a tener stock. Avisale con un toque 👇"
+    : `${total} clientas esperaban talles que volvieron a tener stock. Avisales con un toque 👇`;
+  const body = $("#esperaAvisoBody"); body.innerHTML = "";
+  groups.forEach(g=>{
+    const card = document.createElement("div"); card.className = "esp-group";
+    card.innerHTML = `<div class="egh"><div><b>${esc(g.prenda)} · ${esc(corto(g.colegio))}</b>
+      <span class="egs">Talle ${esc(g.talle)} · ${g.esperas.length} esperando</span></div></div>`;
+    g.esperas.forEach(e=>{
+      const cli = clientes.find(c=>c.id===e.clientaId);
+      const nombre = e.clientaNombre || cli?.nombre || "Clienta";
+      const hasWa = !!(cli && waNorm(cli.whatsapp));
+      const row = document.createElement("div"); row.className = "esp-row";
+      row.innerHTML = `
+        <span class="er-av">${cliInitial(nombre)}</span>
+        <span class="er-tx"><b>${esc(nombre)}</b><span>${hasWa ? "WhatsApp listo" : "sin WhatsApp cargado"}</span></span>
+        <span class="er-acts">
+          <button class="er-btn wa" style="width:auto;padding:0 14px;font-size:14px;font-weight:600" ${hasWa?"":"disabled"}>📲 Avisar</button>
+        </span>`;
+      const waBtn = row.querySelector(".er-btn.wa");
+      if(hasWa) waBtn.onclick = ()=>{ avisarEspera(e, cli); waBtn.textContent = "✓ Avisada"; waBtn.disabled = true; };
+      card.appendChild(row);
+    });
+    body.appendChild(card);
+  });
+  $("#esperaAvisoScrim").classList.add("show");
+  $("#esperaAvisoSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+  pushBack("esperaAviso", closeEsperaAviso);
+}
+function closeEsperaAviso(fromPop){
+  $("#esperaAvisoScrim").classList.remove("show");
+  $("#esperaAvisoSheet").classList.remove("show");
+  document.body.style.overflow = "";
+  if(fromPop!==true) syncBack("esperaAviso");
+}
+$("#esperaAvisoClose").onclick = closeEsperaAviso;
+$("#esperaAvisoScrim").onclick = closeEsperaAviso;
+$("#esperaAvisoDone").onclick  = closeEsperaAviso;
+
+/* Detecta talles cuyo stock pasó de 0 a >0 y dispara el aviso si había gente esperando. */
+function checkReposicion(){
+  if(!esperaInit){
+    productos.forEach(p=> prevStockMap[p.id] = Number(p.stock)||0);
+    esperaInit = true;
+    return;
+  }
+  const groups = [];
+  productos.forEach(p=>{
+    const now = Number(p.stock)||0;
+    const had = prevStockMap.hasOwnProperty(p.id) ? prevStockMap[p.id] : 0;
+    if(had===0 && now>0){
+      const matches = esperas.filter(e=> e.estado!=="avisada" && e.colegio===p.colegio && e.prenda===p.prenda && String(e.talle)===String(p.talle));
+      if(matches.length) groups.push({ colegio:p.colegio, prenda:p.prenda, talle:String(p.talle), esperas:matches });
+    }
+  });
+  productos.forEach(p=> prevStockMap[p.id] = Number(p.stock)||0);
+  const ids = new Set(productos.map(p=>p.id));
+  Object.keys(prevStockMap).forEach(id=>{ if(!ids.has(id)) delete prevStockMap[id]; });
+  if(groups.length) showEsperaAviso(groups);
+}
+
+/* Ficha de la clienta: sus talles en espera */
+function renderCliEsperas(cli){
+  const cont = $("#cliEsperas"); if(!cont) return; cont.innerHTML = "";
+  const mias = esperas.filter(e=> e.clientaId===cli.id).sort((a,b)=>(b.ts||0)-(a.ts||0));
+  if(mias.length===0){ cont.innerHTML = `<p class="hint" style="margin:0 0 9px">Todavía no espera ningún talle.</p>`; return; }
+  mias.forEach(e=>{
+    const st = stockDe(e.colegio, e.prenda, e.talle);
+    const estado = e.estado==="avisada" ? `<span class="tag est-avi">Avisada</span>`
+                 : (st>0 ? `<span class="tag est-avi">¡Hay stock!</span>` : `<span class="tag est-esp">Esperando</span>`);
+    const it = document.createElement("div"); it.className = "cli-esp-item";
+    it.innerHTML = `<div class="cei-tx"><b>${esc(e.prenda)} · ${esc(corto(e.colegio))} · T${esc(e.talle)}</b><span>${estado}</span></div>
+      <button class="cei-del" title="Quitar">🗑️</button>`;
+    armDelete(it.querySelector(".cei-del"), ()=> borrarEspera(e.id));
+    cont.appendChild(it);
+  });
+}
+
+/* ── Sync en tiempo real de la lista de espera ── */
+onSnapshot(esperaRef, snap=>{
+  esperas = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+  updateEsperaBadge();
+  if(currentView==="espera") renderEsperaView();
+  try{ renderLista(); }catch(e){}   // refresca los tags de espera en Stock
+  if(cliEditId && $("#cliSheet").classList.contains("show")){
+    const c = clientes.find(x=>x.id===cliEditId); if(c) renderCliEsperas(c);
+  }
+}, err=>{
+  console.error("Firestore [espera]:", err.code, err.message);
+  if(err.code==="permission-denied") toast("Sin permisos para la lista de espera.","err");
+});
+/* ──────────────────── fin ETAPA 7 ──────────────────── */
+
 renderStockStats(); renderInicio(); renderFiltros(); renderLista();
 renderClientes();
 renderEntFiltros(); renderEntregas();
+updateEsperaBadge();
 loadConfig();
 updateFabVoz();   // muestra la burbuja de voz en el arranque (Inicio)
 </script>
