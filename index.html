@@ -556,6 +556,44 @@ img{display:block;max-width:100%}
 .cli-block .cb-hijo b{color:var(--gris-900)}
 .section-lbl{font-size:13px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--gris-500);margin:26px 0 12px}
 
+/* colegio de cada hijo (tocar en vez de escribir) */
+.hijo-cole-lbl{font-size:12.5px;color:var(--texto-suave);margin:11px 0 7px}
+.hijo-cole{margin-bottom:2px}
+.hijo-cole .chip{font-size:13.5px;padding:9px 13px;min-height:40px}
+
+/* ── Historial de compras (ficha clienta) ── */
+.cli-hist-group{margin-bottom:16px}
+.cli-hist-gh{font-family:var(--titf);font-weight:600;font-size:15.5px;color:var(--navy);margin:2px 2px 9px;display:flex;align-items:center;gap:7px}
+.cli-hist-venta{background:var(--blanco);border-radius:16px;padding:12px 14px;box-shadow:var(--card-shadow);margin-bottom:9px}
+.cli-hist-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:7px;padding-bottom:7px;border-bottom:1px solid var(--crema-dark)}
+.cli-hist-fecha{font-size:12.5px;color:var(--texto-suave)}
+.cli-hist-total{font-size:14.5px;font-weight:700;color:var(--gris-900)}
+.cli-hist-it{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;color:var(--gris-700);padding:3px 0}
+.cli-hist-it .hi-name{min-width:0;flex:1}
+.cli-hist-it .hi-name b{color:var(--gris-900);font-weight:600}
+.cli-hist-it .hi-q{flex-shrink:0;color:var(--texto-suave);white-space:nowrap}
+
+/* ── Próximo talle sugerido (ficha clienta) ── */
+.cli-sug-group{margin-bottom:14px}
+.cli-sug-item{background:var(--blanco);border-radius:16px;padding:13px 15px;box-shadow:var(--card-shadow);margin-bottom:10px}
+.cli-sug-tx b{font-size:15.5px;color:var(--gris-900);display:block}
+.cli-sug-tx .sug-det{font-size:13px;color:var(--texto-suave);display:block;margin-top:3px}
+.cli-sug-badge{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#9a7b1f;background:var(--mostaza-pale);border-radius:50px;padding:3px 11px;margin-top:9px}
+.cli-sug-act{display:flex;gap:9px;margin-top:12px}
+.cli-sug-btn{flex:1;border-radius:13px;padding:13px;font-size:14.5px;font-weight:600;min-height:50px;display:flex;align-items:center;justify-content:center;gap:7px}
+.cli-sug-btn.vender{background:var(--celeste-deep);color:#fff;box-shadow:0 6px 16px rgba(94,143,168,.3)}
+.cli-sug-btn.espera{background:var(--mostaza-pale);color:#9a7b1f}
+.cli-sug-btn:active{transform:scale(.98)}
+
+/* estado vacío amable (historial / sugerencias) */
+.cli-empty-soft{text-align:center;padding:22px 18px;color:var(--texto-suave);font-size:14px;line-height:1.45;background:var(--celeste-pale);border-radius:16px}
+.cli-empty-soft .ce-emoji{font-size:30px;display:block;margin-bottom:7px}
+
+/* ¿para qué hijo es la venta? (paso opcional en Vender) */
+.v-hijo-q{font-size:15px;font-weight:600;color:var(--gris-700);margin:4px 2px 10px}
+.v-hijo-q span{font-weight:500;color:var(--texto-suave);font-size:12.5px}
+.v-chip.small{font-size:14.5px;padding:11px 16px;min-height:46px}
+
 /* ════════════════ CONFIGURACIÓN ════════════════ */
 .top-right{display:flex;align-items:center;gap:10px}
 .top-cfg{width:42px;height:42px;border-radius:13px;background:var(--blanco);box-shadow:var(--card-shadow);display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;color:inherit;text-decoration:none;transition:transform .15s ease}
@@ -1471,6 +1509,10 @@ html.unlocked #lockScreen{display:none}
         <span class="cp-tx"><b id="vCliName">Sin clienta</b><span id="vCliSub">Tocá para elegir o crear</span></span>
         <span class="cp-act" id="vCliAct">Elegir</span>
       </button>
+      <div id="vHijoPick" style="display:none;margin:-4px 0 18px">
+        <div class="v-hijo-q">¿Para qué hijo es? <span>(opcional · podés saltearlo)</span></div>
+        <div class="v-chips" id="vHijoChips"></div>
+      </div>
       <div class="switch-row" id="vSwRepartoRow">
         <div class="st"><b>🚗 Reparto a domicilio</b><span id="vSwRepartoSub">Programá la entrega en Reparto</span></div>
         <button class="switch" id="vSwReparto" type="button" aria-pressed="false"><span class="knob"></span></button>
@@ -1749,6 +1791,17 @@ html.unlocked #lockScreen{display:none}
       <label>Lista de espera</label>
       <div id="cliEsperas"></div>
       <button class="hijo-add" id="cliEsperaAdd">＋ Anotar un talle que espera</button>
+    </div>
+
+    <div class="field" id="cliHistWrap" style="display:none">
+      <label>Historial de compras</label>
+      <div id="cliHistorial"></div>
+    </div>
+
+    <div class="field" id="cliSugWrap" style="display:none">
+      <label>Próximo talle sugerido</label>
+      <p class="hint" style="margin:-2px 0 11px">Te aviso qué talle seguiría según lo último que compró. Es una sugerencia: vos confirmás siempre.</p>
+      <div id="cliSugerencias"></div>
     </div>
 
     <div class="sheet-actions">
@@ -2796,6 +2849,7 @@ let vStepNow = "armar";
 let venderCliente = null;   // Etapa 3: clienta vinculada a la venta en curso
 let venderUsaClienta = false; // switch "Clienta" (off por defecto = mostrador)
 let venderUsaReparto = false; // switch "Reparto" (off por defecto)
+let venderHijo = null;      // hijo elegido para esta venta (opcional, salteable)
 let lastVentaWhats = null;  // Etapa 3: datos de la última venta para los mensajes
 let lastVentaInfo = null;   // Etapa 4: {ventaId, total} para generar la entrega con un toque
 let entregaYaCreada = false;// evita duplicar la entrega desde "¡Venta hecha!"
@@ -2805,7 +2859,7 @@ const vendibles = () => productos.filter(p => p.activo!==false && (Number(p.stoc
 
 function openVender(){
   venderCart = []; vSel = { colegio:null, prenda:null }; pagoSel = null;
-  venderCliente = null; venderUsaClienta = false; venderUsaReparto = false;
+  venderCliente = null; venderUsaClienta = false; venderUsaReparto = false; venderHijo = null;
   venderFecha = hoyYmd(); setVFecha();
   renderVCliPick(); renderVSwitches();   // Etapa 3
   lastVentaInfo = null; entregaYaCreada = false;   // Etapa 4
@@ -2948,7 +3002,7 @@ function renderCart(){
   $("#vBarCount").textContent = cnt ? `${cnt} prenda${cnt>1?"s":""}` : "Sin nada todavía";
   $("#vCobrarBtn").disabled = cnt===0;
 }
-$("#vCobrarBtn").onclick = ()=>{ if(venderCart.length===0) return; pagoSel=null; vStep("cobrar"); renderPago(); };
+$("#vCobrarBtn").onclick = ()=>{ if(venderCart.length===0) return; pagoSel=null; vStep("cobrar"); renderPago(); renderVHijoPick(); };
 
 /* ── PASO 2: cobrar ── */
 function renderPago(){
@@ -3009,6 +3063,7 @@ async function commitVenta(btn){
       pago: pagoSel,
       clienteId: venderCliente?.id || null,         // Etapa 3
       clienteNombre: venderCliente?.nombre || null, // Etapa 3
+      hijoNombre: (venderUsaClienta && venderCliente && venderHijo) ? venderHijo : null,  // Etapa 9: a qué hijo (opcional)
       notas: normNotas(ventaNotasIni),               // Etapa 5: notas de la venta (editables en el recibo)
       origen: ventaOrigen,                           // 'manual' | 'voz' (carga por voz)
       fecha: serverTimestamp(),
@@ -3059,7 +3114,7 @@ async function commitVenta(btn){
 $("#vNueva").onclick = ()=>{
   vSel = { colegio:null, prenda:null }; pagoSel = null;
   venderFecha = hoyYmd(); setVFecha();
-  venderCliente = null; venderUsaClienta = false; venderUsaReparto = false;
+  venderCliente = null; venderUsaClienta = false; venderUsaReparto = false; venderHijo = null;
   lastVentaWhats = null; renderVCliPick(); renderVSwitches();   // Etapa 3
   lastVentaInfo = null; entregaYaCreada = false;   // Etapa 4
   vStep("armar"); buildVColegios(); buildVPrendas(); buildVTalles(); renderCart(); renderPago();
@@ -3910,20 +3965,42 @@ function renderHijos(){
         <input class="hijo-in" type="text" placeholder="Nombre del hijo/a" value="${esc(h.nombre)}" autocomplete="off">
         <button class="hijo-del" title="Quitar">✕</button>
       </div>
-      <input class="hijo-talles" type="text" placeholder="Talles (ej: Remera 12, Pantalón 14)" value="${esc(h.talles)}" autocomplete="off">`;
+      <div class="hijo-cole-lbl">¿En qué colegio va?</div>
+      <div class="chips hijo-cole"></div>
+      <input class="hijo-talles" type="text" placeholder="Talles (ej: Remera 12, Pantalón 14)" value="${esc(h.talles||"")}" autocomplete="off">`;
     const nIn = row.querySelector(".hijo-in");
     const tIn = row.querySelector(".hijo-talles");
     nIn.addEventListener("input", ()=> cliForm.hijos[i].nombre = nIn.value);
     tIn.addEventListener("input", ()=> cliForm.hijos[i].talles = tIn.value);
     row.querySelector(".hijo-del").onclick = ()=>{
       cliForm.hijos.splice(i,1);
-      if(cliForm.hijos.length===0) cliForm.hijos.push({ nombre:"", talles:"" });
+      if(cliForm.hijos.length===0) cliForm.hijos.push({ nombre:"", colegio:null, talles:"" });
       renderHijos();
     };
+    renderHijoColegio(row.querySelector(".hijo-cole"), i);
     cont.appendChild(row);
   });
 }
-$("#cliHijoAdd").onclick = ()=>{ cliForm.hijos.push({ nombre:"", talles:"" }); renderHijos(); };
+/* Colegio del hijo: chips grandes, una opción por colegio conocido (botones,
+   no teclado). Por defecto sugiere el colegio de la clienta. */
+function renderHijoColegio(box, i){
+  box.innerHTML = "";
+  const ops = new Set(clientesColegios());
+  if(cliForm.hijos[i].colegio) ops.add(cliForm.hijos[i].colegio);
+  [...ops].forEach(op=>{
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip" + (op===cliForm.hijos[i].colegio?" on":"");
+    b.textContent = corto(op);
+    b.onclick = ()=>{ cliForm.hijos[i].colegio = (cliForm.hijos[i].colegio===op ? null : op); renderHijoColegio(box, i); };
+    box.appendChild(b);
+  });
+  const add = document.createElement("button");
+  add.type = "button"; add.className = "chip add"; add.textContent = "+ Otro";
+  add.onclick = ()=> otroInline(box, "Nombre del colegio", v=>{ cliForm.hijos[i].colegio = v; renderHijoColegio(box, i); });
+  box.appendChild(add);
+}
+$("#cliHijoAdd").onclick = ()=>{ cliForm.hijos.push({ nombre:"", colegio: cliForm.colegio || null, talles:"" }); renderHijos(); };
 
 function openCliSheet(cli=null, replacePick=false){
   cliEditId = cli ? cli.id : null;
@@ -3936,8 +4013,8 @@ function openCliSheet(cli=null, replacePick=false){
   $("#cliWhats").value     = cli?.whatsapp  || "";
   $("#cliDireccion").value = cli?.direccion || "";
   cliForm.colegio = cli?.colegio || null;
-  cliForm.hijos = (cli?.hijos||[]).map(h=>({ nombre:h.nombre||"", talles:h.talles||"" }));
-  if(cliForm.hijos.length===0) cliForm.hijos.push({ nombre:"", talles:"" });
+  cliForm.hijos = (cli?.hijos||[]).map(h=>({ nombre:h.nombre||"", colegio:h.colegio||null, talles:h.talles||"" }));
+  if(cliForm.hijos.length===0) cliForm.hijos.push({ nombre:"", colegio: cli?.colegio || null, talles:"" });
   cliForm.notas = (cli?.notas||[]).map(n=>({ texto:n.texto||"", recibo:!!n.recibo }));
   cliDelArmed = false;
 
@@ -3958,6 +4035,11 @@ function openCliSheet(cli=null, replacePick=false){
     renderCliEsperas(cli);
     $("#cliEsperaAdd").onclick = ()=> openEsperaSheet({ clientaId:cli.id, clientaNombre:cli.nombre });
   }
+
+  // Historial de compras + próximo talle sugerido (solo si ya está guardada)
+  $("#cliHistWrap").style.display = cli ? "block" : "none";
+  $("#cliSugWrap").style.display  = cli ? "block" : "none";
+  if(cli){ renderCliHistorial(cli); renderCliSugerencias(cli); }
 
   $("#cliWaPago").onclick   = ()=> sendPago(cli);
   $("#cliWaAgenda").onclick = ()=> openWa(cli?.whatsapp, msgAgenda(cli));
@@ -3983,8 +4065,8 @@ async function saveCli(){
   const nombre = $("#cliNombre").value.trim();
   if(!nombre){ toast("Ponele un nombre a la clienta","err"); $("#cliNombre").focus(); return; }
   const hijos = cliForm.hijos
-    .map(h=>({ nombre:(h.nombre||"").trim(), talles:(h.talles||"").trim() }))
-    .filter(h=> h.nombre || h.talles);
+    .map(h=>({ nombre:(h.nombre||"").trim(), colegio:(h.colegio||"").trim(), talles:(h.talles||"").trim() }))
+    .filter(h=> h.nombre || h.talles || h.colegio);
   const data = {
     nombre,
     whatsapp:  $("#cliWhats").value.trim(),
@@ -4060,11 +4142,38 @@ function renderVSwitches(){
   $("#vSwRepartoSub").textContent = venderUsaReparto
     ? (venderCliente ? "Se programa la entrega de esta venta" : "Necesita una clienta con dirección")
     : "Programá la entrega en Reparto";
+  renderVHijoPick();
+}
+/* Paso opcional y salteable: ¿para qué hijo es la compra? Solo aparece si la
+   clienta elegida tiene hijos cargados. Si no se elige, la venta queda sin hijo. */
+function renderVHijoPick(){
+  const row = $("#vHijoPick"); if(!row) return;
+  const hijos = (venderUsaClienta && venderCliente)
+    ? (venderCliente.hijos||[]).filter(h=> (h.nombre||"").trim())
+    : [];
+  if(!hijos.length){ row.style.display = "none"; venderHijo = null; return; }
+  if(venderHijo && !hijos.some(h=> h.nombre===venderHijo)) venderHijo = null;  // hijo de otra clienta
+  row.style.display = "block";
+  const chips = $("#vHijoChips"); chips.innerHTML = "";
+  hijos.forEach(h=>{
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "v-chip small" + (venderHijo===h.nombre ? " on" : "");
+    b.textContent = h.nombre + (h.colegio ? ` · ${corto(h.colegio)}` : "");
+    b.onclick = ()=>{ venderHijo = (venderHijo===h.nombre ? null : h.nombre); renderVHijoPick(); };
+    chips.appendChild(b);
+  });
+  const skip = document.createElement("button");
+  skip.type = "button";
+  skip.className = "v-chip small" + (venderHijo===null ? " on" : "");
+  skip.textContent = "Sin especificar";
+  skip.onclick = ()=>{ venderHijo = null; renderVHijoPick(); };
+  chips.appendChild(skip);
 }
 $("#vSwClienta").onclick = ()=>{
   venderUsaClienta = !venderUsaClienta;
   if(!venderUsaClienta){
-    venderCliente = null;
+    venderCliente = null; venderHijo = null;
     if(venderUsaReparto){ venderUsaReparto = false; toast("El reparto necesita una clienta"); }
   }
   renderVCliPick(); renderVSwitches();
@@ -4189,6 +4298,196 @@ async function crearEntregaDesdeVenta(){
     btn.classList.remove("wa-disabled");
     renderVOkEntrega();
   }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   HISTORIAL DE COMPRAS + PRÓXIMO TALLE SUGERIDO (ficha de la clienta)
+   - Historial: todas las ventas de la clienta (más recientes primero),
+     agrupadas por hijo si tiene hijos cargados.
+   - Próximo talle: por hijo (o por prenda si no hay hijos) toma el último
+     talle comprado de cada prenda/colegio y sugiere el siguiente que exista
+     en el catálogo. Nunca lo aplica solo: es una sugerencia para confirmar.
+   Reusa ventasParaEntrega (todas las ventas), ventaActiva, esEncargoMov,
+   productos, openVender, openEsperaSheet.
+   ════════════════════════════════════════════════════════════════ */
+function ventaTs(v){
+  if(v?.ts) return Number(v.ts);
+  if(v?.fecha?.seconds) return v.fecha.seconds*1000;
+  if(typeof v?.fecha?.toMillis === "function") return v.fecha.toMillis();
+  return 0;
+}
+function fechaCortaMs(ms){
+  if(!ms) return "";
+  return new Date(ms).toLocaleDateString("es-AR",{ day:"2-digit", month:"2-digit", year:"2-digit" });
+}
+/* Compras reales de una clienta: sin canceladas ni movimientos de encargo */
+function comprasDe(cli){
+  return ventasParaEntrega
+    .filter(v=> v.clienteId===cli.id && ventaActiva(v) && !esEncargoMov(v) && Array.isArray(v.items) && v.items.length)
+    .sort((a,b)=> ventaTs(b)-ventaTs(a));
+}
+
+/* ── Orden sensato de talles: numéricos ascendente; letras XS<S<M<L<XL<XXL ── */
+const TALLE_LETRAS = ["XS","S","M","L","XL","XXL"];
+function talleRank(t){
+  const s = String(t==null?"":t).trim().toUpperCase();
+  if(/^\d+$/.test(s)) return [0, parseInt(s,10), s];     // 2, 4, 6, 8…
+  const li = TALLE_LETRAS.indexOf(s);
+  if(li>=0) return [1, li, s];                            // XS, S, M…
+  const m = s.match(/^(\d+)/);                            // "12 años" → numérico
+  if(m) return [0, parseInt(m[1],10), s];
+  return [2, 0, s];                                       // Único / otros → al final
+}
+function talleCmp(a,b){
+  const ka=talleRank(a), kb=talleRank(b);
+  if(ka[0]!==kb[0]) return ka[0]-kb[0];
+  if(ka[1]!==kb[1]) return ka[1]-kb[1];
+  return ka[2].localeCompare(kb[2]);
+}
+/* Talles del catálogo (productos activos) para una prenda/colegio, ordenados */
+function tallesCatalogo(colegio, prenda){
+  const set = new Set();
+  productos.forEach(p=>{
+    if(p.activo!==false && p.colegio===colegio && p.prenda===prenda && p.talle!=null && p.talle!=="") set.add(String(p.talle));
+  });
+  return [...set].sort(talleCmp);
+}
+/* Próximo talle que exista en el catálogo, mayor al último comprado */
+function proximoTalle(colegio, prenda, ultimo){
+  const cat = tallesCatalogo(colegio, prenda);
+  if(!cat.length) return null;
+  return cat.find(t=> talleCmp(t, ultimo) > 0) || null;
+}
+/* Último talle comprado por prenda/colegio dentro de un conjunto de ventas */
+function ultimosTalles(ventas){
+  const map = new Map();   // "colegio|prenda" → { colegio, prenda, talle }
+  ventas.slice().sort((a,b)=> ventaTs(b)-ventaTs(a)).forEach(v=>{
+    (v.items||[]).forEach(it=>{
+      const key = (it.colegio||"")+"|"+(it.prenda||"");
+      if(!map.has(key)) map.set(key, { colegio:it.colegio, prenda:it.prenda, talle:String(it.talle) });
+    });
+  });
+  return [...map.values()];
+}
+/* Agrupa las compras por hijo (si hay hijos) o en un solo bloque */
+function gruposCompras(cli){
+  const compras = comprasDe(cli);
+  const hijos = (cli.hijos||[]).filter(h=> (h.nombre||"").trim());
+  if(hijos.length){
+    const grupos = hijos.map(h=>({ titulo:h.nombre, colegio:h.colegio||"", ventas: compras.filter(v=> v.hijoNombre===h.nombre) }));
+    const asignados = new Set(hijos.map(h=>h.nombre));
+    const sueltas = compras.filter(v=> !v.hijoNombre || !asignados.has(v.hijoNombre));
+    if(sueltas.length) grupos.push({ titulo:"Sin asignar a un hijo", colegio:"", ventas:sueltas, suelto:true });
+    return grupos;
+  }
+  return [{ titulo:null, colegio:"", ventas:compras }];
+}
+
+function renderCliHistorial(cli){
+  const cont = $("#cliHistorial"); if(!cont) return;
+  const compras = comprasDe(cli);
+  if(!compras.length){
+    cont.innerHTML = `<div class="cli-empty-soft"><span class="ce-emoji">🛍️</span>
+      Todavía no tiene compras registradas.<br>Cuando le vendas algo con su nombre, lo vas a ver acá.</div>`;
+    return;
+  }
+  cont.innerHTML = "";
+  gruposCompras(cli).forEach(g=>{
+    if(!g.ventas.length) return;
+    const wrap = document.createElement("div"); wrap.className = "cli-hist-group";
+    if(g.titulo){
+      const h = document.createElement("div"); h.className = "cli-hist-gh";
+      h.innerHTML = `<span>${g.suelto?"📦":"🧒"}</span> ${esc(g.titulo)}${g.colegio?` · <span style="font-weight:500;color:var(--texto-suave)">${esc(corto(g.colegio))}</span>`:""}`;
+      wrap.appendChild(h);
+    }
+    g.ventas.forEach(v=>{
+      const card = document.createElement("div"); card.className = "cli-hist-venta";
+      const items = (v.items||[]).map(it=>{
+        const cant = Number(it.cant)||1;
+        return `<div class="cli-hist-it">
+          <span class="hi-name"><b>${esc(it.prenda)}</b> · ${esc(corto(it.colegio))} · T${esc(String(it.talle))}</span>
+          <span class="hi-q">${cant>1?`x${cant} · `:""}${money(it.subtotal)}</span></div>`;
+      }).join("");
+      card.innerHTML = `<div class="cli-hist-top">
+          <span class="cli-hist-fecha">${fechaCortaMs(ventaTs(v))}</span>
+          <span class="cli-hist-total">${money(v.total)}</span>
+        </div>${items}`;
+      wrap.appendChild(card);
+    });
+    cont.appendChild(wrap);
+  });
+}
+
+function renderCliSugerencias(cli){
+  const cont = $("#cliSugerencias"); if(!cont) return;
+  const compras = comprasDe(cli);
+  if(!compras.length){
+    cont.innerHTML = `<div class="cli-empty-soft"><span class="ce-emoji">📏</span>
+      Cuando tenga al menos una compra, te voy a sugerir el próximo talle.</div>`;
+    return;
+  }
+  cont.innerHTML = "";
+  let hubo = false;
+  gruposCompras(cli).forEach(g=>{
+    if(!g.ventas.length) return;
+    const sugs = [];
+    ultimosTalles(g.ventas).forEach(u=>{
+      const next = proximoTalle(u.colegio, u.prenda, u.talle);
+      if(next) sugs.push({ ...u, next });
+    });
+    if(!sugs.length) return;
+    hubo = true;
+    const wrap = document.createElement("div"); wrap.className = "cli-sug-group";
+    if(g.titulo){
+      const h = document.createElement("div"); h.className = "cli-hist-gh";
+      h.innerHTML = `<span>${g.suelto?"📦":"🧒"}</span> ${esc(g.titulo)}`;
+      wrap.appendChild(h);
+    }
+    sugs.forEach(s=>{
+      const prod = productos.find(p=> p.activo!==false && p.colegio===s.colegio && p.prenda===s.prenda && String(p.talle)===s.next);
+      const stock = Number(prod?.stock)||0;
+      const it = document.createElement("div"); it.className = "cli-sug-item";
+      it.innerHTML = `<div class="cli-sug-tx">
+          <b>${esc(s.prenda)} · ${esc(corto(s.colegio))}</b>
+          <span class="sug-det">Último que compró: talle ${esc(s.talle)} → seguiría el talle ${esc(s.next)}</span>
+          <span class="cli-sug-badge">Sugerido — confirmá</span>
+        </div>
+        <div class="cli-sug-act"></div>`;
+      const act = it.querySelector(".cli-sug-act");
+      const b = document.createElement("button");
+      if(stock>0){
+        b.className = "cli-sug-btn vender";
+        b.innerHTML = `🛒 Vender talle ${esc(s.next)}`;
+        b.onclick = ()=> abrirVenderPrecargado(cli, g.suelto?null:g.titulo, prod);
+      } else {
+        b.className = "cli-sug-btn espera";
+        b.innerHTML = `⏳ Anotar en lista de espera`;
+        b.onclick = ()=> openEsperaSheet({ colegio:s.colegio, prenda:s.prenda, talle:s.next, clientaId:cli.id, clientaNombre:cli.nombre });
+      }
+      act.appendChild(b);
+      wrap.appendChild(it);
+    });
+    cont.appendChild(wrap);
+  });
+  if(!hubo){
+    cont.innerHTML = `<div class="cli-empty-soft"><span class="ce-emoji">✅</span>
+      Por ahora no hay un próximo talle para sugerir.<br>Ya tiene los más grandes del catálogo.</div>`;
+  }
+}
+
+/* Abre Vender con la clienta, el hijo y el producto sugerido ya precargados */
+function abrirVenderPrecargado(cli, hijoNombre, prod){
+  if(!prod || (Number(prod.stock)||0)<=0){ toast("Ese talle ya no tiene stock","err"); return; }
+  closeCliSheet();
+  openVender();
+  venderUsaClienta = true;
+  venderCliente = { id:cli.id, ...cli };
+  venderHijo = hijoNombre || null;
+  renderVCliPick(); renderVSwitches();
+  vSel = { colegio:prod.colegio, prenda:prod.prenda };
+  buildVColegios(); buildVPrendas(); buildVTalles();
+  addToCart(prod);
+  toast(`Cargué ${prod.prenda} talle ${prod.talle}. Revisá y cobrá 💙`, "ok");
 }
 
 /* ── Sync en tiempo real de clientas ── */
@@ -4597,6 +4896,11 @@ onSnapshot(ventasRef, snap=>{
   ventasParaEntrega = snap.docs.map(d=>({ id:d.id, ...d.data() }));
   if($("#entSheet").classList.contains("show") && $("#entPhasePick").style.display!=="none") renderEntVentaList();
   if($("#view-caja")?.classList.contains("active")) renderCaja();   // Etapa 6
+  // Si la ficha de una clienta está abierta, refresco su historial y sugerencias
+  if(cliEditId && $("#cliSheet").classList.contains("show")){
+    const c = clientes.find(x=> x.id===cliEditId);
+    if(c){ try{ renderCliHistorial(c); renderCliSugerencias(c); }catch(e){} }
+  }
   renderInicio();
 }, err=>{ console.error("Firestore [ventas→entregas]:", err.code, err.message); });
 /* ──────────────────── fin ETAPA 4 ──────────────────── */
