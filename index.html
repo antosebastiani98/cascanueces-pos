@@ -3040,19 +3040,19 @@ const MENU_SECTIONS = [
   { go:"inicio",   icon:"🏠", label:"Inicio" },
   { go:"entregas", icon:"🚗", label:"Reparto" },
   { go:"stock",    icon:"🏷", label:"Productos", children:[
-      { go:"espera", icon:"⏳", label:"Lista de espera", badge:()=> esperaPendientes() },
+      { go:"espera", icon:"⏳", label:"Lista de espera", badge:()=> listaEsperaCount() },
       { go:"stock",  icon:"📚", label:"Catálogo", scroll:"#catalogoBlock", noHi:true },
-      { go:"stock",  icon:"📊", label:"Stock",    scroll:"#stockResumen",  noHi:true },
+      { go:"stock",  icon:"📊", label:"Stock",    scroll:"#stockResumen",  noHi:true, badge:()=> faltantesCount() },
   ]},
   { go:"clientes", icon:"👸🏻", label:"Clientas", children:[
-      { go:"encargos", icon:"🧾", label:"Encargos", badge:()=> encargosPendientes() },
+      { go:"encargos", icon:"🧾", label:"Encargos", badge:()=> encargosSinEntregar() },
       { go:"cuentas",  icon:"📒", label:"Cuentas",  badge:()=> cuentasPendientes() },
   ]},
   { go:"mensajes", icon:"💬", label:"Mensajes", badge:()=> totalMensajesPendientes() },
   // Caja SIEMPRE última, debajo de Mensajes.
   { go:"caja",     icon:"🖥️", label:"Caja", children:[
-      { go:"caja", icon:"📜", label:"Historial", tab:"hist", noHi:true },
-      { go:"caja", icon:"📊", label:"Reportes",  tab:"res",  noHi:true },
+      { go:"caja", icon:"🗒", label:"Historial", tab:"hist", noHi:true },
+      { go:"caja", icon:"📋", label:"Reportes",  tab:"res",  noHi:true },
   ]},
 ];
 /* Conteo de pendientes de un ítem. El de un padre = SUMA de sus hijos. */
@@ -8627,21 +8627,34 @@ onSnapshot(cuentaRef, snap=>{
    waNorm, corto, esc, cliInitial, money, encResumenItems, encSaldoDe.
    ════════════════════════════════════════════════════════════════ */
 /* ── Conteos de pendientes (una sola fuente de verdad para todos los badges) ──
-   Lista de espera = talles que ya tienen stock y falta avisar.
-   Encargos = listos sin avisar.  Cuentas = clientas con saldo pendiente.       */
+   Productos ▸ Lista de espera = clientas esperando (igual que la card).
+   Productos ▸ Stock          = faltantes (productos con stock en 0).
+   Clientas ▸ Encargos        = encargos sin entregar (pendientes + listos).
+   Clientas ▸ Cuentas         = clientas con saldo > 0.
+   Mensajes                   = total de mensajes pendientes de enviar.          */
+function listaEsperaCount(){ try{ return esperaActivas().length; }catch(e){ return 0; } }
+function faltantesCount(){
+  try{ return productos.filter(p=> !esComboDoc(p) && p.activo!==false && (Number(p.stock)||0)===0).length; }
+  catch(e){ return 0; }
+}
+function encargosSinEntregar(){ try{ return encargos.filter(e=> e.estado==="pendiente" || e.estado==="listo").length; }catch(e){ return 0; } }
+function cuentasPendientes(){ try{ return (typeof clientasQueDeben==="function" ? clientasQueDeben().length : 0); }catch(e){ return 0; } }
+/* Pendientes "para avisar" (lo que alimenta el centro de Mensajes) */
 function esperaPendientes(){ try{ return esperasParaAvisar().length; }catch(e){ return 0; } }
 function encargosPendientes(){ try{ return encargos.filter(e=> e.estado==="listo" && !e.avisado).length; }catch(e){ return 0; } }
-function cuentasPendientes(){ try{ return (typeof clientasQueDeben==="function" ? clientasQueDeben().length : 0); }catch(e){ return 0; } }
 
+/* Totales de nivel superior */
+function productosPendientes(){ return listaEsperaCount() + faltantesCount(); }
+function clientasPendientes(){ return encargosSinEntregar() + cuentasPendientes(); }
 function totalMensajesPendientes(){
-  // Total de TODO lo pendiente: avisos de espera + encargos listos + saldos.
+  // Total de mensajes a enviar: avisos de espera + encargos listos + saldos.
   return esperaPendientes() + encargosPendientes() + cuentasPendientes();
 }
-/* Burbujas rojas en la barra flotante: Productos (espera) y Clientas (encargos+cuentas) */
+/* Burbujas rojas en la barra flotante: Productos y Clientas */
 function updateBotnavBadges(){
   const set = (sel, n)=>{ const el = $(sel); if(!el) return; el.textContent = n>99 ? "99+" : n; el.style.display = n>0 ? "flex" : "none"; };
-  set("#botnavProdBadge", esperaPendientes());
-  set("#botnavCliBadge",  encargosPendientes() + cuentasPendientes());
+  set("#botnavProdBadge", productosPendientes());
+  set("#botnavCliBadge",  clientasPendientes());
 }
 /* Refresca los badges "vivos" (barra flotante + menú abierto) */
 function refreshLiveBadges(){
