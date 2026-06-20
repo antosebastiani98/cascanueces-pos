@@ -798,6 +798,85 @@ html.unlocked #lockScreen{display:none}
 .cli-esp-item .cei-tx span{font-size:12px;color:var(--texto-suave);display:block;margin-top:2px}
 .cli-esp-item .cei-del{width:36px;height:36px;border-radius:11px;background:var(--rojo-pale);color:var(--rojo);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .cli-esp-item .cei-del.armed{background:var(--rojo);color:#fff}
+
+/* ====== ENCARGOS (Etapa 8) ====== */
+#encScrim,#encCobrarScrim{z-index:66}
+#encSheet,#encCobrarSheet{z-index:68}
+.bn-badge{position:absolute;top:9px;margin-left:34px;width:9px;height:9px;border-radius:50%;background:var(--rojo);box-shadow:0 0 0 2px var(--blanco)}
+.botnav a{position:relative}
+.s-nav-badge{margin-left:auto;background:var(--rojo);color:#fff;font-size:12px;font-weight:700;border-radius:50px;padding:1px 9px;min-width:22px;text-align:center}
+/* Tarjeta de encargo */
+.enc-card{background:var(--blanco);border-radius:20px;box-shadow:var(--card-shadow);padding:16px 16px 14px;margin-bottom:14px;width:100%;text-align:left;display:block}
+.enc-card.cancelado{opacity:.62}
+.enc-top{display:flex;align-items:flex-start;gap:12px}
+.enc-av{width:46px;height:46px;border-radius:14px;background:var(--celeste-pale);color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:20px;flex-shrink:0}
+.enc-hd{flex:1;min-width:0}
+.enc-hd .enc-name{font-family:var(--titf);font-weight:600;font-size:19px;color:var(--gris-900);line-height:1.15;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.enc-hd .enc-items{font-size:13px;color:var(--texto-suave);margin-top:4px;line-height:1.35}
+.enc-edit{flex-shrink:0;width:40px;height:40px;border-radius:12px;background:var(--celeste-pale);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:18px}
+.enc-money{display:flex;gap:10px;margin-top:12px}
+.enc-money .em{flex:1;background:var(--crema);border-radius:14px;padding:10px 12px;text-align:center}
+.enc-money .em b{display:block;font-family:var(--titf);font-weight:600;font-size:18px;color:var(--gris-900);line-height:1}
+.enc-money .em span{font-size:11.5px;color:var(--texto-suave);display:block;margin-top:4px}
+.enc-money .em.saldo b{color:var(--rojo)}
+.enc-money .em.saldo.cero b{color:var(--sage)}
+.enc-listo-line{font-size:13px;color:var(--navy);margin-top:11px;display:flex;align-items:center;gap:7px}
+.enc-listo-line.tarde{color:var(--rojo)}
+.enc-acts{display:flex;gap:9px;margin-top:13px;flex-wrap:wrap}
+.enc-acts .ea{flex:1;min-width:130px;min-height:52px;border-radius:14px;font-size:14.5px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;text-align:center;line-height:1.15}
+.enc-acts .ea.listo{background:var(--celeste-deep);color:#fff;box-shadow:0 6px 16px rgba(94,143,168,.3)}
+.enc-acts .ea.entregar{background:var(--ok);color:#fff;box-shadow:0 6px 16px rgba(43,182,115,.28)}
+.enc-acts .ea.wa{background:var(--wa);color:#fff;box-shadow:0 6px 16px rgba(105,224,150,.3)}
+.enc-acts .ea.wa.avisado{background:var(--blanco);color:var(--gris-700);box-shadow:var(--card-shadow)}
+.enc-acts .ea.cancel{background:var(--rojo-pale);color:var(--rojo);box-shadow:none;flex:0 0 auto;min-width:52px;max-width:64px}
+.enc-acts .ea.cancel.armed{background:var(--rojo);color:#fff}
+.enc-acts .ea.recibo{background:var(--blanco);color:var(--gris-700);box-shadow:var(--card-shadow)}
+.enc-acts .ea[disabled]{opacity:.4;pointer-events:none}
+.tag.enc-pend{background:var(--mostaza-pale);color:var(--mostaza);font-weight:600}
+.tag.enc-listo{background:var(--celeste-pale);color:var(--navy);font-weight:600}
+.tag.enc-entreg{background:#E7F8EE;color:#1f9d57;font-weight:600}
+.tag.enc-cancel{background:var(--rojo-pale);color:var(--rojo);font-weight:600}
+.tag.enc-aviso{background:var(--rojo-pale);color:var(--rojo);font-weight:600}
+/* Builder dentro del sheet */
+.enc-q{font-size:13px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--gris-500);margin:16px 0 10px}
+.enc-q.step2{margin-top:18px}
+.enc-talles{display:flex;flex-direction:column;gap:9px}
+.enc-medida-btn{width:100%;margin-top:16px;background:var(--celeste-pale);color:var(--navy);border-radius:15px;padding:14px;font-size:15px;font-weight:600;min-height:54px}
+.enc-medida{margin-top:12px;background:var(--crema);border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.enc-medida-row{display:flex;gap:12px;align-items:stretch}
+.enc-medida-precio{flex:1}
+.enc-medida-step{margin:0}
+.enc-medida-step button{width:52px;height:52px;font-size:26px}
+.enc-medida-step .sv{min-width:54px;font-size:26px}
+.enc-cart{margin-top:16px;background:var(--celeste-pale);border-radius:18px;padding:14px}
+.enc-cart-h{font-size:13px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;color:var(--navy);margin-bottom:10px}
+.enc-ci{display:flex;align-items:center;gap:11px;background:var(--blanco);border-radius:14px;padding:11px 13px;margin-bottom:9px}
+.enc-ci:last-child{margin-bottom:0}
+.enc-ci .ci-tx{flex:1;min-width:0}
+.enc-ci .ci-tx b{font-size:15px;color:var(--gris-900);display:block;line-height:1.2}
+.enc-ci .ci-tx span{font-size:12.5px;color:var(--texto-suave);display:block;margin-top:2px}
+.enc-ci .ci-step{display:flex;align-items:center;gap:0;background:var(--crema);border-radius:12px;overflow:hidden;flex-shrink:0}
+.enc-ci .ci-step button{width:40px;height:40px;font-size:22px;font-weight:600;color:var(--celeste-deep);display:flex;align-items:center;justify-content:center}
+.enc-ci .ci-step .q{min-width:34px;text-align:center;font-weight:600;font-size:17px;color:var(--gris-900)}
+.enc-reset{margin-top:11px;font-size:13.5px;font-weight:600;color:var(--celeste-deep);padding:4px 0}
+.enc-saldo-box{display:flex;align-items:center;justify-content:space-between;background:var(--mostaza-pale);border-radius:16px;padding:15px 18px;margin-top:20px}
+.enc-saldo-box span{font-size:14px;color:#8a6d18;font-weight:500;flex:1}
+.enc-saldo-box b{font-family:var(--titf);font-weight:600;font-size:26px;color:#8a6d18;line-height:1}
+.enc-info-box{background:var(--blanco);border-radius:14px;padding:14px 16px;box-shadow:var(--card-shadow);font-size:14.5px;color:var(--gris-900);line-height:1.4}
+.enc-pago{margin-top:4px}
+/* Talle-card para encargo (sin foco en stock) */
+.enc-tcard{display:flex;align-items:center;gap:14px;width:100%;background:#fff;border-radius:16px;padding:14px 16px;box-shadow:var(--card-shadow);text-align:left;min-height:56px}
+.enc-tcard:active{transform:scale(.99)}
+.enc-tcard .tt{font-family:var(--titf);font-weight:600;font-size:22px;color:var(--gris-900);min-width:50px}
+.enc-tcard .ti{flex:1;min-width:0}
+.enc-tcard .ti b{font-size:15px;color:var(--gris-900);display:block}
+.enc-tcard .ti span{font-size:12.5px;color:var(--texto-suave)}
+.enc-tcard .tadd{width:46px;height:46px;border-radius:14px;background:var(--celeste-pale);color:var(--navy);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;line-height:1}
+/* Card de encargo en ficha de clienta */
+.cli-enc-item{display:flex;align-items:center;gap:11px;background:var(--blanco);border-radius:14px;padding:11px 13px;box-shadow:var(--card-shadow);margin-bottom:9px;width:100%;text-align:left}
+.cli-enc-item .cen-tx{flex:1;min-width:0;font-size:14px;color:var(--gris-900)}
+.cli-enc-item .cen-tx b{display:block;line-height:1.2}
+.cli-enc-item .cen-tx span{font-size:12px;color:var(--texto-suave);display:block;margin-top:3px}
 </style>
 <!-- Desbloqueo recordado: evita el parpadeo de la app antes de cargar el módulo -->
 <script>try{if(localStorage.getItem('casc_unlock_pos')==='1')document.documentElement.classList.add('unlocked');}catch(e){}</script>
@@ -853,6 +932,7 @@ html.unlocked #lockScreen{display:none}
       <nav class="s-nav">
         <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span> Inicio</a>
         <a href="#" class="nav-link" data-go="stock"><span class="bi">📦</span> Stock</a>
+        <a href="#" class="nav-link" data-go="encargos"><span class="bi">🎁</span> Encargos<span class="s-nav-badge" id="encargoSideBadge" style="display:none">0</span></a>
         <a href="#" class="nav-link" data-go="espera"><span class="bi">⏳</span> Lista de espera</a>
         <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span> Clientas</a>
         <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span> Reparto</a>
@@ -1127,12 +1207,31 @@ html.unlocked #lockScreen{display:none}
       <div id="listaEspera"></div>
     </section>
 
+    <!-- ===== VISTA ENCARGOS CON SEÑA (Etapa 8) ===== -->
+    <section class="view" id="view-encargos">
+      <div class="eyebrow">Pedidos con seña</div>
+      <h1 class="h-title">Encargos</h1>
+      <p class="lead">Anotá lo que te encargan, cobrá la seña y, cuando esté listo, avisás por WhatsApp y cobrás el saldo. La seña entra en la caja del día sola.</p>
+
+      <button class="ent-add" id="encAdd"><span style="font-size:21px;line-height:1">＋</span> Nuevo encargo</button>
+
+      <div class="cli-search-wrap">
+        <span class="cli-search-ico">🔍</span>
+        <input class="cli-search" id="encSearch" type="text" placeholder="Buscar por clienta…" autocomplete="off"/>
+      </div>
+
+      <div class="filtros" id="encEstadoF"></div>
+
+      <div id="listaEncargos"></div>
+    </section>
+
   </main>
 
   <!-- BOTTOM NAV (mobile) -->
   <nav class="botnav">
     <a href="#" class="nav-link on" data-go="inicio"><span class="bi">🏠</span>Inicio</a>
     <a href="#" class="nav-link" data-go="stock"><span class="bi">📦</span>Stock</a>
+    <a href="#" class="nav-link" data-go="encargos"><span class="bi">🎁</span>Encargos<span class="bn-badge" id="encargoNavBadge" style="display:none"></span></a>
     <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span>Clientas</a>
     <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span>Reparto</a>
     <a href="#" class="nav-link" data-go="caja"><span class="bi">💰</span>Caja</a>
@@ -1640,6 +1739,12 @@ html.unlocked #lockScreen{display:none}
       <p class="notas-hint">Las notas con “Mostrar en recibo” en ON salen impresas en el comprobante de sus entregas.</p>
     </div>
 
+    <div class="field" id="cliEncargosWrap" style="display:none">
+      <label>Encargos</label>
+      <div id="cliEncargos"></div>
+      <button class="hijo-add" id="cliEncargoAdd">＋ Nuevo encargo para ella</button>
+    </div>
+
     <div class="field" id="cliEsperaWrap" style="display:none">
       <label>Lista de espera</label>
       <div id="cliEsperas"></div>
@@ -1735,6 +1840,173 @@ html.unlocked #lockScreen{display:none}
     <div id="esperaAvisoBody"></div>
     <div class="sheet-actions">
       <button class="btn btn-primary" id="esperaAvisoDone">Listo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SHEET: NUEVO / EDITAR ENCARGO (Etapa 8) ===== -->
+<div class="scrim" id="encScrim"></div>
+<div class="sheet" id="encSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2 id="encSheetTitle">Nuevo encargo</h2>
+    <button class="sheet-x" id="encClose">✕</button>
+  </div>
+  <div class="sheet-body">
+
+    <!-- Clienta -->
+    <div class="field" style="margin-top:8px">
+      <label>¿Para quién es?</label>
+      <button class="cli-pick-row" id="encCliPick" type="button">
+        <span class="cp-ico">👩</span>
+        <span class="cp-tx"><b id="encCliName">Sin clienta</b><span id="encCliSub">Tocá para elegir o crear</span></span>
+        <span class="cp-act" id="encCliAct">Elegir</span>
+      </button>
+    </div>
+
+    <!-- Items del pedido -->
+    <div class="field">
+      <label>¿Qué te encargan?</label>
+
+      <div class="enc-builder">
+        <div class="enc-q">Colegio</div>
+        <div class="chips" id="encChipsColegio"></div>
+
+        <div class="enc-q step2">Prenda</div>
+        <div class="chips" id="encChipsPrenda"></div>
+        <p class="hint" id="encPrendaHint" style="display:none">Elegí primero el colegio.</p>
+
+        <div class="enc-q step2">Talle</div>
+        <div class="enc-talles" id="encTalles"></div>
+        <p class="hint" id="encTalleHint" style="display:none">Elegí la prenda y te muestro los talles.</p>
+      </div>
+
+      <button class="enc-medida-btn" id="encMedidaToggle" type="button">✏️ A medida / otro (lo escribís vos)</button>
+      <div class="enc-medida" id="encMedidaBox" style="display:none">
+        <input class="txtin" type="text" id="encMedidaDesc" placeholder="Ej: Pollera tableada a medida, Buzo con nombre bordado…" autocomplete="off">
+        <div class="enc-medida-row">
+          <div class="precio-wrap enc-medida-precio">
+            <span class="pe">$</span>
+            <input id="encMedidaPrecio" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+          </div>
+          <div class="stepper enc-medida-step">
+            <button id="encMedidaMinus" type="button">−</button>
+            <div class="sv" id="encMedidaCant">1</div>
+            <button id="encMedidaPlus" type="button">＋</button>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="encMedidaAdd" type="button">Agregar al pedido</button>
+      </div>
+
+      <div class="enc-cart" id="encCartWrap" style="display:none">
+        <div class="enc-cart-h">🎁 Lo que te encargan</div>
+        <div id="encCart"></div>
+      </div>
+      <p class="hint" id="encCartEmpty">Todavía no agregaste nada. Elegí un talle arriba o cargá algo a medida.</p>
+    </div>
+
+    <!-- Total -->
+    <div class="field">
+      <label>Total del encargo</label>
+      <div class="precio-wrap">
+        <span class="pe">$</span>
+        <input id="encTotal" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+      </div>
+      <button class="enc-reset" id="encTotalReset" type="button" style="display:none">↺ Volver al total calculado (<span id="encTotalAuto">$0</span>)</button>
+    </div>
+
+    <!-- Seña -->
+    <div class="field" id="encSenaField">
+      <label>Seña que deja</label>
+      <div class="precio-wrap">
+        <span class="pe">$</span>
+        <input id="encSena" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+      </div>
+      <div class="enc-q step2">¿Cómo paga la seña?</div>
+      <div class="pago-opts enc-pago">
+        <button class="pago" data-encpago="efectivo" type="button">
+          <span class="pico">💵</span>
+          <span class="ptx"><b>Efectivo</b><span>En mano, sin recargo</span></span>
+          <span class="pcheck">✓</span>
+        </button>
+        <button class="pago" data-encpago="transferencia" type="button">
+          <span class="pico">📲</span>
+          <span class="ptx"><b>Transferencia / MP</b><span id="encSenaTransSub">Pago con celular</span></span>
+          <span class="pcheck">✓</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Seña ya cobrada (modo edición) -->
+    <div class="field" id="encSenaHechaField" style="display:none">
+      <label>Seña</label>
+      <div class="enc-info-box" id="encSenaHecha"></div>
+    </div>
+
+    <!-- Saldo (calculado) -->
+    <div class="enc-saldo-box">
+      <span>Saldo que queda (lo cobrás al entregar)</span>
+      <b id="encSaldoVal">$0</b>
+    </div>
+
+    <!-- Fechas -->
+    <div class="field">
+      <label>Fecha del encargo</label>
+      <input class="txtin" type="date" id="encFecha">
+    </div>
+    <div class="field">
+      <label>¿Para cuándo lo prometés? (opcional)</label>
+      <input class="txtin" type="date" id="encFechaListo">
+      <p class="hint" style="margin-top:9px">Dejala vacía si todavía no sabés. Después la podés cargar.</p>
+    </div>
+
+    <!-- Notas -->
+    <div class="field">
+      <label>Notas del encargo</label>
+      <div id="encNotas"></div>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn-danger btn" id="encDelete" style="display:none">🗑️</button>
+      <button class="btn btn-primary" id="encSave">Guardar encargo</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== SHEET: ENTREGAR / COBRAR SALDO (Etapa 8) ===== -->
+<div class="scrim" id="encCobrarScrim"></div>
+<div class="sheet" id="encCobrarSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>Entregar y cobrar saldo</h2>
+    <button class="sheet-x" id="encCobrarClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <p class="lead" id="encCobrarLead" style="margin-bottom:6px"></p>
+
+    <div class="v-total-box" style="margin-top:6px">
+      <div class="lbl">Saldo a cobrar ahora</div>
+      <div class="big" id="encCobrarTotal">$0</div>
+      <div class="det" id="encCobrarDet"></div>
+    </div>
+
+    <div class="enc-q" id="encCobrarPagoQ">¿Cómo paga el saldo?</div>
+    <div class="pago-opts enc-pago" id="encCobrarPagoOpts">
+      <button class="pago" data-cobpago="efectivo" type="button">
+        <span class="pico">💵</span>
+        <span class="ptx"><b>Efectivo</b><span>En mano, sin recargo</span></span>
+        <span class="pcheck">✓</span>
+      </button>
+      <button class="pago" data-cobpago="transferencia" type="button">
+        <span class="pico">📲</span>
+        <span class="ptx"><b>Transferencia / MP</b><span id="encCobrarTransSub">Pago con celular</span></span>
+        <span class="pcheck">✓</span>
+      </button>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn btn-primary" id="encCobrarConfirm" disabled>Marcar entregado</button>
     </div>
   </div>
 </div>
@@ -2061,6 +2333,7 @@ function go(view, fromPop){
   if(view==="caja") renderCaja();                                        // Etapa 6
   if(view==="config") renderConfig();                                    // Configuración
   if(view==="espera") renderEsperaView();                                // Etapa 7
+  if(view==="encargos") renderEncargosView();                            // Etapa 8
   window.scrollTo({top:0,behavior:"smooth"});
   if(fromPop!==true && view!==prev) navGoView(view);
 }
@@ -2144,6 +2417,8 @@ function renderInicio(){
       row:e=>({ t:esc(e.clienteNombre||"Clienta"), v:(ESTADOS[e.estado||"pendiente"]||ESTADOS.pendiente).label }) },
     { ico:"📦", titulo:"Stock", go:"stock", items:movStockHoy(), vacio:"Sin movimientos hoy",
       row:m=>({ t:movStockTxt(m), v:movStockVal(m) }) },
+    { ico:"🎁", titulo:"Encargos", go:"encargos", items:(typeof movEncargosInicio==="function"?movEncargosInicio():[]), vacio:"Sin encargos en curso",
+      row:e=>({ t:esc(e.clienteNombre||"Clienta"), v:(e.estado==="listo" && !e.avisado) ? "¡Avisar!" : (e.estado==="listo"?"Listo":"Pendiente") }) },
     { ico:"🪪", titulo:"Nuevas clientas", go:"clientes", items:movClientasHoy(), vacio:"Sin clientas nuevas hoy",
       row:c=>({ t:esc(c.nombre||"Clienta"), v:(c.colegio?esc(corto(c.colegio)):"") }) }
   ];
@@ -2454,6 +2729,7 @@ const TPL_DEFAULT = {
   graciasMsg:      "¡Hola {clienta}! 🌰 Soy de {negocio}.\n¡Gracias por tu compra! Tu pedido ya fue entregado 💙\n¡Que lo disfruten! Cualquier cosa que necesites, escribime por acá.",
   msgAgenda:       "¡Hola {clienta}! 🌰 Soy {negocio}{colegio}.\nAgendá este número así no se te pierde y cualquier cosa me escribís por acá. ¡Te mando un beso! 💙",
   msgEspera:       "¡Hola {clienta}! 🌰 Soy de {negocio}.\n¡Llegó el {prenda} {colegio} talle {talle} que esperabas! 💙\n¿Querés que te lo aparte? Escribime y coordinamos 😊",
+  msgEncargoListo: "¡Hola {clienta}! 🌰 Soy de {negocio}.\n¡Tu encargo ya está listo! 🎉\n\n{detalle}\n\nTe queda un saldo de {saldo} para abonar al retirarlo.\n¿Cuándo te queda cómodo pasar a buscarlo? 💙",
   /* — Textos del recibo / comprobante — */
   reciboTitulo: "Comprobante de entrega",
   reciboLeyenda:"Documento no válido como factura",
@@ -3669,6 +3945,13 @@ function openCliSheet(cli=null, replacePick=false){
   renderHijos();
   renderNotasEditor($("#cliNotas"), cliForm.notas);
 
+  // Encargos de la clienta (solo si ya está guardada)
+  $("#cliEncargosWrap").style.display = cli ? "block" : "none";
+  if(cli){
+    renderCliEncargos(cli);
+    $("#cliEncargoAdd").onclick = ()=> openEncSheet(null, { id:cli.id, ...cli });
+  }
+
   // Lista de espera de la clienta (solo si ya está guardada)
   $("#cliEsperaWrap").style.display = cli ? "block" : "none";
   if(cli){
@@ -4772,10 +5055,30 @@ function renderHistQuick(){
     cont.appendChild(b);
   });
 }
+const esEncargoMov = v => !!v && (v.tipo==="encargo_sena" || v.tipo==="encargo_saldo" || v.origen==="encargo");
 function vhCard(v){
   const efe = v.pago==="efectivo", tra = v.pago==="transferencia";
   const cancelada = !ventaActiva(v);
   const ms = ventaMs(v);
+  // Movimiento de encargo (seña / saldo): se ve distinto y no se edita como venta
+  if(esEncargoMov(v)){
+    const nombre = v.clienteNombre || "Clienta";
+    const concepto = v.concepto || (v.tipo==="encargo_saldo" ? "Saldo de encargo" : "Seña de encargo");
+    const el = document.createElement("button");
+    el.className = "vh" + (cancelada?" cancelada":"");
+    el.innerHTML = `
+      <div class="vh-ico ${cancelada?"can":efe?"efe":"tra"}">${cancelada?"🚫":"🎁"}</div>
+      <div class="vh-main">
+        <div class="vh-name">${esc(nombre)}</div>
+        <div class="vh-meta">${esc(concepto)} · ${esc(diaLabel(ventaYmd(v)))} ${ms?ventaHora(ms):""}</div>
+      </div>
+      <div class="vh-right">
+        <div class="vh-total">${money(v.total)}</div>
+        <div class="vh-tags">${efe?`<span class="tag pago-efe">💵 Efectivo</span>`:`<span class="tag pago-tra">📲 Transf.</span>`}<span class="tag enc-listo">🎁 Encargo</span></div>
+      </div>`;
+    el.onclick = ()=> openVentaDet(v);
+    return el;
+  }
   const nombre = v.clienteNombre || "Mostrador";
   const prendas = ventaPrendas(v);
   const ent = entregaDeVenta(v);
@@ -4902,6 +5205,29 @@ let cancelPendVenta = null;
 /* ── Hoja de detalle + acciones ── */
 function openVentaDet(v){
   detVenta = v;
+  // Movimiento de encargo: no es una venta de stock → vista informativa + atajo a Encargos
+  if(esEncargoMov(v)){
+    const concepto = v.concepto || (v.tipo==="encargo_saldo" ? "Saldo de encargo" : "Seña de encargo");
+    $("#ventaDetPreview").innerHTML = `<div class="recibo-doc" style="padding:22px">
+      <div style="font-size:34px;text-align:center;margin-bottom:8px">🎁</div>
+      <h3 style="text-align:center;margin-bottom:6px">${esc(concepto)}</h3>
+      <p style="text-align:center;color:var(--texto-suave);font-size:14px">${esc(v.clienteNombre||"Clienta")} · ${esc(diaLabel(ventaYmd(v)))}</p>
+      <div class="enc-saldo-box" style="margin-top:16px;background:var(--celeste-pale)">
+        <span style="color:var(--navy)">Entró en la caja</span><b style="color:var(--navy)">${money(v.total)}</b>
+      </div>
+      <p class="hint" style="margin-top:14px">Esto se cargó solo desde un encargo. Si necesitás cambiarlo o anularlo, hacelo desde la pestaña Encargos.</p>
+    </div>`;
+    const acts = $("#ventaDetActs"); acts.innerHTML = "";
+    const enc = encargos.find(e=> e.id===v.encargoId);
+    if(enc){
+      const gb = document.createElement("button"); gb.className = "btn-wa"; gb.style.background = "var(--celeste-deep)";
+      gb.innerHTML = `<span class="wico">🎁</span><span class="wtx"><b>Ver el encargo</b><span>Abrir el pedido de ${esc(enc.clienteNombre||"la clienta")}</span></span>`;
+      gb.onclick = ()=>{ closeVentaDet(); go("encargos"); openEncSheet(enc); };
+      acts.appendChild(gb);
+    }
+    $("#ventaDetScrim").classList.add("show"); $("#ventaDetSheet").classList.add("show");
+    return;
+  }
   $("#ventaDetPreview").innerHTML = reciboHTML(reciboData(ventaComoEntrega(v)));
   const acts = $("#ventaDetActs"); acts.innerHTML = "";
   const cancelada = !ventaActiva(v);
@@ -5607,10 +5933,668 @@ onSnapshot(esperaRef, snap=>{
 });
 /* ──────────────────── fin ETAPA 7 ──────────────────── */
 
+/* ════════════════════════════════════════════════════════════════
+   ETAPA 8 · ENCARGOS CON SEÑA
+   Colección: encargos_pos_cascanueces
+   {clienteId, clienteNombre, clienteWhats, items[], total, sena, saldo,
+    senaMetodo, senaVentaId, fecha("YYYY-MM-DD"), fechaListo, notas[],
+    estado("pendiente"|"listo"|"entregado"|"cancelado"), avisado,
+    saldoMetodo, saldoVentaId, ts, creado, listoTs, entregadoTs…}
+
+   La seña (al crear) y el saldo (al entregar) entran en la caja del día
+   como un MOVIMIENTO en `ventas_pos_cascanueces` (igual que cobra una
+   venta), con su método y recargo de config, para que el cierre cuadre.
+   Esos movimientos llevan tipo:"encargo_sena"/"encargo_saldo" y se ven
+   distintos en el Historial (no se editan/cancelan como una venta).
+   Bloque autocontenido — reusa $, toast, money, corto, esc, cliInitial,
+   waNorm, openWa, fillMsg, bizVars, tpl, normNotas, renderNotasEditor,
+   openPickSheet, los arrays productos/clientes y ventasRef/recargoPct.
+   ════════════════════════════════════════════════════════════════ */
+const encargosRef = collection(db, "encargos_pos_cascanueces");
+
+const ENC_ESTADOS = {
+  pendiente: { label:"Pendiente", tag:"enc-pend",   emoji:"🕒" },
+  listo:     { label:"Listo",     tag:"enc-listo",  emoji:"📦" },
+  entregado: { label:"Entregado", tag:"enc-entreg", emoji:"✓"  },
+  cancelado: { label:"Cancelado", tag:"enc-cancel", emoji:"🚫" }
+};
+
+let encargos = [];
+let encEstadoFiltro = "pendiente";   // pendiente | listo | entregado | todos
+let encFiltro = "";
+let encEditId = null;
+let encCliente = null;               // {id,nombre,whatsapp,colegio,…} | null
+let encCart = [];                    // [{key,tipo,productoId,colegio,prenda,talle,descripcion,precio,cant}]
+let encSel = { colegio:null, prenda:null };
+let encSenaMetodo = null;            // efectivo | transferencia (solo en alta)
+let encTotalOverride = null;         // null = total autocalculado
+let encNotasArr = [];
+let encMedidaCant = 1;
+let encEditSena = 0, encEditSenaMetodo = null;   // seña ya cobrada (modo edición)
+let cobrarEnc = null, cobrarMetodo = null;
+let encDelArmed = false, encDelTimer = null;
+
+/* ── Helpers ── */
+function encNum(str){ return Math.max(0, parseInt(String(str||"").replace(/\D/g,""),10)||0); }
+function encLineLabel(it){
+  if(it.tipo==="medida" || (!it.productoId && it.descripcion)) return it.descripcion || "A medida";
+  return `${it.prenda||"Prenda"}${it.colegio?` · ${corto(it.colegio)}`:""}${it.talle?` · T${it.talle}`:""}`;
+}
+function encResumenItems(enc){
+  const its = enc.items || [];
+  if(!its.length) return "Sin detalle";
+  return its.map(it=> `${encLineLabel(it)}${(Number(it.cant)||1)>1?` x${it.cant}`:""}`).join(" · ");
+}
+function encSaldoDe(enc){ return Math.max(0, (Number(enc.total)||0) - (Number(enc.sena)||0)); }
+function encAutoTotal(){ return encCart.reduce((a,l)=> a + (Number(l.precio)||0)*(Number(l.cant)||0), 0); }
+function encTotalVal(){ return encTotalOverride!=null ? encTotalOverride : encAutoTotal(); }
+function currentSena(){ return encEditId ? (Number(encEditSena)||0) : encNum($("#encSena").value); }
+function currentSaldo(){ return Math.max(0, encTotalVal() - currentSena()); }
+
+/* Payload de un movimiento de caja (seña o saldo) como "venta" especial */
+function encMovVentaPayload({ clienteId, clienteNombre, monto, metodo, concepto, tipo, encargoId, fechaYmd }){
+  const base = Math.max(0, Number(monto)||0);
+  const recargo = metodo==="transferencia" ? Math.round(base*recargoPct/100) : 0;
+  return {
+    items: [],
+    subtotal: base,
+    recargoPct: metodo==="transferencia" ? recargoPct : 0,
+    recargo, total: base + recargo,
+    pago: metodo,
+    clienteId: clienteId || null,
+    clienteNombre: clienteNombre || null,
+    concepto, tipo, encargoId,
+    notas: [],
+    origen: "encargo",
+    fecha: serverTimestamp(),
+    ts: ymdToTs(fechaYmd || hoyYmd())
+  };
+}
+
+/* ── Mensaje "tu encargo está listo" (plantilla editable en config) ── */
+function msgEncargoListo(enc){
+  const cli = clientes.find(c=> c.id===enc.clienteId);
+  const det = (enc.items||[]).map(it=> `• ${encLineLabel(it)}${(Number(it.cant)||1)>1?` x${it.cant}`:""}`).join("\n");
+  return fillMsg(tpl.msgEncargoListo, {
+    ...bizVars(),
+    clienta: cli?.nombre || enc.clienteNombre || "",
+    nombre:  cli?.nombre || enc.clienteNombre || "",
+    detalle: det, saldo: money(encSaldoDe(enc)),
+    total: money(enc.total), sena: money(enc.sena)
+  });
+}
+
+/* ════════════ SHEET · Nuevo / editar encargo ════════════ */
+function renderEncCliRow(){
+  const row = $("#encCliPick"); if(!row) return;
+  if(encCliente && (encCliente.id || (encCliente.nombre||"").trim())){
+    row.classList.add("set");
+    $("#encCliName").textContent = encCliente.nombre || "Clienta";
+    const wa = waNorm(encCliente.whatsapp);
+    $("#encCliSub").textContent = (encCliente.colegio ? corto(encCliente.colegio)+" · " : "") + (wa ? "WhatsApp ✓" : "sin WhatsApp");
+    $("#encCliAct").textContent = "Cambiar";
+  } else {
+    row.classList.remove("set");
+    $("#encCliName").textContent = "Sin clienta";
+    $("#encCliSub").textContent = "Tocá para elegir o crear";
+    $("#encCliAct").textContent = "Elegir";
+  }
+}
+function encColegiosList(){
+  const set = new Set(COLEGIOS_BASE);
+  productos.forEach(p=> p.colegio && set.add(p.colegio));
+  if(encSel.colegio) set.add(encSel.colegio);
+  return [...set];
+}
+function renderEncColegio(){
+  const cont = $("#encChipsColegio"); cont.innerHTML = "";
+  encColegiosList().forEach(col=>{
+    const b = document.createElement("button"); b.type = "button";
+    b.className = "chip" + (encSel.colegio===col?" on":"");
+    b.textContent = corto(col);
+    b.onclick = ()=>{ encSel.colegio = encSel.colegio===col?null:col; encSel.prenda = null; renderEncColegio(); renderEncPrenda(); renderEncTalle(); };
+    cont.appendChild(b);
+  });
+}
+function encPrendasList(){
+  if(!encSel.colegio) return [];
+  const set = new Set();
+  productos.filter(p=> p.colegio===encSel.colegio).forEach(p=> p.prenda && set.add(p.prenda));
+  (PRENDAS_POR_COLEGIO[encSel.colegio]||[]).forEach(pr=> set.add(pr));
+  return [...set];
+}
+function renderEncPrenda(){
+  const cont = $("#encChipsPrenda"), hint = $("#encPrendaHint");
+  cont.innerHTML = "";
+  if(!encSel.colegio){ cont.style.display = "none"; hint.style.display = "block"; hint.textContent = "Elegí primero el colegio."; return; }
+  cont.style.display = "flex"; hint.style.display = "none";
+  const list = encPrendasList();
+  if(list.length===0){ hint.style.display = "block"; hint.textContent = "Este colegio no tiene prendas cargadas. Usá “A medida / otro”."; }
+  list.forEach(pr=>{
+    const b = document.createElement("button"); b.type = "button";
+    b.className = "chip" + (encSel.prenda===pr?" on":"");
+    b.textContent = pr;
+    b.onclick = ()=>{ encSel.prenda = encSel.prenda===pr?null:pr; renderEncPrenda(); renderEncTalle(); };
+    cont.appendChild(b);
+  });
+}
+function renderEncTalle(){
+  const cont = $("#encTalles"), hint = $("#encTalleHint");
+  cont.innerHTML = "";
+  if(!encSel.colegio || !encSel.prenda){ cont.style.display = "none"; hint.style.display = "block"; hint.textContent = "Elegí la prenda y te muestro los talles."; return; }
+  const prods = productos.filter(p=> p.colegio===encSel.colegio && p.prenda===encSel.prenda).sort((a,b)=> tOrder(a.talle)-tOrder(b.talle));
+  if(prods.length===0){ cont.style.display = "none"; hint.style.display = "block"; hint.textContent = "No hay talles cargados para esta prenda. Usá “A medida / otro”."; return; }
+  cont.style.display = "flex"; hint.style.display = "none";
+  prods.forEach(p=>{
+    const stock = Number(p.stock)||0;
+    const enCart = (encCart.find(x=> x.tipo==="stock" && x.productoId===p.id)?.cant)||0;
+    const card = document.createElement("button"); card.type = "button"; card.className = "enc-tcard";
+    card.innerHTML = `<span class="tt">${esc(p.talle)}</span>
+      <span class="ti"><b>$ ${(Number(p.precio)||0).toLocaleString("es-AR")}</b>
+        <span>${stock>0?`Hay ${stock} en stock`:"Sin stock — igual lo encargás"}${enCart?` · ${enCart} en el pedido`:""}</span></span>
+      <span class="tadd">＋</span>`;
+    card.onclick = ()=> addEncStock(p);
+    cont.appendChild(card);
+  });
+}
+function addEncStock(p){
+  const line = encCart.find(x=> x.tipo==="stock" && x.productoId===p.id);
+  if(line) line.cant++;
+  else encCart.push({ key:"s"+p.id, tipo:"stock", productoId:p.id, colegio:p.colegio, prenda:p.prenda, talle:String(p.talle), descripcion:"", precio:Number(p.precio)||0, cant:1 });
+  renderEncCart(); renderEncTalle();
+}
+function renderEncCart(){
+  const wrap = $("#encCartWrap"), cont = $("#encCart"), empty = $("#encCartEmpty");
+  cont.innerHTML = "";
+  wrap.style.display = encCart.length ? "block" : "none";
+  empty.style.display = encCart.length ? "none" : "block";
+  encCart.forEach(l=>{
+    const row = document.createElement("div"); row.className = "enc-ci";
+    row.innerHTML = `
+      <div class="ci-tx"><b>${esc(encLineLabel(l))}</b><span>$ ${(Number(l.precio)||0).toLocaleString("es-AR")} c/u</span></div>
+      <div class="ci-step"><button type="button" data-d="-1">−</button><span class="q">${l.cant}</span><button type="button" data-d="1">＋</button></div>`;
+    const btns = row.querySelectorAll("button");
+    btns[0].onclick = ()=>{ l.cant--; if(l.cant<=0) encCart = encCart.filter(x=> x.key!==l.key); renderEncCart(); renderEncTalle(); };
+    btns[1].onclick = ()=>{ l.cant++; renderEncCart(); renderEncTalle(); };
+    cont.appendChild(row);
+  });
+  $("#encTotalAuto").textContent = money(encAutoTotal());
+  if(encTotalOverride==null){ $("#encTotal").value = encAutoTotal() ? encAutoTotal().toLocaleString("es-AR") : ""; }
+  $("#encTotalReset").style.display = (encTotalOverride!=null && encTotalOverride!==encAutoTotal()) ? "block" : "none";
+  renderEncSaldo();
+  updateEncSaveState();
+}
+function renderEncSaldo(){ const s = $("#encSaldoVal"); if(s) s.textContent = money(currentSaldo()); }
+function renderEncPago(){
+  $("#encSenaTransSub").textContent = recargoPct>0 ? `Se suma ${recargoPct}% de recargo` : "Pago con celular";
+  document.querySelectorAll("#encSheet .pago[data-encpago]").forEach(b=> b.classList.toggle("on", b.dataset.encpago===encSenaMetodo));
+}
+function updateEncSaveState(){
+  const hasCli = !!(encCliente && (encCliente.id || (encCliente.nombre||"").trim()));
+  let ok = hasCli && encCart.length>0;
+  if(!encEditId){
+    const sena = encNum($("#encSena").value);
+    if(sena>0 && !encSenaMetodo) ok = false;
+    if(sena>encTotalVal()) ok = false;
+  }
+  $("#encSave").disabled = !ok;
+}
+function openEncSheet(enc=null, presetCliente=null){
+  encEditId = enc ? enc.id : null;
+  encSel = { colegio:null, prenda:null };
+  encMedidaCant = 1; $("#encMedidaCant").textContent = "1";
+  encSenaMetodo = null;
+  encDelArmed = false; clearTimeout(encDelTimer); $("#encDelete").classList.remove("armed");
+  $("#encMedidaBox").style.display = "none";
+  $("#encMedidaDesc").value = ""; $("#encMedidaPrecio").value = "";
+  $("#encSheetTitle").textContent = enc ? "Editar encargo" : "Nuevo encargo";
+  $("#encDelete").style.display = enc ? "flex" : "none";
+  $("#encSave").textContent = enc ? "Guardar cambios" : "Guardar encargo";
+
+  if(enc){
+    encCliente = enc.clienteId
+      ? { id:enc.clienteId, ...(clientes.find(c=> c.id===enc.clienteId) || { nombre:enc.clienteNombre, whatsapp:enc.clienteWhats }) }
+      : { id:null, nombre:enc.clienteNombre||"", whatsapp:enc.clienteWhats||"" };
+    encCart = (enc.items||[]).map((it,i)=>({
+      key:"e"+i, tipo: it.tipo || (it.productoId?"stock":"medida"),
+      productoId: it.productoId||null, colegio: it.colegio||"", prenda: it.prenda||"",
+      talle: it.talle!=null?String(it.talle):"", descripcion: it.descripcion||"",
+      precio: Number(it.precio)||0, cant: Number(it.cant)||1
+    }));
+    encEditSena = Number(enc.sena)||0;
+    encEditSenaMetodo = enc.senaMetodo||null;
+    encTotalOverride = ((Number(enc.total)||0) !== encAutoTotal()) ? (Number(enc.total)||0) : null;
+    encNotasArr = (enc.notas||[]).map(n=>({ texto:n.texto||"", recibo:!!n.recibo }));
+    $("#encTotal").value = (Number(enc.total)||0) ? (Number(enc.total)||0).toLocaleString("es-AR") : "";
+    $("#encFecha").value = enc.fecha || hoyYmd();
+    $("#encFechaListo").value = enc.fechaListo || "";
+    const r = encEditSenaMetodo==="transferencia" ? " · transferencia" : (encEditSena>0?" · efectivo":"");
+    $("#encSenaHecha").innerHTML = encEditSena>0
+      ? `Ya entró una seña de <b>${money(encEditSena)}</b>${r}. Quedó cargada en la caja del día del encargo.`
+      : "Este encargo se cargó sin seña.";
+  } else {
+    encCliente = presetCliente ? { id:presetCliente.id||null, ...presetCliente } : null;
+    encCart = [];
+    encEditSena = 0; encEditSenaMetodo = null;
+    encTotalOverride = null;
+    encNotasArr = [];
+    $("#encSena").value = "";
+    $("#encTotal").value = "";
+    $("#encFecha").value = hoyYmd();
+    $("#encFechaListo").value = "";
+  }
+  $("#encSenaField").style.display = enc ? "none" : "block";
+  $("#encSenaHechaField").style.display = enc ? "block" : "none";
+  $("#encSenaTransSub").textContent = recargoPct>0 ? `Se suma ${recargoPct}% de recargo` : "Pago con celular";
+
+  renderEncCliRow();
+  renderEncColegio(); renderEncPrenda(); renderEncTalle();
+  renderEncCart();
+  renderEncPago();
+  renderNotasEditor($("#encNotas"), encNotasArr, ()=>{});
+
+  $("#encScrim").classList.add("show");
+  $("#encSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+  pushBack("enc", closeEncSheet);
+}
+function closeEncSheet(fromPop){
+  encElevatePick(false);
+  $("#encScrim").classList.remove("show");
+  $("#encSheet").classList.remove("show");
+  document.body.style.overflow = $("#cliSheet").classList.contains("show") ? "hidden" : "";
+  if(fromPop!==true) syncBack("enc");
+}
+function encElevatePick(on){
+  ["#pickScrim","#cliScrim"].forEach(s=>{ const el=$(s); if(el) el.style.zIndex = on?"71":""; });
+  ["#pickSheet","#cliSheet"].forEach(s=>{ const el=$(s); if(el) el.style.zIndex = on?"72":""; });
+}
+$("#encClose").onclick = closeEncSheet;
+$("#encScrim").onclick = closeEncSheet;
+$("#encAdd").onclick = ()=> openEncSheet();
+$("#encSearch").addEventListener("input", e=>{ encFiltro = e.target.value; renderEncargosView(); });
+
+$("#encCliPick").onclick = ()=>{
+  encElevatePick(true);
+  openPickSheet(()=>{
+    encElevatePick(false);
+    encCliente = venderCliente ? { id:venderCliente.id, ...venderCliente } : null;
+    renderEncCliRow(); updateEncSaveState();
+  });
+};
+
+/* A medida / otro */
+$("#encMedidaToggle").onclick = ()=>{
+  const box = $("#encMedidaBox");
+  box.style.display = box.style.display==="none" ? "flex" : "none";
+  if(box.style.display!=="none") $("#encMedidaDesc").focus();
+};
+$("#encMedidaMinus").onclick = ()=>{ encMedidaCant = Math.max(1, encMedidaCant-1); $("#encMedidaCant").textContent = encMedidaCant; };
+$("#encMedidaPlus").onclick  = ()=>{ encMedidaCant++; $("#encMedidaCant").textContent = encMedidaCant; };
+$("#encMedidaPrecio").addEventListener("input", e=>{ const raw = encNum(e.target.value); e.target.value = raw ? raw.toLocaleString("es-AR") : ""; });
+$("#encMedidaAdd").onclick = ()=>{
+  const desc = $("#encMedidaDesc").value.trim();
+  const precio = encNum($("#encMedidaPrecio").value);
+  if(!desc){ toast("Escribí qué es lo que te encargan","err"); $("#encMedidaDesc").focus(); return; }
+  encCart.push({ key:"m"+Date.now(), tipo:"medida", productoId:null, colegio:"", prenda:"", talle:"", descripcion:desc, precio, cant:encMedidaCant });
+  $("#encMedidaDesc").value = ""; $("#encMedidaPrecio").value = ""; encMedidaCant = 1; $("#encMedidaCant").textContent = "1";
+  $("#encMedidaBox").style.display = "none";
+  renderEncCart();
+};
+
+/* Total (editable) + seña + método */
+$("#encTotal").addEventListener("input", e=>{
+  const raw = encNum(e.target.value);
+  e.target.value = raw ? raw.toLocaleString("es-AR") : "";
+  encTotalOverride = raw;
+  $("#encTotalReset").style.display = (raw!==encAutoTotal()) ? "block" : "none";
+  renderEncSaldo(); updateEncSaveState();
+});
+$("#encTotalReset").onclick = ()=>{ encTotalOverride = null; renderEncCart(); };
+$("#encSena").addEventListener("input", e=>{
+  const raw = encNum(e.target.value);
+  e.target.value = raw ? raw.toLocaleString("es-AR") : "";
+  renderEncSaldo(); updateEncSaveState();
+});
+document.querySelectorAll(".pago[data-encpago]").forEach(b=>{
+  b.onclick = ()=>{ encSenaMetodo = b.dataset.encpago; renderEncPago(); updateEncSaveState(); };
+});
+
+/* Guardar encargo */
+async function saveEncargo(){
+  const hasCli = !!(encCliente && (encCliente.id || (encCliente.nombre||"").trim()));
+  if(!hasCli){ toast("Elegí la clienta del encargo","err"); return; }
+  if(encCart.length===0){ toast("Agregá al menos un ítem al pedido","err"); return; }
+  const items = encCart.map(l=>({
+    tipo:l.tipo, productoId:l.productoId||null, colegio:l.colegio||"", prenda:l.prenda||"",
+    talle:l.talle||"", descripcion:l.descripcion||"", precio:Number(l.precio)||0,
+    cant:Number(l.cant)||1, subtotal:(Number(l.precio)||0)*(Number(l.cant)||1)
+  }));
+  const total = encTotalVal();
+  const fechaEnc = $("#encFecha").value || hoyYmd();
+  const fechaListo = $("#encFechaListo").value || "";
+  const notas = normNotas(encNotasArr);
+  $("#encSave").disabled = true;
+  try{
+    if(encEditId){
+      const sena = Number(encEditSena)||0;
+      await setDoc(doc(db,"encargos_pos_cascanueces",encEditId), {
+        clienteId: encCliente.id||null, clienteNombre: encCliente.nombre||"", clienteWhats: encCliente.whatsapp||"",
+        items, total, sena, saldo: Math.max(0, total-sena),
+        fecha: fechaEnc, fechaListo, notas, ts: ymdToTs(fechaEnc), editadoTs: Date.now()
+      }, { merge:true });
+      toast("Encargo actualizado ✓","ok");
+      closeEncSheet();
+    } else {
+      const sena = encNum($("#encSena").value);
+      const metodo = encSenaMetodo;
+      if(sena>0 && !metodo){ toast("Elegí cómo pagó la seña","err"); $("#encSave").disabled = false; return; }
+      if(sena>total){ toast("La seña no puede ser mayor al total","err"); $("#encSave").disabled = false; return; }
+      const batch = writeBatch(db);
+      const encRef = doc(encargosRef);
+      let senaVentaId = null;
+      if(sena>0){
+        const sv = doc(ventasRef); senaVentaId = sv.id;
+        batch.set(sv, encMovVentaPayload({
+          clienteId: encCliente.id||null, clienteNombre: encCliente.nombre||"",
+          monto: sena, metodo, concepto:`Seña encargo · ${encCliente.nombre||"Clienta"}`,
+          tipo:"encargo_sena", encargoId: encRef.id, fechaYmd: fechaEnc
+        }));
+      }
+      batch.set(encRef, {
+        clienteId: encCliente.id||null, clienteNombre: encCliente.nombre||"", clienteWhats: encCliente.whatsapp||"",
+        items, total, sena, saldo: Math.max(0, total-sena),
+        senaMetodo: sena>0?metodo:null, senaVentaId,
+        fecha: fechaEnc, fechaListo, notas,
+        estado:"pendiente", avisado:false,
+        ts: ymdToTs(fechaEnc), creadoTs: Date.now(), creado: serverTimestamp()
+      });
+      await batch.commit();
+      toast(sena>0 ? "Encargo guardado · seña en caja ✓" : "Encargo guardado ✓","ok");
+      closeEncSheet();
+    }
+  }catch(err){
+    console.error("Guardar encargo:", err.code, err.message);
+    toast("No se pudo guardar el encargo. Probá de nuevo.","err");
+    $("#encSave").disabled = false;
+  }
+}
+$("#encSave").onclick = saveEncargo;
+
+/* Borrar (deshacer todo): quita el encargo y sus movimientos de caja */
+$("#encDelete").onclick = async ()=>{
+  if(!encEditId) return;
+  if(!encDelArmed){
+    encDelArmed = true; $("#encDelete").classList.add("armed");
+    toast("Tocá de nuevo para borrar el encargo y deshacer la caja");
+    encDelTimer = setTimeout(()=>{ encDelArmed = false; $("#encDelete").classList.remove("armed"); }, 3000);
+    return;
+  }
+  clearTimeout(encDelTimer); encDelArmed = false; $("#encDelete").classList.remove("armed");
+  const enc = encargos.find(e=> e.id===encEditId); const id = encEditId;
+  try{
+    const batch = writeBatch(db);
+    if(enc?.senaVentaId)  batch.delete(doc(db,"ventas_pos_cascanueces",enc.senaVentaId));
+    if(enc?.saldoVentaId) batch.delete(doc(db,"ventas_pos_cascanueces",enc.saldoVentaId));
+    batch.delete(doc(db,"encargos_pos_cascanueces",id));
+    await batch.commit();
+    toast("Encargo borrado","ok");
+    closeEncSheet();
+  }catch(err){ console.error("Borrar encargo:", err.code, err.message); toast("No se pudo borrar. Probá de nuevo.","err"); }
+};
+
+/* ════════════ Acciones sobre un encargo ════════════ */
+async function marcarListo(enc){
+  try{
+    await setDoc(doc(db,"encargos_pos_cascanueces",enc.id), { estado:"listo", listoTs:Date.now(), avisado:false }, { merge:true });
+    toast("Encargo listo 🎁 — avisale a la clienta","ok");
+  }catch(err){ console.error("Marcar listo:", err.code, err.message); toast("No se pudo actualizar.","err"); }
+}
+function avisarListo(enc){
+  const cli = clientes.find(c=> c.id===enc.clienteId);
+  const phone = (cli && cli.whatsapp) || enc.clienteWhats;
+  if(!waNorm(phone)){ toast("Esa clienta no tiene WhatsApp cargado","err"); return; }
+  openWa(phone, msgEncargoListo(enc));
+  setDoc(doc(db,"encargos_pos_cascanueces",enc.id), { avisado:true, avisadoTs:Date.now() }, { merge:true })
+    .catch(e=> console.warn("avisar encargo:", e.code));
+}
+async function cancelarEncargo(enc){
+  try{
+    await setDoc(doc(db,"encargos_pos_cascanueces",enc.id), { estado:"cancelado", canceladoTs:Date.now() }, { merge:true });
+    toast("Encargo cancelado · la seña queda en la caja","ok");
+  }catch(err){ console.error("Cancelar encargo:", err.code, err.message); toast("No se pudo cancelar.","err"); }
+}
+async function reabrirEncargo(enc){
+  const target = enc.estado==="entregado" ? "listo" : "pendiente";
+  try{
+    await setDoc(doc(db,"encargos_pos_cascanueces",enc.id), { estado:target }, { merge:true });
+    toast("Encargo reabierto","ok");
+  }catch(err){ console.error("Reabrir encargo:", err.code, err.message); toast("No se pudo reabrir.","err"); }
+}
+
+/* ── Entregar / cobrar saldo ── */
+function openCobrar(enc){
+  cobrarEnc = enc; cobrarMetodo = null;
+  const saldo = encSaldoDe(enc);
+  $("#encCobrarLead").textContent = `Encargo de ${enc.clienteNombre||"la clienta"}: ${encResumenItems(enc)}.`;
+  $("#encCobrarPagoQ").style.display   = saldo>0 ? "block" : "none";
+  $("#encCobrarPagoOpts").style.display = saldo>0 ? "" : "none";
+  $("#encCobrarTransSub").textContent = recargoPct>0 ? `Se suma ${recargoPct}% de recargo` : "Pago con celular";
+  renderCobrar();
+  $("#encCobrarScrim").classList.add("show"); $("#encCobrarSheet").classList.add("show");
+  pushBack("encCobrar", closeCobrar);
+}
+function closeCobrar(fromPop){
+  $("#encCobrarScrim").classList.remove("show"); $("#encCobrarSheet").classList.remove("show");
+  cobrarEnc = null;
+  if(fromPop!==true) syncBack("encCobrar");
+}
+function renderCobrar(){
+  const enc = cobrarEnc; if(!enc) return;
+  const saldo = encSaldoDe(enc);
+  if(saldo<=0){
+    $("#encCobrarTotal").textContent = money(0);
+    $("#encCobrarDet").textContent = "Ya está todo pago. Solo confirmá la entrega.";
+    $("#encCobrarConfirm").disabled = false;
+    $("#encCobrarConfirm").textContent = "Marcar entregado";
+    return;
+  }
+  let recargo = 0, total = saldo, det = `Seña ${money(enc.sena)} ya cobrada`;
+  if(cobrarMetodo==="transferencia"){
+    recargo = Math.round(saldo*recargoPct/100); total = saldo + recargo;
+    det = recargo>0 ? `Saldo ${money(saldo)} + recargo ${recargoPct}% (${money(recargo)})` : `${money(saldo)} · sin recargo`;
+  }
+  $("#encCobrarTotal").textContent = money(total);
+  $("#encCobrarDet").textContent = det;
+  document.querySelectorAll("#encCobrarPagoOpts .pago").forEach(b=> b.classList.toggle("on", b.dataset.cobpago===cobrarMetodo));
+  $("#encCobrarConfirm").disabled = !cobrarMetodo;
+  $("#encCobrarConfirm").textContent = "Cobrar y marcar entregado";
+}
+document.querySelectorAll(".pago[data-cobpago]").forEach(b=>{
+  b.onclick = ()=>{ cobrarMetodo = b.dataset.cobpago; renderCobrar(); };
+});
+$("#encCobrarClose").onclick = closeCobrar;
+$("#encCobrarScrim").onclick = closeCobrar;
+$("#encCobrarConfirm").onclick = async ()=>{
+  const enc = cobrarEnc; if(!enc) return;
+  const saldo = encSaldoDe(enc);
+  if(saldo>0 && !cobrarMetodo){ toast("Elegí cómo paga el saldo","err"); return; }
+  $("#encCobrarConfirm").disabled = true;
+  try{
+    const batch = writeBatch(db);
+    let saldoVentaId = null;
+    if(saldo>0){
+      const sv = doc(ventasRef); saldoVentaId = sv.id;
+      batch.set(sv, encMovVentaPayload({
+        clienteId: enc.clienteId||null, clienteNombre: enc.clienteNombre||"",
+        monto: saldo, metodo: cobrarMetodo, concepto:`Saldo encargo · ${enc.clienteNombre||"Clienta"}`,
+        tipo:"encargo_saldo", encargoId: enc.id, fechaYmd: hoyYmd()
+      }));
+    }
+    batch.set(doc(db,"encargos_pos_cascanueces",enc.id), {
+      estado:"entregado", entregadoTs:Date.now(),
+      saldoMetodo: saldo>0?cobrarMetodo:null, saldoVentaId, saldoCobrado: saldo
+    }, { merge:true });
+    await batch.commit();
+    toast(saldo>0 ? "Saldo cobrado · entregado ✓" : "Entregado ✓","ok");
+    closeCobrar();
+  }catch(err){
+    console.error("Cobrar saldo:", err.code, err.message);
+    toast("No se pudo cobrar el saldo. Probá de nuevo.","err");
+    $("#encCobrarConfirm").disabled = false;
+  }
+};
+
+/* ════════════ Vista · Lista de encargos ════════════ */
+function updateEncargoBadge(){
+  const n = encargos.filter(e=> e.estado==="listo" && !e.avisado).length;
+  const bn = $("#encargoNavBadge"); if(bn) bn.style.display = n ? "block" : "none";
+  const sb = $("#encargoSideBadge"); if(sb){ sb.textContent = n; sb.style.display = n ? "inline-block" : "none"; }
+}
+function movEncargosInicio(){
+  return encargos.filter(e=> e.estado==="pendiente" || e.estado==="listo")
+    .sort((a,b)=>{
+      const pa = (a.estado==="listo" && !a.avisado) ? 0 : (a.estado==="listo" ? 1 : 2);
+      const pb = (b.estado==="listo" && !b.avisado) ? 0 : (b.estado==="listo" ? 1 : 2);
+      return pa - pb || (b.ts||0)-(a.ts||0);
+    });
+}
+function renderEncEstadoF(){
+  const cont = $("#encEstadoF"); if(!cont) return; cont.innerHTML = "";
+  [["pendiente","Pendientes"],["listo","Listos"],["entregado","Entregados"],["todos","Todos"]].forEach(([v,l])=>{
+    const b = document.createElement("button");
+    b.className = "chip-f" + (encEstadoFiltro===v?" on":"");
+    b.textContent = l;
+    b.onclick = ()=>{ encEstadoFiltro = v; renderEncargosView(); };
+    cont.appendChild(b);
+  });
+}
+function encVisibles(){
+  let l = encargos.slice();
+  if(encEstadoFiltro==="pendiente") l = l.filter(e=> e.estado==="pendiente");
+  else if(encEstadoFiltro==="listo") l = l.filter(e=> e.estado==="listo");
+  else if(encEstadoFiltro==="entregado") l = l.filter(e=> e.estado==="entregado");
+  const q = encFiltro.trim().toLowerCase();
+  if(q) l = l.filter(e=> (e.clienteNombre||"").toLowerCase().includes(q));
+  const ord = { listo:0, pendiente:1, entregado:2, cancelado:3 };
+  l.sort((a,b)=> (ord[a.estado]??9)-(ord[b.estado]??9)
+    || (a.fechaListo||"9999-99").localeCompare(b.fechaListo||"9999-99")
+    || (b.ts||0)-(a.ts||0));
+  return l;
+}
+function encCancelBtn(enc){
+  const b = document.createElement("button"); b.type = "button"; b.className = "ea cancel"; b.innerHTML = "🚫"; b.title = "Cancelar encargo";
+  armDelete(b, ()=> cancelarEncargo(enc));   // dos toques, mismo patrón
+  return b;
+}
+function encCard(enc){
+  const info = ENC_ESTADOS[enc.estado] || ENC_ESTADOS.pendiente;
+  const saldo = encSaldoDe(enc);
+  const cli = clientes.find(c=> c.id===enc.clienteId);
+  const hasWa = !!(cli && waNorm(cli.whatsapp)) || !!waNorm(enc.clienteWhats);
+  const avisoTag = (enc.estado==="listo" && !enc.avisado) ? `<span class="tag enc-aviso">Avisar</span>` : "";
+  const tarde = (enc.estado!=="entregado" && enc.estado!=="cancelado" && enc.fechaListo && enc.fechaListo<hoyYmd());
+  const listoLine = enc.fechaListo
+    ? `<div class="enc-listo-line${tarde?" tarde":""}">📅 ${tarde?"Estaba para":"Para"} ${esc(diaLabel(enc.fechaListo))}</div>` : "";
+  const card = document.createElement("div");
+  card.className = "enc-card" + (enc.estado==="cancelado"?" cancelado":"");
+  card.innerHTML = `
+    <div class="enc-top">
+      <span class="enc-av">${cliInitial(enc.clienteNombre)}</span>
+      <div class="enc-hd">
+        <div class="enc-name">${esc(enc.clienteNombre||"Clienta")} <span class="tag ${info.tag}">${info.emoji} ${info.label}</span>${avisoTag}</div>
+        <div class="enc-items">${esc(encResumenItems(enc))}</div>
+      </div>
+      <button class="enc-edit" type="button" title="Editar" data-edit="1">✏️</button>
+    </div>
+    <div class="enc-money">
+      <div class="em"><b>${money(enc.total)}</b><span>Total</span></div>
+      <div class="em"><b>${money(enc.sena)}</b><span>Seña</span></div>
+      <div class="em saldo${saldo<=0?" cero":""}"><b>${money(saldo)}</b><span>${saldo<=0?"Saldado":"Saldo"}</span></div>
+    </div>
+    ${listoLine}
+    <div class="enc-acts"></div>`;
+  card.querySelector("[data-edit]").onclick = ()=> openEncSheet(enc);
+  const acts = card.querySelector(".enc-acts");
+  if(enc.estado==="pendiente"){
+    const b = document.createElement("button"); b.type = "button"; b.className = "ea listo"; b.innerHTML = "✓ Marcar listo";
+    b.onclick = ()=> marcarListo(enc);
+    acts.appendChild(b);
+    acts.appendChild(encCancelBtn(enc));
+  } else if(enc.estado==="listo"){
+    const wa = document.createElement("button"); wa.type = "button"; wa.className = "ea wa" + (enc.avisado?" avisado":"");
+    wa.innerHTML = enc.avisado ? "📲 Avisar de nuevo" : "📲 Avisar que está listo";
+    if(!hasWa){ wa.disabled = true; wa.title = "Sin WhatsApp cargado"; }
+    wa.onclick = ()=> avisarListo(enc);
+    acts.appendChild(wa);
+    const ent = document.createElement("button"); ent.type = "button"; ent.className = "ea entregar";
+    ent.innerHTML = saldo>0 ? "💵 Entregar / cobrar saldo" : "✓ Marcar entregado";
+    ent.onclick = ()=> openCobrar(enc);
+    acts.appendChild(ent);
+    acts.appendChild(encCancelBtn(enc));
+  } else if(enc.estado==="entregado"){
+    const b = document.createElement("button"); b.type = "button"; b.className = "ea recibo"; b.innerHTML = "🧾 Ver detalle";
+    b.onclick = ()=> openEncSheet(enc);
+    acts.appendChild(b);
+  } else if(enc.estado==="cancelado"){
+    const b = document.createElement("button"); b.type = "button"; b.className = "ea recibo"; b.innerHTML = "↩️ Reabrir";
+    b.onclick = ()=> reabrirEncargo(enc);
+    acts.appendChild(b);
+  }
+  return card;
+}
+function renderEncargosView(){
+  updateEncargoBadge();
+  renderEncEstadoF();
+  const cont = $("#listaEncargos"); if(!cont) return; cont.innerHTML = "";
+  const lista = encVisibles();
+  if(lista.length===0){
+    cont.innerHTML = `<div class="empty"><div class="ico">🎁</div>
+      <h3>${encargos.length ? "Nada con este filtro" : "Todavía no hay encargos"}</h3>
+      <p>${encargos.length ? "Probá con otro estado o buscá otra clienta." : "Cuando te encarguen algo con seña, cargalo acá y te llevo la cuenta del saldo."}</p></div>`;
+    return;
+  }
+  lista.forEach(e=> cont.appendChild(encCard(e)));
+}
+
+/* ── Ficha de la clienta: sus encargos pendientes / listos ── */
+function renderCliEncargos(cli){
+  const cont = $("#cliEncargos"); if(!cont) return; cont.innerHTML = "";
+  const mias = encargos.filter(e=> e.clienteId===cli.id && (e.estado==="pendiente" || e.estado==="listo"))
+    .sort((a,b)=> (b.ts||0)-(a.ts||0));
+  if(mias.length===0){ cont.innerHTML = `<p class="hint" style="margin:0 0 9px">No tiene encargos pendientes.</p>`; return; }
+  mias.forEach(e=>{
+    const info = ENC_ESTADOS[e.estado] || ENC_ESTADOS.pendiente;
+    const saldo = encSaldoDe(e);
+    const it = document.createElement("button"); it.type = "button"; it.className = "cli-enc-item";
+    it.innerHTML = `<span class="enc-av" style="width:38px;height:38px;font-size:17px">🎁</span>
+      <span class="cen-tx"><b>${esc(encResumenItems(e))}</b>
+        <span><span class="tag ${info.tag}">${info.emoji} ${info.label}</span> · Saldo ${money(saldo)}${e.fechaListo?` · ${esc(diaLabel(e.fechaListo))}`:""}</span></span>`;
+    it.onclick = ()=>{ closeCliSheet(); go("encargos"); openEncSheet(e); };
+    cont.appendChild(it);
+  });
+}
+
+/* ── Sync en tiempo real de encargos ── */
+onSnapshot(encargosRef, snap=>{
+  encargos = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+  updateEncargoBadge();
+  renderInicio();
+  if(currentView==="encargos") renderEncargosView();
+  if(cliEditId && $("#cliSheet").classList.contains("show")){
+    const c = clientes.find(x=> x.id===cliEditId); if(c) renderCliEncargos(c);
+  }
+}, err=>{
+  console.error("Firestore [encargos]:", err.code, err.message);
+  if(err.code==="permission-denied") toast("Sin permisos para encargos en Firestore.","err");
+});
+/* ──────────────────── fin ETAPA 8 ──────────────────── */
+
 renderStockStats(); renderInicio(); renderFiltros(); renderLista();
 renderClientes();
 renderEntFiltros(); renderEntregas();
 updateEsperaBadge();
+updateEncargoBadge();
 loadConfig();
 updateFabVoz();   // muestra la burbuja de voz en el arranque (Inicio)
 </script>
