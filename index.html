@@ -1294,6 +1294,67 @@ html.unlocked #lockScreen{display:none}
 .ci.combo,.eitem.combo{box-shadow:inset 0 0 0 1.5px #e6d29a}
 .ci .ci-combo-det,.eitem .ei-combo-det{font-size:12px;color:#7a6010;margin-top:4px;line-height:1.45}
 
+/* ====== COSTOS / MÁRGENES (sub-pestaña de Caja) ====== */
+.costos-intro{font-size:14px;color:var(--texto-suave);line-height:1.5;margin:2px 4px 18px}
+.costos-intro b{color:var(--gris-900)}
+/* Resumen: tarjetas con número grande */
+.costos-resumen{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-bottom:20px}
+.costos-stat{background:var(--blanco);border-radius:18px;padding:18px 12px;box-shadow:var(--card-shadow);text-align:center}
+.costos-stat .cn{font-family:var(--titf);font-weight:600;font-size:32px;line-height:1;color:var(--gris-900)}
+.costos-stat .cl{font-size:12px;font-weight:600;color:var(--texto-suave);margin-top:7px;line-height:1.25}
+.costos-stat.ok .cn{color:var(--sage)}
+.costos-stat.warn{background:var(--mostaza-pale)}
+.costos-stat.warn .cn{color:var(--mostaza)}
+.costos-stat.alert{background:var(--rojo-pale)}
+.costos-stat.alert .cn{color:var(--rojo)}
+/* Card contenedora de cada bloque */
+.costos-card{background:var(--blanco);border-radius:22px;padding:18px 16px;box-shadow:var(--card-shadow);margin-bottom:18px}
+.costos-h{display:flex;align-items:center;gap:13px;margin-bottom:6px}
+.costos-h .costos-ic{width:46px;height:46px;border-radius:14px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:23px;flex-shrink:0}
+.costos-h b{display:block;font-family:var(--titf);font-weight:600;font-size:18px;color:var(--gris-900);line-height:1.15}
+.costos-h span{display:block;font-size:12.5px;color:var(--texto-suave);margin-top:2px;line-height:1.3}
+.costos-falta .costos-h .costos-ic{background:var(--mostaza-pale)}
+/* Tabla de márgenes */
+.margen-table{margin-top:12px}
+.margen-row{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:start;padding:13px 12px;border-radius:14px;background:var(--crema);margin-bottom:9px;box-shadow:inset 0 0 0 1px var(--crema-dark)}
+.margen-row.low{background:var(--mostaza-pale);box-shadow:inset 0 0 0 1px #efe2c0}
+.margen-row.neg{background:var(--rojo-pale);box-shadow:inset 0 0 0 1px #ffd9de}
+.margen-row .mr-name{min-width:0}
+.margen-row .mr-name b{display:block;font-size:15px;font-weight:600;color:var(--gris-900);line-height:1.2}
+.margen-row .mr-name .mr-meta{display:block;font-size:12.5px;color:var(--texto-suave);margin-top:3px;line-height:1.35}
+.margen-row .mr-name .mr-flag{display:inline-block;font-size:11px;font-weight:700;border-radius:50px;padding:2px 9px;margin-top:6px}
+.margen-row.low .mr-flag{background:var(--mostaza);color:#fff}
+.margen-row.neg .mr-flag{background:var(--rojo);color:#fff}
+.margen-row .mr-flag.partial{background:var(--celeste-pale);color:var(--celeste-deep)}
+.margen-row .mr-fig{text-align:right;flex-shrink:0}
+.margen-row .mr-pct{font-family:var(--titf);font-weight:600;font-size:24px;line-height:1;color:var(--sage)}
+.margen-row.low .mr-pct{color:var(--mostaza)}
+.margen-row.neg .mr-pct{color:var(--rojo)}
+.margen-row .mr-gan{font-size:12.5px;color:var(--texto-suave);margin-top:4px}
+.margen-row .mr-gan b{color:var(--gris-900);font-weight:600}
+.margen-empty{font-size:14px;color:var(--texto-suave);text-align:center;padding:18px 12px;line-height:1.5}
+/* Fila de producto sin costo: simple, con botón a Productos */
+.falta-row{display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;background:var(--mostaza-pale);margin-bottom:9px;box-shadow:inset 0 0 0 1px #efe2c0}
+.falta-row .fr-tx{flex:1;min-width:0}
+.falta-row .fr-tx b{display:block;font-size:14.5px;font-weight:600;color:var(--gris-900);line-height:1.2}
+.falta-row .fr-tx span{display:block;font-size:12.5px;color:#8a6d18;margin-top:2px}
+/* Calculadora */
+.calc-card .filtros{padding:10px 0 4px}
+.calc-card .chip-f{cursor:pointer;border:0}
+.calc-body{margin-top:6px}
+.calc-body .field{margin-top:14px}
+.calc-body .field>label{display:block;font-size:13px;font-weight:600;color:var(--gris-700);margin-bottom:7px}
+.precio-wrap .pe-r{margin-left:6px}
+.calc-out{margin-top:18px;background:var(--celeste-pale);border-radius:16px;padding:16px 18px}
+.calc-out .co-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:5px 0}
+.calc-out .co-row .co-l{font-size:14px;color:var(--gris-700)}
+.calc-out .co-row .co-v{font-family:var(--titf);font-weight:600;font-size:22px;color:var(--celeste-deep)}
+.calc-out .co-row.big .co-v{font-size:30px}
+.calc-out .co-row .co-v.neg{color:var(--rojo)}
+.calc-out .co-row .co-v.low{color:var(--mostaza)}
+.calc-out .co-hint{font-size:12.5px;color:var(--texto-suave);margin-top:8px;line-height:1.4}
+.calc-out.empty{background:var(--crema);color:var(--texto-suave);font-size:13.5px;text-align:center;line-height:1.5}
+
 /* ====== TUTORIALES ====== */
 /* Lista de tutoriales dentro de la card de Configuración */
 .tut-intro{font-size:14px;color:var(--texto-suave);line-height:1.45;margin:2px 0 12px}
@@ -1316,6 +1377,18 @@ html.unlocked #lockScreen{display:none}
 .tut-lib{margin-top:18px;border-top:1px solid var(--gris-100);padding-top:16px}
 .tut-lib-head{font-family:var(--titf);font-weight:600;font-size:20px;color:var(--gris-900);line-height:1.1}
 .tut-lib-sub{font-size:14px;color:var(--texto-suave);line-height:1.45;margin:4px 0 10px}
+/* Barra "Filtrar" + panel colapsable de filtros */
+.tut-filt-bar{display:flex;align-items:center;gap:10px;margin:12px 0 2px}
+.tut-filt-toggle{display:flex;align-items:center;gap:9px;flex:1;min-width:0;background:var(--blanco);border:0;border-radius:50px;padding:12px 16px;box-shadow:var(--card-shadow);cursor:pointer;text-align:left;transition:transform .12s ease}
+.tut-filt-toggle:active{transform:scale(.99)}
+.tut-filt-toggle .tft-ic{font-size:18px;flex-shrink:0}
+.tut-filt-toggle .tft-tx{font-size:15px;font-weight:700;color:var(--gris-900);flex-shrink:0}
+.tut-filt-toggle .tft-active{font-size:12.5px;font-weight:700;color:var(--celeste-deep);background:var(--celeste-pale);border-radius:50px;padding:3px 11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.tut-filt-toggle .tft-chev{margin-left:auto;flex-shrink:0;color:var(--gris-500);font-size:15px;transition:transform .2s ease}
+.tut-filt-toggle.open .tft-chev{transform:rotate(90deg)}
+.tut-filt-clear{flex-shrink:0;background:none;border:0;color:var(--rojo);font-size:14px;font-weight:700;padding:10px 4px;cursor:pointer}
+.tut-filt-panel{display:none;animation:fade .25s ease;padding:2px 0 0}
+.tut-filt-panel.open{display:block}
 .tut-filt-lbl{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--celeste-deep);margin:12px 0 4px}
 .tut-lib .filtros{padding:2px 0 6px}
 .tut-lib .chip-f{font-size:15px;font-weight:600;padding:12px 18px;min-height:48px;cursor:pointer;border:0}
@@ -1602,6 +1675,54 @@ html.unlocked #lockScreen{display:none}
           <div id="resTop"></div>
         </div>
       </div>
+
+      <!-- COSTOS · MÁRGENES + CALCULADORA -->
+      <div class="caja-pane" id="pane-costos">
+        <p class="costos-intro">Solo lectura: acá ves tus <b>márgenes</b> y tenés una <b>calculadora de precios</b>. No cambia los precios de tus productos. El margen sale del campo <b>Costo</b> de cada producto.</p>
+
+        <!-- 4 · RESUMEN -->
+        <div class="costos-resumen" id="costosResumen"></div>
+
+        <!-- 3 · CALCULADORA DE PRECIO -->
+        <div class="costos-card calc-card" id="calcCard">
+          <div class="costos-h"><span class="costos-ic">🧮</span><div><b>Calculadora de precio</b><span>Probá precios y márgenes sin tocar nada</span></div></div>
+          <div class="filtros" id="calcModoTabs"></div>
+
+          <div class="calc-body">
+            <div class="field"><label>Costo del producto</label>
+              <div class="precio-wrap"><span class="pe">$</span><input type="text" inputmode="numeric" id="calcCosto" placeholder="0" autocomplete="off"></div>
+            </div>
+
+            <div class="field" id="calcMargenField"><label>Margen deseado (%)</label>
+              <div class="precio-wrap"><input type="text" inputmode="decimal" id="calcMargen" placeholder="0" autocomplete="off"><span class="pe pe-r">%</span></div>
+            </div>
+
+            <div class="field" id="calcPrecioField" style="display:none"><label>Precio de venta</label>
+              <div class="precio-wrap"><span class="pe">$</span><input type="text" inputmode="numeric" id="calcPrecio" placeholder="0" autocomplete="off"></div>
+            </div>
+
+            <div class="calc-out" id="calcOut"></div>
+          </div>
+        </div>
+
+        <!-- 1 · MÁRGENES POR PRODUCTO -->
+        <div class="costos-card">
+          <div class="costos-h"><span class="costos-ic">🏷</span><div><b>Márgenes por producto</b><span id="costosProdSub">Productos con costo cargado</span></div></div>
+          <div class="margen-table" id="costosProdList"></div>
+        </div>
+
+        <!-- 2 · MÁRGENES DE COMBOS -->
+        <div class="costos-card">
+          <div class="costos-h"><span class="costos-ic">🎁</span><div><b>Márgenes de combos</b><span>Costo total = suma de sus prendas</span></div></div>
+          <div class="margen-table" id="costosComboList"></div>
+        </div>
+
+        <!-- Sin costo cargado -->
+        <div class="costos-card costos-falta" id="costosSinCard">
+          <div class="costos-h"><span class="costos-ic">⚠️</span><div><b>Falta cargar costo</b><span>Completá el costo para ver su margen</span></div></div>
+          <div class="margen-table" id="costosSinCosto"></div>
+        </div>
+      </div>
     </section>
 
     <!-- ===== VISTA CUENTAS / SALDOS (Etapa 4) ===== -->
@@ -1642,13 +1763,26 @@ html.unlocked #lockScreen{display:none}
         <!-- BIBLIOTECA filtrable de tutoriales -->
         <div class="tut-lib">
           <div class="tut-lib-head">📚 Biblioteca de tutoriales</div>
-          <p class="tut-lib-sub">Tocá los botones para encontrar el que buscás. Podés combinar los dos.</p>
+          <p class="tut-lib-sub">Tocá un tutorial y te lo muestro. Para buscar, usá <b>Filtrar</b>.</p>
 
-          <div class="tut-filt-lbl">¿De qué pantalla?</div>
-          <div class="filtros" id="tutFiltPest"></div>
+          <!-- Filtros colapsables: ocultos por defecto, se abren con "Filtrar" -->
+          <div class="tut-filt-bar">
+            <button class="tut-filt-toggle" id="tutFiltToggle" type="button" aria-expanded="false" aria-controls="tutFiltPanel">
+              <span class="tft-ic">⚙️</span>
+              <span class="tft-tx">Filtrar</span>
+              <span class="tft-active" id="tutFiltActive" style="display:none"></span>
+              <span class="tft-chev">▸</span>
+            </button>
+            <button class="tut-filt-clear" id="tutFiltClear" type="button" style="display:none">Limpiar</button>
+          </div>
 
-          <div class="tut-filt-lbl">¿Qué querés hacer?</div>
-          <div class="filtros" id="tutFiltAcc"></div>
+          <div class="tut-filt-panel" id="tutFiltPanel">
+            <div class="tut-filt-lbl">¿De qué pantalla?</div>
+            <div class="filtros" id="tutFiltPest"></div>
+
+            <div class="tut-filt-lbl">¿Qué querés hacer?</div>
+            <div class="filtros" id="tutFiltAcc"></div>
+          </div>
 
           <div class="tut-count" id="tutCount"></div>
           <div class="tut-list" id="tutLib"></div>
@@ -3544,6 +3678,7 @@ const MENU_SECTIONS = [
   { go:"caja",     icon:"🖥️", label:"Caja", children:[
       { go:"caja", icon:"🗒", label:"Historial", tab:"hist", noHi:true },
       { go:"caja", icon:"📋", label:"Reportes",  tab:"res",  noHi:true },
+      { go:"caja", icon:"🧮", label:"Costos",    tab:"costos", noHi:true },
   ]},
 ];
 /* Conteo de pendientes de un ítem. El de un padre = SUMA de sus hijos. */
@@ -7378,7 +7513,7 @@ function ventaComoEntrega(v){
 /* ── Navegación entre pestañas de Caja ── */
 function renderCajaTabs(){
   const cont = $("#cajaTabs"); if(!cont) return; cont.innerHTML = "";
-  [["hoy","Hoy"],["hist","Historial"],["res","Resumen"]].forEach(([v,l])=>{
+  [["hoy","Hoy"],["hist","Historial"],["res","Resumen"],["costos","Costos"]].forEach(([v,l])=>{
     const b = document.createElement("button");
     b.className = "chip-f" + (cajaTab===v?" on":"");
     b.textContent = l;
@@ -7388,10 +7523,242 @@ function renderCajaTabs(){
 }
 function renderCaja(){
   renderCajaTabs();
-  ["hoy","hist","res"].forEach(p=> $("#pane-"+p)?.classList.toggle("on", cajaTab===p));
+  ["hoy","hist","res","costos"].forEach(p=> $("#pane-"+p)?.classList.toggle("on", cajaTab===p));
   renderCajaHoy();
   renderHist();
   renderResumen();
+  try{ renderCostos(); }catch(e){}
+}
+
+/* ════════════════════════════════════════════════════════════════
+   COSTOS / MÁRGENES — sub-pestaña de Caja (solo lectura)
+   - Usa el campo `costo` de cada producto (Etapa 6). NO toca precios.
+   - Márgenes por producto, márgenes de combos, calculadora de precio
+     (modo A: costo+margen→precio · modo B: costo+precio→margen) y un
+     resumen del catálogo. Todo se recalcula al vuelo desde `productos`.
+   ════════════════════════════════════════════════════════════════ */
+const MARGEN_BAJO = 30;   // umbral (%) para marcar un margen como "bajo"
+
+/* margen % = (precio − costo) / precio × 100 */
+function margenPct(precio, costo){
+  precio = Number(precio)||0; costo = Number(costo)||0;
+  if(precio<=0) return 0;
+  return (precio - costo) / precio * 100;
+}
+function fmtPct(n){ return (Math.round((Number(n)||0)*10)/10).toLocaleString("es-AR") + "%"; }
+/* Clase de alerta: "neg" (pierde plata) · "low" (margen bajo) · "" (ok) */
+function margenClase(pct){ return pct < 0 ? "neg" : (pct < MARGEN_BAJO ? "low" : ""); }
+
+/* Costo representativo de una prenda (colegio+prenda): promedio de los
+   talles que tienen costo>0. hayCosto=false si ninguno tiene costo. */
+function costoPrenda(colegio, prenda){
+  const talles = productos.filter(p=> !esComboDoc(p) && p.colegio===colegio && p.prenda===prenda);
+  const conCosto = talles.filter(p=> (Number(p.costo)||0) > 0);
+  if(!conCosto.length) return { costo:0, hayCosto:false };
+  const tot = conCosto.reduce((a,p)=> a + (Number(p.costo)||0), 0);
+  return { costo: Math.round(tot / conCosto.length), hayCosto:true };
+}
+/* Costo total de un combo = suma de costos de sus prendas. parcial=true si
+   alguna prenda no tiene costo cargado (el cálculo es estimado). */
+function comboCosto(combo){
+  const comps = Array.isArray(combo.componentes) ? combo.componentes : [];
+  let costo = 0, parcial = false; const sinCosto = [];
+  comps.forEach(c=>{
+    const cant = Number(c.cantidad)||1;
+    const cp = costoPrenda(c.colegio||combo.colegio, c.prenda);
+    if(cp.hayCosto) costo += cp.costo * cant;
+    else { parcial = true; sinCosto.push(c.prenda); }
+  });
+  return { costo, parcial, sinCosto, vacio: comps.length===0 };
+}
+
+function renderCostos(){
+  renderCalcModo();
+  const sueltos = productos.filter(p=> !esComboDoc(p));
+  const conCosto = sueltos
+    .filter(p=> (Number(p.costo)||0) > 0 && (Number(p.precio)||0) > 0)
+    .map(p=>({ p, pct: margenPct(p.precio, p.costo) }))
+    .sort((a,b)=> a.pct - b.pct);   // peores márgenes primero (alertas arriba)
+  const sinCosto = sueltos.filter(p=> !((Number(p.costo)||0) > 0));
+  const combos = combosActivos().map(c=>{
+    const cc = comboCosto(c);
+    const precio = Number(c.precio)||0;
+    return { c, precio, costo: cc.costo, parcial: cc.parcial, vacio: cc.vacio,
+             sinCosto: cc.sinCosto, pct: margenPct(precio, cc.costo) };
+  });
+
+  /* ── RESUMEN ── */
+  const pcts = conCosto.map(x=> x.pct);
+  const prom = pcts.length ? pcts.reduce((a,b)=>a+b,0)/pcts.length : 0;
+  const nBajo = conCosto.filter(x=> x.pct < MARGEN_BAJO).length;   // incluye negativos
+  const nSin  = sinCosto.length;
+  const res = $("#costosResumen");
+  if(res){
+    res.innerHTML =
+      `<div class="costos-stat ${pcts.length ? (prom<MARGEN_BAJO?'warn':'ok') : ''}">
+         <div class="cn">${pcts.length ? fmtPct(prom) : '—'}</div>
+         <div class="cl">Margen promedio</div></div>` +
+      `<div class="costos-stat ${nBajo?'warn':''}">
+         <div class="cn">${nBajo}</div>
+         <div class="cl">Margen bajo (&lt;${MARGEN_BAJO}%)</div></div>` +
+      `<div class="costos-stat ${nSin?'alert':''}">
+         <div class="cn">${nSin}</div>
+         <div class="cl">Sin costo cargado</div></div>`;
+  }
+
+  /* ── MÁRGENES POR PRODUCTO ── */
+  const sub = $("#costosProdSub");
+  if(sub) sub.textContent = conCosto.length ? (conCosto.length + " con costo cargado") : "Productos con costo cargado";
+  const plist = $("#costosProdList");
+  if(plist){
+    plist.innerHTML = conCosto.length
+      ? conCosto.map(({p,pct})=>{
+          const cls = margenClase(pct);
+          const gan = (Number(p.precio)||0) - (Number(p.costo)||0);
+          const flag = cls==="neg" ? '<span class="mr-flag">Pierde plata</span>'
+                     : cls==="low" ? '<span class="mr-flag">Margen bajo</span>' : "";
+          const talle = p.talle ? " · Talle " + esc(p.talle) : "";
+          return `<div class="margen-row ${cls}">
+            <div class="mr-name">
+              <b>${esc(p.prenda||"—")}</b>
+              <span class="mr-meta">${esc(p.colegio||"")}${talle} · Costo ${money(p.costo)} → Precio ${money(p.precio)}</span>
+              ${flag}
+            </div>
+            <div class="mr-fig">
+              <div class="mr-pct">${fmtPct(pct)}</div>
+              <div class="mr-gan">Ganás <b>${money(gan)}</b></div>
+            </div>
+          </div>`;
+        }).join("")
+      : '<p class="margen-empty">Todavía no hay productos con costo y precio cargados. Cargá el <b>costo</b> en Productos para ver el margen. 💙</p>';
+  }
+
+  /* ── MÁRGENES DE COMBOS ── */
+  const clist = $("#costosComboList");
+  if(clist){
+    clist.innerHTML = combos.length
+      ? combos.map(o=>{
+          const { c, precio, costo, parcial, vacio, sinCosto:falta, pct } = o;
+          if(vacio){
+            return `<div class="margen-row">
+              <div class="mr-name"><b>${esc(c.prenda||"Combo")}</b>
+                <span class="mr-meta">${esc(c.colegio||"")} · Sin prendas todavía</span></div>
+              <div class="mr-fig"><div class="mr-pct" style="color:var(--gris-300)">—</div></div>
+            </div>`;
+          }
+          const cls = margenClase(pct);
+          const gan = precio - costo;
+          const flag = parcial ? '<span class="mr-flag partial">Cálculo parcial</span>'
+                     : cls==="neg" ? '<span class="mr-flag">Pierde plata</span>'
+                     : cls==="low" ? '<span class="mr-flag">Margen bajo</span>' : "";
+          const faltaTxt = parcial ? `<span class="mr-meta">⚠️ Falta el costo de: ${esc(falta.join(", "))}</span>` : "";
+          return `<div class="margen-row ${cls}">
+            <div class="mr-name">
+              <b>${esc(c.prenda||"Combo")}</b>
+              <span class="mr-meta">${esc(comboIncluyeTxt(c))} · Costo ${money(costo)} → Precio ${money(precio)}</span>
+              ${faltaTxt}
+              ${flag}
+            </div>
+            <div class="mr-fig">
+              <div class="mr-pct">${fmtPct(pct)}</div>
+              <div class="mr-gan">Ganás <b>${money(gan)}</b></div>
+            </div>
+          </div>`;
+        }).join("")
+      : '<p class="margen-empty">No tenés combos activos. Armá uno desde <b>Productos</b>. 🎁</p>';
+  }
+
+  /* ── SIN COSTO CARGADO (qué falta completar) ── */
+  const slist = $("#costosSinCosto"), scard = $("#costosSinCard");
+  if(slist && scard){
+    if(!sinCosto.length){
+      scard.style.display = "none";
+    } else {
+      scard.style.display = "";
+      slist.innerHTML = sinCosto.map(p=>{
+        const talle = p.talle ? " · Talle " + esc(p.talle) : "";
+        return `<div class="falta-row">
+          <div class="fr-tx"><b>${esc(p.prenda||"—")}</b>
+            <span>${esc(p.colegio||"")}${talle} · Precio ${money(p.precio)} · falta cargar costo</span></div>
+        </div>`;
+      }).join("");
+    }
+  }
+}
+
+/* ── Calculadora de precio (modo A / modo B) ── */
+let calcModo = "A";   // A: costo+margen→precio · B: costo+precio→margen
+function calcNum(sel){
+  const el = $(sel); if(!el) return 0;
+  const raw = (el.value||"").replace(/[^\d.,]/g,"").replace(/\./g,"").replace(",",".");
+  return parseFloat(raw) || 0;
+}
+function renderCalcModo(){
+  const cont = $("#calcModoTabs"); if(!cont) return;
+  if(!cont.dataset.ready){
+    cont.dataset.ready = "1";
+    [["A","Costo + margen → precio"],["B","Costo + precio → margen"]].forEach(([v,l])=>{
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "chip-f"; b.dataset.modo = v; b.textContent = l;
+      b.onclick = ()=>{ calcModo = v; updateCalcModoUI(); calcCompute(); };
+      cont.appendChild(b);
+    });
+    ["#calcCosto","#calcMargen","#calcPrecio"].forEach(sel=>{
+      const el = $(sel); if(el) el.addEventListener("input", calcCompute);
+    });
+  }
+  updateCalcModoUI();
+  calcCompute();
+}
+function updateCalcModoUI(){
+  const cont = $("#calcModoTabs");
+  if(cont) [...cont.children].forEach(b=> b.classList.toggle("on", b.dataset.modo===calcModo));
+  const mf = $("#calcMargenField"), pf = $("#calcPrecioField");
+  if(mf) mf.style.display = calcModo==="A" ? "" : "none";
+  if(pf) pf.style.display = calcModo==="B" ? "" : "none";
+}
+function calcCompute(){
+  const out = $("#calcOut"); if(!out) return;
+  const costo = calcNum("#calcCosto");
+  if(calcModo==="A"){
+    const margenRaw = ($("#calcMargen")?.value||"").trim();
+    const margen = calcNum("#calcMargen");
+    if(costo<=0 || !margenRaw){
+      out.className = "calc-out empty";
+      out.textContent = "Ingresá el costo y el margen que querés para ver el precio sugerido.";
+      return;
+    }
+    if(margen>=100){
+      out.className = "calc-out empty";
+      out.textContent = "El margen tiene que ser menor a 100%.";
+      return;
+    }
+    const precio = costo / (1 - margen/100);
+    const gan = precio - costo;
+    out.className = "calc-out";
+    out.innerHTML =
+      `<div class="co-row big"><span class="co-l">Precio sugerido</span><span class="co-v">${money(Math.round(precio))}</span></div>
+       <div class="co-row"><span class="co-l">Ganancia</span><span class="co-v">${money(Math.round(gan))}</span></div>
+       <p class="co-hint">Con un costo de ${money(Math.round(costo))} y ${fmtPct(margen)} de margen.</p>`;
+  } else {
+    const precio = calcNum("#calcPrecio");
+    if(costo<=0 || precio<=0){
+      out.className = "calc-out empty";
+      out.textContent = "Ingresá el costo y el precio para ver la ganancia y el margen.";
+      return;
+    }
+    const gan = precio - costo;
+    const pct = margenPct(precio, costo);
+    const cls = margenClase(pct);
+    const hint = pct<0 ? "⚠️ A ese precio perdés plata."
+               : pct<MARGEN_BAJO ? "Margen bajo: fijate si te conviene."
+               : "¡Buen margen! 💙";
+    out.className = "calc-out";
+    out.innerHTML =
+      `<div class="co-row big"><span class="co-l">Margen</span><span class="co-v ${cls}">${fmtPct(pct)}</span></div>
+       <div class="co-row"><span class="co-l">Ganancia</span><span class="co-v ${gan<0?'neg':''}">${money(Math.round(gan))}</span></div>
+       <p class="co-hint">${hint}</p>`;
+  }
 }
 
 /* ── Tarjetas "por método": ingreso − gasto = neto (efectivo y banco) ── */
@@ -10487,6 +10854,8 @@ function tourGo(i){
   }
   // 2) Pestaña correspondiente.
   if(step.view){ try{ go(step.view); }catch(e){} }
+  // 2b) Sub-pestaña de Caja (Hoy/Historial/Resumen/Costos), si el paso la pide.
+  if(step.cajaTab){ try{ cajaTab = step.cajaTab; renderCaja(); }catch(e){} }
   // 3) Globito + posición (esperando a que asienten las transiciones).
   tourRender(step);
   requestAnimationFrame(()=> tourPosition(step));
@@ -10773,6 +11142,18 @@ const CAJA_REPORTES_STEPS = [
   { view:"caja", target:"#cajaTabs", title:"Resumen y reportes",
     text:"En <b>Resumen</b> ves tus números de la semana o el mes, los gastos y <b>lo más vendido</b>." }
 ];
+const CAJA_COSTOS_STEPS = [
+  { view:"caja", cajaTab:"costos", target:"#cajaTabs", title:"La pestaña Costos",
+    text:"En <b>Caja</b> tenés la pestaña <b>Costos</b>. Es solo para mirar: te muestra los márgenes y una calculadora, pero <b>no cambia ningún precio</b>." },
+  { view:"caja", cajaTab:"costos", target:"#costosResumen", title:"El resumen",
+    text:"Arriba ves tu <b>margen promedio</b>, cuántos productos tienen <b>margen bajo</b> y cuántos te <b>falta cargarles el costo</b>." },
+  { view:"caja", cajaTab:"costos", target:"#costosProdList", title:"Margen por producto",
+    text:"Por cada producto ves el <b>costo</b>, el <b>precio</b>, cuánto <b>ganás</b> y el <b>margen %</b>. Si el margen es <b>bajo</b> (menos del " + MARGEN_BAJO + "%) sale en amarillo; si <b>perdés plata</b>, en rojo." },
+  { view:"caja", cajaTab:"costos", target:"#calcCard", title:"Calculadora · modo A",
+    text:"En <b>Costo + margen → precio</b> escribís cuánto te cuesta y qué margen querés, y te dice a qué <b>precio</b> venderlo." },
+  { view:"caja", cajaTab:"costos", target:"#calcModoTabs", title:"Calculadora · modo B",
+    text:"Cambiando a <b>Costo + precio → margen</b> ponés el costo y el precio, y te muestra la <b>ganancia</b> y el <b>margen</b> que te queda." }
+];
 
 /* MENSAJES */
 const MSG_DIF_STEPS = [
@@ -10812,7 +11193,7 @@ const CFG_BACKUP_STEPS = [
 
 /* ════════ BIBLIOTECA: cada tutorial es { titulo, pestaña, accion, pasos[] } ════════ */
 const TUT_PESTANAS = ["Inicio","Reparto","Productos","Clientas","Caja","Mensajes","Configuración"];
-const TUT_ACCIONES = ["Cargar","Editar","Cobrar","Avisar","Configurar"];
+const TUT_ACCIONES = ["Cargar","Editar","Cobrar","Avisar","Configurar","Analizar"];
 
 const TUTORIALS = [
   /* Inicio / Vender */
@@ -10839,6 +11220,7 @@ const TUTORIALS = [
   { id:"cajaEdit",  icon:"✏️", titulo:"Editar un movimiento",        pestaña:"Caja",          accion:"Editar",     pasos: CAJA_EDIT_STEPS },
   { id:"cajaCerrar",icon:"🔒", titulo:"Cerrar la caja",              pestaña:"Caja",          accion:"Editar",     pasos: CAJA_CERRAR_STEPS },
   { id:"reportes",  icon:"📊", titulo:"Ver historial y reportes",    pestaña:"Caja",          accion:"Editar",     pasos: CAJA_REPORTES_STEPS },
+  { id:"costos",    icon:"🧮", titulo:"Usar la calculadora de costos", pestaña:"Caja",        accion:"Analizar",   pasos: CAJA_COSTOS_STEPS },
   /* Mensajes */
   { id:"whatsapp",  icon:"💬", titulo:"Avisar pendientes por WhatsApp", pestaña:"Mensajes",   accion:"Avisar",     pasos: WHATSAPP_STEPS },
   { id:"difusion",  icon:"📣", titulo:"Difusión por colegio",        pestaña:"Mensajes",      accion:"Avisar",     pasos: MSG_DIF_STEPS },
@@ -10854,8 +11236,30 @@ TUTORIALS.forEach(t=>{ TOUR_MAP[t.id] = t.pasos; });
 
 function startMamaTour(){ startTour(MAMA_STEPS, { mama:true }); }
 
-/* ── Filtros de la biblioteca: por pestaña y por acción (combinables) ── */
-let tutFiltPest = null, tutFiltAcc = null;
+/* ── Filtros de la biblioteca: por pestaña y por acción (combinables) ──
+   Van COLAPSADOS detrás del botón "Filtrar": ocultos por defecto y se
+   despliegan al tocar. Si hay un filtro activo, se muestra en el botón. */
+let tutFiltPest = null, tutFiltAcc = null, tutFiltOpen = false;
+
+function tutFiltActivos(){
+  const p = []; if(tutFiltPest) p.push(tutFiltPest); if(tutFiltAcc) p.push(tutFiltAcc); return p;
+}
+function renderTutFiltState(){
+  const panel = $("#tutFiltPanel"), toggle = $("#tutFiltToggle");
+  const active = $("#tutFiltActive"), clear = $("#tutFiltClear");
+  if(panel)  panel.classList.toggle("open", tutFiltOpen);
+  if(toggle){ toggle.classList.toggle("open", tutFiltOpen); toggle.setAttribute("aria-expanded", tutFiltOpen?"true":"false"); }
+  const act = tutFiltActivos();
+  if(active){ active.textContent = act.join(" · "); active.style.display = act.length ? "inline-block" : "none"; }
+  if(clear){ clear.style.display = act.length ? "inline-block" : "none"; }
+}
+function tutFiltInit(){
+  const toggle = $("#tutFiltToggle"); if(!toggle || toggle.dataset.ready) return;
+  toggle.dataset.ready = "1";
+  toggle.onclick = ()=>{ tutFiltOpen = !tutFiltOpen; renderTutFiltState(); };
+  const clear = $("#tutFiltClear");
+  if(clear) clear.onclick = ()=>{ tutFiltPest = null; tutFiltAcc = null; renderTutLib(); };
+}
 
 function renderTutFiltros(){
   const fp = $("#tutFiltPest"), fa = $("#tutFiltAcc");
@@ -10882,6 +11286,8 @@ function renderTutFiltros(){
 
 function renderTutLib(){
   renderTutFiltros();
+  tutFiltInit();
+  renderTutFiltState();
   const cont = $("#tutLib"), empty = $("#tutEmpty"), count = $("#tutCount");
   if(!cont) return;
   const lista = TUTORIALS.filter(t =>
