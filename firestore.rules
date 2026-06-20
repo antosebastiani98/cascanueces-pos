@@ -1,0 +1,22 @@
+rules_version = '2';
+
+// ════════════════════════════════════════════════════════════════════════
+// Reglas de Firestore — Cascanueces (proyecto NUEVO, un solo negocio)
+//
+// Regla simple y suficiente: para leer o escribir CUALQUIER cosa hay que
+// estar logueado (Firebase Auth, email + contraseña). Si no hay sesión,
+// no se puede ni leer ni escribir nada.
+//
+// ⚠️ NO publiques estas reglas hasta que el login real esté andando y
+//    probado en el proyecto nuevo. Si las cerrás antes de tener un usuario
+//    creado y poder entrar, te quedás afuera vos misma.
+// ════════════════════════════════════════════════════════════════════════
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+
+  }
+}
