@@ -810,6 +810,10 @@ textarea.txtin{font-family:inherit}
 .col-rm{width:34px;height:34px;border-radius:10px;background:var(--rojo-pale);color:var(--rojo);font-size:15px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:transform .15s ease}
 .col-rm:active{transform:scale(.9)}
 .col-empty{font-size:14px;color:var(--texto-suave);background:var(--celeste-pale);border-radius:14px;padding:14px 16px}
+/* Fila editable (proveedores / categorías de gasto): nombre editable + borrar */
+.gl-row{display:flex;align-items:center;gap:10px}
+.gl-row .gl-name{flex:1;min-width:0;background:var(--crema);border:2px solid var(--crema);border-radius:14px;padding:13px 14px;font-size:15.5px;font-weight:500;color:var(--gris-900);outline:none;transition:border-color .2s ease;box-shadow:none}
+.gl-row .gl-name:focus{border-color:var(--celeste);background:var(--blanco)}
 .col-add{display:flex;gap:10px;align-items:center}
 .col-add .txtin{flex:1}
 .col-add-btn{width:54px;height:54px;flex-shrink:0;border-radius:16px;background:var(--celeste-deep);color:#fff;font-size:26px;font-weight:400;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(94,143,168,.3);transition:transform .15s ease}
@@ -945,10 +949,10 @@ textarea.txtin{font-family:inherit}
 .caja-hero .big{font-family:var(--titf);font-weight:600;font-size:54px;line-height:1.04;margin:10px 0 4px}
 .caja-hero .sub{font-size:14.5px;opacity:.94}
 .caja-split{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:14px}
-.caja-mini{background:var(--blanco);border-radius:20px;padding:20px 16px;box-shadow:var(--card-shadow);text-align:center}
+.caja-mini{background:var(--blanco);border-radius:20px;padding:22px 16px;box-shadow:var(--card-shadow);text-align:center}
 .caja-mini .mi{font-size:30px;line-height:1}
-.caja-mini .mn{font-family:var(--titf);font-weight:600;font-size:31px;line-height:1;margin-top:7px}
-.caja-mini .ml{font-size:13px;color:var(--texto-suave);margin-top:5px}
+.caja-mini .mn{font-family:var(--titf);font-weight:600;font-size:33px;line-height:1}
+.caja-mini .ml{font-size:13px;font-weight:600;letter-spacing:.3px;color:var(--texto-suave);margin-top:7px}
 .caja-mini.efe .mn{color:var(--sage)}
 .caja-mini.tra .mn{color:var(--navy)}
 .caja-mini.egr .mn{color:var(--rojo)}
@@ -972,8 +976,9 @@ textarea.txtin{font-family:inherit}
 .egr-add{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:58px;background:var(--rojo-pale);color:var(--rojo);border:2px solid var(--rojo-pale);border-radius:18px;font-size:17px;font-weight:700;box-shadow:var(--card-shadow);transition:transform .15s ease;margin-top:4px}
 .egr-add:active{transform:scale(.98)}
 .egr-add .ea-ico{font-size:15px}
-.egr-row{display:flex;align-items:center;gap:13px;background:var(--blanco);border-radius:16px;padding:13px 15px;box-shadow:var(--card-shadow);margin-bottom:10px;width:100%;text-align:left;transition:transform .15s ease}
+.egr-row{display:flex;align-items:center;gap:13px;background:var(--blanco);border:none;font:inherit;border-radius:16px;padding:13px 15px;box-shadow:var(--card-shadow);margin-bottom:10px;width:100%;text-align:left;transition:transform .15s ease;-webkit-tap-highlight-color:transparent}
 .egr-row:active{transform:scale(.992)}
+.egr-row .er-del{display:flex;align-items:center;justify-content:center}
 .egr-row .er-ico{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;background:var(--rojo-pale)}
 .egr-row .er-tx{flex:1;min-width:0}
 .egr-row .er-tx b{display:block;font-size:15.5px;color:var(--gris-900);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -983,6 +988,7 @@ textarea.txtin{font-family:inherit}
 .egr-row .er-del.armed{color:var(--rojo)}
 .egr-empty{font-size:13.5px;color:var(--texto-suave);padding:4px 2px 10px}
 .egr-cat{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.3px;background:var(--crema-dark);color:var(--gris-700);border-radius:50px;padding:2px 9px;margin-left:7px;vertical-align:middle}
+.egr-cat.prov{background:var(--celeste-pale);color:var(--navy)}
 label .opt{text-transform:none;letter-spacing:0;color:var(--gris-300);font-weight:500;font-size:11px}
 .gasto-fecha{font-family:inherit;font-size:16px}
 
@@ -1488,8 +1494,8 @@ html.unlocked #lockScreen{display:none}
           <div class="sub" id="cajaHoyCount">Sin ventas todavía</div>
         </div>
         <div class="caja-split">
-          <div class="caja-mini efe"><div class="mi">🟢</div><div class="mn" id="cajaHoyIngreso">$ 0</div><div class="ml">Ingresos</div></div>
-          <div class="caja-mini egr"><div class="mi">🔴</div><div class="mn" id="cajaHoyEgreso">$ 0</div><div class="ml">Gastos</div></div>
+          <div class="caja-mini efe"><div class="mn" id="cajaHoyIngreso">$ 0</div><div class="ml">Ingresos</div></div>
+          <div class="caja-mini egr"><div class="mn" id="cajaHoyEgreso">$ 0</div><div class="ml">Gastos</div></div>
         </div>
 
         <!-- Desglose por método: lo que debería quedar en efectivo y en el banco -->
@@ -1668,6 +1674,25 @@ html.unlocked #lockScreen{display:none}
         <div class="field"><label>Umbral de stock bajo (unidades)</label>
           <input class="txtin" type="number" id="cfgStockBajo" inputmode="numeric" min="1" step="1" placeholder="3">
           <p class="hint">Un uniforme con esta cantidad o menos se marca como “queda poco”.</p></div>
+      </div>
+
+      <!-- 6.5 · GASTOS (proveedores + categorías) -->
+      <div class="cfg-card" id="cfgGastosCard">
+        <div class="cfg-h"><span class="cfg-ic">🧾</span><div><b>Gastos</b><span>Proveedores y categorías para los egresos</span></div></div>
+        <p class="hint" style="margin-top:4px">Estas listas aparecen como opciones al registrar un gasto en Caja. Son <b>opcionales</b>: podés dejar un gasto sin proveedor ni categoría. Tocá un nombre para editarlo.</p>
+        <div class="section-lbl">Proveedores</div>
+        <div class="col-list" id="cfgProvList"></div>
+        <div class="col-add">
+          <input class="txtin" type="text" id="cfgProvNuevo" placeholder="Agregar proveedor" autocomplete="off">
+          <button class="col-add-btn" id="cfgProvAdd" type="button">＋</button>
+        </div>
+        <div class="section-lbl" style="margin-top:22px">Categorías de gasto</div>
+        <div class="col-list" id="cfgCatList"></div>
+        <div class="col-add">
+          <input class="txtin" type="text" id="cfgCatNuevo" placeholder="Agregar categoría" autocomplete="off">
+          <button class="col-add-btn" id="cfgCatAdd" type="button">＋</button>
+        </div>
+        <p class="hint">Sacar o renombrar algo de acá no toca los gastos ya registrados: solo cambia las opciones que ves al cargar uno nuevo.</p>
       </div>
 
       <!-- 7 · ACCESO / PIN -->
@@ -2585,8 +2610,14 @@ html.unlocked #lockScreen{display:none}
       <p class="hint">Por defecto es hoy. Tocá para cambiarlo si el gasto fue otro día.</p>
     </div>
     <div class="field">
+      <label>Proveedor <span class="opt">(opcional)</span></label>
+      <div class="chips" id="gastoProvs"></div>
+      <p class="hint gasto-cfg-hint" id="gastoProvEmpty" style="display:none">Cargá tus proveedores en <b>Configuración → Gastos</b>.</p>
+    </div>
+    <div class="field">
       <label>Categoría <span class="opt">(opcional)</span></label>
       <div class="chips" id="gastoCats"></div>
+      <p class="hint gasto-cfg-hint" id="gastoCatEmpty" style="display:none">Cargá tus categorías en <b>Configuración → Gastos</b>.</p>
     </div>
     <div class="sheet-actions">
       <button class="btn-danger btn" id="gastoDelete" style="display:none">🗑️</button>
@@ -5182,6 +5213,9 @@ function configDefaults(){
     colegios: [...COLEGIOS_DEFAULT],
     // Stock
     stockBajo: STOCK_BAJO_DEFAULT,
+    // Gastos · proveedores y categorías para los egresos (alimentan el formulario)
+    proveedoresGasto: [],
+    categoriasGasto: [...EGRESO_CATS_DEFAULT],
     // Acceso · PIN para abrir la app (traba simple del lado del cliente)
     pinAcceso: PIN_DEFAULT,
     // Backup a Google Drive
@@ -5211,6 +5245,16 @@ function applyConfig(d){
     ? d.colegios.map(c=> String(c).trim()).filter(Boolean)
     : [...COLEGIOS_DEFAULT];
   STOCK_BAJO = Number(d.stockBajo)>0 ? Number(d.stockBajo) : STOCK_BAJO_DEFAULT;
+  // Gastos · proveedores y categorías (alimentan el formulario de gasto)
+  egresosCfg = {
+    proveedores: Array.isArray(d.proveedoresGasto) ? d.proveedoresGasto.map(s=> String(s).trim()).filter(Boolean) : [],
+    // undefined (instalación vieja) → defaults; lista vacía a propósito → se respeta.
+    categorias:  Array.isArray(d.categoriasGasto)
+      ? d.categoriasGasto.map(s=> String(s).trim()).filter(Boolean)
+      : [...EGRESO_CATS_DEFAULT]
+  };
+  // Si el sheet de gasto está abierto, refrescá las opciones por tap.
+  try{ if($("#gastoSheet")?.classList.contains("show")){ renderGastoProvs(); renderGastoCats(); } }catch(e){}
   cachePin(isPin(d.pinAcceso) ? d.pinAcceso : PIN_DEFAULT);
   Object.keys(TPL_DEFAULT).forEach(k=>{
     tpl[k] = (typeof d[k]==="string" && d[k].trim()) ? d[k] : TPL_DEFAULT[k];
@@ -5278,6 +5322,56 @@ function cfgAddColegio(){
   cfgColDraft.push(v);
   inp.value = "";
   renderCfgColegios();
+}
+
+/* ── Listas editables de Gastos (proveedores / categorías) ──
+   Cada fila es un nombre editable (tocar y escribir) + un ✕ para borrar.
+   El "＋" agrega uno nuevo. Es un borrador local hasta tocar Guardar. */
+let cfgProvDraft = [];   // borrador de proveedores
+let cfgCatDraft  = [];   // borrador de categorías de gasto
+/* Limpia una lista de strings: recorta, saca vacíos y duplicados (sin distinguir mayúsculas). */
+function cfgListLimpia(arr){
+  const out = [], vistos = new Set();
+  (arr||[]).forEach(s=>{
+    const v = String(s||"").trim();
+    if(!v) return;
+    const k = v.toLowerCase();
+    if(vistos.has(k)) return;
+    vistos.add(k); out.push(v);
+  });
+  return out;
+}
+function renderCfgLista(contId, draft, rerender, vacioTxt){
+  const cont = $("#"+contId); if(!cont) return;
+  cont.innerHTML = "";
+  if(!draft.length){
+    cont.innerHTML = `<div class="col-empty">${vacioTxt}</div>`;
+    return;
+  }
+  draft.forEach((nom, i)=>{
+    const row = document.createElement("div");
+    row.className = "gl-row";
+    const inp = document.createElement("input");
+    inp.className = "gl-name"; inp.type = "text"; inp.value = nom;
+    inp.setAttribute("autocomplete","off");
+    inp.addEventListener("input", ()=>{ draft[i] = inp.value; });
+    const rm = document.createElement("button");
+    rm.className = "col-rm"; rm.type = "button"; rm.setAttribute("aria-label","Sacar"); rm.textContent = "✕";
+    rm.onclick = ()=>{ draft.splice(i,1); rerender(); };
+    row.appendChild(inp); row.appendChild(rm);
+    cont.appendChild(row);
+  });
+}
+function renderCfgProvs(){ renderCfgLista("cfgProvList", cfgProvDraft, renderCfgProvs, "Todavía no hay proveedores. Agregá uno abajo."); }
+function renderCfgCats(){  renderCfgLista("cfgCatList",  cfgCatDraft,  renderCfgCats,  "Todavía no hay categorías. Agregá una abajo."); }
+function cfgAddItem(inpId, draft, rerender, dupTxt){
+  const inp = $("#"+inpId);
+  const v = (inp.value||"").trim();
+  if(!v) return;
+  if(draft.some(c=> String(c).trim().toLowerCase()===v.toLowerCase())){ toast(dupTxt,"err"); return; }
+  draft.push(v);
+  inp.value = "";
+  rerender();
 }
 
 /* Vuelca el estado actual de la config a los campos del formulario. */
@@ -5351,6 +5445,10 @@ function renderConfig(){
   cfgColDraft = [...COLEGIOS_BASE];
   renderCfgColegios();
   $("#cfgStockBajo").value = STOCK_BAJO || "";
+  // Gastos · proveedores y categorías (borradores editables)
+  cfgProvDraft = [...egresosCfg.proveedores];
+  cfgCatDraft  = [...egresosCfg.categorias];
+  renderCfgProvs(); renderCfgCats();
   // Acceso · PIN
   $("#cfgPin").value = currentPin();
   // Backup / Exportar
@@ -5359,6 +5457,13 @@ function renderConfig(){
 
 $("#cfgColAdd").onclick = cfgAddColegio;
 $("#cfgColNuevo").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); cfgAddColegio(); } });
+
+// Gastos · proveedores
+$("#cfgProvAdd").onclick = ()=> cfgAddItem("cfgProvNuevo", cfgProvDraft, renderCfgProvs, "Ese proveedor ya está en la lista");
+$("#cfgProvNuevo").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); cfgAddItem("cfgProvNuevo", cfgProvDraft, renderCfgProvs, "Ese proveedor ya está en la lista"); } });
+// Gastos · categorías
+$("#cfgCatAdd").onclick = ()=> cfgAddItem("cfgCatNuevo", cfgCatDraft, renderCfgCats, "Esa categoría ya está en la lista");
+$("#cfgCatNuevo").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); cfgAddItem("cfgCatNuevo", cfgCatDraft, renderCfgCats, "Esa categoría ya está en la lista"); } });
 
 /* Junta todo lo del formulario en el objeto que se guarda en Firestore. */
 function cfgFromForm(){
@@ -5388,6 +5493,8 @@ function cfgFromForm(){
     msgRecordatorioCuenta: tpv("cfgMsgSaldo").trim() || TPL_DEFAULT.msgRecordatorioCuenta,
     colegios:  cfgColDraft.slice(),
     stockBajo: Math.max(1, parseInt($("#cfgStockBajo").value,10)||STOCK_BAJO_DEFAULT),
+    proveedoresGasto: cfgListLimpia(cfgProvDraft),
+    categoriasGasto:  cfgListLimpia(cfgCatDraft),
     pinAcceso: (isPin($("#cfgPin").value.trim()) ? $("#cfgPin").value.trim() : currentPin())
   };
 }
@@ -6898,13 +7005,15 @@ let resPeriodo = "dia";        // dia | semana | mes
 let cajaCierrePend = null;
 
 /* ── Categorías de gasto (elegibles por tap, opcionales) ── */
-const EGRESO_CATS = [
-  { id:"insumos",   label:"Insumos",   emoji:"🧵" },
-  { id:"taller",    label:"Taller",    emoji:"✂️" },
-  { id:"servicios", label:"Servicios", emoji:"💡" },
-  { id:"otro",      label:"Otro",      emoji:"📦" },
-];
-function egresoCat(id){ return EGRESO_CATS.find(c=> c.id===id) || null; }
+/* Categorías de gasto por defecto (sembradas en config la primera vez).
+   Proveedores y categorías ahora se administran en Configuración → Gastos
+   y alimentan los campos opcionales del formulario de gasto. */
+const EGRESO_CATS_DEFAULT = ["Insumos", "Taller", "Servicios", "Otro"];
+/* Compatibilidad con egresos viejos que guardaban un id en vez del nombre. */
+const EGRESO_CAT_LEGACY = { insumos:"Insumos", taller:"Taller", servicios:"Servicios", otro:"Otro" };
+function egresoCatLabel(cat){ return cat ? (EGRESO_CAT_LEGACY[cat] || String(cat)) : ""; }
+/* Listas vivas (las setea applyConfig desde el doc de configuración). */
+let egresosCfg = { proveedores: [], categorias: [...EGRESO_CATS_DEFAULT] };
 /* Fecha del egreso: usa el ymd guardado; si faltara, cae al ts. */
 function egresoYmd(e){ return e.fecha || (Number(e.ts) ? ymd(new Date(Number(e.ts))) : ""); }
 function egresoMs(e){ return Number(e.ts) || (e.fecha ? ymdToTs(e.fecha) : 0); }
@@ -6979,23 +7088,26 @@ function balMetodosHtml(ingEfe, ingTra, egrEfe, egrTra){
   };
   return card("💵","Efectivo", ingEfe, egrEfe) + card("📲","Transferencia", ingTra, egrTra);
 }
-/* ── Fila de un gasto: tocar = editar · 🗑️ con dos toques = borrar ── */
+/* ── Fila de un gasto: tocar = editar (como una venta) · 🗑️ dos toques = borrar ── */
 function egresoRowEl(e){
-  const cat = egresoCat(e.categoria);
+  const catLbl = egresoCatLabel(e.categoria);
+  const prov = (e.proveedor||"").trim();
   const ms = egresoMs(e);
   const hora = ms ? new Date(ms).toLocaleTimeString("es-AR",{hour:"2-digit",minute:"2-digit"}) : "";
   const metEmoji = e.metodo==="transferencia" ? "📲" : "💵";
   const metLbl   = e.metodo==="transferencia" ? "Transferencia" : "Efectivo";
-  const row = document.createElement("div"); row.className = "egr-row";
+  const tags = (prov?`<span class="egr-cat prov">🏪 ${esc(prov)}</span>`:"")
+             + (catLbl?`<span class="egr-cat">${esc(catLbl)}</span>`:"");
+  const row = document.createElement("button"); row.type = "button"; row.className = "egr-row";
   row.innerHTML = `
-    <div class="er-ico">${cat ? cat.emoji : "🧾"}</div>
-    <button class="er-tx" type="button" style="background:none;border:none;text-align:left;padding:0;min-width:0">
-      <b>${esc(e.concepto||"Gasto")}${cat?`<span class="egr-cat">${esc(cat.label)}</span>`:""}</b>
+    <div class="er-ico">🧾</div>
+    <div class="er-tx">
+      <b>${esc(e.concepto||"Gasto")}${tags}</b>
       <span>${metEmoji} ${metLbl} · ${esc(diaLabel(egresoYmd(e)))}${hora?` ${hora}`:""}</span>
-    </button>
+    </div>
     <div class="er-monto">−${money(e.monto)}</div>
-    <button class="er-del" type="button" aria-label="Borrar">🗑️</button>`;
-  row.querySelector(".er-tx").onclick = ()=> openGastoSheet(e);
+    <span class="er-del" role="button" aria-label="Borrar">🗑️</span>`;
+  row.onclick = ()=> openGastoSheet(e);
   row.querySelector(".er-del").onclick = (ev)=>{ ev.stopPropagation(); armarBorrarEgreso(e, row.querySelector(".er-del")); };
   return row;
 }
@@ -7089,19 +7201,35 @@ $("#ccYes").onclick = async ()=>{
 /* ════════ Gastos · registrar / editar / borrar (egresos_pos_cascanueces) ════════ */
 let gastoEditId = null;       // null = nuevo · id = editando
 let gastoMetodo = null;       // efectivo | transferencia
-let gastoCatSel = null;       // id de categoría | null (opcional)
+let gastoCatSel = null;       // nombre de categoría | null (opcional)
+let gastoProvSel = null;      // nombre de proveedor | null (opcional)
 let egresoDelArmed = {};
 let egresoDelTimer = null;
 
-function renderGastoCats(){
-  const cont = $("#gastoCats"); cont.innerHTML = "";
-  EGRESO_CATS.forEach(c=>{
+/* Chips opcionales (proveedor / categoría): toman las listas de Configuración.
+   Si el gasto editado tiene un valor que ya no está en la lista, igual se
+   muestra como chip seleccionado para no perderlo. */
+function gastoChips(contId, opciones, sel, onPick, emptyHintId){
+  const cont = $("#"+contId); if(!cont) return;
+  cont.innerHTML = "";
+  const lista = opciones.slice();
+  if(sel && !lista.some(o=> o===sel)) lista.unshift(sel);
+  if(emptyHintId) $("#"+emptyHintId).style.display = lista.length ? "none" : "block";
+  lista.forEach(nom=>{
     const b = document.createElement("button"); b.type = "button";
-    b.className = "chip" + (gastoCatSel===c.id?" on":"");
-    b.innerHTML = `${c.emoji} ${c.label}`;
-    b.onclick = ()=>{ gastoCatSel = (gastoCatSel===c.id ? null : c.id); renderGastoCats(); };
+    b.className = "chip" + (sel===nom?" on":"");
+    b.textContent = nom;
+    b.onclick = ()=> onPick(sel===nom ? null : nom);
     cont.appendChild(b);
   });
+}
+function renderGastoCats(){
+  gastoChips("gastoCats", egresosCfg.categorias, gastoCatSel,
+    v=>{ gastoCatSel = v; renderGastoCats(); }, "gastoCatEmpty");
+}
+function renderGastoProvs(){
+  gastoChips("gastoProvs", egresosCfg.proveedores, gastoProvSel,
+    v=>{ gastoProvSel = v; renderGastoProvs(); }, "gastoProvEmpty");
 }
 function renderGastoSheet(){
   document.querySelectorAll("#gastoSheet .pago").forEach(b=> b.classList.toggle("on", b.dataset.gastopago===gastoMetodo));
@@ -7111,13 +7239,14 @@ function renderGastoSheet(){
 function openGastoSheet(e){
   gastoEditId = e ? e.id : null;
   gastoMetodo = e ? (e.metodo||null) : null;
-  gastoCatSel = e ? (e.categoria||null) : null;
+  gastoCatSel = e ? (egresoCatLabel(e.categoria) || null) : null;
+  gastoProvSel = e ? ((e.proveedor||"").trim() || null) : null;
   $("#gastoTitle").textContent = e ? "Editar gasto" : "Registrar gasto";
   $("#gastoMonto").value = e && Number(e.monto) ? Number(e.monto).toLocaleString("es-AR") : "";
   $("#gastoConcepto").value = e ? (e.concepto||"") : "";
   $("#gastoFecha").value = e ? egresoYmd(e) : hoyYmd();
   $("#gastoDelete").style.display = e ? "block" : "none";
-  renderGastoCats(); renderGastoSheet();
+  renderGastoProvs(); renderGastoCats(); renderGastoSheet();
   $("#gastoScrim").classList.add("show"); $("#gastoSheet").classList.add("show");
   document.body.style.overflow = "hidden";
   pushBack("gasto", closeGastoSheet);
@@ -7144,7 +7273,7 @@ $("#gastoConfirm").onclick = async ()=>{
   $("#gastoConfirm").disabled = true;
   const payload = {
     monto, concepto: ($("#gastoConcepto").value||"").trim() || "Gasto",
-    metodo: gastoMetodo, categoria: gastoCatSel || null, fecha,
+    metodo: gastoMetodo, categoria: gastoCatSel || null, proveedor: gastoProvSel || null, fecha,
     // Para hoy ymdToTs ya da la hora exacta (orden correcto); para días pasados, mediodía.
     ts: ymdToTs(fecha)
   };
