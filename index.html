@@ -256,6 +256,8 @@ img{display:block;max-width:100%}
 /* La lista de espera se abre desde Vender (60) y desde la ficha de clienta (66): por encima de ambas */
 #esperaScrim,#esperaAvisoScrim{z-index:67}
 #esperaSheet,#esperaAvisoSheet{z-index:68}
+#cuPagoScrim,#cuCargoScrim{z-index:67}
+#cuPagoSheet,#cuCargoSheet{z-index:68}
 .v-head{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--gris-900);color:#fff;flex-shrink:0}
 .v-back{width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;flex-shrink:0}
 .v-head .vt{font-family:var(--titf);font-weight:600;font-size:23px;flex:1}
@@ -915,6 +917,49 @@ html.unlocked #lockScreen{display:none}
 .cli-enc-item .cen-tx{flex:1;min-width:0;font-size:14px;color:var(--gris-900)}
 .cli-enc-item .cen-tx b{display:block;line-height:1.2}
 .cli-enc-item .cen-tx span{font-size:12px;color:var(--texto-suave);display:block;margin-top:3px}
+/* ── Cuenta de la clienta / saldos (Etapa 4) ── */
+.cli-saldo-box{background:var(--celeste-deep);color:#fff;border-radius:20px;padding:20px 22px;text-align:center;box-shadow:0 12px 30px rgba(94,143,168,.34);margin:4px 0 14px}
+.cli-saldo-box.al-dia{background:var(--sage)}
+.cli-saldo-box .csb-lbl{font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.92;font-weight:600}
+.cli-saldo-box .csb-big{font-family:var(--titf);font-weight:600;font-size:46px;line-height:1.04;margin-top:7px}
+.cuenta-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+.cuenta-acts .btn{margin:0}
+.cli-movs{margin:6px 0 4px}
+.cli-mov{display:flex;align-items:center;gap:12px;background:var(--blanco);border-radius:14px;padding:12px 14px;box-shadow:var(--card-shadow);margin-bottom:9px}
+.cli-mov .cm-ico{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:var(--crema)}
+.cli-mov.cargo .cm-ico{background:#fde7ea}
+.cli-mov.pago .cm-ico{background:var(--sage-pale)}
+.cli-mov .cm-tx{flex:1;min-width:0}
+.cli-mov .cm-tx b{display:block;font-size:14.5px;color:var(--gris-900);line-height:1.25}
+.cli-mov .cm-tx span{font-size:12px;color:var(--texto-suave);display:block;margin-top:2px}
+.cli-mov .cm-right{text-align:right;flex-shrink:0}
+.cli-mov .cm-monto{font-weight:700;font-size:15px}
+.cli-mov.cargo .cm-monto{color:var(--rojo)}
+.cli-mov.pago .cm-monto{color:var(--sage)}
+.cli-mov .cm-saldo{font-size:11.5px;color:var(--texto-suave);margin-top:2px}
+.cli-mov .cm-del{background:none;border:none;color:var(--gris-300);font-size:17px;padding:4px 2px 4px 6px;flex-shrink:0;line-height:1}
+.cli-mov .cm-del.armed{color:var(--rojo)}
+.cli-movs-empty{font-size:13.5px;color:var(--texto-suave);padding:2px 2px 8px}
+.cli-enc-saldo{display:flex;align-items:center;gap:11px;background:var(--mostaza-pale);border-radius:14px;padding:11px 13px;margin-bottom:9px;width:100%;text-align:left}
+.cli-enc-saldo .ces-tx{flex:1;min-width:0;font-size:14px;color:#7a6010}
+.cli-enc-saldo .ces-tx b{display:block;line-height:1.2;color:#7a6010}
+.cli-enc-saldo .ces-tx span{font-size:12px;color:#9a7c20;display:block;margin-top:3px}
+.cli-enc-saldo .ces-monto{font-family:var(--titf);font-weight:600;font-size:20px;color:#8a6d18;flex-shrink:0}
+/* Vista global Cuentas */
+.cuenta-hero{background:var(--celeste-deep);color:#fff;border-radius:24px;padding:26px 24px;box-shadow:0 14px 38px rgba(94,143,168,.38);text-align:center;margin-bottom:18px}
+.cuenta-hero .lbl{font-size:12.5px;letter-spacing:2px;text-transform:uppercase;opacity:.92;font-weight:600}
+.cuenta-hero .big{font-family:var(--titf);font-weight:600;font-size:50px;line-height:1.04;margin:10px 0 4px}
+.cuenta-hero .sub{font-size:14.5px;opacity:.94}
+.cuenta-row{display:flex;align-items:center;gap:13px;background:var(--blanco);border-radius:18px;padding:15px 16px;box-shadow:var(--card-shadow);margin-bottom:11px;width:100%;text-align:left}
+.cuenta-row .cr-av{width:46px;height:46px;border-radius:14px;background:var(--celeste-pale);color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;flex-shrink:0}
+.cuenta-row .cr-tx{flex:1;min-width:0}
+.cuenta-row .cr-tx b{display:block;font-size:15.5px;color:var(--gris-900);line-height:1.2}
+.cuenta-row .cr-tx span{font-size:12.5px;color:var(--texto-suave);display:block;margin-top:3px}
+.cuenta-row .cr-debe{font-family:var(--titf);font-weight:600;font-size:24px;color:var(--rojo);flex-shrink:0}
+.cuenta-row-wrap{position:relative}
+.cuenta-wa{display:inline-flex;align-items:center;gap:7px;background:#25D366;color:#fff;border:none;border-radius:12px;padding:9px 14px;font-size:13.5px;font-weight:600;margin:-2px 0 13px;box-shadow:0 5px 14px rgba(37,211,102,.32)}
+.cu-pago-cli{background:var(--celeste-pale);border-radius:14px;padding:13px 15px;margin-bottom:16px;font-size:14.5px;color:var(--navy)}
+.cu-pago-cli b{font-family:var(--titf);font-weight:600;font-size:18px;display:block}
 </style>
 <!-- Desbloqueo recordado: evita el parpadeo de la app antes de cargar el módulo -->
 <script>try{if(localStorage.getItem('casc_unlock_pos')==='1')document.documentElement.classList.add('unlocked');}catch(e){}</script>
@@ -975,6 +1020,7 @@ html.unlocked #lockScreen{display:none}
         <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span> Clientas</a>
         <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span> Reparto</a>
         <a href="#" class="nav-link" data-go="caja"><span class="bi">🖥️</span> Caja</a>
+        <a href="#" class="nav-link" data-go="cuentas"><span class="bi">📒</span> Cuentas<span class="s-nav-badge" id="cuentaSideBadge" style="display:none">0</span></a>
         <a href="#" class="nav-link s-nav-cfg" data-go="config"><span class="bi">⚙️</span> Configuración</a>
       </nav>
     </div>
@@ -1112,6 +1158,21 @@ html.unlocked #lockScreen{display:none}
           <div id="resTop"></div>
         </div>
       </div>
+    </section>
+
+    <!-- ===== VISTA CUENTAS / SALDOS (Etapa 4) ===== -->
+    <section class="view" id="view-cuentas">
+      <div class="eyebrow">Lo que te deben</div>
+      <h1 class="h-title">Cuentas</h1>
+      <p class="lead">Las clientas que te quedaron <em class="kw">debiendo</em>, ordenadas por lo que más deben. Tocá una para ver el detalle o registrar un pago.</p>
+
+      <div class="cuenta-hero" id="cuentaHero">
+        <div class="lbl">Total a cobrar</div>
+        <div class="big" id="cuentaTotal">$ 0</div>
+        <div class="sub" id="cuentaSub">Nadie te debe nada</div>
+      </div>
+
+      <div id="listaCuentas"></div>
     </section>
 
     <!-- ===== VISTA CONFIGURACIÓN ===== -->
@@ -1273,6 +1334,7 @@ html.unlocked #lockScreen{display:none}
     <a href="#" class="nav-link" data-go="clientes"><span class="bi">🪪</span>Clientas</a>
     <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span>Reparto</a>
     <a href="#" class="nav-link" data-go="caja"><span class="bi">🖥️</span>Caja</a>
+    <a href="#" class="nav-link" data-go="cuentas"><span class="bi">📒</span>Cuentas<span class="bn-badge" id="cuentaNavBadge" style="display:none"></span></a>
   </nav>
 
   <!-- FAB agregar (solo en Stock) -->
@@ -1538,7 +1600,37 @@ html.unlocked #lockScreen{display:none}
           <span class="ptx"><b>Transferencia / MP</b><span id="pagoTransSub">Pago con celular</span></span>
           <span class="pcheck">✓</span>
         </button>
+        <button class="pago pago-fiado" data-pago="fiado" style="grid-column:1 / -1">
+          <span class="pico">📒</span>
+          <span class="ptx"><b>Queda debiendo</b><span id="pagoFiadoSub">Lo anoto en su cuenta</span></span>
+          <span class="pcheck">✓</span>
+        </button>
       </div>
+
+      <!-- Fiado: cuánto paga ahora (opcional) y cuánto queda a cuenta -->
+      <div id="vFiadoBox" style="display:none">
+        <div class="v-q">¿Paga algo ahora? <span style="font-weight:500;color:var(--texto-suave);font-size:14px">(opcional)</span></div>
+        <div class="precio-wrap"><span class="pe">$</span>
+          <input id="vFiadoAhora" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+        </div>
+        <div class="pago-opts" id="vFiadoMetodo" style="margin-top:11px">
+          <button class="pago" data-fiadom="efectivo" type="button">
+            <span class="pico">💵</span>
+            <span class="ptx"><b>Efectivo</b></span>
+            <span class="pcheck">✓</span>
+          </button>
+          <button class="pago" data-fiadom="transferencia" type="button">
+            <span class="pico">📲</span>
+            <span class="ptx"><b>Transferencia</b></span>
+            <span class="pcheck">✓</span>
+          </button>
+        </div>
+        <div class="enc-saldo-box" style="margin-top:14px">
+          <span>Queda a cuenta de la clienta</span>
+          <b id="vFiadoQueda">$0</b>
+        </div>
+      </div>
+
       <div class="v-confirm">
         <button class="btn btn-primary" id="vConfirmar" disabled>Confirmar venta</button>
       </div>
@@ -1733,6 +1825,26 @@ html.unlocked #lockScreen{display:none}
   </div>
   <div class="sheet-body">
 
+    <!-- Cuenta / saldo de la clienta (solo al editar una guardada · Etapa 4) -->
+    <div id="cliCuentaWrap" style="display:none">
+      <div class="cli-saldo-box" id="cliSaldoBox">
+        <div class="csb-lbl" id="cliSaldoLbl">Debe</div>
+        <div class="csb-big" id="cliSaldoBig">$ 0</div>
+      </div>
+      <div class="cuenta-acts">
+        <button class="btn btn-primary" id="cliPagoBtn" type="button">💵 Registrar pago</button>
+        <button class="btn btn-ghost" id="cliCargoBtn" type="button">➕ Cargo manual</button>
+      </div>
+      <div id="cliMovs" class="cli-movs"></div>
+
+      <!-- Saldos de encargos pendientes: aparte, no se mezclan con el fiado -->
+      <div id="cliEncSaldosWrap" style="display:none">
+        <div class="section-lbl">📦 Saldos de encargos pendientes</div>
+        <p class="hint" style="margin:-4px 0 11px">Esto es aparte de la cuenta de fiado. Cada encargo se cobra al entregarlo, desde su pantalla.</p>
+        <div id="cliEncSaldos"></div>
+      </div>
+    </div>
+
     <!-- Acciones de WhatsApp (solo al editar una clienta guardada) -->
     <div id="cliWaWrap" style="display:none">
       <div class="wa-group">
@@ -1809,6 +1921,72 @@ html.unlocked #lockScreen{display:none}
       <button class="btn btn-primary" id="cliSave">Guardar</button>
     </div>
 
+  </div>
+</div>
+
+<!-- ===== SHEET: REGISTRAR PAGO DE CUENTA (Etapa 4) ===== -->
+<div class="scrim" id="cuPagoScrim"></div>
+<div class="sheet" id="cuPagoSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>Registrar pago</h2>
+    <button class="sheet-x" id="cuPagoClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div class="cu-pago-cli" id="cuPagoCli"></div>
+    <div class="field">
+      <label>¿Cuánto te paga?</label>
+      <div class="precio-wrap"><span class="pe">$</span>
+        <input id="cuPagoMonto" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+      </div>
+      <button class="enc-reset" id="cuPagoTodo" type="button">↺ Todo el saldo (<span id="cuPagoSaldo">$0</span>)</button>
+    </div>
+    <div class="field">
+      <label>¿Cómo te paga?</label>
+      <div class="pago-opts">
+        <button class="pago" data-cupago="efectivo" type="button">
+          <span class="pico">💵</span>
+          <span class="ptx"><b>Efectivo</b><span>En mano</span></span>
+          <span class="pcheck">✓</span>
+        </button>
+        <button class="pago" data-cupago="transferencia" type="button">
+          <span class="pico">📲</span>
+          <span class="ptx"><b>Transferencia / MP</b><span>Pago con celular</span></span>
+          <span class="pcheck">✓</span>
+        </button>
+      </div>
+      <p class="hint">El pago entra en la caja de hoy y le baja el saldo a la clienta.</p>
+    </div>
+    <div class="sheet-actions">
+      <button class="btn btn-primary" id="cuPagoConfirm" disabled>Registrar pago</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SHEET: CARGO MANUAL (Etapa 4) ===== -->
+<div class="scrim" id="cuCargoScrim"></div>
+<div class="sheet" id="cuCargoSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>Cargo manual</h2>
+    <button class="sheet-x" id="cuCargoClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div class="cu-pago-cli" id="cuCargoCli"></div>
+    <div class="field">
+      <label>¿Qué le anotás?</label>
+      <input class="txtin" id="cuCargoConcepto" type="text" placeholder="Ej: 2 remeras que se llevó" autocomplete="off"/>
+    </div>
+    <div class="field">
+      <label>¿Cuánto te queda debiendo?</label>
+      <div class="precio-wrap"><span class="pe">$</span>
+        <input id="cuCargoMonto" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+      </div>
+      <p class="hint">Anota una deuda a mano. No toca la caja: es plata que todavía no te pagó.</p>
+    </div>
+    <div class="sheet-actions">
+      <button class="btn btn-primary" id="cuCargoConfirm" disabled>Anotar la deuda</button>
+    </div>
   </div>
 </div>
 
@@ -2387,6 +2565,7 @@ function go(view, fromPop){
   if(view==="config") renderConfig();                                    // Configuración
   if(view==="espera") renderEsperaView();                                // Etapa 7
   if(view==="encargos") renderEncargosView();                            // Etapa 8
+  if(view==="cuentas")  renderCuentasView();                             // Etapa 4: cuentas / saldos
   window.scrollTo({top:0,behavior:"smooth"});
   if(fromPop!==true && view!==prev) navGoView(view);
 }
@@ -2473,7 +2652,9 @@ function renderInicio(){
     { ico:"🎁", titulo:"Encargos", go:"encargos", items:(typeof movEncargosInicio==="function"?movEncargosInicio():[]), vacio:"Sin encargos en curso",
       row:e=>({ t:esc(e.clienteNombre||"Clienta"), v:(e.estado==="listo" && !e.avisado) ? "¡Avisar!" : (e.estado==="listo"?"Listo":"Pendiente") }) },
     { ico:"🪪", titulo:"Nuevas clientas", go:"clientes", items:movClientasHoy(), vacio:"Sin clientas nuevas hoy",
-      row:c=>({ t:esc(c.nombre||"Clienta"), v:(c.colegio?esc(corto(c.colegio)):"") }) }
+      row:c=>({ t:esc(c.nombre||"Clienta"), v:(c.colegio?esc(corto(c.colegio)):"") }) },
+    { ico:"📒", titulo:"Cuentas / fiado", go:"cuentas", items:(typeof clientasQueDeben==="function"?clientasQueDeben():[]), vacio:"Nadie te debe nada",
+      row:d=>({ t:esc(d.nombre||"Clienta"), v:money(d.saldo) }) }
   ];
   cont.innerHTML = cards.map(c=>{
     const n = c.items.length;
@@ -2783,6 +2964,7 @@ const TPL_DEFAULT = {
   msgAgenda:       "¡Hola {clienta}! 🌰 Soy {negocio}{colegio}.\nAgendá este número así no se te pierde y cualquier cosa me escribís por acá. ¡Te mando un beso! 💙",
   msgEspera:       "¡Hola {clienta}! 🌰 Soy de {negocio}.\n¡Llegó el {prenda} {colegio} talle {talle} que esperabas! 💙\n¿Querés que te lo aparte? Escribime y coordinamos 😊",
   msgEncargoListo: "¡Hola {clienta}! 🌰 Soy de {negocio}.\n¡Tu encargo ya está listo! 🎉\n\n{detalle}\n\nTe queda un saldo de {saldo} para abonar al retirarlo.\n¿Cuándo te queda cómodo pasar a buscarlo? 💙",
+  msgRecordatorioCuenta: "¡Hola {clienta}! 🌰 Soy de {negocio}.\nTe escribo para recordarte que te quedó un saldito pendiente de {saldo} 💙\nCuando puedas me avisás y coordinamos. ¡Gracias y que estés muy bien!",
   /* — Textos del recibo / comprobante — */
   reciboTitulo: "Comprobante de entrega",
   reciboLeyenda:"Documento no válido como factura",
@@ -2844,6 +3026,8 @@ function renderNotasEditor(cont, arr, onChange){
 /* Logo Cascanueces (data URL ya embebido en el header) para recibo y PDF */
 const logoSrc = (document.querySelector(".ele img")||{}).src || "";
 let pagoSel = null;
+let fiadoAhora = 0;         // Etapa 4: cuánto paga ahora cuando "queda debiendo"
+let fiadoMetodo = null;     // Etapa 4: método del pago parcial (efectivo|transferencia)
 let venderFecha = "";       // fecha de la venta (YYYY-MM-DD); por defecto hoy, editable
 let vStepNow = "armar";
 let venderCliente = null;   // Etapa 3: clienta vinculada a la venta en curso
@@ -2858,7 +3042,7 @@ const tOrder = t => { const i = TALLES_SUGER.indexOf(String(t)); return i<0 ? 99
 const vendibles = () => productos.filter(p => p.activo!==false && (Number(p.stock)||0) > 0);
 
 function openVender(){
-  venderCart = []; vSel = { colegio:null, prenda:null }; pagoSel = null;
+  venderCart = []; vSel = { colegio:null, prenda:null }; pagoSel = null; fiadoAhora = 0; fiadoMetodo = null;
   venderCliente = null; venderUsaClienta = false; venderUsaReparto = false; venderHijo = null;
   venderFecha = hoyYmd(); setVFecha();
   renderVCliPick(); renderVSwitches();   // Etapa 3
@@ -3002,26 +3186,58 @@ function renderCart(){
   $("#vBarCount").textContent = cnt ? `${cnt} prenda${cnt>1?"s":""}` : "Sin nada todavía";
   $("#vCobrarBtn").disabled = cnt===0;
 }
-$("#vCobrarBtn").onclick = ()=>{ if(venderCart.length===0) return; pagoSel=null; vStep("cobrar"); renderPago(); renderVHijoPick(); };
+$("#vCobrarBtn").onclick = ()=>{ if(venderCart.length===0) return; resetFiado(); pagoSel=null; vStep("cobrar"); renderPago(); renderVHijoPick(); };
+
+function resetFiado(){ fiadoAhora = 0; fiadoMetodo = null; const f=$("#vFiadoAhora"); if(f) f.value = ""; }
 
 /* ── PASO 2: cobrar ── */
 function renderPago(){
   const sub = cartSubtotal();
   const transSub = recargoPct>0 ? `Recargo ${recargoPct}%` : "Sin recargo configurado";
   $("#pagoTransSub").textContent = transSub;
+  const fiadoOn = pagoSel==="fiado";
+  $("#vFiadoBox").style.display = fiadoOn ? "block" : "none";
+  $("#pagoFiadoSub").textContent = (fiadoOn && !venderCliente) ? "Elegí la clienta primero" : "Lo anoto en su cuenta";
   let recargo = 0, total = sub, det = `${cartCount()} prenda${cartCount()>1?"s":""}`;
   if(pagoSel==="transferencia"){
     recargo = Math.round(sub * recargoPct / 100);
     total = sub + recargo;
     det = recargo>0 ? `Subtotal ${money(sub)} + recargo ${recargoPct}% (${money(recargo)})` : `${money(sub)} · sin recargo`;
   }
+  if(fiadoOn){
+    fiadoAhora = Math.min(Math.max(0, fiadoAhora), sub);
+    total = sub;
+    const queda = Math.max(0, sub - fiadoAhora);
+    det = fiadoAhora>0 ? `Paga ${money(fiadoAhora)} ahora · quedan ${money(queda)}` : `${money(sub)} · queda en su cuenta`;
+    $("#vFiadoQueda").textContent = money(queda);
+    document.querySelectorAll("#vFiadoMetodo .pago").forEach(b=> b.classList.toggle("on", b.dataset.fiadom===fiadoMetodo));
+  }
   $("#vPagoTotal").textContent = money(total);
   $("#vPagoDet").textContent = det;
-  document.querySelectorAll(".pago").forEach(b=> b.classList.toggle("on", b.dataset.pago===pagoSel));
-  $("#vConfirmar").disabled = !pagoSel;
+  document.querySelectorAll(".pago-opts > .pago[data-pago]").forEach(b=> b.classList.toggle("on", b.dataset.pago===pagoSel));
+  let ok = !!pagoSel;
+  if(fiadoOn){
+    ok = !!venderCliente;
+    if(fiadoAhora>0 && !fiadoMetodo) ok = false;
+  }
+  $("#vConfirmar").disabled = !ok;
 }
-document.querySelectorAll(".pago").forEach(b=>{
-  b.onclick = ()=>{ pagoSel = b.dataset.pago; renderPago(); };
+document.querySelectorAll(".pago-opts > .pago[data-pago]").forEach(b=>{
+  b.onclick = ()=>{
+    pagoSel = b.dataset.pago;
+    if(pagoSel==="fiado" && !venderCliente){ openPickSheet(()=> renderPago()); }
+    renderPago();
+  };
+});
+document.querySelectorAll("#vFiadoMetodo .pago").forEach(b=>{
+  b.onclick = ()=>{ fiadoMetodo = (fiadoMetodo===b.dataset.fiadom ? null : b.dataset.fiadom); renderPago(); };
+});
+$("#vFiadoAhora").addEventListener("input", e=>{
+  fiadoAhora = parseInt((e.target.value||"").replace(/\D/g,""),10) || 0;
+  const sub = cartSubtotal();
+  if(fiadoAhora>sub) fiadoAhora = sub;
+  e.target.value = fiadoAhora ? fiadoAhora.toLocaleString("es-AR") : "";
+  renderPago();
 });
 $("#vFecha").addEventListener("change", e=>{
   venderFecha = e.target.value || hoyYmd();
@@ -3038,13 +3254,22 @@ let ventaNotasIni = [];       // notas precargadas (ej: desde la voz)
 $("#vConfirmar").onclick = ()=>{ ventaOrigen = "manual"; ventaNotasIni = []; commitVenta($("#vConfirmar")); };
 async function commitVenta(btn){
   if(!pagoSel || venderCart.length===0) return;
+  const fiadoOn = pagoSel==="fiado";
   if(venderUsaReparto && !venderCliente){
     toast("Elegí la clienta para el reparto","err"); openPickSheet(); return;
   }
+  if(fiadoOn && !venderCliente){
+    toast("Elegí la clienta para anotarle el fiado","err"); openPickSheet(()=> renderPago()); return;
+  }
   if(btn) btn.disabled = true;
   const sub = cartSubtotal();
-  const recargo = pagoSel==="transferencia" ? Math.round(sub*recargoPct/100) : 0;
+  // Fiado: sin recargo; lo que paga ahora va a caja, el resto a su cuenta
+  const cobradoAhora = fiadoOn ? Math.min(Math.max(0, fiadoAhora), sub) : 0;
+  const metodoAhora  = cobradoAhora>0 ? (fiadoMetodo||"efectivo") : null;
+  const fiadoMonto   = fiadoOn ? Math.max(0, sub - cobradoAhora) : 0;
+  const recargo = (!fiadoOn && pagoSel==="transferencia") ? Math.round(sub*recargoPct/100) : 0;
   const total = sub + recargo;
+  const pagoVenta = fiadoOn ? (cobradoAhora>0 ? metodoAhora : "fiado") : pagoSel;
   try{
     const batch = writeBatch(db);
     venderCart.forEach(l=>{
@@ -3058,9 +3283,10 @@ async function commitVenta(btn){
     batch.set(ventaRef, {
       items: itemsVenta,
       subtotal: sub,
-      recargoPct: pagoSel==="transferencia" ? recargoPct : 0,
+      recargoPct: (!fiadoOn && pagoVenta==="transferencia") ? recargoPct : 0,
       recargo, total,
-      pago: pagoSel,
+      pago: pagoVenta,
+      fiado: fiadoMonto,                             // Etapa 4: lo que quedó en su cuenta (no entra a caja)
       clienteId: venderCliente?.id || null,         // Etapa 3
       clienteNombre: venderCliente?.nombre || null, // Etapa 3
       hijoNombre: (venderUsaClienta && venderCliente && venderHijo) ? venderHijo : null,  // Etapa 9: a qué hijo (opcional)
@@ -3070,7 +3296,19 @@ async function commitVenta(btn){
       ts: ymdToTs(venderFecha)                       // fecha elegida (hoy por defecto, editable)
     });
     await batch.commit();
-    lastVentaWhats = { items: itemsVenta, subtotal: sub, recargo, total, pago: pagoSel }; // Etapa 3
+    // Etapa 4: si quedó debiendo, le anoto el cargo en su cuenta
+    if(fiadoOn && fiadoMonto>0 && venderCliente){
+      try{
+        await addDoc(cuentaRef, cuentaMovPayload({
+          clientaId: venderCliente.id, tipo:"cargo", monto: fiadoMonto,
+          concepto: ventaConcepto(itemsVenta), origen:"venta", refId: ventaRef.id, fechaYmd: venderFecha
+        }));
+      }catch(err){
+        console.error("Cargo a cuenta:", err.code, err.message);
+        toast("Venta guardada, pero no pude anotar el fiado. Anotalo a mano en su cuenta.","err");
+      }
+    }
+    lastVentaWhats = { items: itemsVenta, subtotal: sub, recargo, total, pago: pagoVenta }; // Etapa 3
     lastVentaInfo = { ventaId: ventaRef.id, total };   // Etapa 4: para generar la entrega
     entregaYaCreada = false;
     // Switch "Reparto" ON → generar la entrega vinculada a la venta y la clienta
@@ -3095,10 +3333,18 @@ async function commitVenta(btn){
       }
     }
     $("#vOkAmt").textContent = money(total);
-    $("#vOkWay").textContent = pagoSel==="efectivo"
-      ? "Cobrado en efectivo 💵"
-      : "Cobrado por transferencia / MP 📲" + (recargo>0 ? " (recargo incluido)" : "");
-    venderCart = []; pagoSel = null;
+    if(fiadoOn){
+      $("#vOkWay").textContent = fiadoMonto<=0
+        ? `Pagó todo ${metodoAhora==="efectivo"?"💵":"📲"}`
+        : cobradoAhora>0
+          ? `Pagó ${money(cobradoAhora)} ${metodoAhora==="efectivo"?"💵":"📲"} · queda debiendo ${money(fiadoMonto)} 📒`
+          : `Quedó debiendo ${money(fiadoMonto)} 📒 — lo anoté en su cuenta`;
+    } else {
+      $("#vOkWay").textContent = pagoSel==="efectivo"
+        ? "Cobrado en efectivo 💵"
+        : "Cobrado por transferencia / MP 📲" + (recargo>0 ? " (recargo incluido)" : "");
+    }
+    venderCart = []; pagoSel = null; resetFiado();
     vStep("ok");
     renderVOkWa();        // Etapa 3: botones de WhatsApp post-venta
     renderVOkEntrega();   // Etapa 4: programar la entrega con un toque
@@ -3112,7 +3358,7 @@ async function commitVenta(btn){
   }
 }
 $("#vNueva").onclick = ()=>{
-  vSel = { colegio:null, prenda:null }; pagoSel = null;
+  vSel = { colegio:null, prenda:null }; pagoSel = null; resetFiado();
   venderFecha = hoyYmd(); setVFecha();
   venderCliente = null; venderUsaClienta = false; venderUsaReparto = false; venderHijo = null;
   lastVentaWhats = null; renderVCliPick(); renderVSwitches();   // Etapa 3
@@ -4036,6 +4282,14 @@ function openCliSheet(cli=null, replacePick=false){
     $("#cliEsperaAdd").onclick = ()=> openEsperaSheet({ clientaId:cli.id, clientaNombre:cli.nombre });
   }
 
+  // Cuenta / saldo de la clienta (Etapa 4)
+  $("#cliCuentaWrap").style.display = cli ? "block" : "none";
+  if(cli){
+    renderCliCuenta(cli);
+    $("#cliPagoBtn").onclick  = ()=> openCuPagoSheet(cli);
+    $("#cliCargoBtn").onclick = ()=> openCuCargoSheet(cli);
+  }
+
   // Historial de compras + próximo talle sugerido (solo si ya está guardada)
   $("#cliHistWrap").style.display = cli ? "block" : "none";
   $("#cliSugWrap").style.display  = cli ? "block" : "none";
@@ -4494,6 +4748,8 @@ function abrirVenderPrecargado(cli, hijoNombre, prod){
 onSnapshot(clientesRef, snap=>{
   clientes = snap.docs.map(d=>({ id:d.id, ...d.data() }));
   renderClientes(); renderInicio();
+  if(typeof updateCuentaBadge==="function") updateCuentaBadge();
+  if(currentView==="cuentas" && typeof renderCuentasView==="function") renderCuentasView();
 }, err=>{
   console.error("Firestore [clientes]:", err.code, err.message);
   if(err.code==="permission-denied") toast("Sin permisos para clientas en Firestore.","err");
@@ -4927,7 +5183,7 @@ function ventaDeEntrega(e){
   return null;
 }
 function pagoLabel(p){
-  return p==="efectivo" ? "Efectivo 💵" : p==="transferencia" ? "Transferencia / MP 📲" : (p || "—");
+  return p==="efectivo" ? "Efectivo 💵" : p==="transferencia" ? "Transferencia / MP 📲" : p==="fiado" ? "Queda debiendo 📒" : (p || "—");
 }
 function fechaLarga(ms){
   return new Date(ms).toLocaleDateString("es-AR",{ day:"numeric", month:"long", year:"numeric" });
@@ -5233,6 +5489,9 @@ function ventaYmd(v){ const ms = ventaMs(v); return ms ? ymd(new Date(ms)) : "";
 function ventaHora(ms){ return new Date(ms).toLocaleTimeString("es-AR",{ hour:"2-digit", minute:"2-digit" }); }
 function ventaPrendas(v){ return (Array.isArray(v.items)?v.items:[]).reduce((a,it)=> a + (Number(it.cant)||0), 0); }
 function ventaActiva(v){ return !!v && v.estado!=="cancelada"; }   // las canceladas no suman en caja/reportes
+/* Lo que realmente entró a la caja por esta venta: el total menos lo que quedó
+   fiado (Etapa 4). En ventas viejas/normales `fiado` no existe → cuenta el total. */
+function ventaEnCaja(v){ return Math.max(0, (Number(v.total)||0) - (Number(v.fiado)||0)); }
 function inicioSemana(){ const d=new Date(); d.setHours(0,0,0,0); const dow=(d.getDay()+6)%7; d.setDate(d.getDate()-dow); return d; }
 function inicioMes(){ const d=new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); }
 function entregaDeVenta(v){ return entregas.find(e=> e.ventaId===v.id) || null; }
@@ -5266,9 +5525,9 @@ function renderCaja(){
 function renderCajaHoy(){
   const hoy = hoyYmd();
   const vts = ventasParaEntrega.filter(v=> ventaActiva(v) && ventaYmd(v)===hoy);
-  const efe = vts.filter(v=> v.pago==="efectivo").reduce((a,v)=> a + (Number(v.total)||0), 0);
-  const tra = vts.filter(v=> v.pago==="transferencia").reduce((a,v)=> a + (Number(v.total)||0), 0);
-  const total = vts.reduce((a,v)=> a + (Number(v.total)||0), 0);
+  const efe = vts.filter(v=> v.pago==="efectivo").reduce((a,v)=> a + ventaEnCaja(v), 0);
+  const tra = vts.filter(v=> v.pago==="transferencia").reduce((a,v)=> a + ventaEnCaja(v), 0);
+  const total = vts.reduce((a,v)=> a + ventaEnCaja(v), 0);
   $("#cajaHoyTotal").textContent = money(total);
   $("#cajaHoyEfe").textContent = money(efe);
   $("#cajaHoyTra").textContent = money(tra);
@@ -5360,10 +5619,30 @@ function renderHistQuick(){
   });
 }
 const esEncargoMov = v => !!v && (v.tipo==="encargo_sena" || v.tipo==="encargo_saldo" || v.origen==="encargo");
+const esPagoCuentaMov = v => !!v && (v.tipo==="pago_cuenta" || v.origen==="pago_cuenta");   // Etapa 4
+const esMovEspecial = v => esEncargoMov(v) || esPagoCuentaMov(v);
 function vhCard(v){
   const efe = v.pago==="efectivo", tra = v.pago==="transferencia";
   const cancelada = !ventaActiva(v);
   const ms = ventaMs(v);
+  // Pago de cuenta (fiado cobrado): movimiento de caja, se ve distinto
+  if(esPagoCuentaMov(v)){
+    const nombre = v.clienteNombre || "Clienta";
+    const el = document.createElement("button");
+    el.className = "vh";
+    el.innerHTML = `
+      <div class="vh-ico ${efe?"efe":"tra"}">📒</div>
+      <div class="vh-main">
+        <div class="vh-name">${esc(nombre)}</div>
+        <div class="vh-meta">${esc(v.concepto||"Pago de cuenta")} · ${esc(diaLabel(ventaYmd(v)))} ${ms?ventaHora(ms):""}</div>
+      </div>
+      <div class="vh-right">
+        <div class="vh-total">${money(v.total)}</div>
+        <div class="vh-tags">${efe?`<span class="tag pago-efe">💵 Efectivo</span>`:`<span class="tag pago-tra">📲 Transf.</span>`}<span class="tag enc-listo">📒 Pago cuenta</span></div>
+      </div>`;
+    el.onclick = ()=> openVentaDet(v);
+    return el;
+  }
   // Movimiento de encargo (seña / saldo): se ve distinto y no se edita como venta
   if(esEncargoMov(v)){
     const nombre = v.clienteNombre || "Clienta";
@@ -5392,21 +5671,25 @@ function vhCard(v){
   let estadoTag = `<span class="tag est-ent">✓ Cobrada</span>`;
   if(cancelada){
     estadoTag = `<span class="tag cancelada">🚫 Cancelada</span>`;
+  } else if(v.pago==="fiado"){
+    estadoTag = `<span class="tag pago-tra">📒 En su cuenta</span>`;
   } else if(ent && (ent.estado||"pendiente")!=="entregada"){
     const info = ESTADOS[ent.estado||"pendiente"] || ESTADOS.pendiente;
     estadoTag = `<span class="tag ${info.badge}">${info.emoji} ${info.label}</span>`;
   }
+  // Pago parcial con fiado: muestra cuánto quedó (no en ventas totalmente fiadas)
+  const fiadoTag = (!cancelada && v.pago!=="fiado" && (Number(v.fiado)||0)>0) ? `<span class="tag pago-tra">📒 Fiado ${money(v.fiado)}</span>` : "";
   const el = document.createElement("button");
   el.className = "vh" + (cancelada?" cancelada":"");
   el.innerHTML = `
-    <div class="vh-ico ${cancelada?"can":efe?"efe":tra?"tra":""}">${cancelada?"🚫":efe?"💵":tra?"📲":"🧾"}</div>
+    <div class="vh-ico ${cancelada?"can":efe?"efe":tra?"tra":""}">${cancelada?"🚫":efe?"💵":tra?"📲":(v.pago==="fiado"?"📒":"🧾")}</div>
     <div class="vh-main">
       <div class="vh-name">${esc(nombre)}</div>
       <div class="vh-meta">${prendas} ${prendas===1?"prenda":"prendas"} · ${esc(diaLabel(ventaYmd(v)))} ${ms?ventaHora(ms):""}</div>
     </div>
     <div class="vh-right">
       <div class="vh-total">${money(v.total)}</div>
-      <div class="vh-tags">${pagoTag}${estadoTag}</div>
+      <div class="vh-tags">${pagoTag}${estadoTag}${fiadoTag}</div>
     </div>`;
   el.onclick = ()=> openVentaDet(v);
   return el;
@@ -5416,7 +5699,7 @@ function renderHist(){
   const lista = histVentasFiltradas();
   const activas = lista.filter(ventaActiva);
   const canceladas = lista.length - activas.length;
-  const total = activas.reduce((a,v)=> a + (Number(v.total)||0), 0);   // las canceladas no suman
+  const total = activas.reduce((a,v)=> a + ventaEnCaja(v), 0);   // las canceladas no suman; el fiado no entró aún
   const rs = $("#histResumen");
   if(lista.length){
     rs.style.display = "flex";
@@ -5451,7 +5734,7 @@ function renderResumen(){
   else { desde = ymd(inicioMes()); lbl = "Este mes"; }
   const hoy = hoyYmd();
   const vts = ventasParaEntrega.filter(v=>{ const f = ventaYmd(v); return ventaActiva(v) && f && f>=desde && f<=hoy; });
-  const total = vts.reduce((a,v)=> a + (Number(v.total)||0), 0);
+  const total = vts.reduce((a,v)=> a + ventaEnCaja(v), 0);
   $("#resLbl").textContent = lbl;
   $("#resTotal").textContent = money(total);
   $("#resSub").textContent = vts.length===0 ? "Todavía sin ventas"
@@ -5509,6 +5792,28 @@ let cancelPendVenta = null;
 /* ── Hoja de detalle + acciones ── */
 function openVentaDet(v){
   detVenta = v;
+  // Pago de cuenta (fiado cobrado): vista informativa + atajo a la ficha de la clienta
+  if(esPagoCuentaMov(v)){
+    $("#ventaDetPreview").innerHTML = `<div class="recibo-doc" style="padding:22px">
+      <div style="font-size:34px;text-align:center;margin-bottom:8px">📒</div>
+      <h3 style="text-align:center;margin-bottom:6px">${esc(v.concepto||"Pago de cuenta")}</h3>
+      <p style="text-align:center;color:var(--texto-suave);font-size:14px">${esc(v.clienteNombre||"Clienta")} · ${esc(diaLabel(ventaYmd(v)))} · ${esc(pagoLabel(v.pago))}</p>
+      <div class="enc-saldo-box" style="margin-top:16px;background:var(--celeste-pale)">
+        <span style="color:var(--navy)">Entró en la caja</span><b style="color:var(--navy)">${money(v.total)}</b>
+      </div>
+      <p class="hint" style="margin-top:14px">Es un pago a cuenta de la clienta. Si lo querés deshacer, borrá el movimiento desde su ficha (vuelve a subir el saldo y sale de la caja).</p>
+    </div>`;
+    const acts = $("#ventaDetActs"); acts.innerHTML = "";
+    const cli = clientes.find(c=> c.id===v.clienteId);
+    if(cli){
+      const gb = document.createElement("button"); gb.className = "btn-wa"; gb.style.background = "var(--celeste-deep)";
+      gb.innerHTML = `<span class="wico">📒</span><span class="wtx"><b>Ver su cuenta</b><span>Abrir la ficha de ${esc(cli.nombre||"la clienta")}</span></span>`;
+      gb.onclick = ()=>{ closeVentaDet(); openCliSheet(cli); };
+      acts.appendChild(gb);
+    }
+    $("#ventaDetScrim").classList.add("show"); $("#ventaDetSheet").classList.add("show");
+    return;
+  }
   // Movimiento de encargo: no es una venta de stock → vista informativa + atajo a Encargos
   if(esEncargoMov(v)){
     const concepto = v.concepto || (v.tipo==="encargo_saldo" ? "Saldo de encargo" : "Seña de encargo");
@@ -6886,7 +7191,7 @@ onSnapshot(encargosRef, snap=>{
   renderInicio();
   if(currentView==="encargos") renderEncargosView();
   if(cliEditId && $("#cliSheet").classList.contains("show")){
-    const c = clientes.find(x=> x.id===cliEditId); if(c) renderCliEncargos(c);
+    const c = clientes.find(x=> x.id===cliEditId); if(c){ renderCliEncargos(c); if(typeof renderCliEncSaldos==="function") renderCliEncSaldos(c); }
   }
 }, err=>{
   console.error("Firestore [encargos]:", err.code, err.message);
@@ -6894,11 +7199,324 @@ onSnapshot(encargosRef, snap=>{
 });
 /* ──────────────────── fin ETAPA 8 ──────────────────── */
 
+/* ════════════════════════════════════════════════════════════════
+   ETAPA 4 · CUENTA DE LA CLIENTA / SALDOS (fiado + pagos)
+   Colección: cuenta_pos_cascanueces
+   Movimiento { clientaId, fecha(serverTimestamp), ts(ms), tipo('cargo'|'pago'),
+     concepto, monto, metodo(solo pagos: efectivo|transferencia),
+     origen('venta'|'manual'), refId, cajaRefId(pagos: doc de caja a borrar) }
+   El saldo de la clienta = Σ cargos − Σ pagos.
+   - "Queda debiendo" en Vender crea un cargo (origen 'venta'); el pago parcial,
+     si lo hay, entra a caja con la propia venta (ver commitVenta).
+   - Registrar pago: baja el saldo y entra a la caja del día como un movimiento
+     en ventas_pos_cascanueces (tipo 'pago_cuenta'), igual que la seña de un encargo.
+   - Los saldos de ENCARGOS se muestran APARTE (no se mezclan con el fiado).
+   Bloque autocontenido — reusa $, toast, money, esc, corto, diaLabel, ymd,
+     openWa, waNorm, fillMsg, bizVars, tpl, clientes, ventasRef, ymdToTs, hoyYmd,
+     pushBack/syncBack, y del módulo de encargos: encargos, encSaldoDe,
+     encResumenItems, ENC_ESTADOS, openEncSheet.
+   ════════════════════════════════════════════════════════════════ */
+const cuentaRef = collection(db, "cuenta_pos_cascanueces");
+let cuentaMovs = [];
+let cuPagoCli = null, cuPagoMetodo = null, cuCargoCli = null;
+let movDelArmed = {}, movDelTimer = null;   // borrado de movimientos: dos toques
+
+function cuNum(str){ return Math.max(0, parseInt(String(str||"").replace(/\D/g,""),10)||0); }
+
+/* Payload de un movimiento de cuenta */
+function cuentaMovPayload({ clientaId, tipo, monto, concepto, metodo, origen, refId, cajaRefId, fechaYmd }){
+  const p = {
+    clientaId: clientaId || null,
+    tipo,
+    concepto: concepto || (tipo==="pago" ? "Pago" : "Cargo"),
+    monto: Math.max(0, Number(monto)||0),
+    origen: origen || "manual",
+    refId: refId || null,
+    fecha: serverTimestamp(),
+    ts: ymdToTs(fechaYmd || hoyYmd())
+  };
+  if(metodo) p.metodo = metodo;
+  if(cajaRefId) p.cajaRefId = cajaRefId;
+  return p;
+}
+
+/* Concepto corto de una venta (para el cargo de fiado) */
+function ventaConcepto(items){
+  const arr = Array.isArray(items) ? items : [];
+  const n = arr.reduce((a,it)=> a + (Number(it.cant)||0), 0);
+  const first = arr[0];
+  const txt = first ? `${first.prenda||"Prenda"}${first.colegio?` · ${corto(first.colegio)}`:""}` : "Venta";
+  return arr.length>1 ? `${txt} +${arr.length-1} más` : `${txt}${n>1?` x${n}`:""}`;
+}
+
+/* Movimientos de una clienta, viejos→nuevos (para el saldo acumulado) */
+function movsDe(id){ return cuentaMovs.filter(m=> m.clientaId===id).sort((a,b)=> (a.ts||0)-(b.ts||0)); }
+function saldoClienta(id){
+  return cuentaMovs.filter(m=> m.clientaId===id)
+    .reduce((a,m)=> a + (m.tipo==="cargo" ? (Number(m.monto)||0) : -(Number(m.monto)||0)), 0);
+}
+/* Clientas que deben (saldo>0), de mayor a menor */
+function clientasQueDeben(){
+  return clientes.map(c=>({ id:c.id, nombre:c.nombre, whatsapp:c.whatsapp, colegio:c.colegio, saldo: saldoClienta(c.id) }))
+    .filter(d=> d.saldo > 0)
+    .sort((a,b)=> b.saldo - a.saldo);
+}
+
+/* ── Badge de Cuentas (cantidad de clientas que deben) ── */
+function updateCuentaBadge(){
+  const n = clientasQueDeben().length;
+  ["#cuentaSideBadge","#cuentaNavBadge"].forEach(sel=>{
+    const el = $(sel); if(!el) return;
+    el.textContent = n; el.style.display = n>0 ? "" : "none";
+  });
+}
+
+/* ── Ficha de la clienta: saldo + movimientos + encargos pendientes ── */
+function renderCliCuenta(cli){
+  const saldo = saldoClienta(cli.id);
+  const box = $("#cliSaldoBox");
+  if(saldo > 0){
+    box.classList.remove("al-dia");
+    $("#cliSaldoLbl").textContent = "Debe";
+    $("#cliSaldoBig").textContent = money(saldo);
+    $("#cliPagoBtn").style.display = "";
+  } else {
+    box.classList.add("al-dia");
+    $("#cliSaldoLbl").textContent = "Cuenta";
+    $("#cliSaldoBig").textContent = "Al día ✓";
+    $("#cliPagoBtn").style.display = "none";
+  }
+  // Detalle de movimientos con saldo acumulado, los más nuevos arriba
+  const movs = movsDe(cli.id);
+  const cont = $("#cliMovs"); cont.innerHTML = "";
+  if(movs.length===0){
+    cont.innerHTML = `<div class="cli-movs-empty">Todavía no tiene movimientos en su cuenta.</div>`;
+  } else {
+    let acum = 0;
+    const conSaldo = movs.map(m=>{ acum += (m.tipo==="cargo"?1:-1)*(Number(m.monto)||0); return { m, saldo: acum }; });
+    conSaldo.reverse().forEach(({m, saldo})=>{
+      const cargo = m.tipo==="cargo";
+      const row = document.createElement("div");
+      row.className = "cli-mov " + (cargo ? "cargo" : "pago");
+      const metodo = m.metodo ? (m.metodo==="efectivo"?" · 💵":" · 📲") : "";
+      const desde = m.origen==="venta" ? " · de una venta" : "";
+      row.innerHTML = `
+        <div class="cm-ico">${cargo?"🧾":"💵"}</div>
+        <div class="cm-tx"><b>${esc(m.concepto || (cargo?"Cargo":"Pago"))}</b>
+          <span>${esc(diaLabel(ymd(new Date(m.ts||Date.now()))))}${metodo}${desde}</span></div>
+        <div class="cm-right">
+          <div class="cm-monto">${cargo?"+":"−"}${money(m.monto)}</div>
+          <div class="cm-saldo">saldo ${money(Math.max(0,saldo))}</div>
+        </div>
+        <button class="cm-del" type="button" aria-label="Borrar">🗑️</button>`;
+      row.querySelector(".cm-del").onclick = (ev)=>{ ev.stopPropagation(); armarBorrarMov(m, row.querySelector(".cm-del")); };
+      cont.appendChild(row);
+    });
+  }
+  renderCliEncSaldos(cli);
+}
+
+/* Encargos con saldo pendiente: aparte, NO entran en el saldo de fiado */
+function renderCliEncSaldos(cli){
+  const wrap = $("#cliEncSaldosWrap"), cont = $("#cliEncSaldos");
+  if(!wrap || !cont) return;
+  const conSaldo = (typeof encargos!=="undefined" ? encargos : [])
+    .filter(e=> e.clienteId===cli.id && (e.estado==="pendiente"||e.estado==="listo") && encSaldoDe(e)>0)
+    .sort((a,b)=> (b.ts||0)-(a.ts||0));
+  if(conSaldo.length===0){ wrap.style.display = "none"; cont.innerHTML = ""; return; }
+  wrap.style.display = "block"; cont.innerHTML = "";
+  conSaldo.forEach(e=>{
+    const info = ENC_ESTADOS[e.estado] || ENC_ESTADOS.pendiente;
+    const it = document.createElement("button"); it.type = "button"; it.className = "cli-enc-saldo";
+    it.innerHTML = `<span class="ces-tx"><b>${esc(encResumenItems(e))}</b>
+        <span>${info.emoji} ${info.label}${e.fechaListo?` · ${esc(diaLabel(e.fechaListo))}`:""}</span></span>
+      <span class="ces-monto">${money(encSaldoDe(e))}</span>`;
+    it.onclick = ()=>{ closeCliSheet(); go("encargos"); openEncSheet(e); };
+    cont.appendChild(it);
+  });
+}
+
+/* Borrar un movimiento: dos toques (estilo mamá), todo reversible */
+function armarBorrarMov(m, btn){
+  if(movDelArmed[m.id]){
+    clearTimeout(movDelTimer); movDelArmed = {};
+    borrarMov(m);
+    return;
+  }
+  movDelArmed = {}; movDelArmed[m.id] = true;
+  btn.classList.add("armed"); toast("Tocá de nuevo el 🗑️ para borrarlo");
+  movDelTimer = setTimeout(()=>{ movDelArmed = {}; try{ btn.classList.remove("armed"); }catch(e){} }, 3000);
+}
+async function borrarMov(m){
+  try{
+    // Si era un pago que entró a la caja, lo saco también de la caja
+    if(m.tipo==="pago" && m.cajaRefId){
+      try{ await deleteDoc(doc(db,"ventas_pos_cascanueces", m.cajaRefId)); }
+      catch(e){ console.warn("borrar caja del pago:", e.code); }
+    }
+    await deleteDoc(doc(db,"cuenta_pos_cascanueces", m.id));
+    toast(m.tipo==="pago" ? "Pago borrado — volvió a deber" : "Movimiento borrado");
+  }catch(err){
+    console.error("Borrar movimiento:", err.code, err.message);
+    toast("No se pudo borrar. Probá de nuevo.","err");
+  }
+}
+
+/* ════════ SHEET · Registrar pago ════════ */
+function openCuPagoSheet(cli){
+  cuPagoCli = cli; cuPagoMetodo = null;
+  const saldo = Math.max(0, saldoClienta(cli.id));
+  $("#cuPagoCli").innerHTML = `<b>${esc(cli.nombre||"Clienta")}</b>Debe ${money(saldo)}`;
+  $("#cuPagoSaldo").textContent = money(saldo);
+  $("#cuPagoMonto").value = saldo ? saldo.toLocaleString("es-AR") : "";
+  document.querySelectorAll("#cuPagoSheet .pago").forEach(b=> b.classList.remove("on"));
+  renderCuPago();
+  $("#cuPagoScrim").classList.add("show"); $("#cuPagoSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+  pushBack("cuPago", closeCuPagoSheet);
+}
+function closeCuPagoSheet(fromPop){
+  $("#cuPagoScrim").classList.remove("show"); $("#cuPagoSheet").classList.remove("show");
+  document.body.style.overflow = $("#cliSheet").classList.contains("show") ? "hidden" : "";
+  if(fromPop!==true) syncBack("cuPago");
+}
+function renderCuPago(){
+  const monto = cuNum($("#cuPagoMonto").value);
+  document.querySelectorAll("#cuPagoSheet .pago").forEach(b=> b.classList.toggle("on", b.dataset.cupago===cuPagoMetodo));
+  $("#cuPagoConfirm").disabled = !(monto>0 && cuPagoMetodo);
+}
+$("#cuPagoClose").onclick = ()=> closeCuPagoSheet();
+$("#cuPagoScrim").onclick = ()=> closeCuPagoSheet();
+$("#cuPagoTodo").onclick = ()=>{ const s = Math.max(0, saldoClienta(cuPagoCli?.id)); $("#cuPagoMonto").value = s ? s.toLocaleString("es-AR") : ""; renderCuPago(); };
+$("#cuPagoMonto").addEventListener("input", e=>{ const n = cuNum(e.target.value); e.target.value = n ? n.toLocaleString("es-AR") : ""; renderCuPago(); });
+document.querySelectorAll("#cuPagoSheet .pago").forEach(b=>{
+  b.onclick = ()=>{ cuPagoMetodo = b.dataset.cupago; renderCuPago(); };
+});
+$("#cuPagoConfirm").onclick = async ()=>{
+  const cli = cuPagoCli; if(!cli) return;
+  const monto = cuNum($("#cuPagoMonto").value);
+  if(!(monto>0) || !cuPagoMetodo) return;
+  $("#cuPagoConfirm").disabled = true;
+  try{
+    // 1) Entra a la caja de hoy como movimiento especial en ventas
+    const cajaDoc = doc(ventasRef);
+    await setDoc(cajaDoc, {
+      items: [], subtotal: monto, recargoPct: 0, recargo: 0, total: monto,
+      pago: cuPagoMetodo, clienteId: cli.id, clienteNombre: cli.nombre || null,
+      concepto: "Pago de cuenta", tipo: "pago_cuenta", origen: "pago_cuenta",
+      notas: [], fecha: serverTimestamp(), ts: Date.now()
+    });
+    // 2) Baja el saldo de la clienta (apunta al doc de caja para poder revertir)
+    await addDoc(cuentaRef, cuentaMovPayload({
+      clientaId: cli.id, tipo:"pago", monto, metodo: cuPagoMetodo,
+      concepto: "Pago", origen:"manual", cajaRefId: cajaDoc.id
+    }));
+    toast("Pago registrado ✓ — entró en la caja de hoy","ok");
+    closeCuPagoSheet();
+  }catch(err){
+    console.error("Registrar pago:", err.code, err.message);
+    toast("No se pudo registrar el pago. Probá de nuevo.","err");
+    $("#cuPagoConfirm").disabled = false;
+  }
+};
+
+/* ════════ SHEET · Cargo manual ════════ */
+function openCuCargoSheet(cli){
+  cuCargoCli = cli;
+  $("#cuCargoCli").innerHTML = `<b>${esc(cli.nombre||"Clienta")}</b>Le anotás una deuda a mano`;
+  $("#cuCargoConcepto").value = ""; $("#cuCargoMonto").value = "";
+  $("#cuCargoConfirm").disabled = true;
+  $("#cuCargoScrim").classList.add("show"); $("#cuCargoSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+  pushBack("cuCargo", closeCuCargoSheet);
+}
+function closeCuCargoSheet(fromPop){
+  $("#cuCargoScrim").classList.remove("show"); $("#cuCargoSheet").classList.remove("show");
+  document.body.style.overflow = $("#cliSheet").classList.contains("show") ? "hidden" : "";
+  if(fromPop!==true) syncBack("cuCargo");
+}
+function renderCuCargo(){ $("#cuCargoConfirm").disabled = !(cuNum($("#cuCargoMonto").value)>0); }
+$("#cuCargoClose").onclick = ()=> closeCuCargoSheet();
+$("#cuCargoScrim").onclick = ()=> closeCuCargoSheet();
+$("#cuCargoMonto").addEventListener("input", e=>{ const n = cuNum(e.target.value); e.target.value = n ? n.toLocaleString("es-AR") : ""; renderCuCargo(); });
+$("#cuCargoConfirm").onclick = async ()=>{
+  const cli = cuCargoCli; if(!cli) return;
+  const monto = cuNum($("#cuCargoMonto").value);
+  const concepto = ($("#cuCargoConcepto").value||"").trim() || "Cargo manual";
+  if(!(monto>0)) return;
+  $("#cuCargoConfirm").disabled = true;
+  try{
+    await addDoc(cuentaRef, cuentaMovPayload({ clientaId: cli.id, tipo:"cargo", monto, concepto, origen:"manual" }));
+    toast("Deuda anotada ✓","ok");
+    closeCuCargoSheet();
+  }catch(err){
+    console.error("Cargo manual:", err.code, err.message);
+    toast("No se pudo anotar. Probá de nuevo.","err");
+    $("#cuCargoConfirm").disabled = false;
+  }
+};
+
+/* ── Mensaje "recordá tu saldito" (plantilla editable en Configuración) ── */
+function msgRecordatorioCuenta(cli, saldo){
+  return fillMsg(tpl.msgRecordatorioCuenta, {
+    ...bizVars(), clienta: cli?.nombre || "", nombre: cli?.nombre || "", saldo: money(saldo)
+  });
+}
+
+/* ════════ VISTA GLOBAL · CUENTAS ════════ */
+function renderCuentasView(){
+  updateCuentaBadge();
+  const deben = clientasQueDeben();
+  const total = deben.reduce((a,d)=> a + d.saldo, 0);
+  $("#cuentaTotal").textContent = money(total);
+  $("#cuentaSub").textContent = deben.length===0 ? "Nadie te debe nada"
+    : (deben.length===1 ? "1 clienta te debe" : `${deben.length} clientas te deben`);
+  const cont = $("#listaCuentas"); cont.innerHTML = "";
+  if(deben.length===0){
+    cont.innerHTML = `<div class="empty"><div class="ico">📒</div>
+      <h3>Todo cobrado 🎉</h3>
+      <p>Cuando una clienta quede debiendo —desde Vender o con un cargo manual— la vas a ver acá.</p></div>`;
+    return;
+  }
+  deben.forEach(d=>{
+    const cli = clientes.find(c=> c.id===d.id) || d;
+    const hasWa = !!waNorm(d.whatsapp);
+    const wrap = document.createElement("div"); wrap.className = "cuenta-row-wrap";
+    const row = document.createElement("button"); row.type = "button"; row.className = "cuenta-row";
+    row.innerHTML = `<span class="cr-av">${esc((d.nombre||"C").trim().charAt(0).toUpperCase())}</span>
+      <span class="cr-tx"><b>${esc(d.nombre||"Clienta")}</b><span>${d.colegio?esc(corto(d.colegio))+" · ":""}${hasWa?"WhatsApp ✓":"sin WhatsApp"}</span></span>
+      <span class="cr-debe">${money(d.saldo)}</span>`;
+    row.onclick = ()=> openCliSheet(cli);
+    wrap.appendChild(row);
+    const wa = document.createElement("button"); wa.type = "button"; wa.className = "cuenta-wa";
+    wa.innerHTML = `🟢 Recordar por WhatsApp`;
+    wa.onclick = (e)=>{ e.stopPropagation(); openWa(d.whatsapp, msgRecordatorioCuenta(d, d.saldo)); };
+    wrap.appendChild(wa);
+    cont.appendChild(wrap);
+  });
+}
+
+/* ── Sync en tiempo real de la cuenta ── */
+onSnapshot(cuentaRef, snap=>{
+  cuentaMovs = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+  updateCuentaBadge();
+  renderInicio();
+  if(currentView==="cuentas") renderCuentasView();
+  if(cliEditId && $("#cliSheet").classList.contains("show")){
+    const c = clientes.find(x=> x.id===cliEditId); if(c) renderCliCuenta(c);
+  }
+}, err=>{
+  console.error("Firestore [cuenta]:", err.code, err.message);
+  if(err.code==="permission-denied") toast("Sin permisos para la cuenta en Firestore.","err");
+});
+/* ──────────────────── fin ETAPA 4 (cuentas) ──────────────────── */
+
 renderStockStats(); renderInicio(); renderFiltros(); renderLista();
 renderClientes();
 renderEntFiltros(); renderEntregas();
 updateEsperaBadge();
 updateEncargoBadge();
+updateCuentaBadge();
 loadConfig();
 updateFabVoz();   // muestra la burbuja de voz en el arranque (Inicio)
 </script>
