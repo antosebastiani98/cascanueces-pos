@@ -59,6 +59,8 @@ img{display:block;max-width:100%}
 .main{flex:1;padding:4px 20px calc(var(--nav-h) + 28px)}
 .view{display:none;animation:fade .35s ease}
 .view.active{display:block}
+/* La burbuja de voz vive en Inicio: le damos aire abajo para que flote sin pisar contenido. */
+#view-inicio{padding-bottom:84px}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 .eyebrow{display:flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--celeste-deep);font-weight:600;margin:6px 0 10px}
@@ -949,6 +951,41 @@ textarea.txtin{font-family:inherit}
 .caja-mini .ml{font-size:13px;color:var(--texto-suave);margin-top:5px}
 .caja-mini.efe .mn{color:var(--sage)}
 .caja-mini.tra .mn{color:var(--navy)}
+.caja-mini.egr .mn{color:var(--rojo)}
+
+/* — Egresos de caja: desglose por método e ingresos/gastos/neto — */
+.bal-metodos{display:grid;grid-template-columns:1fr;gap:11px;margin-top:14px}
+.bal-met{background:var(--blanco);border-radius:18px;padding:15px 17px;box-shadow:var(--card-shadow)}
+.bal-met-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.bal-met-head .bm-l{display:flex;align-items:center;gap:9px;font-size:15.5px;font-weight:600;color:var(--gris-900)}
+.bal-met-head .bm-neto{font-family:var(--titf);font-weight:600;font-size:23px;color:var(--gris-900)}
+.bal-met-head .bm-neto.neg{color:var(--rojo)}
+.bal-met-detail{display:flex;gap:14px;margin-top:9px;font-size:13px;color:var(--texto-suave)}
+.bal-met-detail .bd-in b{color:var(--sage);font-weight:700}
+.bal-met-detail .bd-eg b{color:var(--rojo);font-weight:700}
+
+/* — Bloque de gastos (lista + botón registrar) — */
+.egr-block{margin-top:24px}
+.egr-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 2px 12px}
+.egr-head h3{font-size:18px}
+.egr-count{font-size:13px;color:var(--texto-suave)}
+.egr-add{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:58px;background:var(--rojo-pale);color:var(--rojo);border:2px solid var(--rojo-pale);border-radius:18px;font-size:17px;font-weight:700;box-shadow:var(--card-shadow);transition:transform .15s ease;margin-top:4px}
+.egr-add:active{transform:scale(.98)}
+.egr-add .ea-ico{font-size:15px}
+.egr-row{display:flex;align-items:center;gap:13px;background:var(--blanco);border-radius:16px;padding:13px 15px;box-shadow:var(--card-shadow);margin-bottom:10px;width:100%;text-align:left;transition:transform .15s ease}
+.egr-row:active{transform:scale(.992)}
+.egr-row .er-ico{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0;background:var(--rojo-pale)}
+.egr-row .er-tx{flex:1;min-width:0}
+.egr-row .er-tx b{display:block;font-size:15.5px;color:var(--gris-900);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.egr-row .er-tx span{display:block;font-size:12.5px;color:var(--texto-suave);margin-top:3px}
+.egr-row .er-monto{font-family:var(--titf);font-weight:600;font-size:18px;color:var(--rojo);flex-shrink:0;text-align:right}
+.egr-row .er-del{background:none;border:none;color:var(--gris-300);font-size:18px;padding:6px 2px 6px 8px;flex-shrink:0;line-height:1}
+.egr-row .er-del.armed{color:var(--rojo)}
+.egr-empty{font-size:13.5px;color:var(--texto-suave);padding:4px 2px 10px}
+.egr-cat{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.3px;background:var(--crema-dark);color:var(--gris-700);border-radius:50px;padding:2px 9px;margin-left:7px;vertical-align:middle}
+label .opt{text-transform:none;letter-spacing:0;color:var(--gris-300);font-weight:500;font-size:11px}
+.gasto-fecha{font-family:inherit;font-size:16px}
+
 .caja-cerrar{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:var(--gris-900);color:#fff;border-radius:50px;min-height:62px;font-size:18px;font-weight:600;margin-top:18px;box-shadow:0 8px 22px rgba(42,42,42,.22);transition:transform .15s ease}
 .caja-cerrar:active{transform:scale(.98)}
 .caja-cerrada{background:#E7F8EE;color:#1f9d57;border-radius:18px;padding:17px;text-align:center;font-weight:600;font-size:16px;margin-top:18px}
@@ -1446,14 +1483,25 @@ html.unlocked #lockScreen{display:none}
       <!-- HOY · CAJA DEL DÍA (vista por defecto) -->
       <div class="caja-pane on" id="pane-hoy">
         <div class="caja-hero">
-          <div class="lbl">Ventas de hoy</div>
+          <div class="lbl">Neto de hoy · lo que te quedó</div>
           <div class="big" id="cajaHoyTotal">$ 0</div>
           <div class="sub" id="cajaHoyCount">Sin ventas todavía</div>
         </div>
         <div class="caja-split">
-          <div class="caja-mini efe"><div class="mi">💵</div><div class="mn" id="cajaHoyEfe">$ 0</div><div class="ml">Efectivo</div></div>
-          <div class="caja-mini tra"><div class="mi">📲</div><div class="mn" id="cajaHoyTra">$ 0</div><div class="ml">Transferencia</div></div>
+          <div class="caja-mini efe"><div class="mi">🟢</div><div class="mn" id="cajaHoyIngreso">$ 0</div><div class="ml">Ingresos</div></div>
+          <div class="caja-mini egr"><div class="mi">🔴</div><div class="mn" id="cajaHoyEgreso">$ 0</div><div class="ml">Gastos</div></div>
         </div>
+
+        <!-- Desglose por método: lo que debería quedar en efectivo y en el banco -->
+        <div class="bal-metodos" id="cajaHoyMetodos"></div>
+
+        <!-- Gastos de hoy: registrar + lista borrable/editable -->
+        <div class="egr-block">
+          <div class="egr-head"><h3>Gastos de hoy</h3><span class="egr-count" id="cajaHoyEgrCount"></span></div>
+          <div id="cajaHoyEgrList"></div>
+          <button class="egr-add" id="cajaHoyEgrAdd" type="button"><span class="ea-ico">➖</span> Registrar gasto</button>
+        </div>
+
         <div id="cajaCerrarWrap"></div>
       </div>
 
@@ -1472,7 +1520,7 @@ html.unlocked #lockScreen{display:none}
         <div id="listaHist"></div>
       </div>
 
-      <!-- RESUMEN -->
+      <!-- RESUMEN / REPORTES -->
       <div class="caja-pane" id="pane-res">
         <div class="filtros" id="resTabs"></div>
         <div class="res-big">
@@ -1480,6 +1528,16 @@ html.unlocked #lockScreen{display:none}
           <div class="big" id="resTotal">$ 0</div>
           <div class="sub" id="resSub">0 ventas</div>
         </div>
+
+        <!-- Ingresos − Gastos = Neto, desglosado por método -->
+        <div class="bal-metodos" id="resMetodos"></div>
+
+        <!-- Gastos del período: lista borrable/editable -->
+        <div class="egr-block">
+          <div class="egr-head"><h3>Gastos del período</h3><span class="egr-count" id="resEgrCount"></span></div>
+          <div id="resEgrList"></div>
+        </div>
+
         <div class="res-top">
           <h3>Lo más vendido</h3>
           <div id="resTop"></div>
@@ -2487,6 +2545,56 @@ html.unlocked #lockScreen{display:none}
   </div>
 </div>
 
+<!-- ===== SHEET: REGISTRAR / EDITAR GASTO (Egresos de caja) ===== -->
+<div class="scrim" id="gastoScrim"></div>
+<div class="sheet" id="gastoSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2 id="gastoTitle">Registrar gasto</h2>
+    <button class="sheet-x" id="gastoClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div class="field" style="margin-top:8px">
+      <label>¿Cuánto gastaste?</label>
+      <div class="precio-wrap"><span class="pe">$</span>
+        <input id="gastoMonto" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
+      </div>
+    </div>
+    <div class="field">
+      <label>¿En qué?</label>
+      <input class="txtin" id="gastoConcepto" type="text" placeholder="Ej: tela, taller, luz" autocomplete="off"/>
+    </div>
+    <div class="field">
+      <label>¿Cómo lo pagaste?</label>
+      <div class="pago-opts">
+        <button class="pago" data-gastopago="efectivo" type="button">
+          <span class="pico">💵</span>
+          <span class="ptx"><b>Efectivo</b><span>Sale de la caja</span></span>
+          <span class="pcheck">✓</span>
+        </button>
+        <button class="pago" data-gastopago="transferencia" type="button">
+          <span class="pico">📲</span>
+          <span class="ptx"><b>Transferencia / MP</b><span>Sale del banco</span></span>
+          <span class="pcheck">✓</span>
+        </button>
+      </div>
+    </div>
+    <div class="field">
+      <label>¿Qué día fue?</label>
+      <input class="txtin gasto-fecha" id="gastoFecha" type="date"/>
+      <p class="hint">Por defecto es hoy. Tocá para cambiarlo si el gasto fue otro día.</p>
+    </div>
+    <div class="field">
+      <label>Categoría <span class="opt">(opcional)</span></label>
+      <div class="chips" id="gastoCats"></div>
+    </div>
+    <div class="sheet-actions">
+      <button class="btn-danger btn" id="gastoDelete" style="display:none">🗑️</button>
+      <button class="btn btn-primary" id="gastoConfirm" disabled>Guardar gasto</button>
+    </div>
+  </div>
+</div>
+
 <!-- ===== SHEET: ELEGIR CLIENTA (desde una venta) ===== -->
 <div class="scrim" id="pickScrim"></div>
 <div class="sheet" id="pickSheet">
@@ -3191,23 +3299,24 @@ document.addEventListener("click", e=>{
   if(link){ e.preventDefault(); go(link.dataset.go); }
 });
 
-/* ── Burbuja flotante de voz: visible en Inicio y en Vender ──
-   Sobre Vender la subimos para no tapar la barra "Cobrar". */
+/* ── Burbuja flotante de voz: SOLO en la pestaña Inicio ──
+   En cualquier otra pantalla o sección (Vender, Cobrar, Productos, Clientas,
+   Caja, Mensajes, Configuración, etc.) NO se muestra, así nunca tapa contenido
+   importante como el "vuelto a devolver" de Cobrar. */
 function updateFabVoz(){
   const fab = $("#fabVoz"); if(!fab) return;
   const venderOpen = $("#vender").classList.contains("show");
-  const show = venderOpen || currentView==="inicio";
+  const show = currentView==="inicio" && !venderOpen;
   fab.style.display = show ? "flex" : "none";
-  fab.classList.toggle("over-vender", venderOpen);
+  fab.classList.remove("over-vender");
   refreshVozCollapse();
 }
-/* ── Colapso de la burbuja de voz ──
-   Queda solo la burbuja redonda al deslizar hacia abajo en Inicio, al abrir el
-   menú o al cambiar de pestaña; vuelve a expandirse arriba de todo / en reposo. */
+/* ── Colapso de la burbuja de voz (aplica solo en Inicio) ──
+   Queda solo la burbuja redonda al deslizar hacia abajo, al abrir el menú o al
+   cambiar de pestaña; vuelve a expandirse arriba de todo / en reposo. */
 function refreshVozCollapse(){
   const fab = $("#fabVoz"); if(!fab) return;
-  const venderOpen = $("#vender").classList.contains("show");
-  const collapse = menuOpen || (currentView==="inicio" && !venderOpen && window.scrollY > 36);
+  const collapse = menuOpen || (currentView==="inicio" && window.scrollY > 36);
   fab.classList.toggle("collapsed", collapse);
 }
 window.addEventListener("scroll", ()=>{ refreshVozCollapse(); }, {passive:true});
@@ -6778,13 +6887,38 @@ $("#reciboScrim").onclick = closeRecibo;
      forma de una entrega y se abre con openRecibo().
    ════════════════════════════════════════════════════════════════ */
 const cajaRef = collection(db, "caja_pos_cascanueces");
+const egresosRef = collection(db, "egresos_pos_cascanueces");   // gastos / plata que sale
 let cierres = [];
+let egresos = [];              // [{id, monto, concepto, metodo, categoria, fecha, ts}]
 let cajaTab = "hoy";            // hoy | hist | res
 let histPagoF = "todos";       // todos | efectivo | transferencia
 let histQuickF = "hoy";        // hoy | semana | mes | todas | rango
 let histDesde = "", histHasta = "";
 let resPeriodo = "dia";        // dia | semana | mes
 let cajaCierrePend = null;
+
+/* ── Categorías de gasto (elegibles por tap, opcionales) ── */
+const EGRESO_CATS = [
+  { id:"insumos",   label:"Insumos",   emoji:"🧵" },
+  { id:"taller",    label:"Taller",    emoji:"✂️" },
+  { id:"servicios", label:"Servicios", emoji:"💡" },
+  { id:"otro",      label:"Otro",      emoji:"📦" },
+];
+function egresoCat(id){ return EGRESO_CATS.find(c=> c.id===id) || null; }
+/* Fecha del egreso: usa el ymd guardado; si faltara, cae al ts. */
+function egresoYmd(e){ return e.fecha || (Number(e.ts) ? ymd(new Date(Number(e.ts))) : ""); }
+function egresoMs(e){ return Number(e.ts) || (e.fecha ? ymdToTs(e.fecha) : 0); }
+/* Egresos de un rango [desde, hasta] (ymd inclusive). */
+function egresosEnRango(desde, hasta){
+  return egresos.filter(e=>{ const f = egresoYmd(e); return f && (!desde || f>=desde) && (!hasta || f<=hasta); })
+    .sort((a,b)=> egresoMs(b) - egresoMs(a));
+}
+/* Totales de egresos por método sobre una lista. */
+function egresosTotales(lista){
+  const efe = lista.filter(e=> e.metodo==="efectivo").reduce((a,e)=> a + (Number(e.monto)||0), 0);
+  const tra = lista.filter(e=> e.metodo==="transferencia").reduce((a,e)=> a + (Number(e.monto)||0), 0);
+  return { efe, tra, total: efe + tra, count: lista.length };
+}
 
 /* ── Helpers de ventas/fechas ── */
 function ventaMs(v){
@@ -6828,46 +6962,108 @@ function renderCaja(){
   renderResumen();
 }
 
+/* ── Tarjetas "por método": ingreso − gasto = neto (efectivo y banco) ── */
+function balMetodosHtml(ingEfe, ingTra, egrEfe, egrTra){
+  const card = (emoji, lbl, ing, egr)=>{
+    const neto = ing - egr;
+    return `<div class="bal-met">
+      <div class="bal-met-head">
+        <span class="bm-l">${emoji} ${lbl}</span>
+        <span class="bm-neto${neto<0?" neg":""}">${money(neto)}</span>
+      </div>
+      <div class="bal-met-detail">
+        <span class="bd-in">Entró <b>${money(ing)}</b></span>
+        <span class="bd-eg">Salió <b>${money(egr)}</b></span>
+      </div>
+    </div>`;
+  };
+  return card("💵","Efectivo", ingEfe, egrEfe) + card("📲","Transferencia", ingTra, egrTra);
+}
+/* ── Fila de un gasto: tocar = editar · 🗑️ con dos toques = borrar ── */
+function egresoRowEl(e){
+  const cat = egresoCat(e.categoria);
+  const ms = egresoMs(e);
+  const hora = ms ? new Date(ms).toLocaleTimeString("es-AR",{hour:"2-digit",minute:"2-digit"}) : "";
+  const metEmoji = e.metodo==="transferencia" ? "📲" : "💵";
+  const metLbl   = e.metodo==="transferencia" ? "Transferencia" : "Efectivo";
+  const row = document.createElement("div"); row.className = "egr-row";
+  row.innerHTML = `
+    <div class="er-ico">${cat ? cat.emoji : "🧾"}</div>
+    <button class="er-tx" type="button" style="background:none;border:none;text-align:left;padding:0;min-width:0">
+      <b>${esc(e.concepto||"Gasto")}${cat?`<span class="egr-cat">${esc(cat.label)}</span>`:""}</b>
+      <span>${metEmoji} ${metLbl} · ${esc(diaLabel(egresoYmd(e)))}${hora?` ${hora}`:""}</span>
+    </button>
+    <div class="er-monto">−${money(e.monto)}</div>
+    <button class="er-del" type="button" aria-label="Borrar">🗑️</button>`;
+  row.querySelector(".er-tx").onclick = ()=> openGastoSheet(e);
+  row.querySelector(".er-del").onclick = (ev)=>{ ev.stopPropagation(); armarBorrarEgreso(e, row.querySelector(".er-del")); };
+  return row;
+}
+
 /* ── 1) CAJA DEL DÍA ── */
 function renderCajaHoy(){
   const hoy = hoyYmd();
   const vts = ventasParaEntrega.filter(v=> ventaActiva(v) && ventaYmd(v)===hoy);
-  const efe = vts.filter(v=> v.pago==="efectivo").reduce((a,v)=> a + ventaEnCaja(v), 0);
-  const tra = vts.filter(v=> v.pago==="transferencia").reduce((a,v)=> a + ventaEnCaja(v), 0);
-  const total = vts.reduce((a,v)=> a + ventaEnCaja(v), 0);
-  $("#cajaHoyTotal").textContent = money(total);
-  $("#cajaHoyEfe").textContent = money(efe);
-  $("#cajaHoyTra").textContent = money(tra);
-  $("#cajaHoyCount").textContent = vts.length===0 ? "Sin ventas todavía"
-      : (vts.length===1 ? "1 venta hoy" : vts.length + " ventas hoy");
+  const ingEfe = vts.filter(v=> v.pago==="efectivo").reduce((a,v)=> a + ventaEnCaja(v), 0);
+  const ingTra = vts.filter(v=> v.pago==="transferencia").reduce((a,v)=> a + ventaEnCaja(v), 0);
+  const ingreso = vts.reduce((a,v)=> a + ventaEnCaja(v), 0);
 
+  const egrs = egresosEnRango(hoy, hoy);
+  const eg = egresosTotales(egrs);
+  const neto = ingreso - eg.total;
+
+  $("#cajaHoyTotal").textContent = money(neto);
+  $("#cajaHoyIngreso").textContent = money(ingreso);
+  $("#cajaHoyEgreso").textContent  = eg.total>0 ? "−"+money(eg.total) : money(0);
+  const partes = [];
+  partes.push(vts.length===0 ? "Sin ventas hoy" : (vts.length===1 ? "1 venta" : vts.length + " ventas"));
+  if(eg.count>0) partes.push(eg.count===1 ? "1 gasto" : eg.count + " gastos");
+  $("#cajaHoyCount").textContent = partes.join(" · ");
+
+  $("#cajaHoyMetodos").innerHTML = balMetodosHtml(ingEfe, ingTra, eg.efe, eg.tra);
+
+  // Lista de gastos de hoy
+  $("#cajaHoyEgrCount").textContent = eg.total>0 ? "−"+money(eg.total) : "";
+  const list = $("#cajaHoyEgrList"); list.innerHTML = "";
+  if(egrs.length===0){
+    list.innerHTML = `<div class="egr-empty">Todavía no anotaste gastos hoy.</div>`;
+  } else {
+    egrs.forEach(e=> list.appendChild(egresoRowEl(e)));
+  }
+
+  // Cierre del día: ahora cuadra con el neto (ingresos − gastos), por método
+  const cd = { fecha:hoy, total:neto, totalEfectivo:ingEfe-eg.efe, totalTransferencia:ingTra-eg.tra,
+               ingresos:ingreso, ingresoEfectivo:ingEfe, ingresoTransferencia:ingTra,
+               egresos:eg.total, egresoEfectivo:eg.efe, egresoTransferencia:eg.tra,
+               count:vts.length, egresoCount:eg.count };
   const wrap = $("#cajaCerrarWrap"); wrap.innerHTML = "";
   const cierreHoy = cierres.find(c=> c.fecha===hoy);
   if(cierreHoy){
     const div = document.createElement("div");
     div.className = "caja-cerrada";
-    div.innerHTML = `✓ Caja cerrada — ${money(cierreHoy.total)}
-      <span>${(cierreHoy.count||0)} ${(cierreHoy.count||0)===1?"venta":"ventas"} · 💵 ${money(cierreHoy.totalEfectivo)} · 📲 ${money(cierreHoy.totalTransferencia)}</span>`;
+    div.innerHTML = `✓ Caja cerrada — neto ${money(cierreHoy.total)}
+      <span>${(cierreHoy.count||0)} ${(cierreHoy.count||0)===1?"venta":"ventas"}${(cierreHoy.egresoCount||0)?` · ${cierreHoy.egresoCount} ${cierreHoy.egresoCount===1?"gasto":"gastos"}`:""} · 💵 ${money(cierreHoy.totalEfectivo)} · 📲 ${money(cierreHoy.totalTransferencia)}</span>`;
     wrap.appendChild(div);
-    if(total !== (Number(cierreHoy.total)||0)){
+    if(neto !== (Number(cierreHoy.total)||0)){
       const btn = document.createElement("button");
       btn.className = "caja-cerrar"; btn.style.marginTop = "12px"; btn.style.background = "var(--celeste-deep)";
       btn.innerHTML = "🔄 Actualizar el cierre con los totales de ahora";
-      btn.onclick = ()=> pedirCierre({ fecha:hoy, total, totalEfectivo:efe, totalTransferencia:tra, count:vts.length, id:cierreHoy.id });
+      btn.onclick = ()=> pedirCierre({ ...cd, id:cierreHoy.id });
       wrap.appendChild(btn);
     }
-  } else if(vts.length>0){
+  } else if(vts.length>0 || eg.count>0){
     const btn = document.createElement("button");
     btn.className = "caja-cerrar";
     btn.innerHTML = "🔒 Cerrar caja del día";
-    btn.onclick = ()=> pedirCierre({ fecha:hoy, total, totalEfectivo:efe, totalTransferencia:tra, count:vts.length, id:null });
+    btn.onclick = ()=> pedirCierre({ ...cd, id:null });
     wrap.appendChild(btn);
   }
 }
 function pedirCierre(d){
   cajaCierrePend = d;
   $("#ccText").innerHTML = `Vas a guardar el cierre de <b>${diaLabel(d.fecha)}</b>:<br>
-    Total <b>${money(d.total)}</b> · 💵 ${money(d.totalEfectivo)} · 📲 ${money(d.totalTransferencia)} · ${d.count} ${d.count===1?"venta":"ventas"}.`;
+    Ingresos ${money(d.ingresos)} − Gastos ${money(d.egresos)} = <b>Neto ${money(d.total)}</b><br>
+    💵 ${money(d.totalEfectivo)} · 📲 ${money(d.totalTransferencia)} · ${d.count} ${d.count===1?"venta":"ventas"}${d.egresoCount?` · ${d.egresoCount} ${d.egresoCount===1?"gasto":"gastos"}`:""}.`;
   showConfirm("cajaConfirm", ()=>{ cajaCierrePend = null; });
 }
 $("#ccNo").onclick = ()=>{ cajaCierrePend = null; hideConfirm("cajaConfirm"); };
@@ -6877,7 +7073,10 @@ $("#ccYes").onclick = async ()=>{
   if(!d) return;
   try{
     const payload = { fecha:d.fecha, total:d.total, totalEfectivo:d.totalEfectivo,
-      totalTransferencia:d.totalTransferencia, count:d.count, ts:Date.now(), creado:serverTimestamp() };
+      totalTransferencia:d.totalTransferencia, ingresos:d.ingresos, ingresoEfectivo:d.ingresoEfectivo,
+      ingresoTransferencia:d.ingresoTransferencia, egresos:d.egresos, egresoEfectivo:d.egresoEfectivo,
+      egresoTransferencia:d.egresoTransferencia, count:d.count, egresoCount:d.egresoCount,
+      ts:Date.now(), creado:serverTimestamp() };
     if(d.id) await setDoc(doc(db,"caja_pos_cascanueces",d.id), payload, { merge:true });
     else      await addDoc(cajaRef, payload);
     toast("Caja cerrada ✓", "ok");
@@ -6886,6 +7085,114 @@ $("#ccYes").onclick = async ()=>{
     toast("No se pudo cerrar la caja. Probá de nuevo.", "err");
   }
 };
+
+/* ════════ Gastos · registrar / editar / borrar (egresos_pos_cascanueces) ════════ */
+let gastoEditId = null;       // null = nuevo · id = editando
+let gastoMetodo = null;       // efectivo | transferencia
+let gastoCatSel = null;       // id de categoría | null (opcional)
+let egresoDelArmed = {};
+let egresoDelTimer = null;
+
+function renderGastoCats(){
+  const cont = $("#gastoCats"); cont.innerHTML = "";
+  EGRESO_CATS.forEach(c=>{
+    const b = document.createElement("button"); b.type = "button";
+    b.className = "chip" + (gastoCatSel===c.id?" on":"");
+    b.innerHTML = `${c.emoji} ${c.label}`;
+    b.onclick = ()=>{ gastoCatSel = (gastoCatSel===c.id ? null : c.id); renderGastoCats(); };
+    cont.appendChild(b);
+  });
+}
+function renderGastoSheet(){
+  document.querySelectorAll("#gastoSheet .pago").forEach(b=> b.classList.toggle("on", b.dataset.gastopago===gastoMetodo));
+  const monto = cuNum($("#gastoMonto").value);
+  $("#gastoConfirm").disabled = !(monto>0 && gastoMetodo && $("#gastoFecha").value);
+}
+function openGastoSheet(e){
+  gastoEditId = e ? e.id : null;
+  gastoMetodo = e ? (e.metodo||null) : null;
+  gastoCatSel = e ? (e.categoria||null) : null;
+  $("#gastoTitle").textContent = e ? "Editar gasto" : "Registrar gasto";
+  $("#gastoMonto").value = e && Number(e.monto) ? Number(e.monto).toLocaleString("es-AR") : "";
+  $("#gastoConcepto").value = e ? (e.concepto||"") : "";
+  $("#gastoFecha").value = e ? egresoYmd(e) : hoyYmd();
+  $("#gastoDelete").style.display = e ? "block" : "none";
+  renderGastoCats(); renderGastoSheet();
+  $("#gastoScrim").classList.add("show"); $("#gastoSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+  pushBack("gasto", closeGastoSheet);
+}
+function closeGastoSheet(fromPop){
+  $("#gastoScrim").classList.remove("show"); $("#gastoSheet").classList.remove("show");
+  document.body.style.overflow = "";
+  egresoDelArmed = {}; clearTimeout(egresoDelTimer);
+  try{ $("#gastoDelete").classList.remove("armed"); }catch(e){}
+  if(fromPop!==true) syncBack("gasto");
+}
+$("#gastoClose").onclick = ()=> closeGastoSheet();
+$("#gastoScrim").onclick = ()=> closeGastoSheet();
+$("#gastoMonto").addEventListener("input", e=>{ const n = cuNum(e.target.value); e.target.value = n ? n.toLocaleString("es-AR") : ""; renderGastoSheet(); });
+$("#gastoConcepto").addEventListener("input", renderGastoSheet);
+$("#gastoFecha").addEventListener("change", renderGastoSheet);
+document.querySelectorAll("#gastoSheet .pago").forEach(b=>{
+  b.onclick = ()=>{ gastoMetodo = b.dataset.gastopago; renderGastoSheet(); };
+});
+$("#gastoConfirm").onclick = async ()=>{
+  const monto = cuNum($("#gastoMonto").value);
+  const fecha = $("#gastoFecha").value;
+  if(!(monto>0) || !gastoMetodo || !fecha) return;
+  $("#gastoConfirm").disabled = true;
+  const payload = {
+    monto, concepto: ($("#gastoConcepto").value||"").trim() || "Gasto",
+    metodo: gastoMetodo, categoria: gastoCatSel || null, fecha,
+    // Para hoy ymdToTs ya da la hora exacta (orden correcto); para días pasados, mediodía.
+    ts: ymdToTs(fecha)
+  };
+  try{
+    if(gastoEditId) await setDoc(doc(db,"egresos_pos_cascanueces",gastoEditId), payload, { merge:true });
+    else { payload.creado = serverTimestamp(); await addDoc(egresosRef, payload); }
+    toast(gastoEditId ? "Gasto editado ✓" : "Gasto registrado ✓ — bajó la caja", "ok");
+    closeGastoSheet();
+  }catch(err){
+    console.error("Guardar gasto:", err.code, err.message);
+    toast("No se pudo guardar el gasto. Probá de nuevo.", "err");
+    $("#gastoConfirm").disabled = false;
+  }
+};
+/* Borrar desde el sheet de edición: dos toques en el 🗑️ */
+$("#gastoDelete").onclick = ()=>{
+  if(!gastoEditId) return;
+  const btn = $("#gastoDelete");
+  if(btn.classList.contains("armed")){
+    clearTimeout(egresoDelTimer); btn.classList.remove("armed");
+    const id = gastoEditId; closeGastoSheet();
+    borrarEgreso(id);
+    return;
+  }
+  btn.classList.add("armed"); toast("Tocá de nuevo el 🗑️ para borrar el gasto");
+  egresoDelTimer = setTimeout(()=>{ try{ btn.classList.remove("armed"); }catch(e){} }, 3000);
+};
+/* Borrar desde una fila de la lista: dos toques en el 🗑️ */
+function armarBorrarEgreso(e, btn){
+  if(egresoDelArmed[e.id]){
+    clearTimeout(egresoDelTimer); egresoDelArmed = {};
+    borrarEgreso(e.id);
+    return;
+  }
+  egresoDelArmed = {}; egresoDelArmed[e.id] = true;
+  btn.classList.add("armed"); toast("Tocá de nuevo el 🗑️ para borrar el gasto");
+  egresoDelTimer = setTimeout(()=>{ egresoDelArmed = {}; try{ btn.classList.remove("armed"); }catch(e){} }, 3000);
+}
+async function borrarEgreso(id){
+  try{
+    await deleteDoc(doc(db,"egresos_pos_cascanueces", id));
+    toast("Gasto borrado — volvió a la caja");
+  }catch(err){
+    console.error("Borrar gasto:", err.code, err.message);
+    toast("No se pudo borrar. Probá de nuevo.", "err");
+  }
+}
+$("#cajaHoyEgrAdd").onclick = ()=> openGastoSheet(null);
 
 /* ── 2) HISTORIAL DE VENTAS ── */
 function histVentasFiltradas(){
@@ -7041,11 +7348,32 @@ function renderResumen(){
   else { desde = ymd(inicioMes()); lbl = "Este mes"; }
   const hoy = hoyYmd();
   const vts = ventasParaEntrega.filter(v=>{ const f = ventaYmd(v); return ventaActiva(v) && f && f>=desde && f<=hoy; });
-  const total = vts.reduce((a,v)=> a + ventaEnCaja(v), 0);
+  const ingreso = vts.reduce((a,v)=> a + ventaEnCaja(v), 0);
+  const ingEfe = vts.filter(v=> v.pago==="efectivo").reduce((a,v)=> a + ventaEnCaja(v), 0);
+  const ingTra = vts.filter(v=> v.pago==="transferencia").reduce((a,v)=> a + ventaEnCaja(v), 0);
+
+  const egrs = egresosEnRango(desde, hoy);
+  const eg = egresosTotales(egrs);
+  const neto = ingreso - eg.total;
+
   $("#resLbl").textContent = lbl;
-  $("#resTotal").textContent = money(total);
-  $("#resSub").textContent = vts.length===0 ? "Todavía sin ventas"
-      : (vts.length===1 ? "1 venta" : vts.length + " ventas");
+  $("#resTotal").textContent = money(neto);
+  const subP = [];
+  subP.push(vts.length===0 ? "Sin ventas" : (vts.length===1 ? "1 venta" : vts.length + " ventas"));
+  if(eg.count>0) subP.push(eg.count===1 ? "1 gasto" : eg.count + " gastos");
+  $("#resSub").textContent = (vts.length===0 && eg.count===0) ? "Todavía sin movimientos" : subP.join(" · ");
+
+  // Ingresos − Gastos = Neto, desglosado por método
+  $("#resMetodos").innerHTML = balMetodosHtml(ingEfe, ingTra, eg.efe, eg.tra);
+
+  // Lista de gastos del período (borrable / editable)
+  $("#resEgrCount").textContent = eg.total>0 ? "−"+money(eg.total) : "";
+  const egList = $("#resEgrList"); egList.innerHTML = "";
+  if(egrs.length===0){
+    egList.innerHTML = `<div class="egr-empty">Sin gastos en este período.</div>`;
+  } else {
+    egrs.forEach(e=> egList.appendChild(egresoRowEl(e)));
+  }
 
   const agg = {};
   vts.forEach(v=> (Array.isArray(v.items)?v.items:[]).forEach(it=>{
@@ -7083,6 +7411,15 @@ onSnapshot(cajaRef, snap=>{
 }, err=>{
   console.error("Firestore [caja]:", err.code, err.message);
   if(err.code==="permission-denied") toast("Sin permisos para caja en Firestore.", "err");
+});
+
+/* ── Sync de egresos (gastos / plata que sale) ── */
+onSnapshot(egresosRef, snap=>{
+  egresos = snap.docs.map(d=>({ id:d.id, ...d.data() }));
+  if($("#view-caja")?.classList.contains("active")) renderCaja();
+}, err=>{
+  console.error("Firestore [egresos]:", err.code, err.message);
+  if(err.code==="permission-denied") toast("Sin permisos para egresos en Firestore.", "err");
 });
 
 /* ════════════════════════════════════════════════════════════════
@@ -9178,6 +9515,7 @@ const BACKUP_COLS = [
   { key:"clientes",  col:"clientes_pos_cascanueces" },
   { key:"entregas",  col:"entregas_pos_cascanueces" },
   { key:"caja",      col:"caja_pos_cascanueces" },
+  { key:"egresos",   col:"egresos_pos_cascanueces" },
   { key:"espera",    col:"espera_pos_cascanueces" },
   { key:"encargos",  col:"encargos_pos_cascanueces" },
   { key:"cuenta",    col:"cuenta_pos_cascanueces" }
