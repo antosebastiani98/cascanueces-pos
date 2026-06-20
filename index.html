@@ -1312,6 +1312,17 @@ html.unlocked #lockScreen{display:none}
 .tut-item.feat .ti-tx b{color:#fff;font-family:var(--titf);font-weight:600;font-size:21px}
 .tut-item.feat .ti-tx span{color:rgba(255,255,255,.88)}
 .tut-item.feat .ti-play{background:#fff;color:var(--celeste-deep)}
+/* Biblioteca filtrable de tutoriales */
+.tut-lib{margin-top:18px;border-top:1px solid var(--gris-100);padding-top:16px}
+.tut-lib-head{font-family:var(--titf);font-weight:600;font-size:20px;color:var(--gris-900);line-height:1.1}
+.tut-lib-sub{font-size:14px;color:var(--texto-suave);line-height:1.45;margin:4px 0 10px}
+.tut-filt-lbl{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--celeste-deep);margin:12px 0 4px}
+.tut-lib .filtros{padding:2px 0 6px}
+.tut-lib .chip-f{font-size:15px;font-weight:600;padding:12px 18px;min-height:48px;cursor:pointer;border:0}
+.tut-lib .chip-f:active{transform:scale(.97)}
+.tut-count{font-size:13.5px;color:var(--texto-suave);margin:14px 0 2px;font-weight:600}
+.tut-lib .tut-item .ti-tag{display:inline-block;font-size:11.5px;font-weight:700;color:var(--celeste-deep);background:var(--celeste-pale);border-radius:50px;padding:3px 9px;margin-top:5px}
+.tut-empty{font-size:15.5px;color:var(--texto-suave);text-align:center;line-height:1.5;padding:24px 14px}
 
 /* Motor de tour guiado: overlay spotlight + globito (hecho a mano, sin librerías) */
 .tour{position:fixed;inset:0;z-index:9000;display:none;pointer-events:auto}
@@ -1618,37 +1629,30 @@ html.unlocked #lockScreen{display:none}
       <div class="cfg-card tut-card" id="cfgTutorialesCard">
         <div class="cfg-h"><span class="cfg-ic">🎓</span><div><b>Tutoriales</b><span>Aprendé a usar la app, paso a paso</span></div></div>
         <p class="tut-intro">Tocá cualquiera y te lo muestro en la pantalla, con pasos cortos. Lo podés repetir las veces que quieras.</p>
-        <div class="tut-list" id="tutList">
+
+        <!-- Tour para mamá: fijo y destacado arriba de todo -->
+        <div class="tut-list">
           <button class="tut-item feat" type="button" data-tour="mama">
             <span class="ti-ic">💙</span>
             <span class="ti-tx"><b>Tour para mamá</b><span>Un paseo por lo que más usás, bien fácil</span></span>
             <span class="ti-play">▶ Empezar</span>
           </button>
-          <button class="tut-item" type="button" data-tour="venta">
-            <span class="ti-ic">🛒</span>
-            <span class="ti-tx"><b>Cargar una venta</b><span>Elegir colegio, prenda y talle</span></span>
-            <span class="ti-play">▶ Ver</span>
-          </button>
-          <button class="tut-item" type="button" data-tour="cobro">
-            <span class="ti-ic">💵</span>
-            <span class="ti-tx"><b>Cobrar una venta</b><span>Efectivo o transferencia, y el vuelto</span></span>
-            <span class="ti-play">▶ Ver</span>
-          </button>
-          <button class="tut-item" type="button" data-tour="gasto">
-            <span class="ti-ic">➖</span>
-            <span class="ti-tx"><b>Registrar un gasto</b><span>Anotar una salida de plata</span></span>
-            <span class="ti-play">▶ Ver</span>
-          </button>
-          <button class="tut-item" type="button" data-tour="reparto">
-            <span class="ti-ic">🚗</span>
-            <span class="ti-tx"><b>Programar un reparto</b><span>Una entrega a domicilio</span></span>
-            <span class="ti-play">▶ Ver</span>
-          </button>
-          <button class="tut-item" type="button" data-tour="whatsapp">
-            <span class="ti-ic">💬</span>
-            <span class="ti-tx"><b>Avisar por WhatsApp</b><span>Mandar un mensaje desde Mensajes</span></span>
-            <span class="ti-play">▶ Ver</span>
-          </button>
+        </div>
+
+        <!-- BIBLIOTECA filtrable de tutoriales -->
+        <div class="tut-lib">
+          <div class="tut-lib-head">📚 Biblioteca de tutoriales</div>
+          <p class="tut-lib-sub">Tocá los botones para encontrar el que buscás. Podés combinar los dos.</p>
+
+          <div class="tut-filt-lbl">¿De qué pantalla?</div>
+          <div class="filtros" id="tutFiltPest"></div>
+
+          <div class="tut-filt-lbl">¿Qué querés hacer?</div>
+          <div class="filtros" id="tutFiltAcc"></div>
+
+          <div class="tut-count" id="tutCount"></div>
+          <div class="tut-list" id="tutLib"></div>
+          <p class="tut-empty" id="tutEmpty" style="display:none">No hay tutoriales con esa combinación. Tocá <b>Todos</b> para ver todos. 💙</p>
         </div>
       </div>
 
@@ -10632,14 +10636,281 @@ const WHATSAPP_STEPS = [
     text:"Tocás <b>Enviar por WhatsApp</b> y el mensaje se escribe solo con los datos. Vos solo apretás enviar en WhatsApp." }
 ];
 
-const TOUR_MAP = {
-  mama: MAMA_STEPS, venta: VENTA_STEPS, cobro: COBRO_STEPS,
-  gasto: GASTO_STEPS, reparto: REPARTO_STEPS, whatsapp: WHATSAPP_STEPS
-};
+/* ── Pasos de los tutoriales de la BIBLIOTECA (reusan el mismo motor) ── */
+
+/* PRODUCTOS */
+const PROD_NUEVO_STEPS = [
+  { view:"stock", target:"#prodAdd", title:"Agregá un producto",
+    text:"En <b>Productos</b>, tocá <b>＋ Agregar producto</b> arriba de todo." },
+  { view:"stock", target:"#prodAdd", title:"Completá los datos",
+    text:"Elegí el <b>colegio</b>, escribí la <b>prenda</b> (ej: Chomba), y cargá los <b>talles</b> con su <b>stock</b>, el <b>costo</b> y el <b>precio</b>." },
+  { view:"stock", target:"#catalogoBlock", title:"Queda en el catálogo",
+    text:"Guardás y ya aparece en el <b>catálogo por colegio</b>. Desde ahí se descuenta solo con cada venta." }
+];
+const PROD_EDIT_STEPS = [
+  { view:"stock", target:"#filtros", title:"Buscá el colegio",
+    text:"En <b>Productos</b>, tocá el <b>colegio</b> del producto que querés cambiar." },
+  { view:"stock", target:"#listaStock", title:"Abrí el producto",
+    text:"Tocá la <b>prenda</b> para ver sus talles. Tocá el talle y vas a poder cambiar el <b>precio</b> o el <b>costo</b>." },
+  { view:"stock", target:"#listaStock", title:"Guardá el cambio",
+    text:"Escribí el número nuevo y guardá. Queda actualizado para las próximas ventas." }
+];
+const PROD_COMBO_STEPS = [
+  { view:"stock", target:"#prodAdd", title:"Empezá un producto",
+    text:"Un <b>combo</b> junta varias prendas con un solo precio. Tocá <b>＋ Agregar producto</b>." },
+  { view:"stock", target:"#prodAdd", title:"Activá «Combo»",
+    text:"Adentro vas a ver el interruptor <b>Combo</b>. Activalo: le ponés un <b>nombre</b> (ej: Equipo completo) y un <b>precio</b>." },
+  { view:"stock", target:"#prodAdd", title:"Sumá las prendas",
+    text:"Tocá <b>＋ Agregar prenda</b> y elegí qué lleva el combo. Guardás y queda listo para vender de un toque." }
+];
+const PROD_ESPERA_STEPS = [
+  { view:"espera", target:"#esperaAdd", title:"Anotá una espera",
+    text:"Cuando alguien quiere un talle que no tenés, en <b>Lista de espera</b> tocá <b>Anotar una espera</b>." },
+  { view:"espera", target:"#esperaAdd", title:"Quién y qué talle",
+    text:"Elegís la <b>clienta</b>, el <b>colegio</b>, la <b>prenda</b> y el <b>talle</b> que espera. Guardás." },
+  { view:"espera", target:"#listaEspera", title:"Te aviso cuando entra",
+    text:"Cuando cargues stock de ese talle, te lo marco acá para que le escribas con un toque." }
+];
+
+/* CLIENTAS */
+const CLI_NUEVA_STEPS = [
+  { view:"clientes", target:"#fabAddCli", title:"Agregá una clienta",
+    text:"En <b>Clientas</b>, tocá el botón redondo <b>＋</b> de abajo a la derecha." },
+  { view:"clientes", target:"#fabAddCli", title:"Cargá sus datos",
+    text:"Poné el <b>nombre</b>, el <b>WhatsApp</b> y el <b>colegio</b>. Podés sumar a sus <b>hijos/as</b> con el talle de cada uno." },
+  { view:"clientes", target:"#fabAddCli", title:"Guardá y listo",
+    text:"Tocá <b>Guardar</b>. Ya le podés cargar ventas, encargos y mandarle mensajes con un toque." }
+];
+const CLI_EDIT_STEPS = [
+  { view:"clientes", target:"#cliSearch", title:"Encontrá la clienta",
+    text:"En <b>Clientas</b>, escribí su <b>nombre</b> o <b>colegio</b> en el buscador." },
+  { view:"clientes", target:"#listaClientes", title:"Abrí su ficha",
+    text:"Tocá su tarjeta para abrirla. Cambiá lo que necesites: teléfono, dirección, hijos…" },
+  { view:"clientes", target:"#listaClientes", title:"Guardá",
+    text:"Tocá <b>Guardar</b> abajo y queda actualizado." }
+];
+const CLI_HIST_STEPS = [
+  { view:"clientes", target:"#listaClientes", title:"Abrí la clienta",
+    text:"En <b>Clientas</b>, tocá la tarjeta de la clienta que querés mirar." },
+  { view:"clientes", target:"#listaClientes", title:"Mirá su historial",
+    text:"Bajá hasta <b>Historial de compras</b>: ves todo lo que te compró, con fechas y montos." },
+  { view:"clientes", target:"#listaClientes", title:"Su próximo talle",
+    text:"Al lado de cada hijo/a te sugiero el <b>próximo talle</b> según lo que ya llevó. Así no te equivocás al venderle." }
+];
+const CLI_ENCARGO_STEPS = [
+  { view:"encargos", target:"#encAdd", title:"Nuevo encargo",
+    text:"En <b>Encargos</b>, tocá <b>＋ Nuevo encargo</b>." },
+  { view:"encargos", target:"#encAdd", title:"Qué te encargan",
+    text:"Elegís la <b>clienta</b> y anotás <b>qué quiere</b> (prenda, talle, color) con el <b>precio</b> total." },
+  { view:"encargos", target:"#encAdd", title:"Cobrá la seña",
+    text:"Anotás cuánto te deja de <b>seña</b>. Esa plata entra sola en la caja del día y queda el saldo a cobrar cuando lo entregás." }
+];
+const CLI_ENCLISTO_STEPS = [
+  { view:"encargos", target:"#listaEncargos", title:"Buscá el encargo",
+    text:"En <b>Encargos</b>, tocá el encargo que ya está terminado." },
+  { view:"encargos", target:"#listaEncargos", title:"Marcalo «Listo»",
+    text:"Tocá <b>Marcar listo</b>: el encargo pasa a estado listo para entregar." },
+  { view:"encargos", target:"#listaEncargos", title:"Avisale por WhatsApp",
+    text:"Tocá <b>Avisar por WhatsApp</b> y el mensaje sale armado solo, avisándole que puede pasar a buscarlo. 💬" }
+];
+const CLI_PAGO_STEPS = [
+  { view:"cuentas", target:"#cuentaHero", title:"Quién te debe",
+    text:"En <b>Cuentas</b> ves a todas las que te quedaron debiendo, ordenadas por lo que más deben." },
+  { view:"cuentas", target:"#listaCuentas", title:"Abrí su cuenta",
+    text:"Tocá la clienta que te vino a pagar para ver su detalle." },
+  { view:"cuentas", target:"#listaCuentas", title:"Registrá el pago",
+    text:"Tocá <b>💵 Registrar pago</b>, poné <b>cuánto te pagó</b> y guardá. El saldo se actualiza solo." }
+];
+
+/* INICIO / VENDER */
+const VOZ_STEPS = [
+  { view:"inicio", target:"#fabVoz", title:"La burbujita de voz",
+    text:"En <b>Inicio</b>, tocá la <b>burbuja verde</b>. Sirve para cargar una venta <b>o</b> un gasto sin tocar botones." },
+  { view:"inicio", target:"#fabVoz", title:"Contame en voz alta",
+    text:"Decí algo como «<i>Le vendí una chomba talle 12 a Ana, me pagó en efectivo</i>» o «<i>Gasté 5 mil pesos en tela</i>»." },
+  { view:"inicio", target:"#fabVoz", title:"Revisás y confirmás",
+    text:"La app lo arma solo y te lo muestra. Si está bien, tocás <b>Confirmar</b>. Si no, lo corregís antes de guardar." }
+];
+
+/* REPARTO */
+const REP_PROG_STEPS = [
+  { view:"entregas", target:"#entAdd", title:"Programá la entrega",
+    text:"En <b>Reparto</b>, tocá <b>＋ Programar entrega</b>." },
+  { view:"entregas", target:"#entAdd", title:"Clienta, dirección y día",
+    text:"Elegís la <b>clienta</b>, la <b>dirección</b> y el <b>día</b> que se la vas a llevar." },
+  { view:"entregas", target:TOUR_TARGETS.repartoLista, title:"Queda en tu lista",
+    text:"La entrega aparece en la lista del día, en orden. Podés tocar <b>Voy en camino</b> para avisarle a la clienta." }
+];
+const REP_ENTREGADO_STEPS = [
+  { view:"entregas", target:TOUR_TARGETS.repartoLista, title:"Tu lista de entregas",
+    text:"En <b>Reparto</b> ves todo lo que tenés que llevar, en orden." },
+  { view:"entregas", target:TOUR_TARGETS.repartoLista, title:"Marcá «Entregado»",
+    text:"Cuando dejás un pedido, tocá <b>Marcar entregado</b> en esa entrega. Queda registrada como hecha. ✅" }
+];
+
+/* CAJA */
+const CAJA_EDIT_STEPS = [
+  { view:"caja", target:"#cajaHoyEgrAdd", title:"Mirá los gastos de hoy",
+    text:"En <b>Caja</b>, en <i>Gastos de hoy</i>, está la lista de lo que registraste." },
+  { view:"caja", target:"#cajaHoyEgrAdd", title:"Tocá el gasto",
+    text:"Tocá cualquier gasto de la lista para <b>editarlo</b>: cambiar el monto o el concepto." },
+  { view:"caja", target:"#cajaHoyEgrAdd", title:"Guardá o borrá",
+    text:"Corregís lo que esté mal y guardás. Si te equivocaste, también lo podés <b>borrar</b> (con dos toques, sin susto)." }
+];
+const CAJA_CERRAR_STEPS = [
+  { view:"caja", target:"#cajaHoyTotal", title:"El neto del día",
+    text:"En <b>Caja</b>, arriba ves el <b>neto de hoy</b>: lo que te quedó después de los gastos." },
+  { view:"caja", target:"#cajaCerrarWrap", title:"Cerrá la caja",
+    text:"Abajo de todo tocás <b>Cerrar caja</b>. Te muestro cuánto debería haber en <b>efectivo</b> y en el <b>banco</b> para que cuentes." },
+  { view:"caja", target:"#cajaCerrarWrap", title:"Queda guardado",
+    text:"Confirmás el cierre y el día queda guardado en el historial. Mañana arrancás de cero." }
+];
+const CAJA_REPORTES_STEPS = [
+  { view:"caja", target:"#cajaTabs", title:"Las tres pestañas",
+    text:"Arriba en <b>Caja</b> tenés tres pestañas: <b>Hoy</b>, <b>Historial</b> y <b>Resumen</b>." },
+  { view:"caja", target:"#cajaTabs", title:"Historial de ventas",
+    text:"En <b>Historial</b> ves todas las ventas, y podés filtrar por <b>fecha</b> y por <b>cómo te pagaron</b>." },
+  { view:"caja", target:"#cajaTabs", title:"Resumen y reportes",
+    text:"En <b>Resumen</b> ves tus números de la semana o el mes, los gastos y <b>lo más vendido</b>." }
+];
+
+/* MENSAJES */
+const MSG_DIF_STEPS = [
+  { view:"mensajes", target:"#msgDifBtn", title:"Difusión por colegio",
+    text:"En <b>Mensajes</b>, tocá <b>Difusión por colegio</b> para mandar el mismo aviso a varias clientas de un colegio." },
+  { view:"mensajes", target:"#msgDifBtn", title:"Elegí el colegio",
+    text:"Seleccionás el <b>colegio</b> y se arma la lista de sus clientas con WhatsApp." },
+  { view:"mensajes", target:"#msgDifBtn", title:"Escribí y mandá",
+    text:"Escribís el mensaje una vez (ej: «llegaron las chombas nuevas») y lo mandás a cada una con un toque." }
+];
+
+/* CONFIGURACIÓN */
+const CFG_PLANTILLAS_STEPS = [
+  { view:"config", target:"#cfgWhatsappCard", title:"Mensajes de WhatsApp",
+    text:"En <b>Configuración</b>, buscá la card <b>WhatsApp</b>." },
+  { view:"config", target:"#cfgMsgConfirm", title:"Editá el texto",
+    text:"Cambiá el texto de cada mensaje (confirmación, datos de pago, encargo listo, saldo…). Lo que escribís acá es lo que sale al avisar." },
+  { view:"config", target:"#cfgMsgConfirm", title:"Los comodines",
+    text:"Lo que va entre <b>{llaves}</b> lo completa la app sola (nombre, total…). Al final tocá <b>Guardar configuración</b> abajo de todo." }
+];
+const CFG_COLEGIO_STEPS = [
+  { view:"config", target:"#cfgColNuevo", title:"Agregá un colegio",
+    text:"En <b>Configuración</b>, buscá la card <b>Colegios</b> y escribí el nombre del nuevo en el casillero." },
+  { view:"config", target:"#cfgColAdd", title:"Tocá «Agregar»",
+    text:"Tocá <b>Agregar</b> y el colegio se suma a la lista de arriba." },
+  { view:"config", target:"#cfgGuardar", title:"Guardá",
+    text:"Tocá <b>Guardar configuración</b>. Ya vas a poder elegir ese colegio al cargar productos, clientas y ventas." }
+];
+const CFG_BACKUP_STEPS = [
+  { view:"config", target:"#cfgBackupNow", title:"Hacé un backup",
+    text:"En <b>Configuración</b>, en <b>Backup / Exportar</b>, tocá <b>☁️ Hacer backup ahora</b> para guardar todos tus datos en Google Drive." },
+  { view:"config", target:"#cfgBackupAuto", title:"Copia automática",
+    text:"Dejá activado el <b>Backup automático diario</b> para no tener que acordarte. Se hace solo una vez por día." },
+  { view:"config", target:"#cfgRestore", title:"Restaurar",
+    text:"Si cambiás de teléfono o pasa algo, tocá <b>Restaurar desde un backup</b> y elegís la copia para recuperar todo. Te lo pide dos veces, por las dudas." }
+];
+
+/* ════════ BIBLIOTECA: cada tutorial es { titulo, pestaña, accion, pasos[] } ════════ */
+const TUT_PESTANAS = ["Inicio","Reparto","Productos","Clientas","Caja","Mensajes","Configuración"];
+const TUT_ACCIONES = ["Cargar","Editar","Cobrar","Avisar","Configurar"];
+
+const TUTORIALS = [
+  /* Inicio / Vender */
+  { id:"venta",     icon:"🛒", titulo:"Cargar una venta",            pestaña:"Inicio",        accion:"Cargar",     pasos: VENTA_STEPS },
+  { id:"voz",       icon:"🎤", titulo:"Cargar por voz (venta o gasto)", pestaña:"Inicio",     accion:"Cargar",     pasos: VOZ_STEPS },
+  { id:"cobro",     icon:"💵", titulo:"Cobrar una venta",            pestaña:"Inicio",        accion:"Cobrar",     pasos: COBRO_STEPS },
+  /* Reparto */
+  { id:"repProg",   icon:"🚗", titulo:"Programar un reparto",        pestaña:"Reparto",       accion:"Cargar",     pasos: REP_PROG_STEPS },
+  { id:"repEnt",    icon:"✅", titulo:"Marcar como entregado",       pestaña:"Reparto",       accion:"Editar",     pasos: REP_ENTREGADO_STEPS },
+  /* Productos */
+  { id:"prodNuevo", icon:"🏷", titulo:"Cargar un producto nuevo",    pestaña:"Productos",     accion:"Cargar",     pasos: PROD_NUEVO_STEPS },
+  { id:"prodEdit",  icon:"✏️", titulo:"Editar un producto (precio/costo)", pestaña:"Productos", accion:"Editar", pasos: PROD_EDIT_STEPS },
+  { id:"combo",     icon:"🎁", titulo:"Armar un combo",              pestaña:"Productos",     accion:"Cargar",     pasos: PROD_COMBO_STEPS },
+  { id:"espera",    icon:"⏳", titulo:"Usar la lista de espera",     pestaña:"Productos",     accion:"Cargar",     pasos: PROD_ESPERA_STEPS },
+  /* Clientas */
+  { id:"cliNueva",  icon:"👸🏻", titulo:"Cargar una clienta",         pestaña:"Clientas",      accion:"Cargar",     pasos: CLI_NUEVA_STEPS },
+  { id:"cliEdit",   icon:"✏️", titulo:"Editar una clienta",          pestaña:"Clientas",      accion:"Editar",     pasos: CLI_EDIT_STEPS },
+  { id:"cliHist",   icon:"📖", titulo:"Ver historial y próximo talle", pestaña:"Clientas",    accion:"Editar",     pasos: CLI_HIST_STEPS },
+  { id:"encargo",   icon:"🧾", titulo:"Crear un encargo con seña",   pestaña:"Clientas",      accion:"Cargar",     pasos: CLI_ENCARGO_STEPS },
+  { id:"encListo",  icon:"📦", titulo:"Marcar encargo listo y avisar", pestaña:"Clientas",    accion:"Avisar",     pasos: CLI_ENCLISTO_STEPS },
+  { id:"cliPago",   icon:"📒", titulo:"Registrar un pago en la cuenta", pestaña:"Clientas",   accion:"Cobrar",     pasos: CLI_PAGO_STEPS },
+  /* Caja */
+  { id:"gasto",     icon:"➖", titulo:"Registrar un gasto",          pestaña:"Caja",          accion:"Cargar",     pasos: GASTO_STEPS },
+  { id:"cajaEdit",  icon:"✏️", titulo:"Editar un movimiento",        pestaña:"Caja",          accion:"Editar",     pasos: CAJA_EDIT_STEPS },
+  { id:"cajaCerrar",icon:"🔒", titulo:"Cerrar la caja",              pestaña:"Caja",          accion:"Editar",     pasos: CAJA_CERRAR_STEPS },
+  { id:"reportes",  icon:"📊", titulo:"Ver historial y reportes",    pestaña:"Caja",          accion:"Editar",     pasos: CAJA_REPORTES_STEPS },
+  /* Mensajes */
+  { id:"whatsapp",  icon:"💬", titulo:"Avisar pendientes por WhatsApp", pestaña:"Mensajes",   accion:"Avisar",     pasos: WHATSAPP_STEPS },
+  { id:"difusion",  icon:"📣", titulo:"Difusión por colegio",        pestaña:"Mensajes",      accion:"Avisar",     pasos: MSG_DIF_STEPS },
+  /* Configuración */
+  { id:"plantillas",icon:"📝", titulo:"Editar las plantillas de WhatsApp", pestaña:"Configuración", accion:"Configurar", pasos: CFG_PLANTILLAS_STEPS },
+  { id:"colegio",   icon:"🏫", titulo:"Agregar un colegio",          pestaña:"Configuración", accion:"Configurar", pasos: CFG_COLEGIO_STEPS },
+  { id:"backup",    icon:"☁️", titulo:"Hacer y restaurar un backup", pestaña:"Configuración", accion:"Configurar", pasos: CFG_BACKUP_STEPS }
+];
+
+/* TOUR_MAP: id → pasos (para el handler de clicks). Incluye el tour de mamá. */
+const TOUR_MAP = { mama: MAMA_STEPS };
+TUTORIALS.forEach(t=>{ TOUR_MAP[t.id] = t.pasos; });
 
 function startMamaTour(){ startTour(MAMA_STEPS, { mama:true }); }
 
-/* Disparar un tutorial al tocar su item en la card de Configuración. */
+/* ── Filtros de la biblioteca: por pestaña y por acción (combinables) ── */
+let tutFiltPest = null, tutFiltAcc = null;
+
+function renderTutFiltros(){
+  const fp = $("#tutFiltPest"), fa = $("#tutFiltAcc");
+  if(!fp || !fa) return;
+  const mk = (label, active, on)=>{
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip-f" + (active ? " on" : "");
+    b.textContent = label;
+    b.onclick = on;
+    return b;
+  };
+  fp.innerHTML = "";
+  fp.appendChild(mk("Todos", tutFiltPest === null, ()=>{ tutFiltPest = null; renderTutLib(); }));
+  TUT_PESTANAS.forEach(p=> fp.appendChild(mk(p, tutFiltPest === p, ()=>{
+    tutFiltPest = (tutFiltPest === p) ? null : p; renderTutLib();
+  })));
+  fa.innerHTML = "";
+  fa.appendChild(mk("Todas", tutFiltAcc === null, ()=>{ tutFiltAcc = null; renderTutLib(); }));
+  TUT_ACCIONES.forEach(a=> fa.appendChild(mk(a, tutFiltAcc === a, ()=>{
+    tutFiltAcc = (tutFiltAcc === a) ? null : a; renderTutLib();
+  })));
+}
+
+function renderTutLib(){
+  renderTutFiltros();
+  const cont = $("#tutLib"), empty = $("#tutEmpty"), count = $("#tutCount");
+  if(!cont) return;
+  const lista = TUTORIALS.filter(t =>
+    (tutFiltPest === null || t.pestaña === tutFiltPest) &&
+    (tutFiltAcc  === null || t.accion  === tutFiltAcc)
+  );
+  cont.innerHTML = "";
+  lista.forEach(t=>{
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "tut-item";
+    b.dataset.tour = t.id;
+    b.innerHTML =
+      '<span class="ti-ic">'+ t.icon +'</span>' +
+      '<span class="ti-tx"><b>'+ t.titulo +'</b>' +
+        '<span class="ti-tag">'+ t.pestaña +' · '+ t.accion +'</span></span>' +
+      '<span class="ti-play">▶ Ver</span>';
+    cont.appendChild(b);
+  });
+  if(empty) empty.style.display = lista.length ? "none" : "block";
+  if(count){
+    const total = TUTORIALS.length;
+    count.textContent = (lista.length === total)
+      ? total + " tutoriales"
+      : lista.length + " de " + total + " tutoriales";
+  }
+}
+
+/* Disparar un tutorial al tocar su item (tour de mamá o biblioteca). */
 document.addEventListener("click", e=>{
   const b = e.target.closest("[data-tour]");
   if(!b) return;
@@ -10647,6 +10918,9 @@ document.addEventListener("click", e=>{
   const steps = TOUR_MAP[b.dataset.tour];
   if(steps) startTour(steps, { mama: b.dataset.tour === "mama" });
 });
+
+/* Pintar la biblioteca al arrancar (la card de Configuración ya existe en el DOM). */
+try{ renderTutLib(); }catch(e){}
 
 /* Tour para mamá automático: SOLO la primera vez que se inicia sesión.
    Si marcó "No volver a mostrar" (TOUR_VISTO), no aparece nunca solo. */
