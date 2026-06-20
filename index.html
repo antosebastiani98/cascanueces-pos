@@ -42,7 +42,7 @@ img{display:block;max-width:100%}
 .brand{display:flex;align-items:center;gap:11px}
 .brand .ele{width:46px;height:46px;border-radius:13px;background:#fff;display:flex;align-items:center;justify-content:center;padding:5px;flex-shrink:0;box-shadow:var(--card-shadow)}
 .brand .ele img{width:100%;height:100%;object-fit:contain}
-.brand .bn{font-family:'Dancing Script',cursive;font-weight:700;font-size:25px;color:var(--navy);line-height:1}
+.brand .bn{font-family:'Dancing Script',cursive;font-weight:700;font-size:25px;color:var(--celeste);line-height:1}
 .brand .bs{font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--gris-500);margin-top:2px}
 /* Lucecita de conexión (mobile): SOLO el punto, tappable. Muestra el estado
    en una burbujita de chat por <1s al tocarla. */
@@ -315,6 +315,8 @@ img{display:block;max-width:100%}
 /* el selector / alta de clienta se abre DESDE Vender (z-index 60): tienen que quedar por encima */
 #pickScrim,#cliScrim{z-index:65}
 #pickSheet,#cliSheet{z-index:66}
+#comboPickScrim{z-index:65}
+#comboPickSheet{z-index:66}
 /* La lista de espera se abre desde Vender (60) y desde la ficha de clienta (66): por encima de ambas */
 #esperaScrim,#esperaAvisoScrim{z-index:67}
 #esperaSheet,#esperaAvisoSheet{z-index:68}
@@ -1064,6 +1066,53 @@ html.unlocked #lockScreen{display:none}
 .cuenta-wa{display:inline-flex;align-items:center;gap:7px;background:#25D366;color:#fff;border:none;border-radius:12px;padding:9px 14px;font-size:13.5px;font-weight:600;margin:-2px 0 13px;box-shadow:0 5px 14px rgba(37,211,102,.32)}
 .cu-pago-cli{background:var(--celeste-pale);border-radius:14px;padding:13px 15px;margin-bottom:16px;font-size:14.5px;color:var(--navy)}
 .cu-pago-cli b{font-family:var(--titf);font-weight:600;font-size:18px;display:block}
+
+/* ════════ COMBOS ════════ */
+/* Form: armado del combo (cuando el switch está en Combo) */
+.combo-build{margin-top:2px}
+.combo-comp{display:flex;align-items:center;gap:10px;background:var(--crema);border-radius:14px;padding:10px 12px;margin-bottom:9px;box-shadow:inset 0 0 0 1px var(--crema-dark)}
+.combo-comp .cc-tx{flex:1;min-width:0}
+.combo-comp .cc-tx b{display:block;font-size:15px;color:var(--gris-900);line-height:1.2}
+.combo-comp .cc-tx span{font-size:12.5px;color:var(--texto-suave)}
+.combo-comp .ci-step{flex-shrink:0}
+.combo-comp .cc-del{width:42px;height:42px;border-radius:12px;background:var(--blanco);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;box-shadow:var(--card-shadow)}
+.combo-empty{font-size:13.5px;color:var(--texto-suave);padding:2px 2px 10px;line-height:1.5}
+.combo-resumen{background:var(--mostaza-pale);border-radius:14px;padding:12px 14px;font-size:14px;color:#7a6010;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+.combo-resumen b{font-family:var(--titf);font-weight:600;font-size:18px;color:#8a6d18}
+
+/* Catálogo: fila de combo dentro de la card del colegio */
+.cat-combo{display:flex;align-items:flex-start;gap:12px;background:var(--mostaza-pale);border-radius:16px;padding:13px 14px;margin:8px 4px;box-shadow:inset 0 0 0 1px #efe2c0}
+.cat-combo .cm-main{flex:1;min-width:0}
+.cat-combo .cm-incluye{font-size:13px;color:#7a6010;margin-top:7px;line-height:1.5}
+.cat-combo .cm-tags{display:flex;gap:7px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.cat-combo.pausado{opacity:.6}
+.cat-combo .ct-edit{width:46px;height:46px;border-radius:14px;background:var(--blanco);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:var(--card-shadow)}
+
+/* Vender: chip de combo */
+.v-chip.combo{background:var(--mostaza-pale);color:#8a6d18;box-shadow:inset 0 0 0 1.5px #e6d29a}
+.v-chip.combo.on{background:var(--mostaza);color:#fff;box-shadow:none}
+
+/* Sheet del combo al vender: por cada prenda, elegir talle */
+.cp-intro{font-size:14px;color:var(--texto-suave);margin-bottom:16px;line-height:1.5}
+.cp-comp{margin-bottom:18px}
+.cp-comp-h{font-size:15.5px;font-weight:600;color:var(--gris-900);margin-bottom:9px}
+.cp-comp-h span{font-weight:500;color:var(--texto-suave);font-size:13px}
+.cp-talles{display:flex;flex-wrap:wrap;gap:8px}
+.cp-talle{min-width:56px;min-height:58px;padding:6px 12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:14px;background:var(--crema);color:var(--gris-700);box-shadow:var(--card-shadow);font-weight:600}
+.cp-talle .cpt-t{font-size:16px}
+.cp-talle .cpt-s{font-size:10px;font-weight:500;color:var(--texto-suave);text-align:center}
+.cp-talle.on{background:var(--celeste-deep);color:#fff}
+.cp-talle.on .cpt-s{color:rgba(255,255,255,.85)}
+.cp-talle.cero{opacity:.6}
+.cp-talle.cero.on{background:var(--mostaza)}
+.cp-none{font-size:13.5px;color:var(--texto-suave)}
+.cp-warn{background:var(--rojo-pale);border-radius:14px;padding:13px 14px;margin:2px 0 16px;font-size:13.5px;color:var(--rojo);line-height:1.5}
+.cp-warn b{display:block;margin-bottom:4px;color:var(--rojo)}
+.cp-warn .cpw-esp{display:inline-flex;align-items:center;gap:6px;background:var(--mostaza);color:#fff;border:none;border-radius:11px;padding:8px 12px;font-size:12.5px;font-weight:600;margin:7px 7px 0 0}
+
+/* Línea de combo en el carrito / edición */
+.ci.combo,.eitem.combo{box-shadow:inset 0 0 0 1.5px #e6d29a}
+.ci .ci-combo-det,.eitem .ei-combo-det{font-size:12px;color:#7a6010;margin-top:4px;line-height:1.45}
 </style>
 <!-- Desbloqueo recordado: evita el parpadeo de la app antes de cargar el módulo -->
 <script>try{if(localStorage.getItem('casc_unlock_pos')==='1')document.documentElement.classList.add('unlocked');}catch(e){}</script>
@@ -1147,7 +1196,6 @@ html.unlocked #lockScreen{display:none}
 
     <!-- ===== VISTA INICIO ===== -->
     <section class="view active" id="view-inicio">
-      <div class="eyebrow">Tu negocio, a mano</div>
       <h1 class="h-title">Bienvenida a tu negocio ✨</h1>
       <p class="lead">Tocá <em class="kw">Vender</em> para cargar una venta, o dictala con el micrófono.</p>
 
@@ -1484,32 +1532,55 @@ html.unlocked #lockScreen{display:none}
       <div class="chips" id="chipsColegio"></div>
     </div>
 
-    <div class="field">
-      <label>Prenda</label>
-      <div class="chips" id="chipsPrenda"></div>
-      <p class="hint" id="prendaHint" style="display:none">Elegí primero el colegio.</p>
+    <div class="switch-row">
+      <div class="st"><b id="tipoLbl">Producto</b><span id="tipoSub">Activá si este ítem es un combo</span></div>
+      <div class="switch" id="switchCombo"><div class="knob"></div></div>
     </div>
 
-    <div class="field">
-      <label>Talle</label>
-      <div class="dropdown">
-        <button class="dd-head" id="ddHead">
-          <span class="ddv ph" id="ddVal">Elegí el talle</span>
-          <span class="dd-chev">▾</span>
-        </button>
-        <div class="dd-panel" id="ddPanel"></div>
+    <!-- ── Armado del COMBO (visible solo con el switch en Combo) ── -->
+    <div id="comboFields" style="display:none">
+      <div class="field">
+        <label>Nombre del combo</label>
+        <input class="txtin" id="inComboNombre" type="text" placeholder="Ej: Uniforme completo" autocomplete="off"/>
+      </div>
+
+      <div class="field">
+        <label>Prendas que incluye</label>
+        <p class="hint" id="comboCompHint" style="display:none;margin-bottom:8px">Elegí primero el colegio.</p>
+        <div class="combo-build" id="comboCompList"></div>
+        <div class="chips" id="comboAddPrenda"></div>
+      </div>
+    </div>
+
+    <!-- ── Campos propios de un PRODUCTO suelto ── -->
+    <div class="prod-fields" id="prodFields">
+      <div class="field">
+        <label>Prenda</label>
+        <div class="chips" id="chipsPrenda"></div>
+        <p class="hint" id="prendaHint" style="display:none">Elegí primero el colegio.</p>
+      </div>
+
+      <div class="field">
+        <label>Talle</label>
+        <div class="dropdown">
+          <button class="dd-head" id="ddHead">
+            <span class="ddv ph" id="ddVal">Elegí el talle</span>
+            <span class="dd-chev">▾</span>
+          </button>
+          <div class="dd-panel" id="ddPanel"></div>
+        </div>
       </div>
     </div>
 
     <div class="field-row">
       <div class="field">
-        <label>Precio</label>
+        <label id="precioLbl">Precio</label>
         <div class="precio-wrap">
           <span class="pe">$</span>
           <input id="inPrecio" type="text" inputmode="numeric" placeholder="0" autocomplete="off"/>
         </div>
       </div>
-      <div class="field">
+      <div class="field prod-fields">
         <label>Costo <span class="lbl-opt">(opcional)</span></label>
         <div class="precio-wrap">
           <span class="pe">$</span>
@@ -1518,12 +1589,7 @@ html.unlocked #lockScreen{display:none}
       </div>
     </div>
 
-    <div class="switch-row">
-      <div class="st"><b id="tipoLbl">Producto</b><span>Activá si este ítem es un combo</span></div>
-      <div class="switch" id="switchCombo"><div class="knob"></div></div>
-    </div>
-
-    <div class="field">
+    <div class="field prod-fields">
       <label>¿Cuántos tenés?</label>
       <div class="stepper">
         <button id="stockMinus">−</button>
@@ -1808,6 +1874,24 @@ html.unlocked #lockScreen{display:none}
       <div class="bc" id="vBarCount">Sin nada todavía</div>
     </div>
     <button class="v-cobrar" id="vCobrarBtn" disabled>Cobrar →</button>
+  </div>
+</div>
+
+<!-- ===== SHEET: ELEGIR TALLES DEL COMBO (al vender) ===== -->
+<div class="scrim" id="comboPickScrim"></div>
+<div class="sheet" id="comboPickSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2 id="comboPickTitle">Armar combo</h2>
+    <button class="sheet-x" id="comboPickClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <p class="cp-intro" id="comboPickIntro">Elegí el talle de cada prenda del combo. Después se agrega a la venta con el precio del combo.</p>
+    <div id="comboPickComps"></div>
+    <div id="comboPickWarn"></div>
+    <div class="sheet-actions">
+      <button class="btn btn-primary" id="comboPickAdd" disabled>Agregar a la venta</button>
+    </div>
   </div>
 </div>
 
@@ -2509,7 +2593,7 @@ let STOCK_BAJO = STOCK_BAJO_DEFAULT;
 let productos = [];
 let filtroColegio = "todos";
 let editId = null;
-const form = { colegio:null, prenda:null, talle:null, precio:0, costo:0, stock:0, activo:true, tipo:"producto" };
+const form = { colegio:null, prenda:null, talle:null, precio:0, costo:0, stock:0, activo:true, tipo:"producto", componentes:[] };
 
 /* ── Helpers ── */
 const $ = s => document.querySelector(s);
@@ -2550,6 +2634,60 @@ function prendasDe(colegio){
   productos.forEach(p => { if(p.colegio===colegio && p.prenda && !base.includes(p.prenda)) base.push(p.prenda); });
   if(form.prenda && form.colegio===colegio && !base.includes(form.prenda)) base.push(form.prenda);
   return base;
+}
+
+/* ════════════════ COMBOS ════════════════
+   Un combo es un producto con tipo:"combo". Vive en la misma colección que
+   los productos y aparece dentro de la card de su colegio. No tiene stock
+   propio: su disponibilidad sale del stock de sus componentes. El talle de
+   cada prenda se elige al vender. Estructura del doc:
+     { tipo:"combo", colegio, prenda:<nombre del combo>, precio,
+       componentes:[ {colegio, prenda, cantidad} ], activo, talle:"", stock:0 } */
+function esComboDoc(p){ return p && p.tipo==="combo"; }
+function combosActivos(){ return productos.filter(p=> esComboDoc(p) && p.activo!==false); }
+function combosDe(colegio){ return combosActivos().filter(p=> p.colegio===colegio); }
+
+/* Prendas (productos sueltos) que existen para combinar dentro de un colegio. */
+function prendasComponiblesDe(colegio){
+  return [...new Set(productos.filter(p=> !esComboDoc(p) && p.colegio===colegio && p.prenda).map(p=> p.prenda))];
+}
+/* Stock total de una prenda (suma de todos sus talles). */
+function stockPrenda(colegio, prenda){
+  return productos.filter(p=> !esComboDoc(p) && p.colegio===colegio && p.prenda===prenda)
+    .reduce((a,p)=> a + (Number(p.stock)||0), 0);
+}
+/* Talles cargados (activos) de una prenda, ordenados. */
+function tallesVendiblesDe(colegio, prenda){
+  return productos.filter(p=> !esComboDoc(p) && p.activo!==false && p.colegio===colegio && p.prenda===prenda)
+    .sort((a,b)=> tOrder(a.talle)-tOrder(b.talle));
+}
+/* Texto "2× Remera · 1× Pantalón" de los componentes de un combo. */
+function comboIncluyeTxt(p){
+  const comps = Array.isArray(p.componentes) ? p.componentes : [];
+  if(!comps.length) return "Sin prendas todavía";
+  return comps.map(c=> `${(Number(c.cantidad)||1)}× ${c.prenda}`).join(" · ");
+}
+/* ¿Cuántos combos completos se pueden armar hoy con el stock disponible? */
+function comboArmables(p){
+  const comps = Array.isArray(p.componentes) ? p.componentes : [];
+  if(!comps.length) return 0;
+  const n = comps.reduce((min,c)=>{
+    const cant = Number(c.cantidad)||1;
+    const disp = Math.floor(stockPrenda(c.colegio||p.colegio, c.prenda) / cant);
+    return Math.min(min, disp);
+  }, Infinity);
+  return n===Infinity ? 0 : n;
+}
+/* Unidades de stock (productoId → cantidad) que consume un item de venta o
+   una línea del carrito (sirve para prendas sueltas y combos). */
+function itemStockUnits(it){
+  if(esComboDoc(it) || it?.tipo==="combo"){
+    return (Array.isArray(it.componentes)?it.componentes:[])
+      .filter(c=> c.productoId)
+      .map(c=> ({ productoId:c.productoId, qty:(Number(c.cantidad)||0)*(Number(it.cant)||0) }));
+  }
+  const pid = it?.productoId || it?.id;
+  return pid ? [{ productoId:pid, qty:Number(it.cant)||0 }] : [];
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -2829,14 +2967,16 @@ $("#venderBtn").addEventListener("click", openVender);
    Fila de 3: uniformes cargados · con stock bajo · faltantes.
    Debajo, ancho completo: valor del stock en casa.                     */
 function renderStockStats(){
-  const activos = productos.filter(p=>p.activo!==false);
+  // Los combos no son unidades de stock: se excluyen de los números de stock.
+  const sueltos = productos.filter(p=> !esComboDoc(p));
+  const activos = sueltos.filter(p=>p.activo!==false);
   $("#statTotal").textContent = activos.length;
   // "/n": total de items uniformes (cada uniforme distinto = 1, todos los
   // colegios; NO son unidades de stock). Para saber cuántos hay que reponer.
-  $("#statTotalDen").textContent = "/" + productos.length;
-  $("#statBajo").textContent = productos.filter(p=>p.activo!==false && (Number(p.stock)||0)>0 && (Number(p.stock)||0)<=STOCK_BAJO).length;
-  $("#statCero").textContent = productos.filter(p=>p.activo!==false && (Number(p.stock)||0)===0).length;
-  const valor = productos.reduce((a,p)=> a + (Number(p.precio)||0)*(Number(p.stock)||0), 0);
+  $("#statTotalDen").textContent = "/" + sueltos.length;
+  $("#statBajo").textContent = sueltos.filter(p=>p.activo!==false && (Number(p.stock)||0)>0 && (Number(p.stock)||0)<=STOCK_BAJO).length;
+  $("#statCero").textContent = sueltos.filter(p=>p.activo!==false && (Number(p.stock)||0)===0).length;
+  const valor = sueltos.reduce((a,p)=> a + (Number(p.precio)||0)*(Number(p.stock)||0), 0);
   $("#statValor").textContent = money(valor);
 }
 
@@ -2982,6 +3122,9 @@ function renderLista(){
       const open = !!catProdAbierto[key];
       const sumStock = talles.reduce((a,p)=> a + (Number(p.stock)||0), 0);
       const esCombo = talles.some(p=> p.tipo==="combo");
+      const metaTxt = esCombo
+        ? `Combo · armás ${comboArmables(talles[0])}`
+        : `${talles.length} talle${talles.length>1?"s":""} · ${sumStock} en casa`;
 
       const pe = document.createElement("div");
       pe.className = "cat-prod" + (open?" open":"");
@@ -2989,13 +3132,13 @@ function renderLista(){
       const ph = document.createElement("button");
       ph.type = "button"; ph.className = "cat-prod-head";
       ph.innerHTML = `<span class="cph-name">${esc(prenda)}${esCombo?' <span class="tag combo">Combo</span>':''}</span>
-        <span class="cph-meta">${talles.length} talle${talles.length>1?"s":""} · ${sumStock} en casa</span>
+        <span class="cph-meta">${metaTxt}</span>
         <span class="cph-chev">▾</span>`;
       ph.onclick = ()=>{ catProdAbierto[key] = !open; renderLista(); };
       pe.appendChild(ph);
 
       const tw = document.createElement("div"); tw.className = "cat-talles";
-      talles.forEach(p=> tw.appendChild(catTalleRow(p)));
+      talles.forEach(p=> tw.appendChild(esComboDoc(p) ? catComboRow(p) : catTalleRow(p)));
       pe.appendChild(tw);
 
       body.appendChild(pe);
@@ -3047,6 +3190,31 @@ function catTalleRow(p){
   return row;
 }
 
+/* Fila de un combo dentro del catálogo: precio, prendas que incluye, editar. */
+function catComboRow(p){
+  const armables = comboArmables(p);
+  const dispTag = armables>0
+    ? `<span class="tag" style="background:var(--sage-pale);color:var(--sage)">Armás ${armables}</span>`
+    : `<span class="tag cero">Sin stock para armarlo</span>`;
+  const pausaTag = p.activo===false ? '<span class="tag" style="background:var(--gris-100);color:var(--gris-500)">En pausa</span>' : '';
+  const row = document.createElement("div");
+  row.className = "cat-combo" + (p.activo===false?" pausado":"");
+  row.innerHTML = `
+    <div class="cm-main">
+      <div class="ct-talle">${esc(p.prenda||"Combo")}</div>
+      <div class="cm-tags">
+        <span class="tag precio">${money(p.precio)}</span>
+        ${dispTag}
+        ${pausaTag}
+      </div>
+      <div class="cm-incluye">Incluye: ${esc(comboIncluyeTxt(p))}</div>
+    </div>
+    <button class="ct-edit" type="button" aria-label="Editar">✏️</button>`;
+  row.querySelector(".ct-edit").onclick = (e)=>{ e.stopPropagation(); openSheet(p); };
+  row.onclick = ()=> openSheet(p);
+  return row;
+}
+
 /* ── Input "otro" propio de la app (sin prompt del sistema) ── */
 function otroInline(container, placeholder, onAdd){
   if(container.querySelector(".otro-row")) return;
@@ -3079,10 +3247,14 @@ function openSheet(prod=null){
   form.stock   = prod ? Number(prod.stock)||0 : 0;
   form.activo  = prod ? prod.activo!==false : true;
   form.tipo    = prod && prod.tipo==="combo" ? "combo" : "producto";
+  form.componentes = (prod && Array.isArray(prod.componentes))
+    ? prod.componentes.map(c=>({ colegio:c.colegio||prod.colegio, prenda:c.prenda, cantidad:Number(c.cantidad)||1 }))
+    : [];
 
   renderColegio();
   renderPrenda();
   renderTalle(false);
+  $("#inComboNombre").value = form.tipo==="combo" ? (form.prenda||"") : "";
   $("#inPrecio").value = form.precio ? Number(form.precio).toLocaleString("es-AR") : "";
   $("#inCosto").value  = form.costo ? Number(form.costo).toLocaleString("es-AR") : "";
   $("#stockVal").textContent = form.stock;
@@ -3114,16 +3286,26 @@ function renderColegio(){
     b.className = "chip" + (op===form.colegio?" on":"");
     b.textContent = corto(op);
     b.onclick = ()=>{
-      if(form.colegio!==op){ form.colegio = op; if(!prendasDe(op).includes(form.prenda)) form.prenda = null; }
-      renderColegio(); renderPrenda(); validate();
+      if(form.colegio!==op){
+        form.colegio = op;
+        if(form.tipo==="combo"){ form.componentes = []; }        // los componentes son del colegio elegido
+        else if(!prendasDe(op).includes(form.prenda)){ form.prenda = null; }
+      }
+      renderColegio(); renderPrenda();
+      if(form.tipo==="combo") renderComboBuild();
+      validate();
     };
     cont.appendChild(b);
   });
   const add = document.createElement("button");
   add.className = "chip add"; add.textContent = "+ Otro colegio";
   add.onclick = ()=> otroInline(cont, "Nombre del colegio", v=>{
-    form.colegio = v; form.prenda = null;
-    renderColegio(); renderPrenda(); validate();
+    form.colegio = v;
+    if(form.tipo==="combo"){ form.componentes = []; }            // combo: conservo el nombre, reinicio prendas
+    else { form.prenda = null; }
+    renderColegio(); renderPrenda();
+    if(form.tipo==="combo") renderComboBuild();
+    validate();
   });
   cont.appendChild(add);
 }
@@ -3200,16 +3382,93 @@ $("#inCosto").addEventListener("input", e=>{
   e.target.value = raw ? form.costo.toLocaleString("es-AR") : "";
 });
 
-/* ── Switch Producto / Combo (por ahora solo guarda el tipo) ── */
+/* ── Switch Producto / Combo: cambia el formulario para armar el combo ── */
 function setTipoUI(){
   const combo = form.tipo==="combo";
   $("#switchCombo").classList.toggle("on", combo);
   $("#tipoLbl").textContent = combo ? "Combo" : "Producto";
+  $("#tipoSub").textContent = combo ? "Es un combo de prendas (ej. uniforme completo)" : "Activá si este ítem es un combo";
+  // Mostrar / ocultar campos según el tipo
+  $("#comboFields").style.display = combo ? "block" : "none";
+  document.querySelectorAll(".prod-fields").forEach(el=> el.style.display = combo ? "none" : "");
+  $("#sheetTitle").textContent = editId ? (combo?"Editar combo":"Editar producto") : (combo?"Armar combo":"Agregar producto");
+  $("#precioLbl").textContent = combo ? "Precio del combo" : "Precio";
+  if(combo) renderComboBuild();
 }
 $("#switchCombo").onclick = ()=>{
   form.tipo = form.tipo==="combo" ? "producto" : "combo";
-  setTipoUI();
+  if(form.tipo==="combo"){
+    // El nombre del combo reusa form.prenda; arranca vacío si venía de un producto
+    if(!$("#inComboNombre").value.trim()) form.prenda = null;
+    $("#inComboNombre").value = form.prenda || "";
+  }
+  setTipoUI(); validate();
 };
+
+/* ── Nombre del combo ── */
+$("#inComboNombre").addEventListener("input", e=>{
+  form.prenda = e.target.value.trim() || null;
+  validate();
+});
+
+/* ── Armado del combo: prendas componibles del colegio + cantidades ── */
+function renderComboBuild(){
+  const list = $("#comboCompList"), chips = $("#comboAddPrenda"), hint = $("#comboCompHint");
+  list.innerHTML = ""; chips.innerHTML = "";
+  if(!form.colegio){ hint.style.display="block"; chips.style.display="none"; return; }
+  hint.style.display="none"; chips.style.display="flex";
+
+  // Componentes ya elegidos
+  if(form.componentes.length===0){
+    list.innerHTML = `<p class="combo-empty">Todavía no agregaste prendas. Tocá una de abajo para sumarla al combo.</p>`;
+  }
+  form.componentes.forEach((c, idx)=>{
+    const row = document.createElement("div"); row.className = "combo-comp";
+    row.innerHTML = `
+      <div class="cc-tx"><b>${esc(c.prenda)}</b><span>${esc(corto(c.colegio||form.colegio))} · ${stockPrenda(c.colegio||form.colegio, c.prenda)} en casa</span></div>
+      <div class="ci-step"><button data-d="-1">−</button><span class="q">${c.cantidad}</span><button data-d="1">＋</button></div>
+      <button class="cc-del" title="Quitar">🗑</button>`;
+    row.querySelectorAll(".ci-step button").forEach(b=>{
+      b.onclick = ()=>{
+        const d = Number(b.dataset.d);
+        c.cantidad = Math.max(1, (Number(c.cantidad)||1) + d);
+        renderComboBuild(); validate();
+      };
+    });
+    row.querySelector(".cc-del").onclick = ()=>{ form.componentes.splice(idx,1); renderComboBuild(); validate(); };
+    list.appendChild(row);
+  });
+
+  // Chips de prendas disponibles del colegio para sumar
+  const yaUsadas = new Set(form.componentes.map(c=> c.prenda));
+  const disponibles = prendasComponiblesDe(form.colegio).filter(pr=> !yaUsadas.has(pr));
+  if(disponibles.length===0){
+    const note = document.createElement("p");
+    note.className = "combo-empty";
+    note.textContent = yaUsadas.size ? "Ya sumaste todas las prendas de este colegio." : "Este colegio no tiene prendas cargadas. Cargá primero los productos sueltos.";
+    chips.appendChild(note);
+  }
+  disponibles.forEach(pr=>{
+    const b = document.createElement("button");
+    b.className = "chip add"; b.textContent = "+ " + pr;
+    b.onclick = ()=>{ form.componentes.push({ colegio:form.colegio, prenda:pr, cantidad:1 }); renderComboBuild(); validate(); };
+    chips.appendChild(b);
+  });
+
+  // Resumen
+  const res = document.createElement("div"); res.className = "combo-resumen";
+  res.innerHTML = `<span>El combo no tiene stock propio: se arma con el stock de sus prendas.</span><b>Armás ${comboArmablesDesdeForm()}</b>`;
+  list.appendChild(res);
+}
+/* Cuántos combos se pueden armar con la config actual del formulario. */
+function comboArmablesDesdeForm(){
+  if(form.componentes.length===0) return 0;
+  const n = form.componentes.reduce((min,c)=>{
+    const disp = Math.floor(stockPrenda(c.colegio||form.colegio, c.prenda) / (Number(c.cantidad)||1));
+    return Math.min(min, disp);
+  }, Infinity);
+  return n===Infinity ? 0 : n;
+}
 
 /* ── Stock stepper ── */
 $("#stockMinus").onclick = ()=>{ form.stock = Math.max(0, form.stock-1); $("#stockVal").textContent = form.stock; };
@@ -3223,23 +3482,38 @@ $("#switchActivo").onclick = ()=>{
 
 /* ── Validación ── */
 function validate(){
-  const ok = form.colegio && form.prenda && form.talle && form.precio>0;
+  let ok;
+  if(form.tipo==="combo"){
+    ok = form.colegio && form.prenda && form.precio>0 && form.componentes.length>0;
+  } else {
+    ok = form.colegio && form.prenda && form.talle && form.precio>0;
+  }
   $("#btnSave").disabled = !ok;
 }
 
 /* ── Guardar ── */
 $("#btnSave").onclick = async ()=>{
   if($("#btnSave").disabled) return;
-  const data = {
-    colegio: form.colegio, prenda: form.prenda, talle: String(form.talle),
-    precio: Number(form.precio)||0, costo: Number(form.costo)||0,
-    tipo: form.tipo==="combo" ? "combo" : "producto",
-    stock: Number(form.stock)||0, activo: !!form.activo
-  };
+  let data;
+  if(form.tipo==="combo"){
+    data = {
+      colegio: form.colegio, prenda: form.prenda, talle: "",
+      precio: Number(form.precio)||0, costo: 0, tipo: "combo",
+      componentes: form.componentes.map(c=>({ colegio:c.colegio||form.colegio, prenda:c.prenda, cantidad:Math.max(1, Number(c.cantidad)||1) })),
+      stock: 0, activo: !!form.activo
+    };
+  } else {
+    data = {
+      colegio: form.colegio, prenda: form.prenda, talle: String(form.talle),
+      precio: Number(form.precio)||0, costo: Number(form.costo)||0,
+      tipo: "producto", componentes: [],
+      stock: Number(form.stock)||0, activo: !!form.activo
+    };
+  }
   $("#btnSave").disabled = true;
   try{
     if(editId){ await setDoc(doc(db, COL, editId), { ...data, editadoTs: Date.now() }, { merge:true }); toast("Cambios guardados ✓", "ok"); }
-    else { await addDoc(colRef, { ...data, creadoTs: Date.now() }); toast("Producto agregado ✓", "ok"); }
+    else { await addDoc(colRef, { ...data, creadoTs: Date.now() }); toast(form.tipo==="combo"?"Combo agregado ✓":"Producto agregado ✓", "ok"); }
     closeSheet();
   }catch(err){
     console.error("Guardar uniforme:", err.code, err.message);
@@ -3252,7 +3526,9 @@ $("#btnSave").onclick = async ()=>{
 $("#btnDelete").onclick = ()=>{
   if(!editId) return;
   const p = productos.find(x=>x.id===editId);
-  $("#cfText").textContent = `Vas a borrar "${p?.prenda||""} talle ${p?.talle||""}". No se puede deshacer. Si solo querés pausarlo, usá "En venta".`;
+  $("#cfText").textContent = esComboDoc(p)
+    ? `Vas a borrar el combo "${p?.prenda||""}". No se puede deshacer. No toca el stock de las prendas. Si solo querés pausarlo, usá "En venta".`
+    : `Vas a borrar "${p?.prenda||""} talle ${p?.talle||""}". No se puede deshacer. Si solo querés pausarlo, usá "En venta".`;
   showConfirm("confirm");
 };
 $("#cfNo").onclick = ()=> hideConfirm("confirm");
@@ -3365,7 +3641,7 @@ let lastVentaInfo = null;   // Etapa 4: {ventaId, total} para generar la entrega
 let entregaYaCreada = false;// evita duplicar la entrega desde "¡Venta hecha!"
 
 const tOrder = t => { const i = TALLES_SUGER.indexOf(String(t)); return i<0 ? 999 : i; };
-const vendibles = () => productos.filter(p => p.activo!==false && (Number(p.stock)||0) > 0);
+const vendibles = () => productos.filter(p => !esComboDoc(p) && p.activo!==false && (Number(p.stock)||0) > 0);
 
 function openVender(){
   venderCart = []; vSel = { colegio:null, prenda:null }; pagoSel = null; fiadoAhora = 0; fiadoMetodo = null;
@@ -3419,7 +3695,8 @@ $("#vBack").onclick = ()=>{
 /* ── PASO 1: armar ── */
 function buildVColegios(){
   const cont = $("#vColegios"); cont.innerHTML = "";
-  const cols = [...new Set(vendibles().map(p=>p.colegio))].sort();
+  // Colegios con stock suelto O con combos disponibles
+  const cols = [...new Set([...vendibles().map(p=>p.colegio), ...combosActivos().map(p=>p.colegio)])].sort();
   if(cols.length===0){ cont.innerHTML = `<p class="v-hint">No hay stock cargado todavía. Agregá uniformes desde Stock.</p>`; return; }
   cols.forEach(col=>{
     const b = document.createElement("button");
@@ -3440,6 +3717,14 @@ function buildVPrendas(){
     b.className = "v-chip" + (vSel.prenda===pr?" on":"");
     b.textContent = pr;
     b.onclick = ()=>{ vSel.prenda = pr; buildVPrendas(); buildVTalles(); };
+    cont.appendChild(b);
+  });
+  // Combos del colegio: abren su propio selector de talles
+  combosDe(vSel.colegio).forEach(combo=>{
+    const b = document.createElement("button");
+    b.className = "v-chip combo";
+    b.innerHTML = `🎁 ${esc(combo.prenda)}`;
+    b.onclick = ()=> openComboPick(combo);
     cont.appendChild(b);
   });
 }
@@ -3471,8 +3756,10 @@ function addToCart(p){
   const stock = Number(p.stock)||0;
   if(stock<=0) return;
   const line = venderCart.find(x=>x.id===p.id);
+  // Stock libre = stock − lo que ya consumen otras líneas (incluye combos)
+  const libre = stock - cartDemand(p.id, line || null);
+  if(libre<=0){ toast("Ya cargaste todo el stock de ese talle (entre prendas y combos)"); return; }
   if(line){
-    if(line.cant >= stock){ toast("Ya cargaste todo el stock de ese talle"); return; }
     line.cant++;
   } else {
     venderCart.push({ id:p.id, colegio:p.colegio, prenda:p.prenda, talle:String(p.talle),
@@ -3483,35 +3770,176 @@ function addToCart(p){
 function cartSubtotal(){ return venderCart.reduce((a,l)=> a + l.precio*l.cant, 0); }
 function cartCount(){ return venderCart.reduce((a,l)=> a + l.cant, 0); }
 
+/* Demanda total de un producto en el carrito (suma prendas sueltas + combos),
+   excluyendo opcionalmente una línea. */
+function cartDemand(productId, exclude){
+  let q = 0;
+  venderCart.forEach(l=>{
+    if(l===exclude) return;
+    itemStockUnits(l).forEach(u=>{ if(u.productoId===productId) q += u.qty; });
+  });
+  return q;
+}
+/* Cuántas unidades de un combo entran todavía, según el stock libre. */
+function comboLineMax(line){
+  let max = Infinity;
+  (line.componentes||[]).forEach(c=>{
+    const prod = productos.find(p=>p.id===c.productoId);
+    const stock = prod ? Number(prod.stock)||0 : 0;
+    const otros = cartDemand(c.productoId, line);
+    const cabe = Math.floor((stock - otros) / (Number(c.cantidad)||1));
+    max = Math.min(max, cabe);
+  });
+  return max===Infinity ? 0 : Math.max(0, max);
+}
 function renderCart(){
   const wrap = $("#vCartWrap"), cont = $("#vCart");
   cont.innerHTML = "";
   wrap.style.display = venderCart.length ? "block" : "none";
   venderCart.forEach(l=>{
     const row = document.createElement("div");
-    row.className = "ci";
-    row.innerHTML = `
-      <div class="cn"><b>${esc(l.prenda)} · ${esc(corto(l.colegio))}</b>
-        <span>Talle ${esc(l.talle)} · $ ${(l.precio).toLocaleString("es-AR")} c/u</span></div>
-      <div class="ci-step">
-        <button data-d="-1">−</button><span class="q">${l.cant}</span><button data-d="1">＋</button>
-      </div>`;
-    row.querySelectorAll("button").forEach(b=>{
-      b.onclick = ()=>{
-        const d = Number(b.dataset.d);
-        if(d>0){ if(l.cant >= l.stock){ toast("No hay más stock de ese talle"); return; } l.cant++; }
-        else { l.cant--; if(l.cant<=0) venderCart = venderCart.filter(x=>x.id!==l.id); }
-        renderCart(); buildVTalles();
-      };
-    });
+    if(l.tipo==="combo"){
+      const det = (l.componentes||[]).map(c=> `${(Number(c.cantidad)||1)}× ${c.prenda} t.${c.talle}`).join(" · ");
+      row.className = "ci combo";
+      row.innerHTML = `
+        <div class="cn"><b>🎁 ${esc(l.prenda)} · ${esc(corto(l.colegio))}</b>
+          <span>Combo · $ ${(l.precio).toLocaleString("es-AR")} c/u</span>
+          <span class="ci-combo-det">${esc(det)}</span></div>
+        <div class="ci-step">
+          <button data-d="-1">−</button><span class="q">${l.cant}</span><button data-d="1">＋</button>
+        </div>`;
+      row.querySelectorAll("button").forEach(b=>{
+        b.onclick = ()=>{
+          const d = Number(b.dataset.d);
+          if(d>0){ if(l.cant >= comboLineMax(l)){ toast("No hay stock para otro combo igual"); return; } l.cant++; }
+          else { l.cant--; if(l.cant<=0) venderCart = venderCart.filter(x=>x!==l); }
+          renderCart(); buildVTalles();
+        };
+      });
+    } else {
+      row.className = "ci";
+      row.innerHTML = `
+        <div class="cn"><b>${esc(l.prenda)} · ${esc(corto(l.colegio))}</b>
+          <span>Talle ${esc(l.talle)} · $ ${(l.precio).toLocaleString("es-AR")} c/u</span></div>
+        <div class="ci-step">
+          <button data-d="-1">−</button><span class="q">${l.cant}</span><button data-d="1">＋</button>
+        </div>`;
+      row.querySelectorAll("button").forEach(b=>{
+        b.onclick = ()=>{
+          const d = Number(b.dataset.d);
+          if(d>0){ if(l.cant >= (Number(productos.find(p=>p.id===l.id)?.stock)||0) - cartDemand(l.id, l)){ toast("No hay más stock de ese talle"); return; } l.cant++; }
+          else { l.cant--; if(l.cant<=0) venderCart = venderCart.filter(x=>x.id!==l.id); }
+          renderCart(); buildVTalles();
+        };
+      });
+    }
     cont.appendChild(row);
   });
   // barra inferior
   const sub = cartSubtotal(), cnt = cartCount();
   $("#vBarTotal").textContent = money(sub);
-  $("#vBarCount").textContent = cnt ? `${cnt} prenda${cnt>1?"s":""}` : "Sin nada todavía";
+  $("#vBarCount").textContent = cnt ? `${cnt} ítem${cnt>1?"s":""}` : "Sin nada todavía";
   $("#vCobrarBtn").disabled = cnt===0;
 }
+
+/* ── Selector de talles del combo (al vender) ── */
+let comboPickCombo = null;
+let comboPickSel = [];          // por componente: id del producto/talle elegido (o null)
+function openComboPick(combo){
+  comboPickCombo = combo;
+  comboPickSel = (combo.componentes||[]).map(()=> null);
+  $("#comboPickTitle").textContent = combo.prenda || "Combo";
+  $("#comboPickIntro").textContent = `Combo ${money(combo.precio)}. Elegí el talle de cada prenda; al confirmar la venta se descuenta del stock.`;
+  $("#comboPickWarn").innerHTML = "";
+  renderComboPick();
+  $("#comboPickScrim").classList.add("show");
+  $("#comboPickSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+  pushBack("comboPick", closeComboPick);
+}
+function closeComboPick(fromPop){
+  $("#comboPickScrim").classList.remove("show");
+  $("#comboPickSheet").classList.remove("show");
+  document.body.style.overflow = "";          // sigue abierto Vender (overlay fijo)
+  if(fromPop!==true) syncBack("comboPick");
+}
+$("#comboPickClose").onclick = ()=> closeComboPick();
+$("#comboPickScrim").onclick = ()=> closeComboPick();
+function renderComboPick(){
+  const cont = $("#comboPickComps"); cont.innerHTML = "";
+  const combo = comboPickCombo; if(!combo) return;
+  (combo.componentes||[]).forEach((c, i)=>{
+    const need = Number(c.cantidad)||1;
+    const wrap = document.createElement("div"); wrap.className = "cp-comp";
+    const h = document.createElement("div"); h.className = "cp-comp-h";
+    h.innerHTML = `${esc(c.prenda)} ${need>1?`<span>× ${need}</span>`:""}`;
+    wrap.appendChild(h);
+    const grid = document.createElement("div"); grid.className = "cp-talles";
+    const talles = tallesVendiblesDe(c.colegio||combo.colegio, c.prenda);
+    if(talles.length===0){
+      grid.innerHTML = `<p class="cp-none">No hay talles cargados para ${esc(c.prenda)}. Cargalo en Productos.</p>`;
+    }
+    talles.forEach(p=>{
+      const stock = Number(p.stock)||0;
+      const sel = comboPickSel[i]===p.id;
+      const btn = document.createElement("button");
+      btn.className = "cp-talle" + (sel?" on":"") + (stock<need?" cero":"");
+      btn.innerHTML = `<span class="cpt-t">${esc(p.talle)}</span><span class="cpt-s">${stock<=0?"Sin stock":"Quedan "+stock}</span>`;
+      btn.onclick = ()=>{ comboPickSel[i] = (comboPickSel[i]===p.id ? null : p.id); renderComboPick(); };
+      grid.appendChild(btn);
+    });
+    wrap.appendChild(grid);
+    cont.appendChild(wrap);
+  });
+  updateComboPickState();
+}
+/* Resuelve los talles elegidos a productos concretos y detecta faltantes. */
+function comboPickResolved(){
+  const combo = comboPickCombo;
+  const componentes = []; const faltan = [];
+  let completo = true;
+  (combo.componentes||[]).forEach((c, i)=>{
+    const need = Number(c.cantidad)||1;
+    const pid = comboPickSel[i];
+    const prod = pid ? productos.find(p=>p.id===pid) : null;
+    if(!prod){ completo = false; return; }
+    const libre = (Number(prod.stock)||0) - cartDemand(prod.id, null);
+    componentes.push({ productoId:prod.id, colegio:prod.colegio, prenda:prod.prenda, talle:String(prod.talle), cantidad:need });
+    if(libre < need) faltan.push({ prenda:prod.prenda, colegio:prod.colegio, talle:String(prod.talle) });
+  });
+  return { componentes, faltan, completo };
+}
+function updateComboPickState(){
+  const r = comboPickResolved();
+  const warn = $("#comboPickWarn");
+  if(r.completo && r.faltan.length){
+    warn.innerHTML = `<div class="cp-warn"><b>⚠️ No hay stock en estos talles:</b>
+      ${r.faltan.map(f=> `${esc(f.prenda)} talle ${esc(f.talle)}`).join(", ")}.
+      <div>Cambiá el talle o anotá a la clienta en la lista de espera.</div>
+      ${r.faltan.map((f,idx)=> `<button class="cpw-esp" data-esp="${idx}">🔔 Anotar espera · ${esc(f.prenda)} t.${esc(f.talle)}</button>`).join("")}</div>`;
+    warn.querySelectorAll(".cpw-esp").forEach(b=>{
+      b.onclick = ()=>{ const f = r.faltan[Number(b.dataset.esp)]; openEsperaSheet({ colegio:f.colegio, prenda:f.prenda, talle:f.talle }); };
+    });
+  } else {
+    warn.innerHTML = "";
+  }
+  $("#comboPickAdd").disabled = !(r.completo && r.faltan.length===0);
+}
+$("#comboPickAdd").onclick = ()=>{
+  const r = comboPickResolved();
+  if(!r.completo || r.faltan.length){ updateComboPickState(); return; }
+  const combo = comboPickCombo;
+  venderCart.push({
+    id: "combo:" + combo.id + ":" + Date.now(),
+    tipo: "combo", comboId: combo.id,
+    colegio: combo.colegio, prenda: combo.prenda,
+    precio: Number(combo.precio)||0, cant: 1,
+    componentes: r.componentes
+  });
+  closeComboPick();
+  renderCart(); buildVTalles();
+  toast("Combo agregado ✓", "ok");
+};
 $("#vCobrarBtn").onclick = ()=>{ if(venderCart.length===0) return; resetFiado(); pagoSel=null; vStep("cobrar"); renderPago(); renderVHijoPick(); };
 
 function resetFiado(){ fiadoAhora = 0; fiadoMetodo = null; const f=$("#vFiadoAhora"); if(f) f.value = ""; }
@@ -3596,16 +4024,37 @@ async function commitVenta(btn){
   const recargo = (!fiadoOn && pagoSel==="transferencia") ? Math.round(sub*recargoPct/100) : 0;
   const total = sub + recargo;
   const pagoVenta = fiadoOn ? (cobradoAhora>0 ? metodoAhora : "fiado") : pagoSel;
+  // Demanda total de stock por producto (prendas sueltas + componentes de combos)
+  const demanda = {};
+  venderCart.forEach(l=> itemStockUnits(l).forEach(u=>{ demanda[u.productoId] = (demanda[u.productoId]||0) + u.qty; }));
+  // Aviso claro antes de confirmar si algún talle no tiene stock suficiente
+  const sinStock = [];
+  Object.keys(demanda).forEach(pid=>{
+    const p = productos.find(x=>x.id===pid);
+    const stock = p ? Number(p.stock)||0 : 0;
+    if(demanda[pid] > stock) sinStock.push({ colegio:p?.colegio||"", prenda:p?.prenda||"Prenda", talle:p?String(p.talle):"", falta: demanda[pid]-stock });
+  });
+  if(sinStock.length){
+    const txt = sinStock.map(s=> `${s.prenda} t.${s.talle}`).join(", ");
+    toast(`Sin stock para: ${txt}. Cambiá el talle o anotá espera.`, "err");
+    const f = sinStock[0];
+    openEsperaSheet({ colegio:f.colegio, prenda:f.prenda, talle:f.talle });
+    if(btn) btn.disabled = false;
+    return false;
+  }
   try{
     const batch = writeBatch(db);
-    venderCart.forEach(l=>{
-      const actual = Number(productos.find(p=>p.id===l.id)?.stock)||0;
-      const nuevo = Math.max(0, actual - l.cant);
-      batch.set(doc(db, COL, l.id), { stock: nuevo }, { merge:true });
+    Object.keys(demanda).forEach(pid=>{
+      const actual = Number(productos.find(p=>p.id===pid)?.stock)||0;
+      const nuevo = Math.max(0, actual - demanda[pid]);
+      batch.set(doc(db, COL, pid), { stock: nuevo }, { merge:true });
     });
     const ventaRef = doc(ventasRef);
-    const itemsVenta = venderCart.map(l=>({ productoId:l.id, colegio:l.colegio, prenda:l.prenda,
-        talle:l.talle, precio:l.precio, cant:l.cant, subtotal:l.precio*l.cant }));
+    const itemsVenta = venderCart.map(l=> l.tipo==="combo"
+      ? { tipo:"combo", comboId:l.comboId, colegio:l.colegio, prenda:l.prenda, talle:"",
+          precio:l.precio, cant:l.cant, subtotal:l.precio*l.cant,
+          componentes: (l.componentes||[]).map(c=>({ productoId:c.productoId, colegio:c.colegio, prenda:c.prenda, talle:c.talle, cantidad:c.cantidad })) }
+      : { productoId:l.id, colegio:l.colegio, prenda:l.prenda, talle:l.talle, precio:l.precio, cant:l.cant, subtotal:l.precio*l.cant });
     batch.set(ventaRef, {
       items: itemsVenta,
       subtotal: sub,
@@ -4418,8 +4867,13 @@ function bizVars(){   // variables del negocio disponibles en todas las plantill
            horarios: negocioCfg.horarios, whatsapp: waNegocio };
 }
 function msgConfirmacion(cli, venta){
-  const lineas = (venta?.items||[]).map(l=>
-    `• ${l.prenda} talle ${l.talle}${l.cant>1?` x${l.cant}`:""} — ${money(l.subtotal)}`).join("\n");
+  const lineas = (venta?.items||[]).map(l=>{
+    if(l.tipo==="combo"){
+      const det = (l.componentes||[]).map(c=> `${(Number(c.cantidad)||1)}× ${c.prenda} t.${c.talle}`).join(" · ");
+      return `• ${l.prenda} (combo)${l.cant>1?` x${l.cant}`:""} — ${money(l.subtotal)}${det?`\n   ${det}`:""}`;
+    }
+    return `• ${l.prenda} talle ${l.talle}${l.cant>1?` x${l.cant}`:""} — ${money(l.subtotal)}`;
+  }).join("\n");
   const recargoLinea = (venta?.pago==="transferencia" && venta?.recargo>0)
     ? `\n(Incluye ${recargoPct}% por transferencia / MP)` : "";
   return fillMsg(tpl.msgConfirmacion, {
@@ -4943,6 +5397,7 @@ function ultimosTalles(ventas){
   const map = new Map();   // "colegio|prenda" → { colegio, prenda, talle }
   ventas.slice().sort((a,b)=> ventaTs(b)-ventaTs(a)).forEach(v=>{
     (v.items||[]).forEach(it=>{
+      if(it.tipo==="combo") return;   // el "próximo talle" es por prenda suelta
       const key = (it.colegio||"")+"|"+(it.prenda||"");
       if(!map.has(key)) map.set(key, { colegio:it.colegio, prenda:it.prenda, talle:String(it.talle) });
     });
@@ -4984,8 +5439,10 @@ function renderCliHistorial(cli){
       const card = document.createElement("div"); card.className = "cli-hist-venta";
       const items = (v.items||[]).map(it=>{
         const cant = Number(it.cant)||1;
+        const tag = it.tipo==="combo" ? "Combo" : "T"+esc(String(it.talle));
+        const nombre = it.tipo==="combo" ? `🎁 ${esc(it.prenda)}` : `<b>${esc(it.prenda)}</b>`;
         return `<div class="cli-hist-it">
-          <span class="hi-name"><b>${esc(it.prenda)}</b> · ${esc(corto(it.colegio))} · T${esc(String(it.talle))}</span>
+          <span class="hi-name">${nombre} · ${esc(corto(it.colegio))} · ${tag}</span>
           <span class="hi-q">${cant>1?`x${cant} · `:""}${money(it.subtotal)}</span></div>`;
       }).join("");
       card.innerHTML = `<div class="cli-hist-top">
@@ -5542,10 +5999,20 @@ function reciboData(e, ventaNotasOverride){
 /* Recibo visual (HTML) para ver en pantalla / sacar captura */
 function reciboHTML(d){
   const items = d.items.length
-    ? d.items.map(it=> `<tr>
-        <td class="ri-name">${esc(it.prenda)}${it.colegio?` · ${esc(corto(it.colegio))}`:""} <span class="ri-talle">t.${esc(it.talle)}</span></td>
-        <td class="ri-cant">${Number(it.cant)||1}×</td>
-        <td class="ri-price">${money(it.subtotal)}</td></tr>`).join("")
+    ? d.items.map(it=>{
+        if(it.tipo==="combo"){
+          const det = (it.componentes||[]).map(c=> `${(Number(c.cantidad)||1)}× ${c.prenda} t.${c.talle}`).join(" · ");
+          return `<tr>
+            <td class="ri-name">${esc(it.prenda)}${it.colegio?` · ${esc(corto(it.colegio))}`:""} <span class="ri-talle">Combo</span>
+              ${det?`<div style="font-size:11px;color:#7a6010;margin-top:3px">Incluye: ${esc(det)}</div>`:""}</td>
+            <td class="ri-cant">${Number(it.cant)||1}×</td>
+            <td class="ri-price">${money(it.subtotal)}</td></tr>`;
+        }
+        return `<tr>
+          <td class="ri-name">${esc(it.prenda)}${it.colegio?` · ${esc(corto(it.colegio))}`:""} <span class="ri-talle">t.${esc(it.talle)}</span></td>
+          <td class="ri-cant">${Number(it.cant)||1}×</td>
+          <td class="ri-price">${money(it.subtotal)}</td></tr>`;
+      }).join("")
     : `<tr><td colspan="3" class="ri-empty">Venta sin detalle de prendas</td></tr>`;
   const recargo = d.recargo>0
     ? `<div class="ri-row sub"><span>Subtotal</span><span>${money(d.subtotal)}</span></div>
@@ -5575,7 +6042,13 @@ function reciboHTML(d){
 /* Recibo en texto para WhatsApp, desde la plantilla editable */
 function reciboTexto(d){
   const items = d.items.length
-    ? d.items.map(it=> `• ${it.prenda}${it.colegio?` · ${corto(it.colegio)}`:""} t.${it.talle}${(Number(it.cant)||1)>1?` x${it.cant}`:""} — ${money(it.subtotal)}`).join("\n")
+    ? d.items.map(it=>{
+        if(it.tipo==="combo"){
+          const det = (it.componentes||[]).map(c=> `   - ${(Number(c.cantidad)||1)}× ${c.prenda} t.${c.talle}`).join("\n");
+          return `• ${it.prenda}${it.colegio?` · ${corto(it.colegio)}`:""} (combo)${(Number(it.cant)||1)>1?` x${it.cant}`:""} — ${money(it.subtotal)}${det?`\n${det}`:""}`;
+        }
+        return `• ${it.prenda}${it.colegio?` · ${corto(it.colegio)}`:""} t.${it.talle}${(Number(it.cant)||1)>1?` x${it.cant}`:""} — ${money(it.subtotal)}`;
+      }).join("\n")
     : "(sin detalle de prendas)";
   const notas = d.notas.length ? d.notas.map(n=> `📝 ${n}`).join("\n") + "\n\n" : "";
   let txt = fillTpl(tpl.reciboWhats, {
@@ -5621,9 +6094,19 @@ function reciboPDF(d){
   doc.setTextColor(42,42,42); doc.setFontSize(11);
   if(d.items.length){
     d.items.forEach(it=>{
-      const left = `${it.prenda}${it.colegio?` · ${corto(it.colegio)}`:""}  t.${it.talle}${(Number(it.cant)||1)>1?`  x${it.cant}`:""}`;
+      const esCombo = it.tipo==="combo";
+      const left = esCombo
+        ? `${it.prenda}  (combo)${(Number(it.cant)||1)>1?`  x${it.cant}`:""}`
+        : `${it.prenda}${it.colegio?` · ${corto(it.colegio)}`:""}  t.${it.talle}${(Number(it.cant)||1)>1?`  x${it.cant}`:""}`;
       doc.text(doc.splitTextToSize(left, W-2*M-28)[0], M, y);
       doc.text(money(it.subtotal), W-M, y, { align:"right" });
+      y += esCombo ? 5.5 : 0;
+      if(esCombo){
+        const det = (it.componentes||[]).map(c=> `${(Number(c.cantidad)||1)}x ${c.prenda} t.${c.talle}`).join("  ·  ");
+        doc.setFontSize(8.5); doc.setTextColor(122,96,16);
+        doc.text(doc.splitTextToSize("incluye: " + det, W-2*M)[0], M, y);
+        doc.setFontSize(11); doc.setTextColor(42,42,42);
+      }
       doc.setDrawColor(235,235,235); doc.setLineWidth(0.2); doc.line(M, y+2.5, W-M, y+2.5);
       y += 8;
     });
@@ -6068,8 +6551,9 @@ function renderResumen(){
 
   const agg = {};
   vts.forEach(v=> (Array.isArray(v.items)?v.items:[]).forEach(it=>{
-    const key = `${it.prenda||"Prenda"}|${it.talle||""}|${it.colegio||""}`;
-    if(!agg[key]) agg[key] = { prenda:it.prenda||"Prenda", talle:it.talle||"", colegio:it.colegio||"", cant:0, monto:0 };
+    const combo = it.tipo==="combo";
+    const key = `${it.prenda||"Prenda"}|${it.talle||""}|${it.colegio||""}|${combo?"c":""}`;
+    if(!agg[key]) agg[key] = { prenda:it.prenda||"Prenda", talle:it.talle||"", colegio:it.colegio||"", combo, cant:0, monto:0 };
     agg[key].cant  += Number(it.cant)||0;
     agg[key].monto += (Number(it.subtotal) || (Number(it.precio)||0)*(Number(it.cant)||0));
   }));
@@ -6084,7 +6568,7 @@ function renderResumen(){
   top.forEach((t,i)=>{
     const row = document.createElement("div"); row.className = "top-row";
     row.innerHTML = `<div class="rk">${i+1}</div>
-      <div class="tn"><b>${esc(t.prenda)}${t.talle?` · t.${esc(t.talle)}`:""}</b><span>${esc(corto(t.colegio)) || "—"}</span></div>
+      <div class="tn"><b>${t.combo?"🎁 ":""}${esc(t.prenda)}${t.combo?" · Combo":(t.talle?` · t.${esc(t.talle)}`:"")}</b><span>${esc(corto(t.colegio)) || "—"}</span></div>
       <div class="tq">${t.cant}<small>${money(t.monto)}</small></div>`;
     cont.appendChild(row);
   });
@@ -6208,10 +6692,13 @@ $("#vcYes").onclick = async ()=>{
   if(!ventaActiva(v)){ toast("Esa venta ya estaba cancelada"); return; }
   try{
     const batch = writeBatch(db);
-    (Array.isArray(v.items)?v.items:[]).forEach(it=>{
-      const p = it.productoId ? productos.find(x=>x.id===it.productoId) : null;
+    // Devolver stock por producto (prendas sueltas + componentes de combos)
+    const devolver = {};
+    (Array.isArray(v.items)?v.items:[]).forEach(it=> itemStockUnits(it).forEach(u=>{ devolver[u.productoId] = (devolver[u.productoId]||0) + u.qty; }));
+    Object.keys(devolver).forEach(pid=>{
+      const p = productos.find(x=>x.id===pid);
       if(!p) return;   // si el producto fue borrado, no se puede devolver
-      batch.set(doc(db, COL, it.productoId), { stock: (Number(p.stock)||0) + (Number(it.cant)||0) }, { merge:true });
+      batch.set(doc(db, COL, pid), { stock: (Number(p.stock)||0) + devolver[pid] }, { merge:true });
     });
     batch.set(doc(db,"ventas_pos_cascanueces",v.id), { estado:"cancelada", canceladaTs:Date.now() }, { merge:true });
     await batch.commit();
@@ -6221,8 +6708,29 @@ $("#vcYes").onclick = async ()=>{
 };
 
 /* ── Editar venta ── */
-function origCantDe(pid){ const it = (editVenta?.items||[]).find(x=>x.productoId===pid); return it ? (Number(it.cant)||0) : 0; }
+/* Unidades que esta venta ya descontó de un producto (prendas sueltas + combos). */
+function origCantDe(pid){
+  let q = 0;
+  (editVenta?.items||[]).forEach(it=> itemStockUnits(it).forEach(u=>{ if(u.productoId===pid) q += u.qty; }));
+  return q;
+}
 function editHeadroom(pid){ const p = productos.find(x=>x.id===pid); return (p?Number(p.stock)||0:0) + origCantDe(pid); }
+/* Demanda de un producto en el carrito de edición (otras líneas, sin contar `exclude`). */
+function editCartDemand(pid, exclude){
+  let q = 0;
+  editCart.forEach(l=>{ if(l===exclude) return; itemStockUnits(l).forEach(u=>{ if(u.productoId===pid) q += u.qty; }); });
+  return q;
+}
+/* Cuántas unidades de un combo entran en la edición (según stock libre). */
+function editComboMax(line){
+  let max = Infinity;
+  (line.componentes||[]).forEach(c=>{
+    const cap = editHeadroom(c.productoId);                 // stock + lo que devuelve esta venta
+    const libre = cap - editCartDemand(c.productoId, line); // descontando otras líneas
+    max = Math.min(max, Math.floor(libre / (Number(c.cantidad)||1)));
+  });
+  return max===Infinity ? 0 : Math.max(0, max);
+}
 function tallesDe(colegio, prenda){
   return productos.filter(p=> p.colegio===colegio && p.prenda===prenda).sort((a,b)=> tOrder(a.talle)-tOrder(b.talle));
 }
@@ -6234,10 +6742,15 @@ function editTotals(){
 }
 function openVentaEdit(v){
   editVenta = v;
-  editCart = (Array.isArray(v.items)?v.items:[]).map(it=>({
-    id: it.productoId, colegio: it.colegio, prenda: it.prenda, talle: String(it.talle),
-    precio: Number(it.precio)||0, cant: Number(it.cant)||0
-  }));
+  editCart = (Array.isArray(v.items)?v.items:[]).map(it=>{
+    if(it.tipo==="combo"){
+      return { tipo:"combo", comboId: it.comboId, colegio: it.colegio, prenda: it.prenda,
+        precio: Number(it.precio)||0, cant: Number(it.cant)||0,
+        componentes: (it.componentes||[]).map(c=>({ productoId:c.productoId, colegio:c.colegio, prenda:c.prenda, talle:String(c.talle), cantidad:Number(c.cantidad)||1 })) };
+    }
+    return { id: it.productoId, colegio: it.colegio, prenda: it.prenda, talle: String(it.talle),
+      precio: Number(it.precio)||0, cant: Number(it.cant)||0 };
+  });
   editCliente = v.clienteId ? { id:v.clienteId, ...(clientes.find(c=>c.id===v.clienteId) || { nombre:v.clienteNombre }) } : null;
   editPagoSel = v.pago || "efectivo";
   editFechaYmd = ventaYmd(v) || hoyYmd();
@@ -6289,7 +6802,30 @@ function renderEditItems(){
     return;
   }
   editCart.forEach((l, idx)=>{
-    const box = document.createElement("div"); box.className = "eitem";
+    const box = document.createElement("div");
+    // Línea de COMBO: nombre + prendas que incluye, cantidad y quitar (sin re-elegir talle)
+    if(l.tipo==="combo"){
+      box.className = "eitem combo";
+      const det = (l.componentes||[]).map(c=> `${(Number(c.cantidad)||1)}× ${c.prenda} t.${c.talle}`).join(" · ");
+      box.innerHTML = `
+        <div class="eitem-top">
+          <div class="eitem-tx"><b>🎁 ${esc(l.prenda)}</b><span>${esc(corto(l.colegio))} · ${money(l.precio)} c/u (combo)</span><span class="ei-combo-det">${esc(det)}</span></div>
+          <div class="ci-step"><button data-d="-1">−</button><span class="q">${l.cant}</span><button data-d="1">＋</button></div>
+          <button class="eitem-del" title="Quitar">🗑</button>
+        </div>`;
+      box.querySelectorAll(".ci-step button").forEach(b=>{
+        b.onclick = ()=>{
+          const d = Number(b.dataset.d);
+          if(d>0){ if(l.cant >= editComboMax(l)){ toast("No hay stock para otro combo igual"); return; } l.cant++; }
+          else { l.cant--; if(l.cant<=0) editCart.splice(idx,1); }
+          renderEditItems(); renderEditTotal();
+        };
+      });
+      box.querySelector(".eitem-del").onclick = ()=>{ editCart.splice(idx,1); renderEditItems(); renderEditTotal(); };
+      cont.appendChild(box);
+      return;
+    }
+    box.className = "eitem";
     box.innerHTML = `
       <div class="eitem-top">
         <div class="eitem-tx"><b>${esc(l.prenda)}</b><span>${esc(corto(l.colegio))} · ${money(l.precio)} c/u</span></div>
@@ -6397,12 +6933,16 @@ $("#editSaveBtn").onclick = async ()=>{
   $("#editSaveBtn").disabled = true;
   try{
     // Stock: devolver lo anterior y descontar lo nuevo (delta por producto)
+    // Se expanden los combos a sus componentes para ajustar el stock real.
     const delta = {};
-    (editVenta.items||[]).forEach(it=>{ if(it.productoId) delta[it.productoId] = (delta[it.productoId]||0) + (Number(it.cant)||0); });
-    editCart.forEach(l=>{ delta[l.id] = (delta[l.id]||0) - l.cant; });
+    (editVenta.items||[]).forEach(it=> itemStockUnits(it).forEach(u=>{ delta[u.productoId] = (delta[u.productoId]||0) + u.qty; }));
+    editCart.forEach(l=> itemStockUnits(l).forEach(u=>{ delta[u.productoId] = (delta[u.productoId]||0) - u.qty; }));
     const { sub, recargo, total } = editTotals();
-    const items = editCart.map(l=>({ productoId:l.id, colegio:l.colegio, prenda:l.prenda, talle:l.talle,
-      precio:l.precio, cant:l.cant, subtotal:l.precio*l.cant }));
+    const items = editCart.map(l=> l.tipo==="combo"
+      ? { tipo:"combo", comboId:l.comboId, colegio:l.colegio, prenda:l.prenda, talle:"",
+          precio:l.precio, cant:l.cant, subtotal:l.precio*l.cant,
+          componentes:(l.componentes||[]).map(c=>({ productoId:c.productoId, colegio:c.colegio, prenda:c.prenda, talle:c.talle, cantidad:c.cantidad })) }
+      : { productoId:l.id, colegio:l.colegio, prenda:l.prenda, talle:l.talle, precio:l.precio, cant:l.cant, subtotal:l.precio*l.cant });
     // Fecha: conserva la hora original sobre el día elegido
     let ts = ventaMs(editVenta) || Date.now();
     if(editFechaYmd){ const [y,m,d] = editFechaYmd.split("-").map(Number); const nd = new Date(ts); nd.setFullYear(y, m-1, d); ts = nd.getTime(); }
