@@ -64,6 +64,9 @@ img{display:block;max-width:100%}
 .eyebrow{display:flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--celeste-deep);font-weight:600;margin:6px 0 10px}
 .eyebrow::before{content:"✦";color:var(--coral);font-size:13px}
 .h-title{font-size:33px;margin-bottom:8px}
+/* Inicio (mobile): título en 2 líneas y con aire arriba para no pegarse al header */
+.inicio-title{margin-top:18px}
+.inicio-title .it-l1,.inicio-title .it-l2{display:block;line-height:1.1}
 .lead{font-size:15.5px;color:var(--texto-suave);margin-bottom:20px}
 
 /* ====== INICIO ====== */
@@ -517,6 +520,9 @@ img{display:block;max-width:100%}
   .botnav{display:none}
   .menu-pop,.menu-scrim{display:none!important}
   .cli-shortcuts{display:none}
+  /* En desktop el título de Inicio queda como siempre (una línea, sin aire extra) */
+  .inicio-title{margin-top:0}
+  .inicio-title .it-l1,.inicio-title .it-l2{display:inline;line-height:inherit}
   .fab-add{right:48px;bottom:40px;height:64px;font-size:17px}
   .fab-voz{right:48px;bottom:40px}
   .fab-voz.over-vender{bottom:40px}
@@ -706,6 +712,57 @@ img{display:block;max-width:100%}
 .cli-shortcut .cst{flex:1;min-width:0}
 .cli-shortcut .cst b{display:block;font-size:15.5px;color:var(--gris-900);font-weight:600;line-height:1.1}
 .cli-shortcut .cst span{display:block;font-size:11.5px;color:var(--texto-suave);margin-top:2px}
+
+/* ── Card "Lista de espera" dentro de Productos (visible también en desktop) ── */
+.prod-shortcuts{margin:2px 0 18px}
+.prod-shortcut-badge{flex-shrink:0;min-width:24px;height:24px;padding:0 7px;border-radius:12px;background:var(--rojo);color:#fff;font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+/* ════════════════ MENSAJES (difusión por WhatsApp) ════════════════ */
+.msg-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.msg-dif-btn{margin:4px 0 20px;position:relative}
+.msg-dif-chev{flex-shrink:0;font-size:24px;color:var(--celeste-deep);font-weight:700;line-height:1}
+.msg-group{margin-bottom:22px}
+.msg-group-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--gris-700);margin:0 2px 11px}
+.msg-group-title .mgt-n{min-width:22px;height:22px;padding:0 7px;border-radius:11px;background:var(--celeste-pale);color:var(--celeste-deep);font-size:12px;display:inline-flex;align-items:center;justify-content:center}
+.msg-card{background:var(--blanco);border-radius:18px;box-shadow:var(--card-shadow);padding:14px 15px;margin-bottom:12px}
+.msg-card-top{display:flex;align-items:flex-start;gap:12px}
+.msg-card .mc-av{width:42px;height:42px;border-radius:13px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;color:var(--celeste-deep);flex-shrink:0}
+.msg-card .mc-tx{flex:1;min-width:0}
+.msg-card .mc-tx b{display:block;font-size:16px;color:var(--gris-900);font-weight:600;line-height:1.15}
+.msg-card .mc-tx .mc-motivo{display:block;font-size:13.5px;color:var(--texto-suave);margin-top:3px;line-height:1.35}
+.msg-card .mc-tag{flex-shrink:0;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;padding:4px 10px;border-radius:50px}
+.mc-tag.llego{background:var(--celeste-pale);color:var(--celeste-deep)}
+.mc-tag.listo{background:#eaf6ee;color:#2e7d4f}
+.mc-tag.saldo{background:#fdeaee;color:var(--rojo)}
+.msg-send{margin-top:13px;width:100%;min-height:56px;border-radius:15px;background:#25D366;color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:9px;transition:transform .12s ease,opacity .15s ease}
+.msg-send:active{transform:scale(.98)}
+.msg-send:disabled{background:var(--gris-100);color:var(--gris-500);box-shadow:none}
+.msg-allgood{text-align:center;padding:30px 18px;background:var(--celeste-pale);border-radius:18px;color:var(--gris-700)}
+.msg-allgood .ag-emoji{font-size:42px;display:block;margin-bottom:10px}
+.msg-allgood h3{font-family:var(--titf);font-weight:600;font-size:20px;color:var(--gris-900);margin-bottom:6px}
+.msg-allgood p{font-size:14px;line-height:1.45}
+
+/* ── Sheet difusión por colegio ── */
+.dif-cli-tools{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.dif-mini{padding:8px 15px;min-height:42px;border-radius:50px;background:var(--celeste-pale);color:var(--celeste-deep);font-size:13.5px;font-weight:600}
+.dif-mini:active{transform:scale(.96)}
+.dif-count{margin-left:auto;font-size:13px;color:var(--texto-suave);font-weight:600}
+.dif-cli-row{display:flex;align-items:center;gap:12px;background:var(--blanco);border:1.5px solid var(--gris-100);border-radius:14px;padding:12px 14px;margin-bottom:9px;min-height:56px;width:100%;text-align:left;transition:border-color .15s ease,background .15s ease}
+.dif-cli-row.on{border-color:var(--celeste);background:var(--celeste-pale)}
+.dif-cli-row.off{opacity:.55}
+.dif-cli-check{width:26px;height:26px;border-radius:8px;border:2px solid var(--gris-300);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff;background:transparent}
+.dif-cli-row.on .dif-cli-check{background:var(--celeste-deep);border-color:var(--celeste-deep)}
+.dif-cli-tx{flex:1;min-width:0}
+.dif-cli-tx b{display:block;font-size:15px;color:var(--gris-900);font-weight:600}
+.dif-cli-tx span{display:block;font-size:12px;color:var(--texto-suave);margin-top:2px}
+.dif-nowa{text-align:center;color:var(--texto-suave);font-size:13.5px;padding:16px;background:var(--crema);border-radius:14px}
+.dif-link-row{display:flex;align-items:center;gap:11px;background:var(--blanco);border-radius:14px;box-shadow:var(--card-shadow);padding:11px 13px;margin-bottom:9px}
+.dif-link-row .dl-tx{flex:1;min-width:0}
+.dif-link-row .dl-tx b{display:block;font-size:14.5px;color:var(--gris-900);font-weight:600}
+.dif-link-row.sent .dl-tx b{color:var(--texto-suave)}
+.dif-link-send{flex-shrink:0;min-height:46px;padding:0 16px;border-radius:12px;background:#25D366;color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;gap:7px}
+.dif-link-row.sent .dif-link-send{background:var(--gris-100);color:var(--gris-500)}
+.dif-links-title{font-size:14px;font-weight:700;color:var(--gris-700);margin:18px 2px 11px}
 .cfg-card{background:var(--blanco);border-radius:22px;padding:20px 18px 22px;box-shadow:var(--card-shadow);margin-bottom:16px}
 .cfg-h{display:flex;align-items:center;gap:13px;margin-bottom:6px}
 .cfg-h .cfg-ic{width:46px;height:46px;border-radius:14px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
@@ -1173,6 +1230,7 @@ html.unlocked #lockScreen{display:none}
         <a href="#" class="nav-link" data-go="entregas"><span class="bi">🚗</span> Reparto</a>
         <a href="#" class="nav-link" data-go="caja"><span class="bi">🖥️</span> Caja</a>
         <a href="#" class="nav-link" data-go="cuentas"><span class="bi">📒</span> Cuentas<span class="s-nav-badge" id="cuentaSideBadge" style="display:none">0</span></a>
+        <a href="#" class="nav-link" data-go="mensajes"><span class="bi">💬</span> Mensajes<span class="s-nav-badge" id="mensajesSideBadge" style="display:none">0</span></a>
         <a href="#" class="nav-link s-nav-cfg" data-go="config"><span class="bi">⚙️</span> Configuración</a>
       </nav>
     </div>
@@ -1196,7 +1254,7 @@ html.unlocked #lockScreen{display:none}
 
     <!-- ===== VISTA INICIO ===== -->
     <section class="view active" id="view-inicio">
-      <h1 class="h-title">Bienvenida a tu negocio ✨</h1>
+      <h1 class="h-title inicio-title"><span class="it-l1">Bienvenida a</span> <span class="it-l2">tu negocio ✨</span></h1>
       <p class="lead">Tocá <em class="kw">Vender</em> para cargar una venta, o dictala con el micrófono.</p>
 
       <button class="vender-btn" id="venderBtn">
@@ -1218,15 +1276,14 @@ html.unlocked #lockScreen{display:none}
       <!-- (2) Botón principal de agregar producto (el FAB flotante de siempre) -->
       <button class="ent-add" id="prodAdd"><span style="font-size:21px;line-height:1">＋</span> Agregar producto</button>
 
-      <!-- (3) LISTA DE ESPERA (misma de siempre, ubicada acá) -->
-      <section class="prod-block" id="esperaBlock">
-        <h2 class="block-title">⏳ Lista de espera</h2>
-        <p class="block-sub">Anotá a cada clienta que espera un talle que no tenés. Cuando entre stock, te aviso para que le escribas con un toque.</p>
-        <button class="ent-add" id="esperaAdd"><span style="font-size:21px;line-height:1">＋</span> Anotar una espera</button>
-        <div class="filtros" id="esperaGrupo"></div>
-        <div class="filtros" id="esperaEstado"></div>
-        <div id="listaEspera"></div>
-      </section>
+      <!-- (3) LISTA DE ESPERA → card que abre su sub-pestaña (igual que Encargos/Cuentas en Clientas) -->
+      <div class="prod-shortcuts">
+        <button class="cli-shortcut" type="button" data-go="espera">
+          <span class="csi">⏳</span>
+          <span class="cst"><b>Lista de espera</b><span>Quién espera un talle</span></span>
+          <span class="prod-shortcut-badge" id="esperaCardBadge" style="display:none">0</span>
+        </button>
+      </div>
 
       <!-- (4) CATÁLOGO AGRUPADO POR COLEGIO -->
       <section class="prod-block" id="catalogoBlock">
@@ -1248,6 +1305,19 @@ html.unlocked #lockScreen{display:none}
       </section>
 
       <button class="ajustes-link" id="ajustesLink">⚙ Ajustes de cobro</button>
+    </section>
+
+    <!-- ===== VISTA LISTA DE ESPERA (sub-pestaña de Productos) ===== -->
+    <section class="view" id="view-espera">
+      <div class="eyebrow">Productos</div>
+      <h1 class="h-title">Lista de espera</h1>
+      <p class="lead">Anotá a cada clienta que espera un talle que no tenés. Cuando entre stock, te aviso para que le escribas con un toque.</p>
+
+      <button class="ent-add" id="esperaAdd"><span style="font-size:21px;line-height:1">＋</span> Anotar una espera</button>
+
+      <div class="filtros" id="esperaGrupo"></div>
+      <div class="filtros" id="esperaEstado"></div>
+      <div id="listaEspera"></div>
     </section>
 
     <!-- ===== VISTA CLIENTES ===== -->
@@ -1385,7 +1455,7 @@ html.unlocked #lockScreen{display:none}
       </div>
 
       <!-- 3 · WHATSAPP -->
-      <div class="cfg-card">
+      <div class="cfg-card" id="cfgWhatsappCard">
         <div class="cfg-h"><span class="cfg-ic">💬</span><div><b>WhatsApp</b><span>Número del negocio y mensajes listos</span></div></div>
         <div class="field"><label>Número de WhatsApp del negocio</label>
           <input class="txtin" type="tel" id="cfgWa" inputmode="tel" placeholder="Ej: 223 668 9240" autocomplete="off"></div>
@@ -1416,6 +1486,14 @@ html.unlocked #lockScreen{display:none}
         <div class="field"><label>Aviso de reposición (lista de espera)</label>
           <textarea class="txtin cfg-ta" id="cfgMsgEspera" rows="5"></textarea>
           <p class="var-hint">Variables: <code>{clienta}</code> <code>{prenda}</code> <code>{colegio}</code> <code>{talle}</code> <code>{negocio}</code></p></div>
+
+        <div class="field"><label>Encargo listo</label>
+          <textarea class="txtin cfg-ta" id="cfgMsgEncargo" rows="6"></textarea>
+          <p class="var-hint">Variables: <code>{clienta}</code> <code>{detalle}</code> <code>{saldo}</code> <code>{total}</code> <code>{sena}</code> <code>{negocio}</code></p></div>
+
+        <div class="field"><label>Recordar saldo pendiente (cuentas)</label>
+          <textarea class="txtin cfg-ta" id="cfgMsgSaldo" rows="5"></textarea>
+          <p class="var-hint">Variables: <code>{clienta}</code> <code>{saldo}</code> <code>{negocio}</code></p></div>
       </div>
 
       <!-- 4 · RECIBO -->
@@ -1485,6 +1563,26 @@ html.unlocked #lockScreen{display:none}
       <div class="filtros" id="encEstadoF"></div>
 
       <div id="listaEncargos"></div>
+    </section>
+
+    <!-- ===== VISTA MENSAJES (difusión por WhatsApp) ===== -->
+    <section class="view" id="view-mensajes">
+      <div class="msg-head-row">
+        <div>
+          <div class="eyebrow">WhatsApp</div>
+          <h1 class="h-title">Mensajes</h1>
+        </div>
+        <button class="top-cfg" id="msgConfigBtn" type="button" aria-label="Plantillas de mensajes">⚙️</button>
+      </div>
+      <p class="lead">Todo lo que tenés <em class="kw">pendiente de avisar</em>, junto. Tocá <b>Enviar por WhatsApp</b> y el mensaje sale armado solo.</p>
+
+      <button class="cli-shortcut msg-dif-btn" type="button" id="msgDifBtn">
+        <span class="csi">📣</span>
+        <span class="cst"><b>Difusión por colegio</b><span>Mandar a varias clientas de un colegio</span></span>
+        <span class="msg-dif-chev">›</span>
+      </button>
+
+      <div id="msgPendientes"></div>
     </section>
 
   </main>
@@ -2290,6 +2388,44 @@ html.unlocked #lockScreen{display:none}
   </div>
 </div>
 
+<!-- ===== SHEET: DIFUSIÓN POR COLEGIO (Mensajes) ===== -->
+<div class="scrim" id="difScrim"></div>
+<div class="sheet" id="difSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>📣 Difusión por colegio</h2>
+    <button class="sheet-x" id="difClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div class="field">
+      <label>1 · Elegí el colegio</label>
+      <div class="chips" id="difChipsColegio"></div>
+    </div>
+
+    <div class="field" id="difCliWrap" style="display:none">
+      <label>2 · ¿A quiénes les mandás?</label>
+      <div class="dif-cli-tools">
+        <button class="dif-mini" type="button" id="difTodas">Todas</button>
+        <button class="dif-mini" type="button" id="difNinguna">Ninguna</button>
+        <span class="dif-count" id="difCount">0 elegidas</span>
+      </div>
+      <div id="difClientas"></div>
+    </div>
+
+    <div class="field" id="difMsgWrap" style="display:none">
+      <label>3 · El mensaje</label>
+      <p class="var-hint" style="margin-top:0">Lo que va entre <b>{llaves}</b> lo completa la app: <code>{clienta}</code> <code>{colegio}</code> <code>{negocio}</code></p>
+      <textarea class="txtin cfg-ta" id="difMsg" rows="6"></textarea>
+    </div>
+
+    <div class="sheet-actions" id="difGenWrap" style="display:none">
+      <button class="btn btn-primary" id="difGenerar">Generar mensajes</button>
+    </div>
+
+    <div id="difLinks"></div>
+  </div>
+</div>
+
 <!-- ===== SHEET: NUEVO / EDITAR ENCARGO (Etapa 8) ===== -->
 <div class="scrim" id="encScrim"></div>
 <div class="sheet" id="encSheet">
@@ -2847,9 +2983,11 @@ function go(view, fromPop){
   updateFabVoz();                                                        // burbuja de voz
   if(view==="caja") renderCaja();                                        // Etapa 6
   if(view==="config") renderConfig();                                    // Configuración
-  if(view==="stock"){ try{ renderEsperaView(); renderLista(); }catch(e){} }  // Productos: refresca espera + catálogo
+  if(view==="stock"){ try{ renderLista(); updateEsperaBadge(); }catch(e){} }  // Productos: refresca catálogo + badge de la card de espera
+  if(view==="espera")   try{ renderEsperaView(); }catch(e){}             // Etapa 7: sub-pestaña Lista de espera
   if(view==="encargos") renderEncargosView();                            // Etapa 8
   if(view==="cuentas")  renderCuentasView();                             // Etapa 4: cuentas / saldos
+  if(view==="mensajes") try{ renderMensajesView(); }catch(e){}           // Centro de mensajes pendientes
   window.scrollTo({top:0,behavior:"smooth"});
   if(fromPop!==true && view!==prev) navGoView(view);
 }
@@ -2894,6 +3032,8 @@ const MENU_SECTIONS = [
         badge:()=> (typeof clientasQueDeben==="function" ? clientasQueDeben().length : 0) },
   ]},
   { go:"caja",     icon:"🖥️", label:"Caja" },
+  { go:"mensajes", icon:"💬", label:"Mensajes",
+    badge:()=> (typeof totalMensajesPendientes==="function" ? totalMensajesPendientes() : 0) },
 ];
 function menuBadge(item){
   if(!item.badge) return "";
@@ -4740,6 +4880,8 @@ function renderConfig(){
   $("#cfgMsgGracias").value  = tpl.graciasMsg;
   $("#cfgMsgAgenda").value   = tpl.msgAgenda;
   $("#cfgMsgEspera").value   = tpl.msgEspera;
+  $("#cfgMsgEncargo").value  = tpl.msgEncargoListo;
+  $("#cfgMsgSaldo").value    = tpl.msgRecordatorioCuenta;
   // Recibo
   $("#cfgRecTitulo").value  = tpl.reciboTitulo;
   $("#cfgRecLeyenda").value = tpl.reciboLeyenda;
@@ -4781,6 +4923,8 @@ function cfgFromForm(){
     graciasMsg:      tpv("cfgMsgGracias").trim() || TPL_DEFAULT.graciasMsg,
     msgAgenda:       tpv("cfgMsgAgenda").trim()  || TPL_DEFAULT.msgAgenda,
     msgEspera:       tpv("cfgMsgEspera").trim()  || TPL_DEFAULT.msgEspera,
+    msgEncargoListo: tpv("cfgMsgEncargo").trim() || TPL_DEFAULT.msgEncargoListo,
+    msgRecordatorioCuenta: tpv("cfgMsgSaldo").trim() || TPL_DEFAULT.msgRecordatorioCuenta,
     colegios:  cfgColDraft.slice(),
     stockBajo: Math.max(1, parseInt($("#cfgStockBajo").value,10)||STOCK_BAJO_DEFAULT),
     pinAcceso: (isPin($("#cfgPin").value.trim()) ? $("#cfgPin").value.trim() : currentPin())
@@ -4815,6 +4959,8 @@ onSnapshot(colRef, { includeMetadataChanges:true }, snap=>{
   productos = snap.docs.map(d=>({ id:d.id, ...d.data() }));
   setConn(snap.metadata.fromCache && !navigator.onLine ? "offline" : "online");
   renderStockStats(); renderFiltros(); renderLista(); renderInicio();
+  try{ updateEsperaBadge(); updateMensajesBadge(); }catch(e){}
+  if(currentView==="mensajes") try{ renderMensajesView(); }catch(e){}
   try{ checkReposicion(); }catch(e){ console.warn("reposicion:", e); }   // Etapa 7
 }, err=>{
   console.error("Firestore ["+COL+"]:", err.code, err.message);
@@ -7009,10 +7155,15 @@ function stockDe(colegio, prenda, talle){
 }
 function fechaCorta(f){ if(!f) return ""; const p=String(f).split("-"); return p.length===3 ? `${p[2]}/${p[1]}` : f; }
 function esperaActivas(){ return esperas.filter(e=> e.estado!=="avisada"); }
+/* Esperas que ya tienen stock y se pueden avisar (lo "accionable") */
+function esperasParaAvisar(){
+  return esperas.filter(e=> e.estado!=="avisada" && stockDe(e.colegio, e.prenda, e.talle) > 0);
+}
 function updateEsperaBadge(){
-  const b=$("#esperaOpenBadge"); if(!b) return;
-  const n=esperaActivas().length;
-  b.textContent=n; b.style.display = n ? "inline-block" : "none";
+  // Badge de la card de espera en Productos: cuántas clientas esperan algo
+  const n = esperaActivas().length;
+  const card = $("#esperaCardBadge");
+  if(card){ card.textContent = n; card.style.display = n ? "flex" : "none"; }
 }
 /* Borrar en dos toques (sin diálogos del sistema, estilo mamá) */
 function armDelete(btn, onConfirm){
@@ -7397,7 +7548,9 @@ function renderCliEsperas(cli){
 onSnapshot(esperaRef, snap=>{
   esperas = snap.docs.map(d=>({ id:d.id, ...d.data() }));
   updateEsperaBadge();
-  if(currentView==="stock") renderEsperaView();
+  try{ updateMensajesBadge(); }catch(e){}
+  if(currentView==="espera") renderEsperaView();
+  if(currentView==="mensajes") try{ renderMensajesView(); }catch(e){}
   try{ renderLista(); }catch(e){}   // refresca los tags de espera en el catálogo
   if(cliEditId && $("#cliSheet").classList.contains("show")){
     const c = clientes.find(x=>x.id===cliEditId); if(c) renderCliEsperas(c);
@@ -8054,8 +8207,10 @@ function renderCliEncargos(cli){
 onSnapshot(encargosRef, snap=>{
   encargos = snap.docs.map(d=>({ id:d.id, ...d.data() }));
   updateEncargoBadge();
+  try{ updateMensajesBadge(); }catch(e){}
   renderInicio();
   if(currentView==="encargos") renderEncargosView();
+  if(currentView==="mensajes") try{ renderMensajesView(); }catch(e){}
   if(cliEditId && $("#cliSheet").classList.contains("show")){
     const c = clientes.find(x=> x.id===cliEditId); if(c){ renderCliEncargos(c); if(typeof renderCliEncSaldos==="function") renderCliEncSaldos(c); }
   }
@@ -8366,8 +8521,10 @@ function renderCuentasView(){
 onSnapshot(cuentaRef, snap=>{
   cuentaMovs = snap.docs.map(d=>({ id:d.id, ...d.data() }));
   updateCuentaBadge();
+  try{ updateMensajesBadge(); }catch(e){}
   renderInicio();
   if(currentView==="cuentas") renderCuentasView();
+  if(currentView==="mensajes") try{ renderMensajesView(); }catch(e){}
   if(cliEditId && $("#cliSheet").classList.contains("show")){
     const c = clientes.find(x=> x.id===cliEditId); if(c) renderCliCuenta(c);
   }
@@ -8377,13 +8534,239 @@ onSnapshot(cuentaRef, snap=>{
 });
 /* ──────────────────── fin ETAPA 4 (cuentas) ──────────────────── */
 
+/* ════════════════════════════════════════════════════════════════
+   MENSAJES · centro de difusión por WhatsApp
+   Junta TODO lo pendiente de avisar de la app en un solo lugar:
+     · Lista de espera con stock disponible  → "avisar que llegó"
+     · Encargos en "listo" sin avisar         → "avisar que está listo"
+     · Saldos pendientes (Cuentas)            → "recordar saldo" (grupo aparte)
+   Cada mensaje usa la plantilla editable de Configuración. Al enviar, se
+   reusan los estados existentes ('avisada' / 'avisado') para que salga de
+   pendientes. Difusión por colegio: links wa.me individuales.
+   Reusa: esperas, encargos, clientes, clientasQueDeben, msgEspera,
+   msgEncargoListo, msgRecordatorioCuenta, avisarEspera, avisarListo, openWa,
+   waNorm, corto, esc, cliInitial, money, encResumenItems, encSaldoDe.
+   ════════════════════════════════════════════════════════════════ */
+function totalMensajesPendientes(){
+  let n = 0;
+  try{ n += esperasParaAvisar().length; }catch(e){}
+  try{ n += encargos.filter(e=> e.estado==="listo" && !e.avisado).length; }catch(e){}
+  return n;
+}
+function updateMensajesBadge(){
+  const n = totalMensajesPendientes();
+  const sb = $("#mensajesSideBadge");
+  if(sb){ sb.textContent = n; sb.style.display = n>0 ? "" : "none"; }
+}
+
+function msgCardEl({ av, nombre, motivo, tag, tagCls, hasWa, onSend }){
+  const card = document.createElement("div"); card.className = "msg-card";
+  card.innerHTML = `
+    <div class="msg-card-top">
+      <span class="mc-av">${av}</span>
+      <span class="mc-tx"><b>${esc(nombre)}</b><span class="mc-motivo">${motivo}</span></span>
+      <span class="mc-tag ${tagCls}">${esc(tag)}</span>
+    </div>
+    <button class="msg-send" ${hasWa?"":"disabled"}>🟢 Enviar por WhatsApp</button>`;
+  const btn = card.querySelector(".msg-send");
+  if(hasWa) btn.onclick = ()=> onSend(btn);
+  else btn.title = "Esta clienta no tiene WhatsApp cargado";
+  return card;
+}
+
+function renderMensajesView(){
+  updateMensajesBadge();
+  const cont = $("#msgPendientes"); if(!cont) return; cont.innerHTML = "";
+
+  // — Grupo 1: Para avisar (lista de espera con stock + encargos listos) —
+  const avisos = [];
+  esperasParaAvisar()
+    .sort((a,b)=> (a.ts||0)-(b.ts||0))
+    .forEach(e=>{
+      const cli = clientes.find(c=> c.id===e.clientaId);
+      const nombre = e.clientaNombre || cli?.nombre || "Clienta";
+      const hasWa = !!(cli && waNorm(cli.whatsapp));
+      avisos.push(msgCardEl({
+        av: cliInitial(nombre), nombre,
+        motivo: `Llegó <b>${esc(e.prenda)}</b> · ${esc(corto(e.colegio))} · talle ${esc(e.talle)}`,
+        tag: "Llegó", tagCls: "llego", hasWa,
+        onSend: ()=> avisarEspera(e, cli)
+      }));
+    });
+  encargos.filter(e=> e.estado==="listo" && !e.avisado)
+    .sort((a,b)=> (a.ts||0)-(b.ts||0))
+    .forEach(enc=>{
+      const cli = clientes.find(c=> c.id===enc.clienteId);
+      const nombre = cli?.nombre || enc.clienteNombre || "Clienta";
+      const hasWa = !!(cli && waNorm(cli.whatsapp)) || !!waNorm(enc.clienteWhats);
+      const saldo = encSaldoDe(enc);
+      avisos.push(msgCardEl({
+        av: cliInitial(nombre), nombre,
+        motivo: `Encargo listo: ${esc(encResumenItems(enc))}${saldo>0?` · saldo ${money(saldo)}`:""}`,
+        tag: "Listo", tagCls: "listo", hasWa,
+        onSend: ()=> avisarListo(enc)
+      }));
+    });
+
+  // — Grupo 2: Para recordar (saldos pendientes) —
+  const deben = (typeof clientasQueDeben==="function" ? clientasQueDeben() : []);
+
+  if(avisos.length===0 && deben.length===0){
+    cont.innerHTML = `<div class="msg-allgood">
+      <span class="ag-emoji">💌</span>
+      <h3>¡Estás al día!</h3>
+      <p>No tenés mensajes pendientes. Cuando entre stock de un talle esperado, quede un encargo listo o alguien te deba, lo vas a ver acá.</p></div>`;
+    return;
+  }
+
+  if(avisos.length){
+    const g = document.createElement("div"); g.className = "msg-group";
+    g.innerHTML = `<div class="msg-group-title">📣 Para avisar <span class="mgt-n">${avisos.length}</span></div>`;
+    avisos.forEach(c=> g.appendChild(c));
+    cont.appendChild(g);
+  }
+  if(deben.length){
+    const g = document.createElement("div"); g.className = "msg-group";
+    g.innerHTML = `<div class="msg-group-title">💰 Para recordar <span class="mgt-n">${deben.length}</span></div>`;
+    deben.forEach(d=>{
+      const hasWa = !!waNorm(d.whatsapp);
+      g.appendChild(msgCardEl({
+        av: cliInitial(d.nombre), nombre: d.nombre || "Clienta",
+        motivo: `Te debe <b>${money(d.saldo)}</b>${d.colegio?` · ${esc(corto(d.colegio))}`:""}`,
+        tag: "Saldo", tagCls: "saldo", hasWa,
+        onSend: (btn)=>{ openWa(d.whatsapp, msgRecordatorioCuenta(d, d.saldo)); btn.textContent = "✓ Recordado"; }
+      }));
+    });
+    cont.appendChild(g);
+  }
+}
+
+/* Engranaje → Configuración, directo a las plantillas de WhatsApp */
+$("#msgConfigBtn").onclick = ()=>{
+  go("config");
+  setTimeout(()=>{ const c = $("#cfgWhatsappCard"); if(c) c.scrollIntoView({ behavior:"smooth", block:"start" }); }, 80);
+};
+
+/* ════════ Difusión por colegio ════════ */
+const DIF_MSG_DEFAULT = "¡Hola {clienta}! 🌰 Soy de {negocio} ({colegio}).\n\n";
+let difColegio = null;
+let difSel = new Set();
+
+function difColegios(){
+  const set = new Set();
+  clientes.forEach(c=>{ if((c.colegio||"").trim()) set.add(c.colegio); });
+  return [...set].sort((a,b)=> corto(a).localeCompare(corto(b)));
+}
+function difClientasDe(col){
+  return clientes.filter(c=> c.colegio===col).sort((a,b)=> (a.nombre||"").localeCompare(b.nombre||""));
+}
+function openDifSheet(){
+  difColegio = null; difSel = new Set();
+  $("#difMsg").value = DIF_MSG_DEFAULT;
+  $("#difLinks").innerHTML = "";
+  $("#difCliWrap").style.display = "none";
+  $("#difMsgWrap").style.display = "none";
+  $("#difGenWrap").style.display = "none";
+  renderDifColegios();
+  $("#difScrim").classList.add("show"); $("#difSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+  pushBack("difSheet", closeDifSheet);
+}
+function closeDifSheet(fromPop){
+  $("#difScrim").classList.remove("show"); $("#difSheet").classList.remove("show");
+  document.body.style.overflow = "";
+  if(fromPop!==true) syncBack("difSheet");
+}
+function renderDifColegios(){
+  const cont = $("#difChipsColegio"); cont.innerHTML = "";
+  const cols = difColegios();
+  if(!cols.length){
+    cont.innerHTML = `<p class="hint" style="margin:0">Todavía no hay clientas con colegio cargado.</p>`;
+    return;
+  }
+  cols.forEach(col=>{
+    const b = document.createElement("button"); b.type = "button";
+    b.className = "chip" + (difColegio===col?" on":"");
+    b.textContent = corto(col);
+    b.onclick = ()=>{ difColegio = col; difSelectAll(true); renderDifColegios(); renderDifClientas(); afterDifColegio(); };
+    cont.appendChild(b);
+  });
+}
+function afterDifColegio(){
+  $("#difCliWrap").style.display = "block";
+  $("#difMsgWrap").style.display = "block";
+  $("#difGenWrap").style.display = "block";
+  $("#difLinks").innerHTML = "";
+}
+function difSelectAll(on){
+  difSel = new Set();
+  if(on && difColegio){
+    difClientasDe(difColegio).forEach(c=>{ if(waNorm(c.whatsapp)) difSel.add(c.id); });
+  }
+}
+function renderDifClientas(){
+  const cont = $("#difClientas"); cont.innerHTML = "";
+  const list = difColegio ? difClientasDe(difColegio) : [];
+  if(!list.length){ cont.innerHTML = `<p class="dif-nowa">No hay clientas en este colegio.</p>`; updateDifCount(); return; }
+  list.forEach(c=>{
+    const hasWa = !!waNorm(c.whatsapp);
+    const on = difSel.has(c.id);
+    const row = document.createElement("button"); row.type = "button";
+    row.className = "dif-cli-row" + (hasWa ? (on?" on":"") : " off");
+    row.innerHTML = `
+      <span class="dif-cli-check">${on?"✓":""}</span>
+      <span class="dif-cli-tx"><b>${esc(c.nombre||"Clienta")}</b><span>${hasWa?"WhatsApp ✓":"sin WhatsApp"}</span></span>`;
+    if(hasWa){
+      row.onclick = ()=>{ if(difSel.has(c.id)) difSel.delete(c.id); else difSel.add(c.id); renderDifClientas(); };
+    } else {
+      row.disabled = true;
+    }
+    cont.appendChild(row);
+  });
+  updateDifCount();
+}
+function updateDifCount(){
+  const n = difSel.size;
+  $("#difCount").textContent = n===1 ? "1 elegida" : `${n} elegidas`;
+}
+$("#difTodas").onclick   = ()=>{ difSelectAll(true);  renderDifClientas(); };
+$("#difNinguna").onclick = ()=>{ difSel = new Set();   renderDifClientas(); };
+$("#difClose").onclick   = ()=> closeDifSheet();
+$("#difScrim").onclick   = ()=> closeDifSheet();
+$("#msgDifBtn").onclick  = openDifSheet;
+$("#difGenerar").onclick = ()=>{
+  const plantilla = $("#difMsg").value.trim();
+  if(!difColegio){ toast("Elegí un colegio","err"); return; }
+  if(difSel.size===0){ toast("Elegí al menos una clienta","err"); return; }
+  if(!plantilla){ toast("Escribí el mensaje","err"); return; }
+  const cont = $("#difLinks"); cont.innerHTML = "";
+  const title = document.createElement("div"); title.className = "dif-links-title";
+  title.textContent = `📲 Mandá de a uno (${difSel.size})`;
+  cont.appendChild(title);
+  difClientasDe(difColegio).filter(c=> difSel.has(c.id)).forEach(c=>{
+    const row = document.createElement("div"); row.className = "dif-link-row";
+    row.innerHTML = `<span class="dl-tx"><b>${esc(c.nombre||"Clienta")}</b></span>
+      <button class="dif-link-send" type="button">🟢 Enviar</button>`;
+    const btn = row.querySelector(".dif-link-send");
+    btn.onclick = ()=>{
+      const texto = fillMsg(plantilla, { ...bizVars(), clienta: c.nombre||"", nombre: c.nombre||"", colegio: corto(c.colegio||"") });
+      openWa(c.whatsapp, texto);
+      row.classList.add("sent"); btn.textContent = "✓ Enviado";
+    };
+    cont.appendChild(row);
+  });
+  cont.scrollIntoView({ behavior:"smooth", block:"nearest" });
+};
+/* ──────────────────── fin MENSAJES ──────────────────── */
+
 renderStockStats(); renderInicio(); renderFiltros(); renderLista();
-try{ renderEsperaView(); }catch(e){}   // siembra la lista de espera dentro de Productos
+try{ renderEsperaView(); }catch(e){}   // siembra la lista de espera (sub-pestaña de Productos)
 renderClientes();
 renderEntFiltros(); renderEntregas();
 updateEsperaBadge();
 updateEncargoBadge();
 updateCuentaBadge();
+updateMensajesBadge();
 loadConfig();
 updateFabVoz();   // muestra la burbuja de voz en el arranque (Inicio)
 </script>
