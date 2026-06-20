@@ -795,6 +795,56 @@ textarea.txtin{font-family:inherit}
 .cfg-actions{position:sticky;bottom:calc(var(--nav-h) + 12px);margin-top:22px;z-index:5}
 .cfg-actions .btn{width:100%;box-shadow:0 10px 28px rgba(94,143,168,.4)}
 
+/* ── Backup / Exportar (Google Drive) ── */
+.bk-btn{width:100%;margin-top:12px}
+.bk-status{display:flex;align-items:center;gap:12px;background:var(--crema);border-radius:16px;padding:14px 16px;margin-top:16px}
+.bk-status .bk-dot{width:13px;height:13px;border-radius:50%;background:var(--gris-300);flex-shrink:0;box-shadow:0 0 0 4px rgba(0,0,0,.04);transition:background .25s, box-shadow .25s}
+.bk-status.on .bk-dot{background:#2e7d4f;box-shadow:0 0 0 4px rgba(46,125,79,.16)}
+.bk-status-tx{min-width:0}
+.bk-status-tx b{display:block;font-size:15.5px;color:var(--gris-900);font-weight:600;line-height:1.2}
+.bk-status-tx span{display:block;font-size:12.5px;color:var(--texto-suave);margin-top:3px;word-break:break-word;line-height:1.35}
+.bk-last{font-size:13.5px;color:var(--texto-suave);margin-top:12px;text-align:center}
+.bk-last b{color:var(--gris-700);font-weight:600}
+.bk-msg{margin-top:13px;border-radius:14px;padding:13px 16px;font-size:14px;font-weight:500;line-height:1.42;display:flex;align-items:flex-start;gap:9px}
+.bk-msg.ok{background:#eaf6ee;color:#2e7d4f}
+.bk-msg.err{background:var(--rojo-pale);color:var(--rojo)}
+.bk-msg.work{background:var(--celeste-pale);color:var(--celeste-deep)}
+.bk-msg .bk-msg-ic{flex-shrink:0}
+.bk-toggle{display:flex;align-items:center;gap:14px;margin-top:20px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.bk-toggle input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.bk-switch{flex-shrink:0;width:52px;height:30px;border-radius:50px;background:var(--gris-300);position:relative;transition:background .22s ease}
+.bk-switch::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.22);transition:transform .22s ease}
+.bk-toggle input:checked + .bk-switch{background:var(--celeste-deep)}
+.bk-toggle input:checked + .bk-switch::after{transform:translateX(22px)}
+.bk-toggle-tx{min-width:0}
+.bk-toggle-tx b{display:block;font-size:15px;color:var(--gris-900);font-weight:600;line-height:1.2}
+.bk-toggle-tx span{display:block;font-size:12.5px;color:var(--texto-suave);margin-top:3px;line-height:1.35}
+.bk-danger{margin-top:26px;border:1.5px solid var(--rojo-pale);background:#fffafb;border-radius:18px;padding:16px 16px 18px}
+.bk-danger-h{display:flex;align-items:center;gap:7px;font-size:15.5px;font-weight:700;color:var(--rojo);margin-bottom:7px}
+.bk-danger p{font-size:13.5px;color:var(--texto-suave);line-height:1.45;margin-bottom:15px}
+.bk-danger p b{color:var(--gris-900)}
+.bk-danger-btn{width:100%;background:#fff;color:var(--rojo);border:2px solid var(--rojo);box-shadow:none}
+.bk-danger-btn:active{transform:scale(.99);background:var(--rojo-pale)}
+/* lista de backups en el sheet de restaurar */
+.bk-list{display:flex;flex-direction:column;gap:11px;margin-top:6px}
+.bk-row{display:flex;align-items:center;gap:13px;background:var(--blanco);border:1.5px solid var(--gris-100);border-radius:16px;padding:14px 15px;width:100%;text-align:left;transition:border-color .15s ease,transform .12s ease}
+.bk-row:active{transform:scale(.99)}
+.bk-row.sel{border-color:var(--celeste-deep);background:var(--celeste-pale)}
+.bk-row .bk-row-ic{width:42px;height:42px;border-radius:13px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.bk-row.sel .bk-row-ic{background:#fff}
+.bk-row-tx{flex:1;min-width:0}
+.bk-row-tx b{display:block;font-size:15px;color:var(--gris-900);font-weight:600;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bk-row-tx span{display:block;font-size:12.5px;color:var(--texto-suave);margin-top:3px}
+.bk-row-check{flex-shrink:0;width:26px;height:26px;border-radius:50%;border:2px solid var(--gris-300);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;background:transparent}
+.bk-row.sel .bk-row-check{background:var(--celeste-deep);border-color:var(--celeste-deep)}
+.bk-empty{text-align:center;color:var(--texto-suave);font-size:14px;background:var(--crema);border-radius:16px;padding:26px 18px;line-height:1.45}
+.bk-empty .bk-empty-ic{font-size:34px;display:block;margin-bottom:10px}
+.bk-restore-confirm{margin-top:14px}
+.bk-type-in{width:100%;background:var(--blanco);border:2px solid var(--rojo-pale);border-radius:14px;padding:14px 16px;outline:none;color:var(--gris-900);font-size:17px;font-weight:600;letter-spacing:1px;text-align:center;box-shadow:var(--card-shadow)}
+.bk-type-in:focus{border-color:var(--rojo)}
+.confirm .box .btn.btn-danger{background:var(--rojo);color:#fff;box-shadow:0 8px 22px rgba(247,33,65,.32)}
+.confirm .box .btn.btn-danger:disabled{background:var(--gris-100);color:var(--gris-300);box-shadow:none}
+
 /* ════════════════ ENTREGAS / REPARTO (Etapa 4) ════════════════ */
 .ent-add{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--celeste-deep);color:#fff;border-radius:18px;padding:17px;font-size:16px;font-weight:600;min-height:56px;box-shadow:0 8px 22px rgba(94,143,168,.34);margin:2px 0 16px;transition:transform .15s ease}
 .ent-add:active{transform:scale(.99)}
@@ -1552,6 +1602,47 @@ html.unlocked #lockScreen{display:none}
         <p class="hint">Bloquea la app en este momento: la próxima vez va a pedir el PIN.</p>
       </div>
 
+      <!-- 8 · BACKUP / EXPORTAR -->
+      <div class="cfg-card" id="cfgBackupCard">
+        <div class="cfg-h"><span class="cfg-ic">☁️</span><div><b>Backup / Exportar</b><span>Copia de seguridad en Google Drive</span></div></div>
+
+        <p class="hint">Guardá toda la app —ventas, clientas, productos, entregas, caja, lista de espera, encargos, cuentas y configuración— en tu Google Drive. La app solo toca los archivos que ella misma crea.</p>
+
+        <div class="section-lbl">Conexión con Google Drive</div>
+        <div class="field"><label>Client ID de Google</label>
+          <input class="txtin" type="text" id="cfgDriveClientId" placeholder="…apps.googleusercontent.com" autocomplete="off" autocapitalize="off" spellcheck="false">
+          <p class="hint">Se consigue una sola vez en Google Cloud (credencial OAuth de tipo “Aplicación web”). Pegalo acá y tocá <b>Guardar Client ID</b>. Queda guardado en tu config; no se comparte con nadie.</p></div>
+        <button class="btn btn-ghost bk-btn" id="cfgDriveSaveCid" type="button">Guardar Client ID</button>
+
+        <div class="bk-status" id="bkStatus">
+          <span class="bk-dot"></span>
+          <div class="bk-status-tx"><b id="bkStatusTitle">No conectado</b><span id="bkStatusSub">Conectá tu cuenta de Google para guardar los backups.</span></div>
+        </div>
+        <button class="btn btn-primary bk-btn" id="cfgDriveConnect" type="button">🔗 Conectar con Google Drive</button>
+        <button class="btn btn-ghost bk-btn" id="cfgDriveDisconnect" type="button" style="display:none">Desconectar</button>
+
+        <div class="section-lbl">Backup</div>
+        <button class="btn btn-primary bk-btn" id="cfgBackupNow" type="button">☁️ Hacer backup ahora</button>
+        <p class="bk-last" id="bkLast">Todavía no hiciste ningún backup.</p>
+        <div class="bk-msg" id="bkMsg" style="display:none"></div>
+
+        <label class="bk-toggle">
+          <input type="checkbox" id="cfgBackupAuto">
+          <span class="bk-switch"></span>
+          <span class="bk-toggle-tx"><b>Backup automático diario</b><span>Si está activo, hace un backup solo una vez por día cuando abrís la app conectada.</span></span>
+        </label>
+
+        <div class="section-lbl">Exportar</div>
+        <button class="btn btn-ghost bk-btn" id="cfgExport" type="button">⬇️ Descargar copia (.json)</button>
+        <p class="hint">Baja el mismo JSON a este dispositivo, por si querés guardarlo a mano además de Drive. No hace falta estar conectada a Google.</p>
+
+        <div class="bk-danger">
+          <div class="bk-danger-h">⚠️ Restaurar desde un backup</div>
+          <p>Restaurar <b>pisa los datos actuales</b> de la app con los de un backup de Drive. Esto no se puede deshacer. Por eso te lo pido dos veces.</p>
+          <button class="btn bk-danger-btn" id="cfgRestore" type="button">Restaurar desde un backup…</button>
+        </div>
+      </div>
+
       <div class="cfg-actions">
         <button class="btn btn-primary" id="cfgGuardar">Guardar configuración</button>
       </div>
@@ -1742,6 +1833,49 @@ html.unlocked #lockScreen{display:none}
     <div class="cbtns">
       <button class="btn btn-ghost" id="cfgConfirmCancel">Revisar</button>
       <button class="btn btn-primary" id="cfgConfirmOk">Sí, guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SHEET: ELEGIR BACKUP PARA RESTAURAR ===== -->
+<div class="scrim" id="restoreScrim"></div>
+<div class="sheet" id="restoreSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>Restaurar backup</h2>
+    <button class="sheet-x" id="restoreClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <p class="lead" style="margin-bottom:16px">Elegí qué backup querés volver a cargar. Te lo voy a pedir confirmar dos veces antes de tocar nada.</p>
+    <div class="bk-list" id="restoreList">
+      <div class="bk-empty"><span class="bk-empty-ic">☁️</span>Buscando backups en Drive…</div>
+    </div>
+  </div>
+</div>
+
+<!-- Restaurar · paso 1 de 2 -->
+<div class="confirm" id="restoreConfirm1">
+  <div class="box">
+    <div class="ico">⚠️</div>
+    <h3>¿Restaurar este backup?</h3>
+    <p id="restoreC1Text">Esto va a <b>reemplazar todos los datos actuales</b> de la app por los de este backup. No se puede deshacer.</p>
+    <div class="cbtns">
+      <button class="btn btn-ghost" id="restoreC1Cancel">Cancelar</button>
+      <button class="btn btn-danger" id="restoreC1Ok">Sí, continuar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Restaurar · paso 2 de 2 (escribir RESTAURAR) -->
+<div class="confirm" id="restoreConfirm2">
+  <div class="box">
+    <div class="ico">🛑</div>
+    <h3>Última confirmación</h3>
+    <p>Para confirmar, escribí <b>RESTAURAR</b> y recién ahí se pisan los datos.</p>
+    <input class="bk-type-in" id="restoreType" type="text" placeholder="RESTAURAR" autocomplete="off" autocapitalize="characters" spellcheck="false">
+    <div class="cbtns bk-restore-confirm">
+      <button class="btn btn-ghost" id="restoreC2Cancel">Cancelar</button>
+      <button class="btn btn-danger" id="restoreC2Ok" disabled>Restaurar ahora</button>
     </div>
   </div>
 </div>
@@ -2694,10 +2828,11 @@ html.unlocked #lockScreen{display:none}
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://accounts.google.com/gsi/client" async></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
-         collection, doc, addDoc, setDoc, deleteDoc, getDoc, writeBatch, serverTimestamp, onSnapshot }
+         collection, doc, addDoc, setDoc, deleteDoc, getDoc, getDocs, writeBatch, serverTimestamp, Timestamp, onSnapshot }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 /* ── Firebase (proyecto asg-digital-30163, dossier ASG) ── */
@@ -4814,6 +4949,11 @@ function configDefaults(){
     stockBajo: STOCK_BAJO_DEFAULT,
     // Acceso · PIN para abrir la app (traba simple del lado del cliente)
     pinAcceso: PIN_DEFAULT,
+    // Backup a Google Drive
+    driveClientId: "",      // Client ID OAuth (lo pega Anto una vez)
+    backupAuto: false,      // backup automático diario
+    lastBackupAt: "",       // fecha/hora ISO del último backup logrado
+    lastBackupAutoDate: "", // AAAA-MM-DD del último backup automático (para no repetir en el día)
     // Plantillas de mensajes y textos de recibo
     ...TPL_DEFAULT
   };
@@ -4840,6 +4980,12 @@ function applyConfig(d){
   Object.keys(TPL_DEFAULT).forEach(k=>{
     tpl[k] = (typeof d[k]==="string" && d[k].trim()) ? d[k] : TPL_DEFAULT[k];
   });
+  // Backup a Google Drive (el módulo de abajo lee/escribe estos campos)
+  driveClientId      = d.driveClientId ? String(d.driveClientId).trim() : "";
+  backupAuto         = d.backupAuto === true;
+  lastBackupAt       = d.lastBackupAt ? String(d.lastBackupAt) : "";
+  lastBackupAutoDate = d.lastBackupAutoDate ? String(d.lastBackupAutoDate) : "";
+  try{ refreshBackupUI(); }catch(e){}
   // Refrescar lo que depende de config (umbral de stock, colegios, etc.)
   try{ if(productos){ renderStockStats(); renderFiltros(); renderLista(); } }catch(e){}
 }
@@ -4972,6 +5118,8 @@ function renderConfig(){
   $("#cfgStockBajo").value = STOCK_BAJO || "";
   // Acceso · PIN
   $("#cfgPin").value = currentPin();
+  // Backup / Exportar
+  try{ renderBackupCard(); }catch(e){}
 }
 
 $("#cfgColAdd").onclick = cfgAddColegio;
@@ -8871,6 +9019,497 @@ $("#difGenerar").onclick = ()=>{
 };
 /* ──────────────────── fin MENSAJES ──────────────────── */
 
+/* ════════════════════════════════════════════════════════════════
+   BACKUP / EXPORTAR · Google Drive
+   ────────────────────────────────────────────────────────────────
+   Junta TODAS las colecciones de la app en un único JSON y lo sube a
+   Drive (carpeta "Cascanueces Backups"). Usa Google Identity Services
+   (token flow) con scope drive.file: la app SOLO ve los archivos que
+   ella misma crea, sin client secret en el cliente. El Client ID lo
+   pega Anto una vez y vive en la config. Restaurar pisa los datos, así
+   que pide confirmación doble. Exportar baja el mismo JSON al equipo.
+   Los campos driveClientId / backupAuto / lastBackupAt / lastBackupAutoDate
+   los setea applyConfig() desde el doc de config (arriba).
+   ════════════════════════════════════════════════════════════════ */
+let driveClientId = "";
+let backupAuto = false;
+let lastBackupAt = "";
+let lastBackupAutoDate = "";
+
+const DRIVE_SCOPE  = "https://www.googleapis.com/auth/drive.file";
+const BACKUP_FOLDER = "Cascanueces Backups";
+/* Colecciones a respaldar (las mismas que usa la app). config va aparte. */
+const BACKUP_COLS = [
+  { key:"productos", col:"productos_pos_cascanueces" },
+  { key:"ventas",    col:"ventas_pos_cascanueces" },
+  { key:"clientes",  col:"clientes_pos_cascanueces" },
+  { key:"entregas",  col:"entregas_pos_cascanueces" },
+  { key:"caja",      col:"caja_pos_cascanueces" },
+  { key:"espera",    col:"espera_pos_cascanueces" },
+  { key:"encargos",  col:"encargos_pos_cascanueces" },
+  { key:"cuenta",    col:"cuenta_pos_cascanueces" }
+];
+
+let gisClient = null;          // token client de GIS
+let driveToken = null;         // { access_token, expires_at }
+let driveAccount = null;       // { email, name }
+let driveFolderId = null;      // id de la carpeta en Drive
+let bkBusy = false;            // hay un backup/restore en curso
+let autoTried = false;         // el auto-backup ya se intentó esta sesión
+
+/* ── Helpers de fecha ── */
+function bkPad(n){ return String(n).padStart(2,"0"); }
+function bkStamp(d){
+  return `${d.getFullYear()}-${bkPad(d.getMonth()+1)}-${bkPad(d.getDate())}-${bkPad(d.getHours())}${bkPad(d.getMinutes())}`;
+}
+function bkYmd(d){ return `${d.getFullYear()}-${bkPad(d.getMonth()+1)}-${bkPad(d.getDate())}`; }
+function bkHumano(iso){
+  try{ return new Date(iso).toLocaleString("es-AR",{ day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit" }); }
+  catch(e){ return iso; }
+}
+
+/* ── Mensaje del bloque de backup (éxito / error / trabajando) ── */
+function bkMsg(text, kind){
+  const el = $("#bkMsg"); if(!el) return;
+  if(!text){ el.style.display = "none"; el.innerHTML = ""; return; }
+  const ic = kind==="ok" ? "✅" : kind==="err" ? "⚠️" : "⏳";
+  el.className = "bk-msg " + (kind||"work");
+  el.innerHTML = `<span class="bk-msg-ic">${ic}</span><span>${esc(text)}</span>`;
+  el.style.display = "flex";
+}
+
+/* ── Estado de conexión + último backup + toggle ── */
+function refreshBackupUI(){
+  const conectado = !!(driveAccount && driveAccount.email) && tokenValid();
+  const st = $("#bkStatus"); if(!st) return;
+  st.classList.toggle("on", conectado);
+  if(conectado){
+    $("#bkStatusTitle").textContent = "Conectado";
+    $("#bkStatusSub").textContent   = driveAccount.email + (driveAccount.name ? ` · ${driveAccount.name}` : "");
+    $("#cfgDriveConnect").style.display    = "none";
+    $("#cfgDriveDisconnect").style.display = "block";
+  } else {
+    $("#bkStatusTitle").textContent = "No conectado";
+    $("#bkStatusSub").textContent   = driveClientId
+      ? "Tocá “Conectar con Google Drive” para empezar."
+      : "Primero pegá y guardá tu Client ID de Google.";
+    $("#cfgDriveConnect").style.display    = "block";
+    $("#cfgDriveDisconnect").style.display = "none";
+  }
+  const last = $("#bkLast");
+  if(last) last.innerHTML = lastBackupAt
+    ? `Último backup: <b>${esc(bkHumano(lastBackupAt))}</b>`
+    : "Todavía no hiciste ningún backup.";
+  const tog = $("#cfgBackupAuto"); if(tog) tog.checked = backupAuto;
+}
+/* Vuelca el Client ID guardado al campo cuando se abre Configuración. */
+function renderBackupCard(){
+  const cid = $("#cfgDriveClientId"); if(cid) cid.value = driveClientId || "";
+  refreshBackupUI();
+}
+
+/* ── Guardar campos de backup en la config (merge, no pisa el resto) ── */
+async function saveBackupCfg(patch){
+  try{ await setDoc(cfgRef, patch, { merge:true }); }
+  catch(e){ console.warn("backup cfg:", e.code); throw e; }
+}
+
+/* ── Google Identity Services: token flow ── */
+function ensureGis(){
+  return new Promise((resolve, reject)=>{
+    const t0 = Date.now();
+    (function wait(){
+      if(window.google && google.accounts && google.accounts.oauth2) return resolve();
+      if(Date.now()-t0 > 12000) return reject(new Error("gis-load"));
+      setTimeout(wait, 120);
+    })();
+  });
+}
+function tokenValid(){ return !!(driveToken && driveToken.access_token && Date.now() < driveToken.expires_at); }
+async function ensureClient(){
+  if(!driveClientId) throw new Error("no-client");
+  await ensureGis();
+  if(!gisClient || gisClient._cid !== driveClientId){
+    gisClient = google.accounts.oauth2.initTokenClient({
+      client_id: driveClientId,
+      scope: DRIVE_SCOPE,
+      callback: ()=>{}   // se sobrescribe por pedido
+    });
+    gisClient._cid = driveClientId;
+  }
+  return gisClient;
+}
+function requestToken(silent){
+  return new Promise(async (resolve, reject)=>{
+    let client;
+    try{ client = await ensureClient(); }catch(e){ return reject(e); }
+    client.callback = (resp)=>{
+      if(resp && resp.error){ reject(resp); return; }
+      const ttl = (Number(resp.expires_in) || 3600) - 60;   // margen de 1 min
+      driveToken = { access_token: resp.access_token, expires_at: Date.now() + ttl*1000 };
+      resolve(driveToken);
+    };
+    client.error_callback = (err)=> reject(err || new Error("token"));
+    try{ client.requestAccessToken(silent ? { prompt:"none" } : {}); }
+    catch(e){ reject(e); }
+  });
+}
+async function getToken(silent){
+  if(tokenValid()) return driveToken.access_token;
+  await requestToken(silent);
+  return driveToken.access_token;
+}
+/* fetch contra la API de Drive con Bearer; reintenta 1 vez si el token venció. */
+async function driveFetch(url, opts={}, silent=false){
+  let token;
+  try{ token = await getToken(silent); }
+  catch(e){ throw e; }
+  const headers = Object.assign({}, opts.headers||{}, { Authorization: "Bearer " + token });
+  let res;
+  try{ res = await fetch(url, Object.assign({}, opts, { headers })); }
+  catch(e){ throw new Error("network"); }
+  if(res.status === 401){
+    driveToken = null;                     // token vencido → un reintento
+    if(silent) throw new Error("expired");
+    const t2 = await getToken(false);
+    const h2 = Object.assign({}, opts.headers||{}, { Authorization: "Bearer " + t2 });
+    try{ res = await fetch(url, Object.assign({}, opts, { headers:h2 })); }
+    catch(e){ throw new Error("network"); }
+  }
+  return res;
+}
+/* Datos de la cuenta conectada (drive.file alcanza para about.user). */
+async function fetchDriveAccount(silent){
+  try{
+    const r = await driveFetch("https://www.googleapis.com/drive/v3/about?fields=user", {}, silent);
+    if(r.ok){
+      const j = await r.json();
+      driveAccount = { email: (j.user&&j.user.emailAddress)||"", name: (j.user&&j.user.displayName)||"" };
+      return driveAccount;
+    }
+  }catch(e){}
+  driveAccount = driveAccount || { email:"Cuenta de Google", name:"" };
+  return driveAccount;
+}
+
+/* ── Mensajes de error claros ── */
+function bkErrText(e){
+  const code = (e && (e.error || e.type || e.message)) || "";
+  if(code==="no-client" || code==="No client") return "Primero pegá y guardá tu Client ID de Google.";
+  if(code==="gis-load")  return "No se pudo cargar Google. Revisá tu conexión y recargá la app.";
+  if(code==="network")   return "Sin conexión con Google. Revisá internet y probá de nuevo.";
+  if(code==="expired" || code==="invalid_token") return "Se venció el permiso de Google. Tocá “Conectar con Google Drive” de nuevo.";
+  if(code==="popup_closed" || code==="popup_failed_to_open" || code==="access_denied" || code==="interaction_required")
+    return "Se canceló el permiso de Google. Probá conectar de nuevo.";
+  if(/permiso|403|forbidden/i.test(code)) return "Google no dio permiso. Revisá el Client ID y los permisos de la app.";
+  return "Algo salió mal con Google Drive. Probá de nuevo.";
+}
+
+/* ── Conectar / Desconectar ── */
+async function connectDrive(){
+  if(!driveClientId){ bkMsg("Primero pegá y guardá tu Client ID de Google.","err"); return; }
+  const btn = $("#cfgDriveConnect"); const prev = btn.textContent;
+  btn.disabled = true; btn.textContent = "Conectando…"; bkMsg("",null);
+  try{
+    await requestToken(false);
+    await fetchDriveAccount(false);
+    refreshBackupUI();
+    bkMsg(`Conectado como ${driveAccount.email || "tu cuenta de Google"} ✓`,"ok");
+  }catch(e){
+    console.warn("connect drive:", e);
+    bkMsg(bkErrText(e),"err");
+  }finally{
+    btn.disabled = false; btn.textContent = prev;
+  }
+}
+function disconnectDrive(){
+  if(driveToken && driveToken.access_token && window.google && google.accounts && google.accounts.oauth2){
+    try{ google.accounts.oauth2.revoke(driveToken.access_token, ()=>{}); }catch(e){}
+  }
+  driveToken = null; driveAccount = null; driveFolderId = null;
+  refreshBackupUI();
+  bkMsg("Te desconectaste de Google Drive.","work");
+}
+
+/* ── Carpeta de backups en Drive (la crea si no existe) ── */
+async function ensureFolder(silent){
+  if(driveFolderId) return driveFolderId;
+  const q = encodeURIComponent(`name='${BACKUP_FOLDER}' and mimeType='application/vnd.google-apps.folder' and trashed=false`);
+  const r = await driveFetch(`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name)&spaces=drive`, {}, silent);
+  if(!r.ok) throw new Error("permiso");
+  const j = await r.json();
+  if(j.files && j.files.length){ driveFolderId = j.files[0].id; return driveFolderId; }
+  const cr = await driveFetch("https://www.googleapis.com/drive/v3/files", {
+    method:"POST", headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ name: BACKUP_FOLDER, mimeType:"application/vnd.google-apps.folder" })
+  }, silent);
+  if(!cr.ok) throw new Error("permiso");
+  const cj = await cr.json(); driveFolderId = cj.id; return driveFolderId;
+}
+
+/* ── Junta TODOS los datos de la app en un objeto ── */
+async function gatherData(){
+  const out = {
+    meta:{ app:"cascanueces-pos", formato:1, exportadoEn: new Date().toISOString() },
+    colecciones:{}, config:null
+  };
+  for(const c of BACKUP_COLS){
+    const snap = await getDocs(collection(db, c.col));
+    out.colecciones[c.key] = snap.docs.map(d=> Object.assign({ id:d.id }, d.data()));
+  }
+  const cs = await getDoc(cfgRef);
+  out.config = cs.exists() ? Object.assign({ id:"general" }, cs.data()) : null;
+  return out;
+}
+
+/* ── Sube el JSON a Drive (multipart) ── */
+async function uploadBackup(jsonStr, filename, silent){
+  const folderId = await ensureFolder(silent);
+  const boundary = "casc_" + Math.random().toString(36).slice(2);
+  const meta = { name: filename, parents:[folderId], mimeType:"application/json" };
+  const body =
+    `--${boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n` +
+    JSON.stringify(meta) +
+    `\r\n--${boundary}\r\nContent-Type: application/json\r\n\r\n` +
+    jsonStr +
+    `\r\n--${boundary}--`;
+  const r = await driveFetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,name", {
+    method:"POST",
+    headers:{ "Content-Type":`multipart/related; boundary=${boundary}` },
+    body
+  }, silent);
+  if(!r.ok) throw new Error("permiso");
+  return await r.json();
+}
+
+/* ── Hacer backup ahora (o automático) ── */
+async function doBackup(silent){
+  if(bkBusy) return false;
+  bkBusy = true;
+  const btn = $("#cfgBackupNow"); const prev = btn ? btn.textContent : "";
+  if(btn && !silent){ btn.disabled = true; btn.textContent = "Haciendo backup…"; }
+  if(!silent) bkMsg("Juntando los datos y subiéndolos a Drive…","work");
+  try{
+    if(!driveClientId) throw new Error("no-client");
+    const data = await gatherData();
+    const now = new Date();
+    const filename = `cascanueces-backup-${bkStamp(now)}.json`;
+    await uploadBackup(JSON.stringify(data), filename, silent);
+    lastBackupAt = now.toISOString();
+    const patch = { lastBackupAt };
+    if(silent) patch.lastBackupAutoDate = lastBackupAutoDate = bkYmd(now);
+    await saveBackupCfg(patch);
+    refreshBackupUI();
+    if(!silent) bkMsg(`Backup guardado en Drive ✓ (${filename})`,"ok");
+    return true;
+  }catch(e){
+    console.warn("backup:", e);
+    if(!silent) bkMsg(bkErrText(e),"err");
+    return false;
+  }finally{
+    bkBusy = false;
+    if(btn && !silent){ btn.disabled = false; btn.textContent = prev; }
+  }
+}
+
+/* ── Backup automático diario (silencioso, 1 vez por día) ── */
+async function maybeAutoBackup(){
+  if(autoTried) return; autoTried = true;
+  if(!backupAuto || !driveClientId) return;
+  const hoy = bkYmd(new Date());
+  if(lastBackupAutoDate === hoy) return;
+  try{
+    await ensureGis();
+    await getToken(true);            // token sin UI; si no se puede, salta
+    await fetchDriveAccount(true);
+    await doBackup(true);
+  }catch(e){ /* en silencio: si no hay permiso, no molesto */ }
+}
+
+/* ── Exportar: baja el mismo JSON al dispositivo ── */
+async function exportLocal(){
+  const btn = $("#cfgExport"); const prev = btn.textContent;
+  btn.disabled = true; btn.textContent = "Preparando…"; bkMsg("",null);
+  try{
+    const data = await gatherData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type:"application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = `cascanueces-backup-${bkStamp(new Date())}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=> URL.revokeObjectURL(url), 1500);
+    bkMsg("Copia descargada a este dispositivo ✓","ok");
+  }catch(e){
+    console.warn("export:", e);
+    bkMsg("No se pudo armar la copia. Probá de nuevo.","err");
+  }finally{
+    btn.disabled = false; btn.textContent = prev;
+  }
+}
+
+/* ════════ RESTAURAR (con doble confirmación) ════════ */
+let restoreFile = null;   // { id, name, createdTime } elegido
+
+/* Convierte de vuelta los Timestamps serializados a objetos Timestamp. */
+function reviveTs(v){
+  if(v && typeof v === "object"){
+    const keys = Object.keys(v);
+    const esTs = typeof v.seconds === "number" && typeof v.nanoseconds === "number" &&
+                 keys.every(k=> k==="seconds" || k==="nanoseconds" || k==="type");
+    if(esTs){ try{ return new Timestamp(v.seconds, v.nanoseconds); }catch(e){ return v; } }
+    if(Array.isArray(v)) return v.map(reviveTs);
+    const o = {}; for(const k of keys) o[k] = reviveTs(v[k]); return o;
+  }
+  return v;
+}
+/* Escribe operaciones en lotes (límite seguro de 400 por batch). */
+async function commitOps(ops){
+  for(let i=0; i<ops.length; i+=400){
+    const batch = writeBatch(db);
+    ops.slice(i, i+400).forEach(o=>{
+      if(o.type==="set") batch.set(o.ref, o.data);
+      else batch.delete(o.ref);
+    });
+    await batch.commit();
+  }
+}
+async function openRestoreSheet(){
+  if(!driveClientId){ bkMsg("Primero pegá y guardá tu Client ID de Google.","err"); return; }
+  restoreFile = null;
+  $("#restoreScrim").classList.add("show");
+  $("#restoreSheet").classList.add("show");
+  document.body.style.overflow = "hidden";
+  pushBack("restoreSheet", closeRestoreSheet);
+  $("#restoreList").innerHTML = `<div class="bk-empty"><span class="bk-empty-ic">☁️</span>Buscando backups en Drive…</div>`;
+  try{
+    if(!tokenValid()){ await requestToken(false); await fetchDriveAccount(false); refreshBackupUI(); }
+    const folderId = await ensureFolder(false);
+    const q = encodeURIComponent(`'${folderId}' in parents and trashed=false and mimeType='application/json'`);
+    const r = await driveFetch(`https://www.googleapis.com/drive/v3/files?q=${q}&orderBy=createdTime desc&fields=files(id,name,createdTime,size)&pageSize=100`, {}, false);
+    if(!r.ok) throw new Error("permiso");
+    const j = await r.json();
+    renderRestoreList(j.files || []);
+  }catch(e){
+    console.warn("listar backups:", e);
+    $("#restoreList").innerHTML = `<div class="bk-empty"><span class="bk-empty-ic">⚠️</span>${esc(bkErrText(e))}</div>`;
+  }
+}
+function renderRestoreList(files){
+  const cont = $("#restoreList"); cont.innerHTML = "";
+  if(!files.length){
+    cont.innerHTML = `<div class="bk-empty"><span class="bk-empty-ic">📭</span>Todavía no hay backups en Drive. Hacé uno primero con “Hacer backup ahora”.</div>`;
+    return;
+  }
+  files.forEach(f=>{
+    const row = document.createElement("button");
+    row.type = "button"; row.className = "bk-row";
+    const fecha = f.createdTime ? bkHumano(f.createdTime) : "";
+    row.innerHTML = `<span class="bk-row-ic">🗂️</span>
+      <span class="bk-row-tx"><b>${esc(f.name)}</b><span>${esc(fecha)}</span></span>
+      <span class="bk-row-check">✓</span>`;
+    row.onclick = ()=>{
+      restoreFile = { id:f.id, name:f.name, createdTime:f.createdTime };
+      cont.querySelectorAll(".bk-row").forEach(r=> r.classList.remove("sel"));
+      row.classList.add("sel");
+      $("#restoreC1Text").innerHTML = `Vas a restaurar <b>${esc(f.name)}</b>. Esto <b>reemplaza todos los datos actuales</b> de la app por los de este backup. No se puede deshacer.`;
+      showConfirm("restoreConfirm1");
+    };
+    cont.appendChild(row);
+  });
+}
+function closeRestoreSheet(fromPop){
+  $("#restoreScrim").classList.remove("show");
+  $("#restoreSheet").classList.remove("show");
+  document.body.style.overflow = "";
+  if(fromPop!==true) syncBack("restoreSheet");
+}
+/* Trae el contenido del backup elegido y pisa Firestore. */
+async function runRestore(){
+  if(!restoreFile){ return; }
+  bkBusy = true;
+  bkMsg(`Restaurando ${restoreFile.name}…`,"work");
+  try{
+    const r = await driveFetch(`https://www.googleapis.com/drive/v3/files/${restoreFile.id}?alt=media`, {}, false);
+    if(!r.ok) throw new Error("permiso");
+    const data = await r.json();
+    if(!data || !data.colecciones) throw new Error("formato");
+    const ops = [];
+    for(const c of BACKUP_COLS){
+      const arr = Array.isArray(data.colecciones[c.key]) ? data.colecciones[c.key] : [];
+      const nuevosIds = new Set(arr.map(d=> d.id).filter(Boolean));
+      // borrar lo que ya no está en el backup
+      const actual = await getDocs(collection(db, c.col));
+      actual.docs.forEach(d=>{ if(!nuevosIds.has(d.id)) ops.push({ type:"delete", ref: doc(db, c.col, d.id) }); });
+      // escribir/pisar lo del backup
+      arr.forEach(d=>{
+        if(!d.id) return;
+        const { id, ...rest } = d;
+        ops.push({ type:"set", ref: doc(db, c.col, id), data: reviveTs(rest) });
+      });
+    }
+    // config (doc general)
+    if(data.config){
+      const { id, ...rest } = data.config;
+      ops.push({ type:"set", ref: cfgRef, data: reviveTs(rest) });
+    }
+    await commitOps(ops);
+    bkMsg(`Datos restaurados desde ${restoreFile.name} ✓`,"ok");
+    toast("Backup restaurado ✓","ok");
+  }catch(e){
+    console.warn("restore:", e);
+    const msg = (e && e.message==="formato") ? "Ese archivo no parece un backup válido de la app." : bkErrText(e);
+    bkMsg(msg,"err");
+  }finally{
+    bkBusy = false; restoreFile = null;
+  }
+}
+
+/* ── Cableado de la UI de backup ── */
+$("#cfgDriveSaveCid").onclick = async ()=>{
+  const v = ($("#cfgDriveClientId").value||"").trim();
+  const btn = $("#cfgDriveSaveCid"); const prev = btn.textContent;
+  btn.disabled = true; btn.textContent = "Guardando…";
+  try{
+    await saveBackupCfg({ driveClientId: v });
+    driveClientId = v;
+    gisClient = null; driveToken = null; driveAccount = null; driveFolderId = null;
+    refreshBackupUI();
+    bkMsg(v ? "Client ID guardado ✓ Ahora podés conectar." : "Client ID borrado.","ok");
+  }catch(e){ bkMsg("No se pudo guardar el Client ID. Probá de nuevo.","err"); }
+  finally{ btn.disabled = false; btn.textContent = prev; }
+};
+$("#cfgDriveConnect").onclick    = connectDrive;
+$("#cfgDriveDisconnect").onclick = disconnectDrive;
+$("#cfgBackupNow").onclick       = ()=> doBackup(false);
+$("#cfgExport").onclick          = exportLocal;
+$("#cfgBackupAuto").onchange = async (e)=>{
+  backupAuto = e.target.checked;
+  try{ await saveBackupCfg({ backupAuto }); bkMsg(backupAuto ? "Backup automático diario activado ✓" : "Backup automático desactivado.","ok"); }
+  catch(err){ bkMsg("No se pudo guardar la preferencia.","err"); e.target.checked = !backupAuto; backupAuto = e.target.checked; }
+};
+$("#cfgRestore").onclick      = openRestoreSheet;
+$("#restoreClose").onclick    = ()=> closeRestoreSheet();
+$("#restoreScrim").onclick    = ()=> closeRestoreSheet();
+/* Paso 1 → paso 2 */
+$("#restoreC1Cancel").onclick = ()=> hideConfirm("restoreConfirm1");
+$("#restoreC1Ok").onclick = ()=>{
+  hideConfirm("restoreConfirm1");
+  $("#restoreType").value = ""; $("#restoreC2Ok").disabled = true;
+  showConfirm("restoreConfirm2");
+  setTimeout(()=>{ try{ $("#restoreType").focus(); }catch(e){} }, 80);
+};
+$("#restoreType").addEventListener("input", e=>{
+  $("#restoreC2Ok").disabled = (e.target.value||"").trim().toUpperCase() !== "RESTAURAR";
+});
+$("#restoreC2Cancel").onclick = ()=> hideConfirm("restoreConfirm2");
+$("#restoreC2Ok").onclick = async ()=>{
+  if(($("#restoreType").value||"").trim().toUpperCase() !== "RESTAURAR") return;
+  hideConfirm("restoreConfirm2");
+  closeRestoreSheet();
+  await runRestore();
+};
+/* ──────────────────── fin BACKUP ──────────────────── */
+
 renderStockStats(); renderInicio(); renderFiltros(); renderLista();
 try{ renderEsperaView(); }catch(e){}   // siembra la lista de espera (sub-pestaña de Productos)
 renderClientes();
@@ -8881,6 +9520,8 @@ updateCuentaBadge();
 updateMensajesBadge();
 loadConfig();
 updateFabVoz();   // muestra la burbuja de voz en el arranque (Inicio)
+/* Backup automático diario: se intenta una vez al abrir, ya con la config cargada. */
+setTimeout(()=>{ try{ maybeAutoBackup(); }catch(e){} }, 5000);
 </script>
 </body>
 </html>
