@@ -818,6 +818,30 @@ textarea.txtin{font-family:inherit}
 .col-add .txtin{flex:1}
 .col-add-btn{width:54px;height:54px;flex-shrink:0;border-radius:16px;background:var(--celeste-deep);color:#fff;font-size:26px;font-weight:400;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(94,143,168,.3);transition:transform .15s ease}
 .col-add-btn:active{transform:scale(.94)}
+/* ── Datos de pago: lista de alias editable (card Pago de Configuración) ── */
+.al-list{display:flex;flex-direction:column;gap:12px;margin:4px 0 14px}
+.al-edit{background:var(--crema);border-radius:16px;padding:14px 14px 4px}
+.al-edit-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.al-edit-head b{font-size:14px;font-weight:600;color:var(--navy)}
+.al-rm{width:34px;height:34px;border-radius:10px;background:var(--rojo-pale);color:var(--rojo);font-size:15px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:transform .15s ease}
+.al-rm:active{transform:scale(.9)}
+.al-rm.armed{background:var(--rojo);color:#fff}
+.al-fld{margin-bottom:10px}
+.al-fld label{display:block;font-size:12.5px;font-weight:600;color:var(--texto-suave);margin:0 0 4px 2px}
+.al-fld .al-in{width:100%;background:var(--blanco);border:2px solid var(--blanco);border-radius:13px;padding:13px 14px;font-size:15.5px;font-weight:500;color:var(--gris-900);outline:none;transition:border-color .2s ease}
+.al-fld .al-in:focus{border-color:var(--celeste)}
+/* ── Selector de alias al mandar datos de pago (mismo estilo tap-card que Ventas/Gastos) ── */
+.alias-opts{display:flex;flex-direction:column;gap:11px}
+.alias-card{position:relative;display:flex;align-items:center;gap:14px;width:100%;background:#fff;border:2px solid #fff;border-radius:18px;padding:16px 46px 16px 16px;box-shadow:var(--card-shadow);text-align:left;transition:all .15s ease;min-height:72px}
+.alias-card:active{transform:scale(.98)}
+.alias-card.on{border-color:var(--celeste-deep);background:var(--celeste-pale)}
+.alias-card .aico{width:48px;height:48px;border-radius:14px;background:var(--celeste-pale);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.alias-card.on .aico{background:#fff}
+.alias-card .atx{flex:1;min-width:0}
+.alias-card .atx b{font-size:16px;color:var(--gris-900);display:block;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.alias-card .atx span{font-size:13px;color:var(--texto-suave);display:block;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.alias-card .acheck{position:absolute;top:50%;right:14px;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;border:2px solid var(--gris-300);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px}
+.alias-card.on .acheck{background:var(--celeste-deep);border-color:var(--celeste-deep)}
 .cfg-actions{position:sticky;bottom:calc(var(--nav-h) + 12px);margin-top:22px;z-index:5}
 .cfg-actions .btn{width:100%;box-shadow:0 10px 28px rgba(94,143,168,.4)}
 
@@ -1804,13 +1828,11 @@ html.unlocked #lockScreen{display:none}
 
       <!-- 2 · PAGO -->
       <div class="cfg-card">
-        <div class="cfg-h"><span class="cfg-ic">💳</span><div><b>Pago</b><span>Mercado Pago y recargo por transferencia</span></div></div>
-        <div class="field"><label>Alias de Mercado Pago</label>
-          <input class="txtin" type="text" id="cfgAlias" placeholder="cascanueces.mp" autocomplete="off" autocapitalize="off"></div>
-        <div class="field"><label>CBU / CVU (opcional)</label>
-          <input class="txtin" type="text" id="cfgCbu" inputmode="numeric" placeholder="00000000…" autocomplete="off"></div>
-        <div class="field"><label>A nombre de (opcional)</label>
-          <input class="txtin" type="text" id="cfgTitular" placeholder="Antonella" autocomplete="off"></div>
+        <div class="cfg-h"><span class="cfg-ic">💳</span><div><b>Pago</b><span>Alias para cobrar y recargo por transferencia</span></div></div>
+        <div class="field"><label>Alias / cuentas para cobrar</label>
+          <p class="hint" style="margin:-2px 0 10px">Cargá una o varias cuentas. Al mandar los datos de pago elegís con cuál cobrás. La de arriba es la que sale por defecto.</p>
+          <div class="al-list" id="cfgAliasList"></div>
+          <button class="btn btn-ghost" id="cfgAliasAdd" type="button" style="width:100%">＋ Agregar otra cuenta</button></div>
         <div class="field"><label>Recargo por transferencia / MP (%)</label>
           <input class="txtin" type="number" id="cfgRecargo" inputmode="decimal" min="0" max="100" step="0.5" placeholder="0">
           <p class="hint">Se suma solo cuando la clienta paga por transferencia o tarjeta. Vos lo ves al cobrar y va en el mensaje de pago. Es el mismo recargo de “Ajustes de cobro”.</p></div>
@@ -1831,7 +1853,7 @@ html.unlocked #lockScreen{display:none}
 
         <div class="field"><label>Datos de pago</label>
           <textarea class="txtin cfg-ta" id="cfgMsgPago" rows="6"></textarea>
-          <p class="var-hint">Variables: <code>{clienta}</code> <code>{datos}</code> <code>{recargo}</code> <code>{alias}</code> <code>{cbu}</code> <code>{titular}</code> <code>{negocio}</code></p></div>
+          <p class="var-hint">Variables: <code>{clienta}</code> <code>{datos}</code> <code>{recargo}</code> <code>{alias}</code> <code>{cbu}</code> <code>{titular}</code> <code>{banco}</code> <code>{negocio}</code></p></div>
 
         <div class="field"><label>Voy en camino</label>
           <textarea class="txtin cfg-ta" id="cfgMsgCamino" rows="6"></textarea>
@@ -2670,19 +2692,24 @@ html.unlocked #lockScreen{display:none}
       <p class="hint">Se suma solo cuando la clienta paga por transferencia o tarjeta. Vos lo ves al cobrar y va en el mensaje de pago.</p>
     </div>
     <div class="field">
-      <label>Alias de Mercado Pago</label>
-      <input class="txtin" type="text" id="ajAlias" placeholder="cascanueces.mp" autocomplete="off" autocapitalize="off">
-    </div>
-    <div class="field">
-      <label>CBU / CVU (opcional)</label>
-      <input class="txtin" type="text" id="ajCbu" inputmode="numeric" placeholder="00000000…" autocomplete="off">
-    </div>
-    <div class="field">
-      <label>A nombre de (opcional)</label>
-      <input class="txtin" type="text" id="ajTitular" placeholder="Antonella" autocomplete="off">
-      <p class="hint">Estos datos se mandan tal cual en el mensaje de “Datos de pago”. Cambialos cuando quieras.</p>
+      <p class="hint">📌 Los alias / cuentas para cobrar se cargan en <b>Configuración → Pago</b>. Ahí podés tener varios y elegir con cuál cobrás al mandar los datos.</p>
     </div>
     <button class="btn btn-primary" id="ajGuardar">Guardar</button>
+  </div>
+</div>
+
+<!-- ===== SHEET: ELEGIR ALIAS PARA COBRAR (al mandar datos de pago) ===== -->
+<div class="scrim" id="aliasPickScrim"></div>
+<div class="sheet" id="aliasPickSheet">
+  <div class="sheet-grip"></div>
+  <div class="sheet-head">
+    <h2>¿Con qué cuenta cobrás?</h2>
+    <button class="sheet-x" id="aliasPickClose">✕</button>
+  </div>
+  <div class="sheet-body">
+    <p class="hint" style="margin-top:-4px">Elegí el alias que le mandás a la clienta. Después tocás enviar.</p>
+    <div class="alias-opts" id="aliasPickOpts"></div>
+    <button class="btn btn-primary" id="aliasPickSend" style="margin-top:14px">💬 Enviar por WhatsApp</button>
   </div>
 </div>
 
@@ -4346,7 +4373,47 @@ $("#cfYes").onclick = async ()=>{
 let venderCart = [];
 let vSel = { colegio:null, prenda:null };
 let recargoPct = 0;
-let pagoCfg = { alias:"", cbu:"", titular:"" };   // Etapa 3: datos de pago configurables
+let pagoCfg = { alias:"", cbu:"", titular:"" };   // Etapa 3: respaldo del dato viejo (1 sola cuenta)
+/* ── Datos de pago como LISTA de cuentas/alias seleccionables ──
+   Cada item: {alias, titular, banco, cbu}. La app elige uno al mandar el
+   mensaje de pago; el primero queda por defecto para que las variables
+   siempre resuelvan. Se siembran 3 cuentas en instalaciones nuevas.        */
+const ALIASES_DEFAULT = [
+  { alias:"dipaolamp",         titular:"Paola Gutierrez", banco:"Mercado Pago", cbu:"" },
+  { alias:"dipaola.uniformes", titular:"Paola Gutierrez", banco:"Galicia",      cbu:"" },
+  { alias:"paola.uniformes",   titular:"Paola Gutierrez", banco:"BBVA",         cbu:"" }
+];
+let aliasesPago = [];   // lista runtime de cuentas (deriva de config)
+let aliasSel = 0;       // índice del alias elegido al mandar el mensaje
+function normAliasItem(a){
+  a = a || {};
+  return {
+    alias:   String(a.alias||"").trim(),
+    titular: String(a.titular||"").trim(),
+    banco:   String(a.banco||"").trim(),
+    cbu:     String(a.cbu||"").trim()
+  };
+}
+/* Deriva la lista de cuentas desde el doc de config, migrando el dato viejo. */
+function leerAliasesPago(d){
+  d = d || {};
+  let lista = Array.isArray(d.aliasesPago)
+    ? d.aliasesPago.map(normAliasItem).filter(a=> a.alias || a.cbu || a.titular)
+    : [];
+  if(!lista.length){
+    if(d.aliasMP || d.cbuMP || d.titularMP)        // migrá la única cuenta vieja
+      lista = [ normAliasItem({ alias:d.aliasMP, titular:d.titularMP, cbu:d.cbuMP }) ];
+    else
+      lista = ALIASES_DEFAULT.map(normAliasItem);  // instalación nueva: sembrá las 3
+  }
+  return lista;
+}
+/* La cuenta elegida (o la primera) para armar las variables del mensaje. */
+function aliasActivo(){
+  if(!aliasesPago.length) return { alias:"", titular:"", banco:"", cbu:"" };
+  const i = (aliasSel>=0 && aliasSel<aliasesPago.length) ? aliasSel : 0;
+  return aliasesPago[i];
+}
 
 /* ── Datos del negocio (editables en Configuración) ──
    Aparecen en recibos y mensajes. Arrancan con los valores que la app ya
@@ -5619,9 +5686,6 @@ $("#vozGAMano").onclick = ()=>{ vozClose(); openGastoSheet(null); };
 /* ── Ajustes de cobro (Antonella) ── */
 function openAjustes(){
   $("#ajRecargo").value = recargoPct || "";
-  $("#ajAlias").value   = pagoCfg.alias   || "";
-  $("#ajCbu").value     = pagoCfg.cbu     || "";
-  $("#ajTitular").value = pagoCfg.titular || "";
   $("#ajScrim").classList.add("show"); $("#ajSheet").classList.add("show");
   pushBack("ajustes", closeAjustes);
 }
@@ -5633,16 +5697,8 @@ $("#ajScrim").onclick = closeAjustes;
 $("#ajGuardar").onclick = async ()=>{
   const v = Math.max(0, parseFloat($("#ajRecargo").value)||0);
   recargoPct = v;
-  pagoCfg = {
-    alias:   $("#ajAlias").value.trim(),
-    cbu:     $("#ajCbu").value.trim(),
-    titular: $("#ajTitular").value.trim()
-  };
   try{
-    await setDoc(cfgRef, {
-      recargoTransferencia: v,
-      aliasMP: pagoCfg.alias, cbuMP: pagoCfg.cbu, titularMP: pagoCfg.titular
-    }, { merge:true });
+    await setDoc(cfgRef, { recargoTransferencia: v }, { merge:true });
     toast("Ajustes guardados ✓","ok"); closeAjustes();
   }
   catch(err){ console.error("Ajustes:", err.code, err.message); toast("No se pudo guardar.","err"); }
@@ -5661,8 +5717,9 @@ function configDefaults(){
     negocioHorarios: "",
     // WhatsApp del negocio
     waNegocio: "2236689240",
-    // Pago
+    // Pago · lista de cuentas/alias (la app elige una al cobrar) + respaldo viejo
     recargoTransferencia: 0,
+    aliasesPago: ALIASES_DEFAULT.map(a=> ({...a})),
     aliasMP: "", cbuMP: "", titularMP: "",
     // Recibo · datos de contacto del pie
     reciboTel: "2236689240",
@@ -5697,7 +5754,11 @@ function applyConfig(d){
   };
   waNegocio  = str("waNegocio");
   recargoPct = Math.max(0, Number(d.recargoTransferencia)||0);
-  pagoCfg    = { alias: d.aliasMP||"", cbu: d.cbuMP||"", titular: d.titularMP||"" };
+  pagoCfg    = { alias: d.aliasMP||"", cbu: d.cbuMP||"", titular: d.titularMP||"" }; // respaldo
+  aliasesPago = leerAliasesPago(d);
+  if(aliasSel<0 || aliasSel>=aliasesPago.length) aliasSel = 0;
+  // Si el selector de alias está abierto, refrescalo con la lista nueva.
+  try{ if($("#aliasPickSheet")?.classList.contains("show")) renderAliasPick(); }catch(e){}
   reciboCto  = { tel: str("reciboTel"), ig: str("reciboIg") };
   COLEGIOS_BASE = (Array.isArray(d.colegios) && d.colegios.length)
     ? d.colegios.map(c=> String(c).trim()).filter(Boolean)
@@ -5735,6 +5796,11 @@ async function loadConfig(){
     const def = configDefaults();
     const faltan = {};
     Object.keys(def).forEach(k=>{ if(d[k]===undefined) faltan[k] = def[k]; });
+    // Migración: instalación con el dato viejo (1 cuenta) pero sin la lista nueva →
+    // sembrá la lista con esa cuenta en vez de pisar con las 3 por defecto.
+    if(d.aliasesPago===undefined && (d.aliasMP || d.cbuMP || d.titularMP)){
+      faltan.aliasesPago = [ normAliasItem({ alias:d.aliasMP, titular:d.titularMP, cbu:d.cbuMP }) ];
+    }
     if(Object.keys(faltan).length){
       try{ await setDoc(cfgRef, faltan, { merge:true }); }
       catch(e){ console.warn("seed config:", e.code); }
@@ -5787,6 +5853,67 @@ function cfgAddColegio(){
    El "＋" agrega uno nuevo. Es un borrador local hasta tocar Guardar. */
 let cfgProvDraft = [];   // borrador de proveedores
 let cfgCatDraft  = [];   // borrador de categorías de gasto
+let cfgAliasDraft = [];  // borrador de cuentas/alias para cobrar
+/* Limpia la lista de cuentas: recorta campos, descarta las sin alias, sin duplicar alias. */
+function cfgAliasesLimpia(arr){
+  const out = [], vistos = new Set();
+  (arr||[]).forEach(a=>{
+    const it = normAliasItem(a);
+    if(!it.alias) return;                 // sin alias no sirve para cobrar
+    const k = it.alias.toLowerCase();
+    if(vistos.has(k)) return;
+    vistos.add(k); out.push(it);
+  });
+  return out;
+}
+/* Card Pago: una tarjeta editable por cuenta (alias, titular, banco, cbu) + borrar con doble toque. */
+function renderCfgAliases(){
+  const cont = $("#cfgAliasList"); if(!cont) return;
+  cont.innerHTML = "";
+  if(!cfgAliasDraft.length){
+    cont.innerHTML = `<div class="col-empty">Todavía no hay cuentas. Agregá una abajo.</div>`;
+    return;
+  }
+  cfgAliasDraft.forEach((a, i)=>{
+    const card = document.createElement("div");
+    card.className = "al-edit";
+    card.innerHTML = `
+      <div class="al-edit-head">
+        <b>Cuenta ${i+1}${i===0 ? " · por defecto" : ""}</b>
+        <button class="al-rm" type="button" aria-label="Sacar cuenta">✕</button>
+      </div>
+      <div class="al-fld"><label>Alias</label>
+        <input class="al-in" type="text" data-f="alias" value="${esc(a.alias||"")}" placeholder="dipaolamp" autocomplete="off" autocapitalize="off"></div>
+      <div class="al-fld"><label>A nombre de</label>
+        <input class="al-in" type="text" data-f="titular" value="${esc(a.titular||"")}" placeholder="Paola Gutierrez" autocomplete="off"></div>
+      <div class="al-fld"><label>Banco</label>
+        <input class="al-in" type="text" data-f="banco" value="${esc(a.banco||"")}" placeholder="Mercado Pago" autocomplete="off"></div>
+      <div class="al-fld"><label>CBU / CVU (opcional)</label>
+        <input class="al-in" type="text" data-f="cbu" inputmode="numeric" value="${esc(a.cbu||"")}" placeholder="vacío si no aplica" autocomplete="off"></div>`;
+    card.querySelectorAll(".al-in").forEach(inp=>{
+      inp.addEventListener("input", ()=>{ cfgAliasDraft[i][inp.dataset.f] = inp.value; });
+    });
+    // Borrar con doble toque (igual que el borrado en Clientas / Gastos)
+    const rm = card.querySelector(".al-rm");
+    rm.onclick = ()=>{
+      if(rm.classList.contains("armed")){
+        clearTimeout(cfgAliasDelTimer); cfgAliasDraft.splice(i,1); renderCfgAliases(); return;
+      }
+      $("#cfgAliasList").querySelectorAll(".al-rm.armed").forEach(b=> b.classList.remove("armed"));
+      rm.classList.add("armed"); toast("Tocá de nuevo la ✕ para sacar la cuenta");
+      cfgAliasDelTimer = setTimeout(()=>{ try{ rm.classList.remove("armed"); }catch(e){} }, 3000);
+    };
+    cont.appendChild(card);
+  });
+}
+let cfgAliasDelTimer = null;
+function cfgAddAlias(){
+  cfgAliasDraft.push(normAliasItem({}));
+  renderCfgAliases();
+  // Foco en el alias de la cuenta recién agregada
+  const inps = $("#cfgAliasList").querySelectorAll('.al-edit:last-child .al-in[data-f="alias"]');
+  if(inps.length) inps[0].focus();
+}
 /* Limpia una lista de strings: recorta, saca vacíos y duplicados (sin distinguir mayúsculas). */
 function cfgListLimpia(arr){
   const out = [], vistos = new Set();
@@ -5878,10 +6005,10 @@ function renderConfig(){
   $("#cfgNegNombre").value = negocioCfg.nombre || "";
   $("#cfgNegDir").value    = negocioCfg.direccion || "";
   $("#cfgNegHor").value    = negocioCfg.horarios || "";
-  // Pago
-  $("#cfgAlias").value   = pagoCfg.alias   || "";
-  $("#cfgCbu").value     = pagoCfg.cbu     || "";
-  $("#cfgTitular").value = pagoCfg.titular || "";
+  // Pago · lista de cuentas/alias (borrador editable hasta Guardar)
+  cfgAliasDraft = aliasesPago.map(a=> ({...a}));
+  if(!cfgAliasDraft.length) cfgAliasDraft = [ normAliasItem({}) ];
+  renderCfgAliases();
   $("#cfgRecargo").value = recargoPct || "";
   // WhatsApp
   $("#cfgWa").value          = waNegocio || "";
@@ -5913,6 +6040,7 @@ function renderConfig(){
   try{ renderBackupCard(); }catch(e){}
 }
 
+$("#cfgAliasAdd").onclick = cfgAddAlias;
 $("#cfgColAdd").onclick = cfgAddColegio;
 $("#cfgColNuevo").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preventDefault(); cfgAddColegio(); } });
 
@@ -5927,15 +6055,19 @@ $("#cfgCatNuevo").addEventListener("keydown", e=>{ if(e.key==="Enter"){ e.preven
 function cfgFromForm(){
   const tpv = id => $("#"+id).value;          // texto tal cual (plantillas con saltos)
   const tx  = id => $("#"+id).value.trim();    // campos de una línea
+  const aliasesClean = cfgAliasesLimpia(cfgAliasDraft);
+  const first = aliasesClean[0] || { alias:"", titular:"", banco:"", cbu:"" };
   return {
     negocioNombre:    tx("cfgNegNombre") || "Cascanueces",
     negocioDireccion: tx("cfgNegDir"),
     negocioHorarios:  tx("cfgNegHor"),
     waNegocio:        tx("cfgWa"),
     recargoTransferencia: Math.max(0, parseFloat($("#cfgRecargo").value)||0),
-    aliasMP:   tx("cfgAlias"),
-    cbuMP:     tx("cfgCbu"),
-    titularMP: tx("cfgTitular"),
+    aliasesPago: aliasesClean,
+    // Respaldo del dato viejo: espejo de la primera cuenta (compatibilidad).
+    aliasMP:   first.alias   || "",
+    cbuMP:     first.cbu     || "",
+    titularMP: first.titular || "",
     reciboTel: tx("cfgRecTel"),
     reciboIg:  tx("cfgRecIg"),
     reciboTitulo:  tx("cfgRecTitulo")  || TPL_DEFAULT.reciboTitulo,
@@ -6054,10 +6186,12 @@ function msgConfirmacion(cli, venta){
   });
 }
 function msgPago(cli){
+  const a = aliasActivo();
   const datos = [];
-  if(pagoCfg.alias)   datos.push(`Alias: ${pagoCfg.alias}`);
-  if(pagoCfg.cbu)     datos.push(`CBU/CVU: ${pagoCfg.cbu}`);
-  if(pagoCfg.titular) datos.push(`A nombre de: ${pagoCfg.titular}`);
+  if(a.alias)   datos.push(`Alias: ${a.alias}`);
+  if(a.titular) datos.push(`A nombre de: ${a.titular}`);
+  if(a.banco)   datos.push(`Banco: ${a.banco}`);
+  if(a.cbu)     datos.push(`CBU/CVU: ${a.cbu}`);
   const bloque = datos.length ? datos.join("\n") : "(pedímelos y te los paso)";
   const recargoNota = recargoPct>0
     ? `\n\nOjo: si pagás por transferencia o con tarjeta se suma un ${recargoPct}%. En efectivo no tiene recargo 😉`
@@ -6065,7 +6199,7 @@ function msgPago(cli){
   return fillMsg(tpl.msgPago, {
     ...bizVars(), clienta: cli?.nombre || "", nombre: cli?.nombre || "",
     datos: bloque, recargo: recargoNota,
-    alias: pagoCfg.alias || "", cbu: pagoCfg.cbu || "", titular: pagoCfg.titular || ""
+    alias: a.alias || "", cbu: a.cbu || "", titular: a.titular || "", banco: a.banco || ""
   });
 }
 function msgAgenda(cli){
@@ -6075,12 +6209,52 @@ function msgAgenda(cli){
   });
 }
 function sendPago(cli){
-  if(!pagoCfg.alias && !pagoCfg.cbu){
-    toast("Primero cargá tu alias o CBU en Ajustes","err");
-    openAjustes(); return;
+  if(!waNorm(cli?.whatsapp)){ toast("Esa clienta no tiene WhatsApp cargado","err"); return; }
+  const conDatos = aliasesPago.filter(a=> a.alias || a.cbu);
+  if(!conDatos.length){
+    toast("Primero cargá un alias en Configuración → Pago","err");
+    return;
   }
-  openWa(cli?.whatsapp, msgPago(cli));
+  // Una sola cuenta: mandá directo. Varias: que mamá elija con cuál cobra.
+  if(aliasesPago.length===1){ aliasSel = 0; openWa(cli?.whatsapp, msgPago(cli)); return; }
+  openAliasPick(cli);
 }
+/* ── Selector de alias (mismo patrón tap-card que el medio de pago) ── */
+let aliasPickCli = null;
+function openAliasPick(cli){
+  aliasPickCli = cli;
+  if(aliasSel<0 || aliasSel>=aliasesPago.length) aliasSel = 0;
+  renderAliasPick();
+  $("#aliasPickScrim").classList.add("show"); $("#aliasPickSheet").classList.add("show");
+  pushBack("aliasPick", closeAliasPick);
+}
+function closeAliasPick(fromPop){
+  $("#aliasPickScrim").classList.remove("show"); $("#aliasPickSheet").classList.remove("show");
+  if(fromPop!==true) syncBack("aliasPick");
+}
+function renderAliasPick(){
+  const cont = $("#aliasPickOpts"); if(!cont) return;
+  cont.innerHTML = "";
+  aliasesPago.forEach((a,i)=>{
+    const b = document.createElement("button");
+    b.className = "alias-card" + (i===aliasSel ? " on" : "");
+    b.type = "button";
+    const sub = [a.banco, a.titular].filter(Boolean).join(" · ");
+    b.innerHTML = `
+      <span class="aico">🏦</span>
+      <span class="atx"><b>${esc(a.alias || "(sin alias)")}</b><span>${esc(sub || "—")}</span></span>
+      <span class="acheck">✓</span>`;
+    b.onclick = ()=>{ aliasSel = i; renderAliasPick(); };
+    cont.appendChild(b);
+  });
+}
+$("#aliasPickClose").onclick = ()=> closeAliasPick();
+$("#aliasPickScrim").onclick = ()=> closeAliasPick();
+$("#aliasPickSend").onclick = ()=>{
+  const cli = aliasPickCli;
+  closeAliasPick();
+  openWa(cli?.whatsapp, msgPago(cli));
+};
 
 /* ── Lista de clientas (con búsqueda) ── */
 function cliMatch(c, q){
