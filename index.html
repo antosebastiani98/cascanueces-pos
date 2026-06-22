@@ -2417,6 +2417,12 @@ html.unlocked #lockScreen{display:none}
         </button>
       </div>
 
+      <!-- Selector de alias: solo cuando paga por Transferencia / MP -->
+      <div id="vAliasBox" style="display:none;margin-top:16px">
+        <div class="v-q">¿Con qué cuenta cobrás?</div>
+        <div class="alias-opts" id="vAliasOpts"></div>
+      </div>
+
       <!-- Calculadora de vuelto: solo cuando paga en Efectivo -->
       <div class="vuelto-box" id="vVueltoBox" style="display:none">
         <div class="vuelto-q">¿Con cuánto paga?</div>
@@ -4419,6 +4425,33 @@ function aliasActivo(){
   const i = (aliasSel>=0 && aliasSel<aliasesPago.length) ? aliasSel : 0;
   return aliasesPago[i];
 }
+/* Tap-card de un alias (mismo patrón que el medio de pago). Reusada por el
+   selector inline del checkout y por el sheet al mandar el mensaje.        */
+function aliasCardEl(a, on){
+  const b = document.createElement("button");
+  b.className = "alias-card" + (on ? " on" : "");
+  b.type = "button";
+  const sub = [a.banco, a.titular].filter(Boolean).join(" · ");
+  b.innerHTML = `
+    <span class="aico">🏦</span>
+    <span class="atx"><b>${esc(a.alias || "(sin alias)")}</b><span>${esc(sub || "—")}</span></span>
+    <span class="acheck">✓</span>`;
+  return b;
+}
+/* Selector de alias inline en el checkout: solo visible al pagar por transferencia. */
+function renderVentaAliasSelector(){
+  const box = $("#vAliasBox"); if(!box) return;
+  const show = pagoSel==="transferencia" && aliasesPago.length>0;
+  box.style.display = show ? "block" : "none";
+  if(!show) return;
+  if(ventaAliasSel<0 || ventaAliasSel>=aliasesPago.length) ventaAliasSel = 0;
+  const cont = $("#vAliasOpts"); cont.innerHTML = "";
+  aliasesPago.forEach((a,i)=>{
+    const b = aliasCardEl(a, i===ventaAliasSel);
+    b.onclick = ()=>{ ventaAliasSel = i; renderVentaAliasSelector(); };
+    cont.appendChild(b);
+  });
+}
 
 /* ── Datos del negocio (editables en Configuración) ──
    Aparecen en recibos y mensajes. Arrancan con los valores que la app ya
@@ -4504,6 +4537,7 @@ function renderNotasEditor(cont, arr, onChange){
 /* Logo Cascanueces (data URL ya embebido en el header) para recibo y PDF */
 const logoSrc = (document.querySelector(".ele img")||{}).src || "";
 let pagoSel = null;
+let ventaAliasSel = 0;      // alias elegido para la venta por transferencia (índice en aliasesPago)
 let fiadoAhora = 0;         // Etapa 4: cuánto paga ahora cuando "queda debiendo"
 let fiadoMetodo = null;     // Etapa 4: método del pago parcial (efectivo|transferencia)
 let venderFecha = "";       // fecha de la venta (YYYY-MM-DD); por defecto hoy, editable
@@ -4816,7 +4850,7 @@ $("#comboPickAdd").onclick = ()=>{
   renderCart(); buildVTalles();
   toast("Combo agregado ✓", "ok");
 };
-$("#vCobrarBtn").onclick = ()=>{ if(venderCart.length===0) return; resetFiado(); resetVuelto(VUELTO.vender); pagoSel=null; vStep("cobrar"); renderPago(); renderVHijoPick(); };
+$("#vCobrarBtn").onclick = ()=>{ if(venderCart.length===0) return; resetFiado(); resetVuelto(VUELTO.vender); pagoSel=null; ventaAliasSel=0; vStep("cobrar"); renderPago(); renderVHijoPick(); };
 
 function resetFiado(){ fiadoAhora = 0; fiadoMetodo = null; const f=$("#vFiadoAhora"); if(f) f.value = ""; }
 
@@ -4920,6 +4954,7 @@ function renderPago(){
   $("#vPagoDet").textContent = det;
   // Vuelto: solo con Efectivo (compara contra el subtotal, sin recargo).
   renderVuelto(VUELTO.vender, sub, pagoSel==="efectivo");
+  renderVentaAliasSelector();   // alias para cobrar: solo aparece con Transferencia / MP
   document.querySelectorAll(".pago-opts > .pago[data-pago]").forEach(b=> b.classList.toggle("on", b.dataset.pago===pagoSel));
   let ok = !!pagoSel;
   if(fiadoOn){
@@ -4977,6 +5012,12 @@ async function commitVenta(btn){
   const recargo = (!fiadoOn && pagoSel==="transferencia") ? Math.round(sub*recargoPct/100) : 0;
   const total = sub + recargo;
   const pagoVenta = fiadoOn ? (cobradoAhora>0 ? metodoAhora : "fiado") : pagoSel;
+  // Alias elegido cuando se cobra por transferencia: lo guardo en la venta y lo
+  // dejo como activo para que el mensaje de pago salga con esa misma cuenta.
+  const aliasVenta = (pagoVenta==="transferencia" && aliasesPago.length)
+    ? normAliasItem(aliasesPago[(ventaAliasSel>=0 && ventaAliasSel<aliasesPago.length) ? ventaAliasSel : 0])
+    : null;
+  if(aliasVenta) aliasSel = (ventaAliasSel>=0 && ventaAliasSel<aliasesPago.length) ? ventaAliasSel : 0;
   // Demanda total de stock por producto (prendas sueltas + componentes de combos)
   const demanda = {};
   venderCart.forEach(l=> itemStockUnits(l).forEach(u=>{ demanda[u.productoId] = (demanda[u.productoId]||0) + u.qty; }));
@@ -5014,6 +5055,7 @@ async function commitVenta(btn){
       recargoPct: (!fiadoOn && pagoVenta==="transferencia") ? recargoPct : 0,
       recargo, total,
       pago: pagoVenta,
+      aliasPago: aliasVenta,                         // cuenta elegida si cobró por transferencia (para recibo/mensaje)
       fiado: fiadoMonto,                             // Etapa 4: lo que quedó en su cuenta (no entra a caja)
       clienteId: venderCliente?.id || null,         // Etapa 3
       clienteNombre: venderCliente?.nombre || null, // Etapa 3
@@ -5036,7 +5078,7 @@ async function commitVenta(btn){
         toast("Venta guardada, pero no pude anotar el fiado. Anotalo a mano en su cuenta.","err");
       }
     }
-    lastVentaWhats = { items: itemsVenta, subtotal: sub, recargo, total, pago: pagoVenta }; // Etapa 3
+    lastVentaWhats = { items: itemsVenta, subtotal: sub, recargo, total, pago: pagoVenta, aliasPago: aliasVenta }; // Etapa 3
     lastVentaInfo = { ventaId: ventaRef.id, total };   // Etapa 4: para generar la entrega
     entregaYaCreada = false;
     // Switch "Reparto" ON → generar la entrega vinculada a la venta y la clienta
@@ -5764,6 +5806,8 @@ function applyConfig(d){
   if(aliasSel<0 || aliasSel>=aliasesPago.length) aliasSel = 0;
   // Si el selector de alias está abierto, refrescalo con la lista nueva.
   try{ if($("#aliasPickSheet")?.classList.contains("show")) renderAliasPick(); }catch(e){}
+  // Si el checkout está mostrando el selector de alias, refrescalo con la lista nueva.
+  try{ if($("#vAliasBox")?.style.display!=="none") renderVentaAliasSelector(); }catch(e){}
   reciboCto  = { tel: str("reciboTel"), ig: str("reciboIg") };
   COLEGIOS_BASE = (Array.isArray(d.colegios) && d.colegios.length)
     ? d.colegios.map(c=> String(c).trim()).filter(Boolean)
@@ -6220,14 +6264,22 @@ function sendPago(cli){
     toast("Primero cargá un alias en Configuración → Pago","err");
     return;
   }
+  const enviar = (i)=>{
+    aliasSel = (i>=0 && i<aliasesPago.length) ? i : 0;
+    openWa(cli?.whatsapp, msgPago(cli));
+  };
   // Una sola cuenta: mandá directo. Varias: que mamá elija con cuál cobra.
-  if(aliasesPago.length===1){ aliasSel = 0; openWa(cli?.whatsapp, msgPago(cli)); return; }
-  openAliasPick(cli);
+  if(aliasesPago.length===1){ enviar(0); return; }
+  openAliasPick({ initial: aliasSel, onPick: enviar });
 }
-/* ── Selector de alias (mismo patrón tap-card que el medio de pago) ── */
-let aliasPickCli = null;
-function openAliasPick(cli){
-  aliasPickCli = cli;
+/* ── Selector de alias reusable (mismo patrón tap-card que el medio de pago) ──
+   opts.onPick(i) corre con el índice elegido al tocar "Enviar". opts.initial
+   preselecciona una cuenta (el primero por defecto).                         */
+let aliasPickOnPick = null;
+function openAliasPick(opts){
+  opts = opts || {};
+  aliasPickOnPick = typeof opts.onPick==="function" ? opts.onPick : null;
+  if(Number.isInteger(opts.initial) && opts.initial>=0 && opts.initial<aliasesPago.length) aliasSel = opts.initial;
   if(aliasSel<0 || aliasSel>=aliasesPago.length) aliasSel = 0;
   renderAliasPick();
   $("#aliasPickScrim").classList.add("show"); $("#aliasPickSheet").classList.add("show");
@@ -6241,14 +6293,7 @@ function renderAliasPick(){
   const cont = $("#aliasPickOpts"); if(!cont) return;
   cont.innerHTML = "";
   aliasesPago.forEach((a,i)=>{
-    const b = document.createElement("button");
-    b.className = "alias-card" + (i===aliasSel ? " on" : "");
-    b.type = "button";
-    const sub = [a.banco, a.titular].filter(Boolean).join(" · ");
-    b.innerHTML = `
-      <span class="aico">🏦</span>
-      <span class="atx"><b>${esc(a.alias || "(sin alias)")}</b><span>${esc(sub || "—")}</span></span>
-      <span class="acheck">✓</span>`;
+    const b = aliasCardEl(a, i===aliasSel);
     b.onclick = ()=>{ aliasSel = i; renderAliasPick(); };
     cont.appendChild(b);
   });
@@ -6256,9 +6301,9 @@ function renderAliasPick(){
 $("#aliasPickClose").onclick = ()=> closeAliasPick();
 $("#aliasPickScrim").onclick = ()=> closeAliasPick();
 $("#aliasPickSend").onclick = ()=>{
-  const cli = aliasPickCli;
+  const cb = aliasPickOnPick, i = aliasSel;
   closeAliasPick();
-  openWa(cli?.whatsapp, msgPago(cli));
+  if(cb) cb(i);
 };
 
 /* ── Lista de clientas (con búsqueda) ── */
