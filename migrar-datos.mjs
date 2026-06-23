@@ -36,12 +36,12 @@ const CFG_VIEJO = {
 
 // ⬇️⬇️⬇️  PEGÁ ACÁ EL CONFIG DEL PROYECTO NUEVO  ⬇️⬇️⬇️
 const CFG_NUEVO = {
-  apiKey: "PEGAR_AQUI",
-  authDomain: "PEGAR_AQUI.firebaseapp.com",
-  projectId: "PEGAR_AQUI",
-  storageBucket: "PEGAR_AQUI.firebasestorage.app",
-  messagingSenderId: "PEGAR_AQUI",
-  appId: "PEGAR_AQUI",
+  apiKey: "AIzaSyCzFJVi4Gq9GbDhdPMoDwLOy8uRUgq9vu8",
+  authDomain: "cascanueces-gestion.firebaseapp.com",
+  projectId: "cascanueces-gestion",
+  storageBucket: "cascanueces-gestion.firebasestorage.app",
+  messagingSenderId: "666709982481",
+  appId: "1:666709982481:web:d973a73b662a8b812620b0",
 };
 // ⬆️⬆️⬆️  FIN DEL CONFIG A PEGAR  ⬆️⬆️⬆️
 
